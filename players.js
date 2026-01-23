@@ -68,7 +68,7 @@ const PLAYERS = [
     currentClub: "Al-Hilal",
     clubs: ["Santos","Barcelona","PSG","Al-Hilal"],
     awards: ["Champions League","Copa Libertadores","Olympic Gold"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Neymar_2018.jpg",
+    imageUrl: "https://images.ctfassets.net/3mv54pzvptwz/5eTv6hTyA1pqkFClYRn0qt/be626a573cbf1ee7e421b73f87ed6851/20221205_foto_GETTY_neymar_jr_jogo_brasil_x_coreia_copa_do_mundo__209_.jpg",
     fotmobUrl: "https://www.fotmob.com/players/30890/neymar"
   },
   {
@@ -77,7 +77,7 @@ const PLAYERS = [
     currentClub: "Real Madrid",
     clubs: ["Flamengo","Real Madrid"],
     awards: ["Champions League","La Liga"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/98/Vinicius_Junior_2023.jpg",
+    imageUrl: "https://i.guim.co.uk/img/media/ab52bf117d8210fa2d226175c898f5bf29011176/0_159_4795_2878/master/4795.jpg?width=620&dpr=2&s=none&crop=none",
     fotmobUrl: "https://www.fotmob.com/players/868012/vinicius-junior"
   },
   {
@@ -86,7 +86,7 @@ const PLAYERS = [
     currentClub: "Bayern Munich",
     clubs: ["Tottenham Hotspur","Bayern Munich"],
     awards: ["World Cup Golden Boot 2018","Bundesliga Golden Boot"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Harry_Kane_2023.jpg",
+    imageUrl: "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/8d0d/live/c1b67b10-0066-11ee-9edb-25f8156c1ac0.jpg",
     fotmobUrl: "https://www.fotmob.com/players/36249/harry-kane"
   }
 ];
