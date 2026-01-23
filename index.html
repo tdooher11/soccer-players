@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Favorite Soccer Stars</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Favorite Soccer Stars</h1>
+    <p>Tap a card to flip it. Trading‑card style player profiles.</p>
+  </header>
+
+  <main class="wrap">
+    <section id="grid" class="grid"></section>
+  </main>
+
+  <script src="players.js"></script>
+  <script>
+    const grid = document.getElementById("grid");
+
+    function render(){
+      grid.innerHTML = PLAYERS.map(p => `
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-front">
+              <img src="${p.imageUrl}" alt="${p.name}" />
+              <h2>${p.name}</h2>
+              <p>${p.currentClub} • ${p.country}</p>
+            </div>
+            <div class="card-back">
+              <h3>Career</h3>
+              <strong>Clubs</strong>
+              <ul>${p.clubs.map(c => `<li>${c}</li>`).join("")}</ul>
+              <strong>Awards</strong>
+              <ul>${p.awards.map(a => `<li>${a}</li>`).join("")}</ul>
+              <a href="${p.fotmobUrl}" target="_blank">Next match</a>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      document.querySelectorAll(".card").forEach(card => {
+        card.addEventListener("click", () => {
+          card.classList.toggle("flip");
+        });
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
