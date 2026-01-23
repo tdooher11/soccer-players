@@ -68,7 +68,7 @@ const PLAYERS = [
     currentClub: "Al-Hilal",
     clubs: ["Santos","Barcelona","PSG","Al-Hilal"],
     awards: ["Champions League","Copa Libertadores","Olympic Gold"],
-    imageUrl: "https://images.ctfassets.net/3mv54pzvptwz/5eTv6hTyA1pqkFClYRn0qt/be626a573cbf1ee7e421b73f87ed6851/20221205_foto_GETTY_neymar_jr_jogo_brasil_x_coreia_copa_do_mundo__209_.jpg",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Neymar_2018.jpg",
     fotmobUrl: "https://www.fotmob.com/players/30890/neymar"
   },
   {
