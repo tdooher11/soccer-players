@@ -1,14 +1,5 @@
 const PLAYERS = [
   {
-    name: "Lionel Messi",
-    country: "Argentina",
-    currentClub: "Inter Miami",
-    clubs: ["Barcelona","PSG","Inter Miami"],
-    awards: ["World Cup 2022","Copa América","Ballon d'Or"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Messi_2025.jpg",
-    fotmobUrl: "https://www.fotmob.com/players/30981/lionel-messi"
-  },
-  {
     name: "Cristiano Ronaldo",
     country: "Portugal",
     currentClub: "Al-Nassr",
@@ -16,6 +7,15 @@ const PLAYERS = [
     awards: ["Euro 2016","Champions League x5","Ballon d'Or"],
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Cristiano_Ronaldo_0876.jpg",
     fotmobUrl: "https://www.fotmob.com/players/30893/cristiano-ronaldo"
+  },
+  {
+    name: "Lionel Messi",
+    country: "Argentina",
+    currentClub: "Inter Miami",
+    clubs: ["Barcelona","PSG","Inter Miami"],
+    awards: ["World Cup 2022","Copa América","Ballon d'Or"],
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Messi_2025.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/30981/lionel-messi"
   },
   {
     name: "Kylian Mbappé",
