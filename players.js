@@ -23,7 +23,7 @@ const PLAYERS = [
     currentClub: "Real Madrid",
     clubs: ["Monaco","PSG","Real Madrid"],
     awards: ["World Cup 2018","Ligue 1 titles"],
-    imageUrl: "https://share.google/MGqBFgCStnJkt8Jbr",
+    imageUrl: "https://assets.goal.com/images/v3/blt5bc39fb9111ed00e/BeFunky-collage_-_2024-02-20T143853.984.jpg?auto=webp&format=pjpg&width=1920&quality=60",
     fotmobUrl: "https://www.fotmob.com/players/701154/kylian-mbappe"
   },
   {
