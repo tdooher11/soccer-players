@@ -48,3 +48,14 @@ body{
 a{
   color:#6cf;
 }
+/* Improve card layout on phones */
+@media (max-width: 480px) {
+  .card-inner {
+    height: 520px; /* was ~420 */
+  }
+
+  .card-front img {
+    height: 320px; /* more room for portraits */
+    object-position: top center; /* prioritize faces */
+  }
+}
