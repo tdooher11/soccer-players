@@ -88,5 +88,51 @@ const PLAYERS = [
     awards: ["World Cup Golden Boot 2018","Bundesliga Golden Boot"],
     imageUrl: "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/8d0d/live/c1b67b10-0066-11ee-9edb-25f8156c1ac0.jpg",
     fotmobUrl: "https://www.fotmob.com/players/36249/harry-kane"
+  },
+    {
+    name: "Pelé",
+    country: "Brazil",
+    currentClub: "Retired",
+    clubs: ["Santos","New York Cosmos"],
+    awards: ["World Cup x3","Ballon d'Or Honorary"],
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Pele_1960.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/8673/pele"
+  },
+  {
+    name: "Ronaldinho",
+    country: "Brazil",
+    currentClub: "Retired",
+    clubs: ["Grêmio","PSG","Barcelona","AC Milan"],
+    awards: ["World Cup 2002","Ballon d'Or","Champions League"],
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Ronaldinho_2019.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/1198/ronaldinho"
+  },
+  {
+    name: "David Beckham",
+    country: "England",
+    currentClub: "Retired",
+    clubs: ["Manchester United","Real Madrid","LA Galaxy","AC Milan","PSG"],
+    awards: ["Champions League","Premier League titles"],
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6c/David_Beckham_2019.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/3189/david-beckham"
+  },
+  {
+    name: "Zinedine Zidane",
+    country: "France",
+    currentClub: "Retired",
+    clubs: ["Bordeaux","Juventus","Real Madrid"],
+    awards: ["World Cup 1998","Ballon d'Or","Champions League"],
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/54/Zinedine_Zidane_2019.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/3058/zinedine-zidane"
+  },
+  {
+    name: "Thierry Henry",
+    country: "France",
+    currentClub: "Retired",
+    clubs: ["Monaco","Juventus","Arsenal","Barcelona","New York Red Bulls"],
+    awards: ["World Cup 1998","Champions League","Premier League titles"],
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Thierry_Henry_2019.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/3021/thierry-henry"
   }
+
 ];
