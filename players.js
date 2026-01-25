@@ -89,50 +89,83 @@ const PLAYERS = [
     imageUrl: "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/8d0d/live/c1b67b10-0066-11ee-9edb-25f8156c1ac0.jpg",
     fotmobUrl: "https://www.fotmob.com/players/36249/harry-kane"
   },
-    {
+  {
     name: "Pelé",
     country: "Brazil",
     currentClub: "Retired",
-    clubs: ["Santos","New York Cosmos"],
-    awards: ["World Cup x3","Ballon d'Or Honorary"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Pele_1960.jpg",
-    fotmobUrl: "https://www.fotmob.com/players/8673/pele"
+    clubs: ["Santos", "New York Cosmos"],
+    awards: [
+      "World Cup 1958",
+      "World Cup 1962",
+      "World Cup 1970",
+      "FIFA Player of the Century"
+    ],
+    imageUrl:
+      "https://static.dw.com/image/61527609_1004.webp",
+    fotmobUrl: "https://www.fotmob.com/players/7875/pele"
   },
   {
     name: "Ronaldinho",
     country: "Brazil",
     currentClub: "Retired",
-    clubs: ["Grêmio","PSG","Barcelona","AC Milan"],
-    awards: ["World Cup 2002","Ballon d'Or","Champions League"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Ronaldinho_2019.jpg",
-    fotmobUrl: "https://www.fotmob.com/players/1198/ronaldinho"
+    clubs: ["Grêmio", "PSG", "Barcelona", "AC Milan"],
+    awards: [
+      "Ballon d'Or 2005",
+      "World Cup 2002",
+      "Champions League 2006"
+    ],
+    imageUrl:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Ronaldinho_in_2019.jpg?width=800",
+    fotmobUrl: "https://www.fotmob.com/players/242/ronaldinho"
   },
   {
     name: "David Beckham",
     country: "England",
     currentClub: "Retired",
-    clubs: ["Manchester United","Real Madrid","LA Galaxy","AC Milan","PSG"],
-    awards: ["Champions League","Premier League titles"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6c/David_Beckham_2019.jpg",
-    fotmobUrl: "https://www.fotmob.com/players/3189/david-beckham"
+    clubs: [
+      "Manchester United",
+      "Real Madrid",
+      "LA Galaxy",
+      "AC Milan",
+      "PSG"
+    ],
+    awards: [
+      "Champions League 1999",
+      "La Liga 2003",
+      "MLS Cups"
+    ],
+    imageUrl:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/David%20Beckham%20Victoria%20Beckham%202019.jpg?width=800",
+    fotmobUrl: "https://www.fotmob.com/players/3467/david-beckham"
   },
   {
     name: "Zinedine Zidane",
     country: "France",
     currentClub: "Retired",
-    clubs: ["Bordeaux","Juventus","Real Madrid"],
-    awards: ["World Cup 1998","Ballon d'Or","Champions League"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/54/Zinedine_Zidane_2019.jpg",
-    fotmobUrl: "https://www.fotmob.com/players/3058/zinedine-zidane"
+    clubs: ["Juventus", "Real Madrid"],
+    awards: [
+      "Ballon d'Or 1998",
+      "World Cup 1998",
+      "Champions League 2002"
+    ],
+    imageUrl:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Zinedine_Zidane.JPG?width=800",
+    fotmobUrl: "https://www.fotmob.com/players/784/zinedine-zidane"
   },
   {
     name: "Thierry Henry",
     country: "France",
     currentClub: "Retired",
-    clubs: ["Monaco","Juventus","Arsenal","Barcelona","New York Red Bulls"],
-    awards: ["World Cup 1998","Champions League","Premier League titles"],
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Thierry_Henry_2019.jpg",
-    fotmobUrl: "https://www.fotmob.com/players/3021/thierry-henry"
+    clubs: ["Arsenal", "Barcelona", "New York Red Bulls"],
+    awards: [
+      "Premier League x2",
+      "Champions League 2009",
+      "World Cup 1998"
+    ],
+    imageUrl:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Thierry_Henry_portrait.jpg?width=800",
+    fotmobUrl: "https://www.fotmob.com/players/3475/thierry-henry"
   }
+
 
 ];
