@@ -9,46 +9,783 @@
 <body>
   <header class="hero">
     <h1>Favorite Soccer Stars</h1>
-    <p>Tap a card to flip it. Trading-card style player profiles.</p>
+    <p>Tap a card to flip it! Collect, compare, quiz yourself, and vote for the GOAT.</p>
   </header>
 
+  <!-- TOOLBAR -->
+  <nav class="toolbar">
+    <input type="text" id="search" placeholder="Search players..." />
+    <button class="btn active" data-filter="all">All</button>
+    <button class="btn" data-filter="active">Active</button>
+    <button class="btn" data-filter="legends">Legends</button>
+    <button class="btn btn-accent" id="shuffleBtn">Shuffle</button>
+    <button class="btn btn-accent" id="randomBtn">Random!</button>
+    <button class="btn btn-gold" id="quizBtn">Quiz</button>
+    <button class="btn btn-gold" id="compareBtn">Compare</button>
+    <button class="btn btn-gold" id="voteBtn">GOAT Vote</button>
+    <button class="btn btn-gold" id="rankBtn">My Top 5</button>
+    <button class="btn" id="addBtn">+ Add Player</button>
+    <span class="sound-toggle" id="soundToggle" title="Toggle sound">&#128264;</span>
+  </nav>
+
+  <!-- CARD GRID -->
   <main class="wrap">
     <section id="grid" class="grid"></section>
   </main>
 
-  <script src="players.js"></script>
-  <script>
-    const grid = document.getElementById("grid");
+  <!-- QUIZ MODAL -->
+  <div class="modal-overlay" id="quizModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('quizModal')">&times;</button>
+      <h2>Player Quiz</h2>
+      <div class="quiz-score">Score: <span id="quizScore">0</span> / <span id="quizTotal">0</span></div>
+      <div id="quizContent"></div>
+      <div style="text-align:center;margin-top:12px">
+        <button class="btn btn-accent" id="nextQuizBtn">Next Question</button>
+      </div>
+    </div>
+  </div>
 
-    function render(){
-      grid.innerHTML = PLAYERS.map(p => `
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-front">
-              <img src="${p.imageUrl}" alt="${p.name}" />
-              <h2>${p.name}</h2>
-              <p>${p.currentClub} • ${p.country}</p>
-            </div>
-            <div class="card-back">
-              <h3>Career</h3>
-              <strong>Clubs</strong>
-              <ul>${p.clubs.map(c => `<li>${c}</li>`).join("")}</ul>
-              <strong>Awards</strong>
-              <ul>${p.awards.map(a => `<li>${a}</li>`).join("")}</ul>
-              <a href="${p.fotmobUrl}" target="_blank">Next match</a>
-            </div>
+  <!-- COMPARE MODAL -->
+  <div class="modal-overlay" id="compareModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('compareModal')">&times;</button>
+      <h2>Player Comparison</h2>
+      <div class="compare-select">
+        <select id="compareA"></select>
+        <select id="compareB"></select>
+      </div>
+      <div id="compareResult"></div>
+    </div>
+  </div>
+
+  <!-- VOTE MODAL -->
+  <div class="modal-overlay" id="voteModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('voteModal')">&times;</button>
+      <h2>Who's the GOAT?</h2>
+      <p style="opacity:.7;font-size:.9rem">Tap a player to vote! Results are saved.</p>
+      <div class="vote-grid" id="voteGrid"></div>
+      <div class="vote-results" id="voteResults"></div>
+    </div>
+  </div>
+
+  <!-- RANKING MODAL -->
+  <div class="modal-overlay" id="rankModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('rankModal')">&times;</button>
+      <h2>My Top 5</h2>
+      <p style="opacity:.7;font-size:.9rem">Drag and drop to reorder your personal top 5!</p>
+      <ul class="ranking-list" id="rankList"></ul>
+      <div style="text-align:center;margin-top:10px">
+        <button class="btn btn-accent" id="saveRankBtn">Save Ranking</button>
+        <button class="btn" id="resetRankBtn">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD PLAYER MODAL -->
+  <div class="modal-overlay" id="addModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
+      <h2>Add Your Own Player</h2>
+      <form class="add-form" id="addForm">
+        <div class="row">
+          <div>
+            <label>Name</label>
+            <input type="text" id="addName" required placeholder="e.g. Your kid's name" />
+          </div>
+          <div>
+            <label>Jersey Number</label>
+            <input type="number" id="addNumber" min="1" max="99" placeholder="10" />
           </div>
         </div>
-      `).join("");
+        <div class="row">
+          <div>
+            <label>Country</label>
+            <input type="text" id="addCountry" placeholder="e.g. USA" />
+          </div>
+          <div>
+            <label>Club / Team</label>
+            <input type="text" id="addClub" placeholder="e.g. Local FC" />
+          </div>
+        </div>
+        <div>
+          <label>Photo</label>
+          <input type="file" id="addPhoto" accept="image/*" />
+          <img class="photo-preview" id="photoPreview" alt="preview" />
+        </div>
+        <div>
+          <label>Fun Fact</label>
+          <textarea id="addFact" placeholder="Something cool about this player!"></textarea>
+        </div>
+        <button type="submit" class="btn btn-accent" style="justify-self:center;padding:10px 32px">Add Player</button>
+      </form>
+    </div>
+  </div>
 
-      document.querySelectorAll(".card").forEach(card => {
-        card.addEventListener("click", () => {
-          card.classList.toggle("flip");
-        });
-      });
+  <script src="players.js"></script>
+  <script>
+  /* =========================================================
+     STATE
+     ========================================================= */
+  let allPlayers = [...PLAYERS];
+  let currentFilter = "all";
+  let searchTerm = "";
+  let soundOn = true;
+  let audioCtx = null;
+
+  // Load custom players from localStorage
+  const saved = localStorage.getItem("customPlayers");
+  if(saved){
+    try{ allPlayers = allPlayers.concat(JSON.parse(saved)); }catch(e){}
+  }
+
+  /* =========================================================
+     SOUND EFFECTS (Web Audio API)
+     ========================================================= */
+  function getAudioCtx(){
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+
+  function playFlipSound(){
+    if(!soundOn) return;
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.12);
+  }
+
+  function playCrowdRoar(){
+    if(!soundOn) return;
+    const ctx = getAudioCtx();
+    const bufferSize = ctx.sampleRate * 0.6;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for(let i = 0; i < bufferSize; i++){
+      data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    const bandpass = ctx.createBiquadFilter();
+    bandpass.type = "bandpass";
+    bandpass.frequency.value = 800;
+    bandpass.Q.value = 0.5;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+    source.connect(bandpass);
+    bandpass.connect(gain);
+    gain.connect(ctx.destination);
+    source.start(ctx.currentTime);
+  }
+
+  function playCorrectSound(){
+    if(!soundOn) return;
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(523, ctx.currentTime);
+    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.35);
+  }
+
+  function playWrongSound(){
+    if(!soundOn) return;
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = "square";
+    osc.frequency.setValueAtTime(200, ctx.currentTime);
+    osc.frequency.setValueAtTime(150, ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.3);
+  }
+
+  /* =========================================================
+     RADAR CHART (Canvas)
+     ========================================================= */
+  function drawRadar(canvas, stats, color){
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width = 160;
+    const h = canvas.height = 160;
+    const cx = w/2, cy = h/2, r = 60;
+    const labels = ["PAC","SHO","PAS","DRI","DEF","PHY"];
+    const vals = [stats.pace, stats.shooting, stats.passing, stats.dribbling, stats.defending, stats.physical];
+    const n = 6;
+
+    ctx.clearRect(0,0,w,h);
+
+    // grid
+    for(let ring = 1; ring <= 4; ring++){
+      ctx.beginPath();
+      for(let i = 0; i <= n; i++){
+        const angle = (Math.PI * 2 * i / n) - Math.PI/2;
+        const rr = r * ring / 4;
+        const x = cx + rr * Math.cos(angle);
+        const y = cy + rr * Math.sin(angle);
+        i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
+      ctx.stroke();
     }
 
+    // data
+    ctx.beginPath();
+    for(let i = 0; i <= n; i++){
+      const idx = i % n;
+      const angle = (Math.PI * 2 * idx / n) - Math.PI/2;
+      const rr = r * vals[idx] / 100;
+      const x = cx + rr * Math.cos(angle);
+      const y = cy + rr * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.fillStyle = color || "rgba(102,204,255,0.25)";
+    ctx.fill();
+    ctx.strokeStyle = color ? color.replace("0.25","0.8") : "rgba(102,204,255,0.8)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // labels
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 9px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    for(let i = 0; i < n; i++){
+      const angle = (Math.PI * 2 * i / n) - Math.PI/2;
+      const x = cx + (r + 16) * Math.cos(angle);
+      const y = cy + (r + 16) * Math.sin(angle);
+      ctx.fillText(labels[i] + " " + vals[i], x, y);
+    }
+  }
+
+  /* =========================================================
+     RENDER CARDS
+     ========================================================= */
+  const grid = document.getElementById("grid");
+
+  function getFilteredPlayers(){
+    let list = allPlayers;
+    if(currentFilter === "active") list = list.filter(p => p.currentClub !== "Retired");
+    if(currentFilter === "legends") list = list.filter(p => p.currentClub === "Retired");
+    if(searchTerm){
+      const q = searchTerm.toLowerCase();
+      list = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.country.toLowerCase().includes(q) ||
+        p.currentClub.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }
+
+  function render(){
+    const players = getFilteredPlayers();
+
+    if(players.length === 0){
+      grid.innerHTML = '<div class="no-results">No players found. Try a different search!</div>';
+      return;
+    }
+
+    grid.innerHTML = players.map((p, idx) => `
+      <div class="card" data-rarity="${p.rarity || 'silver'}" data-idx="${idx}">
+        <div class="card-inner">
+          <div class="card-front">
+            <span class="jersey-number">${p.jerseyNumber || ''}</span>
+            <span class="rarity-badge ${p.rarity || 'silver'}">${p.rarity === 'diamond' ? 'Diamond' : p.rarity === 'gold' ? 'Gold' : 'Silver'}</span>
+            <img src="${p.imageUrl}" alt="${p.name}" />
+            <h2>${p.name}</h2>
+            <p class="player-info">
+              <span class="flag">${p.countryCode ? getFlag(p.countryCode) : ''}</span>
+              ${p.currentClub} &bull; ${p.country}
+            </p>
+            <p class="fun-fact">"${p.funFact || ''}"</p>
+          </div>
+          <div class="card-back">
+            <h3>${p.name}</h3>
+            <div class="radar-wrap"><canvas class="radar-canvas"></canvas></div>
+            <strong>Career Timeline</strong>
+            ${p.careerTimeline ? `
+              <ul class="timeline">
+                ${p.careerTimeline.map(t => `<li>${t.club} <span class="years">${t.years}</span></li>`).join("")}
+              </ul>
+            ` : `
+              <ul>${p.clubs.map(c => '<li>'+c+'</li>').join("")}</ul>
+            `}
+            <strong>Awards</strong>
+            <ul>${p.awards.map(a => '<li>'+a+'</li>').join("")}</ul>
+            <a href="${p.fotmobUrl}" target="_blank" rel="noopener">View on FotMob &rarr;</a>
+          </div>
+        </div>
+      </div>
+    `).join("");
+
+    // Draw radar charts
+    document.querySelectorAll(".card").forEach((card, i) => {
+      const p = players[i];
+      if(p.stats){
+        const canvas = card.querySelector(".radar-canvas");
+        if(canvas) drawRadar(canvas, p.stats);
+      }
+    });
+
+    // Flip click
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        card.classList.toggle("flip");
+        if(card.classList.contains("flip")){
+          playFlipSound();
+        } else {
+          playFlipSound();
+        }
+      });
+    });
+  }
+
+  render();
+
+  /* =========================================================
+     SEARCH & FILTER
+     ========================================================= */
+  document.getElementById("search").addEventListener("input", e => {
+    searchTerm = e.target.value;
     render();
+  });
+
+  document.querySelectorAll("[data-filter]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-filter]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  /* =========================================================
+     SHUFFLE
+     ========================================================= */
+  document.getElementById("shuffleBtn").addEventListener("click", () => {
+    for(let i = allPlayers.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [allPlayers[i], allPlayers[j]] = [allPlayers[j], allPlayers[i]];
+    }
+    playCrowdRoar();
+    render();
+  });
+
+  /* =========================================================
+     RANDOM PICK
+     ========================================================= */
+  document.getElementById("randomBtn").addEventListener("click", () => {
+    const players = getFilteredPlayers();
+    if(!players.length) return;
+    playCrowdRoar();
+    // Animate through cards quickly
+    const cards = document.querySelectorAll(".card");
+    let count = 0;
+    const interval = setInterval(() => {
+      cards.forEach(c => c.style.transform = "");
+      const rand = Math.floor(Math.random() * cards.length);
+      cards[rand].style.transform = "scale(1.08)";
+      count++;
+      if(count > 12){
+        clearInterval(interval);
+        cards.forEach(c => c.style.transform = "");
+        const winner = Math.floor(Math.random() * cards.length);
+        cards[winner].style.transform = "scale(1.08)";
+        cards[winner].scrollIntoView({behavior:"smooth", block:"center"});
+        setTimeout(() => {
+          cards[winner].classList.add("flip");
+          playFlipSound();
+        }, 400);
+      }
+    }, 100);
+  });
+
+  /* =========================================================
+     SOUND TOGGLE
+     ========================================================= */
+  const soundToggle = document.getElementById("soundToggle");
+  soundToggle.addEventListener("click", () => {
+    soundOn = !soundOn;
+    soundToggle.innerHTML = soundOn ? "&#128264;" : "&#128263;";
+    soundToggle.style.opacity = soundOn ? ".6" : ".3";
+  });
+
+  /* =========================================================
+     MODAL HELPERS
+     ========================================================= */
+  function openModal(id){
+    document.getElementById(id).classList.add("open");
+  }
+  function closeModal(id){
+    document.getElementById(id).classList.remove("open");
+  }
+  // Close on overlay click
+  document.querySelectorAll(".modal-overlay").forEach(overlay => {
+    overlay.addEventListener("click", e => {
+      if(e.target === overlay) overlay.classList.remove("open");
+    });
+  });
+
+  /* =========================================================
+     QUIZ MODE
+     ========================================================= */
+  let quizScore = 0, quizTotal = 0;
+
+  function generateQuiz(){
+    const types = ["image", "award", "country", "club"];
+    const type = types[Math.floor(Math.random() * types.length)];
+    const correct = allPlayers[Math.floor(Math.random() * allPlayers.length)];
+    let question = "", imgHtml = "";
+
+    // Get 3 wrong answers
+    const wrongPool = allPlayers.filter(p => p.name !== correct.name);
+    const wrongs = [];
+    while(wrongs.length < 3 && wrongPool.length > 0){
+      const idx = Math.floor(Math.random() * wrongPool.length);
+      wrongs.push(wrongPool.splice(idx, 1)[0]);
+    }
+
+    if(type === "image"){
+      question = "Who is this player?";
+      imgHtml = `<div class="quiz-image-wrap"><img src="${correct.imageUrl}" class="blurred" id="quizImg" alt="mystery" /></div>`;
+    } else if(type === "award"){
+      const award = correct.awards[Math.floor(Math.random() * correct.awards.length)];
+      question = `Which player won: ${award}?`;
+    } else if(type === "country"){
+      question = `Which player is from ${correct.country}?`;
+    } else {
+      const club = correct.clubs[Math.floor(Math.random() * correct.clubs.length)];
+      question = `Which player played for ${club}?`;
+    }
+
+    const options = [correct, ...wrongs].sort(() => Math.random() - 0.5);
+
+    const content = document.getElementById("quizContent");
+    content.innerHTML = `
+      <p style="text-align:center;font-size:1.05rem;margin:10px 0">${question}</p>
+      ${imgHtml}
+      <div class="quiz-options">
+        ${options.map(o => `<button data-answer="${o.name}">${o.name}</button>`).join("")}
+      </div>
+    `;
+
+    content.querySelectorAll(".quiz-options button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        quizTotal++;
+        const isCorrect = btn.dataset.answer === correct.name;
+        if(isCorrect){
+          quizScore++;
+          btn.classList.add("correct");
+          playCorrectSound();
+        } else {
+          btn.classList.add("wrong");
+          playWrongSound();
+          content.querySelectorAll(".quiz-options button").forEach(b => {
+            if(b.dataset.answer === correct.name) b.classList.add("correct");
+          });
+        }
+        // Reveal image if blurred
+        const img = document.getElementById("quizImg");
+        if(img) img.classList.remove("blurred");
+
+        content.querySelectorAll(".quiz-options button").forEach(b => b.disabled = true);
+        document.getElementById("quizScore").textContent = quizScore;
+        document.getElementById("quizTotal").textContent = quizTotal;
+      });
+    });
+  }
+
+  document.getElementById("quizBtn").addEventListener("click", () => {
+    quizScore = 0; quizTotal = 0;
+    document.getElementById("quizScore").textContent = "0";
+    document.getElementById("quizTotal").textContent = "0";
+    generateQuiz();
+    openModal("quizModal");
+  });
+
+  document.getElementById("nextQuizBtn").addEventListener("click", generateQuiz);
+
+  /* =========================================================
+     COMPARE MODE
+     ========================================================= */
+  function populateCompareSelects(){
+    const html = allPlayers.map((p,i) => `<option value="${i}">${p.name}</option>`).join("");
+    document.getElementById("compareA").innerHTML = html;
+    document.getElementById("compareB").innerHTML = html;
+    if(allPlayers.length > 1) document.getElementById("compareB").value = "1";
+  }
+
+  function renderComparison(){
+    const a = allPlayers[document.getElementById("compareA").value];
+    const b = allPlayers[document.getElementById("compareB").value];
+    if(!a || !b) return;
+
+    const statKeys = ["pace","shooting","passing","dribbling","defending","physical"];
+    const labels = ["Pace","Shooting","Passing","Dribbling","Defending","Physical"];
+
+    let barsHtml = "";
+    if(a.stats && b.stats){
+      barsHtml = '<div class="compare-bars">' + statKeys.map((k, i) => {
+        const va = a.stats[k], vb = b.stats[k];
+        const total = va + vb || 1;
+        return `
+          <div class="compare-bar">
+            <span class="val" style="text-align:right;color:${va >= vb ? '#6cf' : '#fff'}">${va}</span>
+            <span class="label">${labels[i]}</span>
+            <div class="bar-track">
+              <div class="bar-fill-left" style="width:${va/total*100}%;background:${va >= vb ? '#6cf' : 'rgba(102,204,255,.3)'}"></div>
+              <div class="bar-fill-right" style="width:${vb/total*100}%;background:${vb >= va ? '#ff9500' : 'rgba(255,149,0,.3)'}"></div>
+            </div>
+            <span class="val" style="color:${vb >= va ? '#ff9500' : '#fff'}">${vb}</span>
+          </div>
+        `;
+      }).join("") + "</div>";
+    }
+
+    document.getElementById("compareResult").innerHTML = `
+      <div class="compare-body">
+        <div class="player-col">
+          <img src="${a.imageUrl}" alt="${a.name}" />
+          <h3>${a.name}</h3>
+          <p style="opacity:.7;font-size:.85rem">${a.currentClub} &bull; #${a.jerseyNumber || '?'}</p>
+        </div>
+        <div class="player-col">
+          <img src="${b.imageUrl}" alt="${b.name}" />
+          <h3>${b.name}</h3>
+          <p style="opacity:.7;font-size:.85rem">${b.currentClub} &bull; #${b.jerseyNumber || '?'}</p>
+        </div>
+      </div>
+      ${barsHtml}
+    `;
+  }
+
+  document.getElementById("compareBtn").addEventListener("click", () => {
+    populateCompareSelects();
+    renderComparison();
+    openModal("compareModal");
+  });
+  document.getElementById("compareA").addEventListener("change", renderComparison);
+  document.getElementById("compareB").addEventListener("change", renderComparison);
+
+  /* =========================================================
+     GOAT VOTE
+     ========================================================= */
+  function getVotes(){
+    try{ return JSON.parse(localStorage.getItem("goatVotes")) || {}; }catch(e){ return {}; }
+  }
+  function saveVotes(votes){ localStorage.setItem("goatVotes", JSON.stringify(votes)); }
+
+  function renderVoteModal(){
+    const votes = getVotes();
+    const voted = localStorage.getItem("goatVotedFor");
+
+    // Vote cards
+    document.getElementById("voteGrid").innerHTML = allPlayers.map(p => `
+      <div class="vote-card ${voted === p.name ? 'voted' : ''}" data-name="${p.name}">
+        <img src="${p.imageUrl}" alt="${p.name}" />
+        <div class="vname">${p.name}</div>
+      </div>
+    `).join("");
+
+    document.querySelectorAll(".vote-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const name = card.dataset.name;
+        const votes = getVotes();
+        // Remove previous vote
+        const prev = localStorage.getItem("goatVotedFor");
+        if(prev && votes[prev]) votes[prev] = Math.max(0, votes[prev] - 1);
+        votes[name] = (votes[name] || 0) + 1;
+        localStorage.setItem("goatVotedFor", name);
+        saveVotes(votes);
+        playCrowdRoar();
+        renderVoteModal();
+      });
+    });
+
+    // Results bar chart
+    const totalVotes = Object.values(votes).reduce((a,b) => a+b, 0) || 1;
+    const sorted = allPlayers
+      .map(p => ({name: p.name, count: votes[p.name] || 0}))
+      .filter(v => v.count > 0)
+      .sort((a,b) => b.count - a.count);
+
+    const maxV = sorted.length ? sorted[0].count : 1;
+
+    document.getElementById("voteResults").innerHTML = sorted.length ? `
+      <h3 style="font-size:.95rem;opacity:.7;margin:16px 0 8px">Results</h3>
+      ${sorted.map(v => `
+        <div class="vote-row">
+          <span class="vr-name">${v.name}</span>
+          <div class="vr-bar"><div class="vr-fill" style="width:${v.count/maxV*100}%"></div></div>
+          <span class="vr-count">${v.count}</span>
+        </div>
+      `).join("")}
+    ` : '';
+  }
+
+  document.getElementById("voteBtn").addEventListener("click", () => {
+    renderVoteModal();
+    openModal("voteModal");
+  });
+
+  /* =========================================================
+     TOP 5 RANKING (Drag & Drop)
+     ========================================================= */
+  function getSavedRanking(){
+    try{ return JSON.parse(localStorage.getItem("myTop5")) || []; }catch(e){ return []; }
+  }
+
+  function renderRanking(){
+    let ranking = getSavedRanking();
+    if(ranking.length === 0){
+      ranking = allPlayers.slice(0, 5).map(p => p.name);
+    }
+    // Make sure players exist
+    ranking = ranking.filter(name => allPlayers.find(p => p.name === name));
+    while(ranking.length < 5){
+      const next = allPlayers.find(p => !ranking.includes(p.name));
+      if(next) ranking.push(next.name);
+      else break;
+    }
+
+    const list = document.getElementById("rankList");
+    list.innerHTML = ranking.map(name => {
+      const p = allPlayers.find(pl => pl.name === name);
+      return p ? `
+        <li draggable="true" data-name="${p.name}">
+          <img src="${p.imageUrl}" alt="${p.name}" />
+          <span class="rank-name">${p.name}</span>
+        </li>
+      ` : '';
+    }).join("");
+
+    // Drag and drop
+    let dragItem = null;
+    list.querySelectorAll("li").forEach(li => {
+      li.addEventListener("dragstart", () => {
+        dragItem = li;
+        li.style.opacity = "0.4";
+      });
+      li.addEventListener("dragend", () => {
+        li.style.opacity = "1";
+        list.querySelectorAll("li").forEach(l => l.classList.remove("drag-over"));
+      });
+      li.addEventListener("dragover", e => {
+        e.preventDefault();
+        li.classList.add("drag-over");
+      });
+      li.addEventListener("dragleave", () => li.classList.remove("drag-over"));
+      li.addEventListener("drop", e => {
+        e.preventDefault();
+        li.classList.remove("drag-over");
+        if(dragItem && dragItem !== li){
+          const items = [...list.querySelectorAll("li")];
+          const fromIdx = items.indexOf(dragItem);
+          const toIdx = items.indexOf(li);
+          if(fromIdx < toIdx){
+            li.after(dragItem);
+          } else {
+            li.before(dragItem);
+          }
+        }
+      });
+    });
+  }
+
+  document.getElementById("rankBtn").addEventListener("click", () => {
+    renderRanking();
+    openModal("rankModal");
+  });
+
+  document.getElementById("saveRankBtn").addEventListener("click", () => {
+    const names = [...document.querySelectorAll("#rankList li")].map(li => li.dataset.name);
+    localStorage.setItem("myTop5", JSON.stringify(names));
+    playCorrectSound();
+    closeModal("rankModal");
+  });
+
+  document.getElementById("resetRankBtn").addEventListener("click", () => {
+    localStorage.removeItem("myTop5");
+    renderRanking();
+  });
+
+  /* =========================================================
+     ADD PLAYER
+     ========================================================= */
+  document.getElementById("addBtn").addEventListener("click", () => openModal("addModal"));
+
+  // Photo preview
+  document.getElementById("addPhoto").addEventListener("change", e => {
+    const file = e.target.files[0];
+    const preview = document.getElementById("photoPreview");
+    if(file){
+      const reader = new FileReader();
+      reader.onload = ev => {
+        preview.src = ev.target.result;
+        preview.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.getElementById("addForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const name = document.getElementById("addName").value.trim();
+    if(!name) return;
+
+    const preview = document.getElementById("photoPreview");
+    const newPlayer = {
+      name,
+      country: document.getElementById("addCountry").value.trim() || "Unknown",
+      countryCode: "",
+      currentClub: document.getElementById("addClub").value.trim() || "Free Agent",
+      jerseyNumber: parseInt(document.getElementById("addNumber").value) || 10,
+      rarity: "silver",
+      clubs: [document.getElementById("addClub").value.trim() || "Free Agent"],
+      careerTimeline: [{club: document.getElementById("addClub").value.trim() || "Free Agent", years: new Date().getFullYear() + "-"}],
+      awards: ["Future Star"],
+      stats: {pace:75, shooting:70, passing:70, dribbling:75, defending:60, physical:70},
+      funFact: document.getElementById("addFact").value.trim() || "An amazing player in the making!",
+      imageUrl: preview.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23334' width='200' height='200'/%3E%3Ctext fill='%23fff' font-size='60' x='50%25' y='50%25' text-anchor='middle' dy='.35em'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E",
+      fotmobUrl: "#"
+    };
+
+    allPlayers.push(newPlayer);
+
+    // Save custom players
+    const customs = JSON.parse(localStorage.getItem("customPlayers") || "[]");
+    customs.push(newPlayer);
+    localStorage.setItem("customPlayers", JSON.stringify(customs));
+
+    playCorrectSound();
+    closeModal("addModal");
+    document.getElementById("addForm").reset();
+    document.getElementById("photoPreview").style.display = "none";
+    render();
+  });
+
   </script>
 </body>
 </html>
