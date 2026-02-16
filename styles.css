@@ -380,7 +380,44 @@ a:hover{text-decoration:underline}
   border-radius:14px;
   transition:filter .3s;
 }
-.quiz-image-wrap img.blurred{filter:blur(25px) brightness(.8);transform:scale(1.1)}
+.quiz-image-wrap img.blurred{filter:blur(10px) brightness(.85);transform:scale(1.05)}
+
+/* ===== QUIZ CELEBRATION ===== */
+@keyframes celebratePop{
+  0%{transform:scale(0) rotate(-15deg);opacity:0}
+  50%{transform:scale(1.2) rotate(5deg);opacity:1}
+  100%{transform:scale(1) rotate(0deg);opacity:1}
+}
+@keyframes confettiFall{
+  0%{transform:translateY(-10px) rotate(0deg);opacity:1}
+  100%{transform:translateY(60px) rotate(360deg);opacity:0}
+}
+.quiz-celebration{
+  text-align:center;
+  margin:10px 0 4px;
+  font-size:2rem;
+  animation:celebratePop .5s cubic-bezier(.17,.67,.35,1.5) forwards;
+}
+.quiz-celebration .celeb-text{
+  display:block;
+  font-size:.95rem;
+  color:#0c6;
+  font-weight:700;
+  margin-top:2px;
+}
+.confetti-container{
+  position:relative;
+  height:0;
+  overflow:visible;
+  pointer-events:none;
+}
+.confetti-piece{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:2px;
+  animation:confettiFall 1s ease-in forwards;
+}
 .quiz-options{
   display:grid;
   grid-template-columns:1fr 1fr;

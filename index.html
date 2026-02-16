@@ -41,7 +41,8 @@
       <div class="quiz-score">Score: <span id="quizScore">0</span> / <span id="quizTotal">0</span></div>
       <div id="quizContent"></div>
       <div style="text-align:center;margin-top:12px">
-        <button class="btn btn-accent" id="nextQuizBtn">Next Question</button>
+        <button class="btn btn-accent" id="nextQuizBtn" style="display:none">Next Question</button>
+        <button class="btn btn-accent" id="newQuizBtn" style="display:none" onclick="startQuiz()">Start New Quiz</button>
       </div>
     </div>
   </div>
@@ -451,81 +452,172 @@
   /* =========================================================
      QUIZ MODE
      ========================================================= */
-  let quizScore = 0, quizTotal = 0;
+  let quizScore = 0, quizTotal = 0, quizQuestions = [], quizIndex = 0;
+  const QUIZ_LENGTH = 10;
 
-  function generateQuiz(){
-    const types = ["image", "award", "country", "club"];
-    const type = types[Math.floor(Math.random() * types.length)];
-    const correct = allPlayers[Math.floor(Math.random() * allPlayers.length)];
-    let question = "", imgHtml = "";
+  // Main players for quiz focus
+  const mainPlayerNames = [
+    "Cristiano Ronaldo","Lionel Messi","Neymar Jr.","Erling Haaland",
+    "Kylian Mbappé","Lamine Yamal"
+  ];
 
-    // Get 3 wrong answers
-    const wrongPool = allPlayers.filter(p => p.name !== correct.name);
-    const wrongs = [];
-    while(wrongs.length < 3 && wrongPool.length > 0){
-      const idx = Math.floor(Math.random() * wrongPool.length);
-      wrongs.push(wrongPool.splice(idx, 1)[0]);
+  function getMainPlayers(){
+    return allPlayers.filter(p => mainPlayerNames.includes(p.name));
+  }
+
+  function buildQuizQuestions(){
+    const pool = getMainPlayers();
+    if(pool.length < 4) return [];
+    const questions = [];
+    const used = new Set();
+
+    function makeQuestion(type, player){
+      let question = "", imgHtml = "", correctAnswer = "";
+      const key = type + "|" + (type === "trivia" ? "trivia" : player.name);
+      if(used.has(key)) return null;
+      used.add(key);
+
+      let options = [];
+
+      if(type === "image"){
+        question = "Who is this player?";
+        imgHtml = `<div class="quiz-image-wrap"><img src="${player.imageUrl}" class="blurred" id="quizImg" alt="mystery" /></div>`;
+        correctAnswer = player.name;
+        const wrongs = pool.filter(p => p.name !== player.name).sort(() => Math.random() - 0.5).slice(0, 3);
+        options = [player.name, ...wrongs.map(w => w.name)].sort(() => Math.random() - 0.5);
+      } else if(type === "country"){
+        question = `What country is ${player.name} from?`;
+        correctAnswer = player.country;
+        const wrongCountries = [...new Set(pool.map(p => p.country))].filter(c => c !== player.country).sort(() => Math.random() - 0.5).slice(0, 3);
+        options = [player.country, ...wrongCountries].sort(() => Math.random() - 0.5);
+      } else if(type === "number"){
+        question = `What jersey number does ${player.name} wear?`;
+        correctAnswer = String(player.jerseyNumber);
+        const wrongNumbers = [...new Set(pool.map(p => p.jerseyNumber))].filter(n => n !== player.jerseyNumber).sort(() => Math.random() - 0.5).slice(0, 3);
+        options = [player.jerseyNumber, ...wrongNumbers].sort(() => Math.random() - 0.5).map(String);
+      } else if(type === "trivia"){
+        question = "What is the award given to the best soccer player each year?";
+        correctAnswer = "Ballon d'Or";
+        options = ["Ballon d'Or", "Golden Boot", "FIFA Fair Play", "The Puskas Award"].sort(() => Math.random() - 0.5);
+      } else {
+        question = `Which player is from ${player.country}?`;
+        correctAnswer = player.name;
+        const wrongs = pool.filter(p => p.name !== player.name).sort(() => Math.random() - 0.5).slice(0, 3);
+        options = [player.name, ...wrongs.map(w => w.name)].sort(() => Math.random() - 0.5);
+      }
+
+      return { question, imgHtml, options, correctAnswer };
     }
 
-    if(type === "image"){
-      question = "Who is this player?";
-      imgHtml = `<div class="quiz-image-wrap"><img src="${correct.imageUrl}" class="blurred" id="quizImg" alt="mystery" /></div>`;
-    } else if(type === "award"){
-      const award = correct.awards[Math.floor(Math.random() * correct.awards.length)];
-      question = `Which player won: ${award}?`;
-    } else if(type === "country"){
-      question = `Which player is from ${correct.country}?`;
-    } else {
-      const club = correct.clubs[Math.floor(Math.random() * correct.clubs.length)];
-      question = `Which player played for ${club}?`;
+    const playerTypes = ["image", "country", "number", "country_reverse"];
+    const candidates = [];
+    for(const p of pool){
+      for(const t of playerTypes) candidates.push({ type: t, player: p });
+    }
+    candidates.push({ type: "trivia", player: pool[0] });
+    candidates.sort(() => Math.random() - 0.5);
+
+    for(const c of candidates){
+      if(questions.length >= QUIZ_LENGTH) break;
+      const q = makeQuestion(c.type, c.player);
+      if(q) questions.push(q);
+    }
+    return questions;
+  }
+
+  function showQuestion(){
+    const nextBtn = document.getElementById("nextQuizBtn");
+    const newQuizBtn = document.getElementById("newQuizBtn");
+
+    if(quizIndex >= quizQuestions.length){
+      const content = document.getElementById("quizContent");
+      const pct = Math.round((quizScore / QUIZ_LENGTH) * 100);
+      const emoji = pct >= 80 ? "🏆" : pct >= 50 ? "⚽" : "💪";
+      content.innerHTML = `
+        <div style="text-align:center;margin:20px 0">
+          <div style="font-size:2.5rem;margin-bottom:8px">${emoji}</div>
+          <p style="font-size:1.2rem;font-weight:700">Quiz Complete!</p>
+          <p style="font-size:1.05rem;margin:8px 0">You scored <span style="color:#ffd700;font-weight:700">${quizScore}</span> out of <span style="color:#ffd700;font-weight:700">${QUIZ_LENGTH}</span></p>
+        </div>
+      `;
+      nextBtn.style.display = "none";
+      newQuizBtn.style.display = "inline-block";
+      return;
     }
 
-    const options = [correct, ...wrongs].sort(() => Math.random() - 0.5);
-
+    const q = quizQuestions[quizIndex];
     const content = document.getElementById("quizContent");
     content.innerHTML = `
-      <p style="text-align:center;font-size:1.05rem;margin:10px 0">${question}</p>
-      ${imgHtml}
-      <div class="quiz-options">
-        ${options.map(o => `<button data-answer="${o.name}">${o.name}</button>`).join("")}
-      </div>
+      <p style="text-align:center;font-size:.85rem;color:rgba(255,255,255,.5);margin:0">Question ${quizIndex + 1} of ${QUIZ_LENGTH}</p>
+      <p style="text-align:center;font-size:1.05rem;margin:8px 0">${q.question}</p>
+      ${q.imgHtml}
+      <div class="quiz-options">${q.options.map(o => `<button data-answer="${o}">${o}</button>`).join("")}</div>
+      <div id="quizCelebration"></div>
     `;
+
+    nextBtn.style.display = "none";
+    newQuizBtn.style.display = "none";
 
     content.querySelectorAll(".quiz-options button").forEach(btn => {
       btn.addEventListener("click", () => {
         quizTotal++;
-        const isCorrect = btn.dataset.answer === correct.name;
+        const isCorrect = btn.dataset.answer === q.correctAnswer;
         if(isCorrect){
           quizScore++;
           btn.classList.add("correct");
           playCorrectSound();
+          showCelebration();
         } else {
           btn.classList.add("wrong");
           playWrongSound();
           content.querySelectorAll(".quiz-options button").forEach(b => {
-            if(b.dataset.answer === correct.name) b.classList.add("correct");
+            if(b.dataset.answer === q.correctAnswer) b.classList.add("correct");
           });
         }
-        // Reveal image if blurred
         const img = document.getElementById("quizImg");
         if(img) img.classList.remove("blurred");
-
         content.querySelectorAll(".quiz-options button").forEach(b => b.disabled = true);
         document.getElementById("quizScore").textContent = quizScore;
         document.getElementById("quizTotal").textContent = quizTotal;
+        nextBtn.style.display = "inline-block";
       });
     });
   }
 
-  document.getElementById("quizBtn").addEventListener("click", () => {
-    quizScore = 0; quizTotal = 0;
+  function showCelebration(){
+    const el = document.getElementById("quizCelebration");
+    if(!el) return;
+    const messages = ["Nice one!","Correct!","You got it!","Great job!","Brilliant!"];
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    const colors = ["#ffd700","#0c6","#6cf","#f44","#c6f","#ff8c00"];
+    let confettiHtml = '<div class="confetti-container">';
+    for(let i = 0; i < 12; i++){
+      const color = colors[i % colors.length];
+      const left = Math.random() * 200 - 100;
+      const delay = Math.random() * 0.3;
+      confettiHtml += `<span class="confetti-piece" style="background:${color};left:calc(50% + ${left}px);animation-delay:${delay}s"></span>`;
+    }
+    confettiHtml += '</div>';
+    el.innerHTML = `<div class="quiz-celebration">🎉⚽🎉<span class="celeb-text">${msg}</span></div>${confettiHtml}`;
+  }
+
+  function startQuiz(){
+    quizScore = 0; quizTotal = 0; quizIndex = 0;
     document.getElementById("quizScore").textContent = "0";
     document.getElementById("quizTotal").textContent = "0";
-    generateQuiz();
+    quizQuestions = buildQuizQuestions();
+    showQuestion();
+  }
+
+  document.getElementById("quizBtn").addEventListener("click", () => {
+    startQuiz();
     openModal("quizModal");
   });
 
-  document.getElementById("nextQuizBtn").addEventListener("click", generateQuiz);
+  document.getElementById("nextQuizBtn").addEventListener("click", () => {
+    quizIndex++;
+    showQuestion();
+  });
 
   /* =========================================================
      COMPARE MODE
