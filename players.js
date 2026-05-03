@@ -342,6 +342,100 @@ const PLAYERS = [
     fotmobUrl: "https://www.fotmob.com/players/7863/diego-maradona"
   },
   {
+    name: "Cole Palmer",
+    country: "England",
+    countryCode: "GB",
+    currentClub: "Chelsea",
+    jerseyNumber: 20,
+    rarity: "gold",
+    clubs: ["Manchester City", "Chelsea"],
+    careerTimeline: [
+      { club: "Manchester City", years: "2021-2023" },
+      { club: "Chelsea", years: "2023-" }
+    ],
+    awards: ["Premier League", "Champions League", "PFA Young Player of the Year 2024"],
+    stats: { pace: 79, shooting: 88, passing: 84, dribbling: 89, defending: 34, physical: 65 },
+    funFact: "He scored 4 goals in a single half against Everton in 2024 — the first Chelsea player ever to do that in the Premier League!",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Cole_Palmer_2024_%28cropped%29.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/1187247/cole-palmer"
+  },
+  {
+    name: "Ousmane Dembélé",
+    country: "France",
+    countryCode: "FR",
+    currentClub: "PSG",
+    jerseyNumber: 10,
+    rarity: "gold",
+    clubs: ["Rennes", "Borussia Dortmund", "Barcelona", "PSG"],
+    careerTimeline: [
+      { club: "Rennes", years: "2015-2016" },
+      { club: "Borussia Dortmund", years: "2016-2017" },
+      { club: "Barcelona", years: "2017-2023" },
+      { club: "PSG", years: "2023-" }
+    ],
+    awards: ["La Liga", "Copa del Rey x3", "Ligue 1"],
+    stats: { pace: 96, shooting: 80, passing: 78, dribbling: 92, defending: 27, physical: 68 },
+    funFact: "He's one of the fastest players in world football and leads Europe's top leagues in successful dribbles almost every season!",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Ousmane_Demb%C3%A9l%C3%A9_2023_%28cropped%29.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/718993/ousmane-dembele"
+  },
+  {
+    name: "Raphinha",
+    country: "Brazil",
+    countryCode: "BR",
+    currentClub: "Barcelona",
+    jerseyNumber: 11,
+    rarity: "gold",
+    clubs: ["Vitória", "Sporting CP", "Rennes", "Leeds United", "Barcelona"],
+    careerTimeline: [
+      { club: "Vitória", years: "2015-2016" },
+      { club: "Sporting CP", years: "2016-2018" },
+      { club: "Rennes", years: "2018-2020" },
+      { club: "Leeds United", years: "2020-2022" },
+      { club: "Barcelona", years: "2022-" }
+    ],
+    awards: ["La Liga", "Copa del Rey", "Copa América 2024"],
+    stats: { pace: 91, shooting: 83, passing: 80, dribbling: 89, defending: 33, physical: 70 },
+    funFact: "He went from being transfer-listed by Barcelona to their top scorer with 26 goals in the 2024-25 season — one of the greatest turnarounds in club history!",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/1/18/Raphinha_2023_%28cropped%29.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/833612/raphinha"
+  },
+  {
+    name: "Bukayo Saka",
+    country: "England",
+    countryCode: "GB",
+    currentClub: "Arsenal",
+    jerseyNumber: 7,
+    rarity: "gold",
+    clubs: ["Arsenal"],
+    careerTimeline: [
+      { club: "Arsenal", years: "2018-" }
+    ],
+    awards: ["PFA Young Player of the Year x2", "Premier League Player of the Month x3", "FA Community Shield"],
+    stats: { pace: 87, shooting: 83, passing: 83, dribbling: 88, defending: 56, physical: 70 },
+    funFact: "He missed the decisive penalty in the Euro 2020 final at just 19 years old, then bounced back to become one of the best wingers in Europe — a true story of resilience!",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Bukayo_Saka_2024_%28cropped%29.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/961995/bukayo-saka"
+  },
+  {
+    name: "Florian Wirtz",
+    country: "Germany",
+    countryCode: "DE",
+    currentClub: "Bayern Munich",
+    jerseyNumber: 10,
+    rarity: "gold",
+    clubs: ["Bayer Leverkusen", "Bayern Munich"],
+    careerTimeline: [
+      { club: "Bayer Leverkusen", years: "2020-2025" },
+      { club: "Bayern Munich", years: "2025-" }
+    ],
+    awards: ["Bundesliga 2024", "DFB-Pokal 2024", "German Player of the Year 2024"],
+    stats: { pace: 81, shooting: 84, passing: 87, dribbling: 90, defending: 40, physical: 69 },
+    funFact: "He was the heartbeat of the historic 2023-24 Bayer Leverkusen side that went the entire Bundesliga season unbeaten — a feat no German team had ever achieved before!",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e9/Florian_Wirtz_2024_%28cropped%29.jpg",
+    fotmobUrl: "https://www.fotmob.com/players/1101028/florian-wirtz"
+  },
+  {
     name: "Jack Jewsbury",
     country: "USA",
     countryCode: "US",
@@ -401,6 +495,6 @@ const PLAYERS = [
 /* Country name → flag emoji helper */
 const FLAG_MAP = {
   PT:"🇵🇹", AR:"🇦🇷", FR:"🇫🇷", NO:"🇳🇴", GB:"🇬🇧",
-  EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸"
+  EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸", DE:"🇩🇪"
 };
 function getFlag(code){ return FLAG_MAP[code] || "⚽"; }
