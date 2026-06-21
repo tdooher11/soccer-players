@@ -358,52 +358,79 @@
       font-weight:700;
     }
 
-    /* KNOCKOUT PLACEHOLDER */
-    .knockout-placeholder{
-      text-align:center;
-      padding:60px 20px;
-      opacity:.4;
-    }
-    .knockout-placeholder .ko-icon{font-size:3rem;margin-bottom:12px}
-    .knockout-placeholder p{font-size:.95rem;margin:0}
-
-    /* KNOCKOUT BRACKET (projected) */
-    .ko-round-head{
-      display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
-      margin:6px 0 4px;
-    }
-    .ko-round-label{font-size:1.25rem;font-weight:800;color:#ffd700;letter-spacing:.5px}
-    .ko-round-date{font-size:.8rem;opacity:.45}
+    /* BRACKET VIEW */
     .ko-note{
       background:rgba(102,204,255,.07);
       border:1px solid rgba(102,204,255,.2);
       border-radius:10px;
       padding:10px 14px;
-      font-size:.8rem;
-      line-height:1.45;
+      font-size:.8rem;line-height:1.45;
       color:rgba(255,255,255,.7);
-      margin:8px 0 18px;
+      margin:0 0 14px;
     }
     .ko-note strong{color:#6cf}
-    .badge-proj{background:rgba(255,215,0,.13);color:#ffd700;letter-spacing:.5px}
-    .ko-card .team.ko-win .name{color:#ffd700}
-    .ko-card .team.ko-lose{opacity:.45}
-    .ko-card .ko-advance{
-      margin-top:10px;padding-top:8px;
-      border-top:1px solid rgba(255,255,255,.07);
-      font-size:.74rem;font-weight:700;color:#6cf;text-align:center;
+    .bracket-scroller{
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:16px;
     }
-    .champion-banner{
-      margin:28px auto 8px;max-width:340px;text-align:center;
-      background:linear-gradient(160deg,rgba(255,215,0,.16),rgba(255,215,0,.04));
-      border:1px solid rgba(255,215,0,.4);
-      border-radius:16px;padding:24px 20px;
-      box-shadow:0 0 40px rgba(255,215,0,.12);
+    .bracket-cols{
+      display:flex;
+      min-height:1280px;
+      position:relative;
+      gap:0;
+      min-width:max-content;
     }
-    .champ-trophy{font-size:3rem;line-height:1}
-    .champ-label{font-size:.72rem;letter-spacing:2px;opacity:.6;margin:6px 0 8px;font-weight:700}
-    .champ-team{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.6rem;font-weight:800;color:#ffd700}
-    .champ-team .flag-img{width:40px}
+    .bracket-svg{
+      position:absolute;top:0;left:0;
+      width:100%;height:100%;
+      pointer-events:none;overflow:visible;
+    }
+    .bracket-col{
+      display:flex;flex-direction:column;
+      width:178px;flex-shrink:0;
+      padding:0 6px;
+    }
+    .bracket-col.col-final{width:198px}
+    .bk-col-head{
+      text-align:center;
+      padding:4px 0 8px;
+      border-bottom:1px solid rgba(255,215,0,.15);
+      margin-bottom:6px;
+    }
+    .bk-col-label{font-size:.68rem;font-weight:800;color:#ffd700;letter-spacing:.8px;text-transform:uppercase}
+    .bk-col-date{font-size:.62rem;opacity:.38;margin-top:2px}
+    .bk-matches{flex:1;display:flex;flex-direction:column;justify-content:space-around;padding:4px 0}
+    .bk-slot{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:7px;overflow:hidden;
+      transition:border-color .18s;
+    }
+    .bk-slot:hover{border-color:rgba(255,215,0,.4)}
+    .bk-team{
+      display:flex;align-items:center;
+      gap:5px;padding:5px 7px;
+      font-size:.73rem;
+    }
+    .bk-team:first-child{border-bottom:1px solid rgba(255,255,255,.06)}
+    .bk-team.win{background:rgba(255,215,0,.09)}
+    .bk-team.lose{opacity:.42}
+    .bk-team .flag-img{width:18px;height:auto;border-radius:2px;flex-shrink:0}
+    .bk-name{flex:1;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .bk-score{font-weight:800;min-width:12px;text-align:right}
+    .bk-team.win .bk-name,.bk-team.win .bk-score{color:#ffd700}
+    .bk-champion{
+      text-align:center;padding:14px 8px 0;
+    }
+    .bk-trophy{font-size:1.8rem;display:block;margin-bottom:3px}
+    .bk-champ-label{font-size:.6rem;letter-spacing:1.5px;opacity:.5;font-weight:700;text-transform:uppercase}
+    .bk-champ-name{font-size:1rem;font-weight:800;color:#ffd700;margin-top:4px}
+    .bk-3rd-head{
+      font-size:.6rem;opacity:.4;text-align:center;
+      text-transform:uppercase;letter-spacing:1px;
+      margin-top:24px;margin-bottom:4px;
+    }
 
     /* SECTION HEADER (date grouping) */
     .date-label{
@@ -437,11 +464,7 @@
 <nav class="toolbar">
   <div class="toolbar-row phase-btns" id="phaseTabs">
     <button class="chip active" data-phase="group">Group Stage</button>
-    <button class="chip" data-phase="r32">Round of 32</button>
-    <button class="chip" data-phase="r16">Round of 16</button>
-    <button class="chip" data-phase="qf">Quarterfinals</button>
-    <button class="chip" data-phase="sf">Semifinals</button>
-    <button class="chip" data-phase="final">Final</button>
+    <button class="chip" data-phase="bracket">Bracket</button>
   </div>
   <div class="toolbar-row" id="groupFilterRow">
     <button class="chip group-chip active" data-group="all">All Groups</button>
@@ -816,119 +839,133 @@ function renderGroupStage() {
 
 /* =====================================================================
    PROJECTED KNOCKOUT BRACKET
-   ---------------------------------------------------------------------
-   Teams seeded from projected final group standings (top 2 of each group
-   + best 8 third-place finishers), following FIFA 2026 knockout rules
-   (group winners avoid each other in R32, no same-group rematches).
-   Winners advance on the projected score (higher score = gold).
-   Portugal given a deep run: wins their group, wins R32 + R16, then
-   bows out in the quarterfinals to France.
+   Bracket pairs: R32[2i]+R32[2i+1] → R16[i], R16[2i]+R16[2i+1] → QF[i], etc.
+   Portugal wins Group E, beats Senegal (R32) and Italy (R16), loses to France (QF).
    ===================================================================== */
-const CHAMPION = "Argentina";
+const BK = [
+  { key:"r32", label:"Round of 32", date:"Jun 28–Jul 3", matches:[
+    {home:"USA",         hs:2, away:"Paraguay",    as:1},
+    {home:"Belgium",     hs:2, away:"Colombia",    as:1},
+    {home:"Japan",       hs:2, away:"Ecuador",     as:1},
+    {home:"Germany",     hs:3, away:"Serbia",      as:0},
+    {home:"Uruguay",     hs:2, away:"Austria",     as:0},
+    {home:"England",     hs:3, away:"Panama",      as:1},
+    {home:"Morocco",     hs:2, away:"Ukraine",     as:1},
+    {home:"Argentina",   hs:3, away:"Egypt",       as:0},
+    {home:"Spain",       hs:2, away:"Nigeria",     as:0},
+    {home:"Netherlands", hs:2, away:"Croatia",     as:1},
+    {home:"Denmark",     hs:1, away:"Canada",      as:0},
+    {home:"Brazil",      hs:3, away:"Turkey",      as:1},
+    {home:"Portugal",    hs:2, away:"Senegal",     as:0},
+    {home:"Italy",       hs:2, away:"Switzerland", as:1},
+    {home:"France",      hs:2, away:"Poland",      as:0},
+    {home:"Mexico",      hs:2, away:"Ivory Coast", as:1},
+  ]},
+  { key:"r16", label:"Round of 16", date:"Jul 4–7", matches:[
+    {home:"Belgium",     hs:2, away:"USA",         as:1},
+    {home:"Germany",     hs:2, away:"Japan",       as:1},
+    {home:"England",     hs:2, away:"Uruguay",     as:1},
+    {home:"Argentina",   hs:2, away:"Morocco",     as:0},
+    {home:"Spain",       hs:1, away:"Netherlands", as:0},
+    {home:"Brazil",      hs:2, away:"Denmark",     as:1},
+    {home:"Portugal",    hs:2, away:"Italy",       as:1},
+    {home:"France",      hs:3, away:"Mexico",      as:1},
+  ]},
+  { key:"qf", label:"Quarterfinals", date:"Jul 9–11", matches:[
+    {home:"Germany",     hs:1, away:"Belgium",     as:0},
+    {home:"Argentina",   hs:2, away:"England",     as:1},
+    {home:"Brazil",      hs:2, away:"Spain",       as:1},
+    {home:"France",      hs:2, away:"Portugal",    as:1},
+  ]},
+  { key:"sf", label:"Semifinals", date:"Jul 14–15", matches:[
+    {home:"Argentina",   hs:2, away:"Germany",     as:1},
+    {home:"France",      hs:1, away:"Brazil",      as:0},
+  ]},
+  { key:"final", label:"Final", date:"Jul 19", matches:[
+    {home:"Argentina",   hs:2, away:"France",      as:1},
+  ]},
+];
+const THIRD_PLACE = {home:"Germany", hs:2, away:"Brazil", as:1};
 
-const KO_ROUNDS = {
-  r32: { label:"Round of 32", date:"Jun 28 – Jul 3", matches:[
-    {slot:"1A v 3G", home:"USA",        hs:2, away:"Paraguay",   as:1},
-    {slot:"1J v 3E", home:"Belgium",    hs:2, away:"Colombia",   as:1},
-    {slot:"2D v 2B", home:"Japan",      hs:2, away:"Ecuador",    as:1},
-    {slot:"1F v 3H", home:"Germany",    hs:3, away:"Serbia",     as:0},
-    {slot:"1C v 3I", home:"Uruguay",    hs:2, away:"Austria",    as:0},
-    {slot:"1I v 3A", home:"England",    hs:3, away:"Panama",     as:1},
-    {slot:"2A v 2L", home:"Morocco",    hs:2, away:"Ukraine",    as:1},
-    {slot:"1G v 3K", home:"Argentina",  hs:3, away:"Egypt",      as:0},
-    {slot:"1D v 3J", home:"Spain",      hs:2, away:"Nigeria",    as:0},
-    {slot:"1L v 3D", home:"Netherlands",hs:2, away:"Croatia",    as:1},
-    {slot:"2J v 2C", home:"Denmark",    hs:1, away:"Canada",     as:0},
-    {slot:"1H v 2F", home:"Brazil",     hs:3, away:"Turkey",     as:1},
-    {slot:"1E v 2I", home:"Portugal",   hs:2, away:"Senegal",    as:0},
-    {slot:"1K v 2H", home:"Italy",      hs:2, away:"Switzerland",as:1},
-    {slot:"2E v 2K", home:"France",     hs:2, away:"Poland",     as:0},
-    {slot:"1B v 2G", home:"Mexico",     hs:2, away:"Ivory Coast",as:1},
-  ]},
-  r16: { label:"Round of 16", date:"Jul 4 – 7", matches:[
-    {home:"Belgium",    hs:2, away:"USA",        as:1},
-    {home:"Germany",    hs:2, away:"Japan",      as:1},
-    {home:"England",    hs:2, away:"Uruguay",    as:1},
-    {home:"Argentina",  hs:2, away:"Morocco",    as:0},
-    {home:"Spain",      hs:1, away:"Netherlands",as:0},
-    {home:"Brazil",     hs:2, away:"Denmark",    as:1},
-    {home:"Portugal",   hs:2, away:"Italy",      as:1},
-    {home:"France",     hs:3, away:"Mexico",     as:1},
-  ]},
-  qf: { label:"Quarterfinals", date:"Jul 9 – 11", matches:[
-    {home:"Germany",    hs:1, away:"Belgium",    as:0},
-    {home:"Argentina",  hs:2, away:"England",    as:1},
-    {home:"Brazil",     hs:2, away:"Spain",      as:1},
-    {home:"France",     hs:2, away:"Portugal",   as:1},
-  ]},
-  sf: { label:"Semifinals", date:"Jul 14 – 15", matches:[
-    {home:"Argentina",  hs:2, away:"Germany",    as:1},
-    {home:"France",     hs:1, away:"Brazil",     as:0},
-  ]},
-  final: { label:"Final", date:"Jul 19", matches:[
-    {slot:"FINAL · Jul 19", home:"Argentina", hs:2, away:"France", as:1},
-    {slot:"Third place · Jul 18", home:"Germany", hs:2, away:"Brazil", as:1},
-  ]},
-};
+function bkWinner(m){ return m.hs >= m.as ? m.home : m.away; }
 
-function renderKoCard(m) {
-  const hWin = m.hs > m.as, aWin = m.as > m.hs;
-  return `
-    <div class="match-card ko-card">
-      <div class="match-meta">
-        <span class="match-date">${m.slot || ""}</span>
-        <span class="status-badge badge-proj">PROJ</span>
-      </div>
-      <div class="match-teams">
-        <div class="team ${hWin ? 'ko-win' : 'ko-lose'}">
-          <span class="flag">${flag(m.home)}</span>
-          <span class="name">${m.home}</span>
-        </div>
-        <div class="scoreboard">
-          <span class="score-num" style="color:${hWin ? '#ffd700' : 'rgba(255,255,255,.4)'}">${m.hs}</span>
-          <span class="score-sep">–</span>
-          <span class="score-num" style="color:${aWin ? '#ffd700' : 'rgba(255,255,255,.4)'}">${m.as}</span>
-        </div>
-        <div class="team ${aWin ? 'ko-win' : 'ko-lose'}">
-          <span class="flag">${flag(m.away)}</span>
-          <span class="name">${m.away}</span>
-        </div>
-      </div>
-      <div class="ko-advance">${hWin ? m.home : m.away} advances ▸</div>
-    </div>`;
+function bkSlotHTML(m, id) {
+  const hWin = m.hs > m.as;
+  const hFlag = flag(m.home), aFlag = flag(m.away);
+  return `<div class="bk-slot" id="${id}">
+    <div class="bk-team ${hWin?'win':'lose'}">${hFlag}<span class="bk-name">${m.home}</span><span class="bk-score">${m.hs}</span></div>
+    <div class="bk-team ${hWin?'lose':'win'}">${aFlag}<span class="bk-name">${m.away}</span><span class="bk-score">${m.as}</span></div>
+  </div>`;
 }
 
-function renderKnockout(phase) {
-  const r = KO_ROUNDS[phase];
-  if (!r) return "";
-
-  const note = `
-    <div class="ko-note">
-      🔮 <strong>Projected bracket</strong> — seeded from forecast group-stage
-      finishes and FIFA 2026 knockout rules. Portugal given a deep run (group
-      winners, through to the quarterfinals).
-    </div>`;
-
-  const championBanner = phase === "final" ? `
-    <div class="champion-banner">
-      <div class="champ-trophy">🏆</div>
-      <div class="champ-label">PROJECTED CHAMPION</div>
-      <div class="champ-team">${flag(CHAMPION)} <span>${CHAMPION}</span></div>
-    </div>` : "";
-
-  return `
-    <div class="ko-round">
-      <div class="ko-round-head">
-        <span class="ko-round-label">${r.label}</span>
-        <span class="ko-round-date">${r.date}, 2026</span>
+function renderBracket() {
+  const cols = BK.map(r => {
+    const slots = r.matches.map((m,i) => bkSlotHTML(m,`bk-${r.key}-${i}`)).join('');
+    const extra = r.key === 'final' ? `
+      <div class="bk-champion">
+        <span class="bk-trophy">🏆</span>
+        <div class="bk-champ-label">Projected Champion</div>
+        <div class="bk-champ-name">${bkWinner(r.matches[0])}</div>
       </div>
-      ${note}
-      <div class="matches-grid">
-        ${r.matches.map(renderKoCard).join("")}
+      <div class="bk-3rd-head">3rd Place · Jul 18</div>
+      ${bkSlotHTML(THIRD_PLACE,'bk-3rd')}` : '';
+    return `<div class="bracket-col${r.key==='final'?' col-final':''}" data-round="${r.key}">
+      <div class="bk-col-head">
+        <div class="bk-col-label">${r.label}</div>
+        <div class="bk-col-date">${r.date}</div>
       </div>
-      ${championBanner}
+      <div class="bk-matches" id="bkcol-${r.key}">${slots}${extra}</div>
     </div>`;
+  }).join('');
+
+  return `<div class="bracket-outer">
+    <div class="ko-note">🔮 <strong>Projected bracket</strong> — seeded from forecast standings following FIFA 2026 knockout rules. Portugal wins Group E and advances to the quarterfinals.</div>
+    <div class="bracket-scroller">
+      <div class="bracket-cols" id="bracketCols">
+        <svg class="bracket-svg" id="bracketSVG" xmlns="http://www.w3.org/2000/svg"></svg>
+        ${cols}
+      </div>
+    </div>
+  </div>`;
 }
+
+function drawBracketLines() {
+  const svg = document.getElementById('bracketSVG');
+  const container = document.getElementById('bracketCols');
+  if (!svg || !container) return;
+  const cRect = container.getBoundingClientRect();
+  const W = container.offsetWidth, H = container.offsetHeight;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+
+  const roundKeys = ['r32','r16','qf','sf'];
+  const nextKey   = {r32:'r16',r16:'qf',qf:'sf',sf:'final'};
+  const counts    = {r32:16,r16:8,qf:4,sf:2};
+
+  let paths = '';
+  roundKeys.forEach(rnd => {
+    const n = counts[rnd];
+    for (let i = 0; i < n; i += 2) {
+      const sA = document.getElementById(`bk-${rnd}-${i}`);
+      const sB = document.getElementById(`bk-${rnd}-${i+1}`);
+      const sN = document.getElementById(`bk-${nextKey[rnd]}-${Math.floor(i/2)}`);
+      if (!sA || !sB || !sN) continue;
+      const rA = sA.getBoundingClientRect(), rB = sB.getBoundingClientRect(), rN = sN.getBoundingClientRect();
+      const x1  = rA.right  - cRect.left;
+      const yA  = (rA.top + rA.bottom) / 2 - cRect.top;
+      const yB  = (rB.top + rB.bottom) / 2 - cRect.top;
+      const yM  = (yA + yB) / 2;
+      const x2  = rN.left   - cRect.left;
+      const xM  = (x1 + x2) / 2;
+      const yN  = (rN.top + rN.bottom) / 2 - cRect.top;
+      paths += `<path d="M${x1},${yA} L${xM},${yA} L${xM},${yB} L${x1},${yB} M${xM},${yM} L${x2},${yN}" fill="none" stroke="rgba(255,215,0,0.22)" stroke-width="1.5" stroke-linejoin="round"/>`;
+    }
+  });
+  svg.innerHTML = paths;
+}
+
+function renderKnockout() { return renderBracket(); }
 
 function render() {
   const main = document.getElementById("mainContent");
@@ -938,7 +975,8 @@ function render() {
   if (activePhase === "group") {
     main.innerHTML = renderGroupStage();
   } else {
-    main.innerHTML = renderKnockout(activePhase);
+    main.innerHTML = renderBracket();
+    requestAnimationFrame(() => requestAnimationFrame(drawBracketLines));
   }
 }
 
