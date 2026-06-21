@@ -367,6 +367,44 @@
     .knockout-placeholder .ko-icon{font-size:3rem;margin-bottom:12px}
     .knockout-placeholder p{font-size:.95rem;margin:0}
 
+    /* KNOCKOUT BRACKET (projected) */
+    .ko-round-head{
+      display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+      margin:6px 0 4px;
+    }
+    .ko-round-label{font-size:1.25rem;font-weight:800;color:#ffd700;letter-spacing:.5px}
+    .ko-round-date{font-size:.8rem;opacity:.45}
+    .ko-note{
+      background:rgba(102,204,255,.07);
+      border:1px solid rgba(102,204,255,.2);
+      border-radius:10px;
+      padding:10px 14px;
+      font-size:.8rem;
+      line-height:1.45;
+      color:rgba(255,255,255,.7);
+      margin:8px 0 18px;
+    }
+    .ko-note strong{color:#6cf}
+    .badge-proj{background:rgba(255,215,0,.13);color:#ffd700;letter-spacing:.5px}
+    .ko-card .team.ko-win .name{color:#ffd700}
+    .ko-card .team.ko-lose{opacity:.45}
+    .ko-card .ko-advance{
+      margin-top:10px;padding-top:8px;
+      border-top:1px solid rgba(255,255,255,.07);
+      font-size:.74rem;font-weight:700;color:#6cf;text-align:center;
+    }
+    .champion-banner{
+      margin:28px auto 8px;max-width:340px;text-align:center;
+      background:linear-gradient(160deg,rgba(255,215,0,.16),rgba(255,215,0,.04));
+      border:1px solid rgba(255,215,0,.4);
+      border-radius:16px;padding:24px 20px;
+      box-shadow:0 0 40px rgba(255,215,0,.12);
+    }
+    .champ-trophy{font-size:3rem;line-height:1}
+    .champ-label{font-size:.72rem;letter-spacing:2px;opacity:.6;margin:6px 0 8px;font-weight:700}
+    .champ-team{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.6rem;font-weight:800;color:#ffd700}
+    .champ-team .flag-img{width:40px}
+
     /* SECTION HEADER (date grouping) */
     .date-label{
       font-size:.72rem;
@@ -400,6 +438,7 @@
   <div class="toolbar-row phase-btns" id="phaseTabs">
     <button class="chip active" data-phase="group">Group Stage</button>
     <button class="chip" data-phase="r32">Round of 32</button>
+    <button class="chip" data-phase="r16">Round of 16</button>
     <button class="chip" data-phase="qf">Quarterfinals</button>
     <button class="chip" data-phase="sf">Semifinals</button>
     <button class="chip" data-phase="final">Final</button>
@@ -775,15 +814,119 @@ function renderGroupStage() {
   }).join("");
 }
 
-function renderKnockout(phase) {
-  const labels = {r32:"Round of 32",qf:"Quarterfinals",sf:"Semifinals",final:"Final"};
-  const dates = {r32:"Jul 4–10",qf:"Jul 12–13",sf:"Jul 15–16",final:"Jul 19"};
+/* =====================================================================
+   PROJECTED KNOCKOUT BRACKET
+   ---------------------------------------------------------------------
+   Teams seeded from projected final group standings (top 2 of each group
+   + best 8 third-place finishers), following FIFA 2026 knockout rules
+   (group winners avoid each other in R32, no same-group rematches).
+   Winners advance on the projected score (higher score = gold).
+   Portugal given a deep run: wins their group, wins R32 + R16, then
+   bows out in the quarterfinals to France.
+   ===================================================================== */
+const CHAMPION = "Argentina";
+
+const KO_ROUNDS = {
+  r32: { label:"Round of 32", date:"Jun 28 – Jul 3", matches:[
+    {slot:"1A v 3G", home:"USA",        hs:2, away:"Paraguay",   as:1},
+    {slot:"1J v 3E", home:"Belgium",    hs:2, away:"Colombia",   as:1},
+    {slot:"2D v 2B", home:"Japan",      hs:2, away:"Ecuador",    as:1},
+    {slot:"1F v 3H", home:"Germany",    hs:3, away:"Serbia",     as:0},
+    {slot:"1C v 3I", home:"Uruguay",    hs:2, away:"Austria",    as:0},
+    {slot:"1I v 3A", home:"England",    hs:3, away:"Panama",     as:1},
+    {slot:"2A v 2L", home:"Morocco",    hs:2, away:"Ukraine",    as:1},
+    {slot:"1G v 3K", home:"Argentina",  hs:3, away:"Egypt",      as:0},
+    {slot:"1D v 3J", home:"Spain",      hs:2, away:"Nigeria",    as:0},
+    {slot:"1L v 3D", home:"Netherlands",hs:2, away:"Croatia",    as:1},
+    {slot:"2J v 2C", home:"Denmark",    hs:1, away:"Canada",     as:0},
+    {slot:"1H v 2F", home:"Brazil",     hs:3, away:"Turkey",     as:1},
+    {slot:"1E v 2I", home:"Portugal",   hs:2, away:"Senegal",    as:0},
+    {slot:"1K v 2H", home:"Italy",      hs:2, away:"Switzerland",as:1},
+    {slot:"2E v 2K", home:"France",     hs:2, away:"Poland",     as:0},
+    {slot:"1B v 2G", home:"Mexico",     hs:2, away:"Ivory Coast",as:1},
+  ]},
+  r16: { label:"Round of 16", date:"Jul 4 – 7", matches:[
+    {home:"Belgium",    hs:2, away:"USA",        as:1},
+    {home:"Germany",    hs:2, away:"Japan",      as:1},
+    {home:"England",    hs:2, away:"Uruguay",    as:1},
+    {home:"Argentina",  hs:2, away:"Morocco",    as:0},
+    {home:"Spain",      hs:1, away:"Netherlands",as:0},
+    {home:"Brazil",     hs:2, away:"Denmark",    as:1},
+    {home:"Portugal",   hs:2, away:"Italy",      as:1},
+    {home:"France",     hs:3, away:"Mexico",     as:1},
+  ]},
+  qf: { label:"Quarterfinals", date:"Jul 9 – 11", matches:[
+    {home:"Germany",    hs:1, away:"Belgium",    as:0},
+    {home:"Argentina",  hs:2, away:"England",    as:1},
+    {home:"Brazil",     hs:2, away:"Spain",      as:1},
+    {home:"France",     hs:2, away:"Portugal",   as:1},
+  ]},
+  sf: { label:"Semifinals", date:"Jul 14 – 15", matches:[
+    {home:"Argentina",  hs:2, away:"Germany",    as:1},
+    {home:"France",     hs:1, away:"Brazil",     as:0},
+  ]},
+  final: { label:"Final", date:"Jul 19", matches:[
+    {slot:"FINAL · Jul 19", home:"Argentina", hs:2, away:"France", as:1},
+    {slot:"Third place · Jul 18", home:"Germany", hs:2, away:"Brazil", as:1},
+  ]},
+};
+
+function renderKoCard(m) {
+  const hWin = m.hs > m.as, aWin = m.as > m.hs;
   return `
-    <div class="knockout-placeholder">
-      <div class="ko-icon">⏳</div>
-      <p style="font-size:1.1rem;font-weight:700;margin:0 0 8px">${labels[phase]}</p>
-      <p style="opacity:.5">Scheduled ${dates[phase]}, 2026</p>
-      <p style="opacity:.4;font-size:.82rem;margin-top:12px">Teams will be determined after the group stage concludes July 2.</p>
+    <div class="match-card ko-card">
+      <div class="match-meta">
+        <span class="match-date">${m.slot || ""}</span>
+        <span class="status-badge badge-proj">PROJ</span>
+      </div>
+      <div class="match-teams">
+        <div class="team ${hWin ? 'ko-win' : 'ko-lose'}">
+          <span class="flag">${flag(m.home)}</span>
+          <span class="name">${m.home}</span>
+        </div>
+        <div class="scoreboard">
+          <span class="score-num" style="color:${hWin ? '#ffd700' : 'rgba(255,255,255,.4)'}">${m.hs}</span>
+          <span class="score-sep">–</span>
+          <span class="score-num" style="color:${aWin ? '#ffd700' : 'rgba(255,255,255,.4)'}">${m.as}</span>
+        </div>
+        <div class="team ${aWin ? 'ko-win' : 'ko-lose'}">
+          <span class="flag">${flag(m.away)}</span>
+          <span class="name">${m.away}</span>
+        </div>
+      </div>
+      <div class="ko-advance">${hWin ? m.home : m.away} advances ▸</div>
+    </div>`;
+}
+
+function renderKnockout(phase) {
+  const r = KO_ROUNDS[phase];
+  if (!r) return "";
+
+  const note = `
+    <div class="ko-note">
+      🔮 <strong>Projected bracket</strong> — seeded from forecast group-stage
+      finishes and FIFA 2026 knockout rules. Portugal given a deep run (group
+      winners, through to the quarterfinals).
+    </div>`;
+
+  const championBanner = phase === "final" ? `
+    <div class="champion-banner">
+      <div class="champ-trophy">🏆</div>
+      <div class="champ-label">PROJECTED CHAMPION</div>
+      <div class="champ-team">${flag(CHAMPION)} <span>${CHAMPION}</span></div>
+    </div>` : "";
+
+  return `
+    <div class="ko-round">
+      <div class="ko-round-head">
+        <span class="ko-round-label">${r.label}</span>
+        <span class="ko-round-date">${r.date}, 2026</span>
+      </div>
+      ${note}
+      <div class="matches-grid">
+        ${r.matches.map(renderKoCard).join("")}
+      </div>
+      ${championBanner}
     </div>`;
 }
 
