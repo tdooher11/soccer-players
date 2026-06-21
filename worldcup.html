@@ -442,6 +442,23 @@
       margin:20px 0 8px;
       font-weight:600;
     }
+    .sched-date-head{
+      display:flex;align-items:center;gap:10px;
+      margin:28px 0 10px;
+      font-size:.8rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:1.2px;
+      color:rgba(255,255,255,.55);
+    }
+    .sched-date-head:first-child{margin-top:4px}
+    .sched-date-head::after{
+      content:'';flex:1;height:1px;
+      background:rgba(255,255,255,.08);
+    }
+    .sched-date-head .live-pip{
+      width:7px;height:7px;border-radius:50%;
+      background:#f55;animation:livePulse 2s ease-in-out infinite;
+      flex-shrink:0;
+    }
 
     /* MOBILE */
     @media(max-width:600px){
@@ -464,7 +481,8 @@
 
 <nav class="toolbar">
   <div class="toolbar-row phase-btns" id="phaseTabs">
-    <button class="chip active" data-phase="group">Group Stage</button>
+    <button class="chip active" data-phase="group">Groups</button>
+    <button class="chip" data-phase="schedule">Schedule</button>
     <button class="chip" data-phase="bracket">Bracket</button>
   </div>
   <div class="toolbar-row" id="groupFilterRow">
@@ -815,6 +833,20 @@ function renderStandingsTable(groupId) {
     </table>`;
 }
 
+function renderSchedule() {
+  const byDate = {};
+  [...MATCHES].sort((a,b) => a.id - b.id).forEach(m => {
+    (byDate[m.date] = byDate[m.date] || []).push(m);
+  });
+  const sections = Object.entries(byDate).map(([date, matches]) => {
+    const hasLive = matches.some(m => m.status === 'LIVE');
+    const pip = hasLive ? '<span class="live-pip"></span>' : '';
+    return `<div class="sched-date-head">${pip}${date}</div>
+      <div class="matches-grid">${matches.map(renderMatchCard).join('')}</div>`;
+  }).join('');
+  return `<div>${sections}</div>`;
+}
+
 function renderGroupStage() {
   const groups = activeGroup === "all" ? GROUPS : GROUPS.filter(g => g.id === activeGroup);
   return groups.map(g => {
@@ -1012,6 +1044,8 @@ function render() {
 
   if (activePhase === "group") {
     main.innerHTML = renderGroupStage();
+  } else if (activePhase === "schedule") {
+    main.innerHTML = renderSchedule();
   } else {
     main.innerHTML = renderBracket();
     requestAnimationFrame(() => requestAnimationFrame(drawBracketLines));
