@@ -376,7 +376,7 @@
     }
     .bracket-cols{
       display:flex;
-      min-height:1280px;
+      min-height:720px;
       position:relative;
       gap:0;
       min-width:max-content;
@@ -391,7 +391,8 @@
       width:178px;flex-shrink:0;
       padding:0 6px;
     }
-    .bracket-col.col-final{width:198px}
+    .bracket-col.col-final{width:198px;flex-shrink:0}
+    .bk-final-extras{padding:0 6px 16px;text-align:center}
     .bk-col-head{
       text-align:center;
       padding:4px 0 8px;
@@ -899,31 +900,54 @@ function bkSlotHTML(m, id) {
 }
 
 function renderBracket() {
-  const cols = BK.map(r => {
-    const slots = r.matches.map((m,i) => bkSlotHTML(m,`bk-${r.key}-${i}`)).join('');
-    const extra = r.key === 'final' ? `
+  const LABELS = {r32:'Round of 32',r16:'Round of 16',qf:'Quarterfinals',sf:'Semifinals'};
+  const DATES  = {r32:'Jun 28–Jul 3',r16:'Jul 4–7',qf:'Jul 9–11',sf:'Jul 14–15'};
+
+  function col(key, side, start, count) {
+    const rd = BK.find(b => b.key === key);
+    const slots = rd.matches.slice(start, start + count)
+      .map((m,i) => bkSlotHTML(m, `bk-${key}-${start+i}`)).join('');
+    return `<div class="bracket-col" data-round="${key}" data-side="${side}">
+      <div class="bk-col-head">
+        <div class="bk-col-label">${LABELS[key]}</div>
+        <div class="bk-col-date">${DATES[key]}</div>
+      </div>
+      <div class="bk-matches">${slots}</div>
+    </div>`;
+  }
+
+  const finalM = BK.find(b => b.key === 'final').matches[0];
+  const center = `<div class="bracket-col col-final">
+    <div class="bk-col-head">
+      <div class="bk-col-label">Final</div>
+      <div class="bk-col-date">Jul 19</div>
+    </div>
+    <div class="bk-matches">${bkSlotHTML(finalM,'bk-final-0')}</div>
+    <div class="bk-final-extras">
       <div class="bk-champion">
         <span class="bk-trophy">🏆</span>
         <div class="bk-champ-label">Projected Champion</div>
-        <div class="bk-champ-name">${bkWinner(r.matches[0])}</div>
+        <div class="bk-champ-name">${bkWinner(finalM)}</div>
       </div>
       <div class="bk-3rd-head">3rd Place · Jul 18</div>
-      ${bkSlotHTML(THIRD_PLACE,'bk-3rd')}` : '';
-    return `<div class="bracket-col${r.key==='final'?' col-final':''}" data-round="${r.key}">
-      <div class="bk-col-head">
-        <div class="bk-col-label">${r.label}</div>
-        <div class="bk-col-date">${r.date}</div>
-      </div>
-      <div class="bk-matches" id="bkcol-${r.key}">${slots}${extra}</div>
-    </div>`;
-  }).join('');
+      ${bkSlotHTML(THIRD_PLACE,'bk-3rd')}
+    </div>
+  </div>`;
 
   return `<div class="bracket-outer">
-    <div class="ko-note">🔮 <strong>Projected bracket</strong> — seeded from forecast standings following FIFA 2026 knockout rules. Portugal wins Group E and advances to the quarterfinals.</div>
+    <div class="ko-note">🔮 <strong>Projected bracket</strong> — seeded from forecast standings. Argentina vs Portugal in the quarterfinals (Kansas City, Jul 11).</div>
     <div class="bracket-scroller">
       <div class="bracket-cols" id="bracketCols">
         <svg class="bracket-svg" id="bracketSVG" xmlns="http://www.w3.org/2000/svg"></svg>
-        ${cols}
+        ${col('r32','left',0,8)}
+        ${col('r16','left',0,4)}
+        ${col('qf','left',0,2)}
+        ${col('sf','left',0,1)}
+        ${center}
+        ${col('sf','right',1,1)}
+        ${col('qf','right',2,2)}
+        ${col('r16','right',4,4)}
+        ${col('r32','right',8,8)}
       </div>
     </div>
   </div>`;
@@ -934,35 +958,49 @@ function drawBracketLines() {
   const container = document.getElementById('bracketCols');
   if (!svg || !container) return;
   const cRect = container.getBoundingClientRect();
-  const W = container.offsetWidth, H = container.offsetHeight;
+  const W = container.scrollWidth, H = container.offsetHeight;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('width', W);
-  svg.setAttribute('height', H);
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
 
-  const roundKeys = ['r32','r16','qf','sf'];
-  const nextKey   = {r32:'r16',r16:'qf',qf:'sf',sf:'final'};
-  const counts    = {r32:16,r16:8,qf:4,sf:2};
+  const CLR = 'rgba(255,215,0,0.22)';
+  let d = '';
 
-  let paths = '';
-  roundKeys.forEach(rnd => {
-    const n = counts[rnd];
-    for (let i = 0; i < n; i += 2) {
-      const sA = document.getElementById(`bk-${rnd}-${i}`);
-      const sB = document.getElementById(`bk-${rnd}-${i+1}`);
-      const sN = document.getElementById(`bk-${nextKey[rnd]}-${Math.floor(i/2)}`);
-      if (!sA || !sB || !sN) continue;
-      const rA = sA.getBoundingClientRect(), rB = sB.getBoundingClientRect(), rN = sN.getBoundingClientRect();
-      const x1  = rA.right  - cRect.left;
-      const yA  = (rA.top + rA.bottom) / 2 - cRect.top;
-      const yB  = (rB.top + rB.bottom) / 2 - cRect.top;
-      const yM  = (yA + yB) / 2;
-      const x2  = rN.left   - cRect.left;
-      const xM  = (x1 + x2) / 2;
-      const yN  = (rN.top + rN.bottom) / 2 - cRect.top;
-      paths += `<path d="M${x1},${yA} L${xM},${yA} L${xM},${yB} L${x1},${yB} M${xM},${yM} L${x2},${yN}" fill="none" stroke="rgba(255,215,0,0.22)" stroke-width="1.5" stroke-linejoin="round"/>`;
-    }
-  });
-  svg.innerHTML = paths;
+  function midY(el) { const r = el.getBoundingClientRect(); return (r.top+r.bottom)/2 - cRect.top; }
+  function rx(el)   { return el.getBoundingClientRect().right - cRect.left; }
+  function lx(el)   { return el.getBoundingClientRect().left  - cRect.left; }
+
+  // Draw a bracketing pair: two source slots connecting to one target slot
+  // goLeft=false: sources are to the LEFT, connector lines go RIGHT
+  // goLeft=true:  sources are to the RIGHT, connector lines go LEFT
+  function pair(idA, idB, idN, goLeft) {
+    const sA = document.getElementById(idA), sB = document.getElementById(idB), sN = document.getElementById(idN);
+    if (!sA || !sB || !sN) return;
+    const yA = midY(sA), yB = midY(sB), yM = (yA+yB)/2, yN = midY(sN);
+    const x1 = goLeft ? lx(sA) : rx(sA);
+    const x2 = goLeft ? rx(sN) : lx(sN);
+    const xM = (x1+x2)/2;
+    d += `M${x1},${yA}L${xM},${yA}L${xM},${yB}L${x1},${yB}M${xM},${yM}L${x2},${yN}`;
+  }
+
+  function line(idA, idN, fromRight, toLeft) {
+    const sA = document.getElementById(idA), sN = document.getElementById(idN);
+    if (!sA || !sN) return;
+    d += `M${fromRight?rx(sA):lx(sA)},${midY(sA)}L${toLeft?lx(sN):rx(sN)},${midY(sN)}`;
+  }
+
+  // Left half (lines go rightward toward center)
+  for (let i=0; i<8; i+=2) pair(`bk-r32-${i}`,`bk-r32-${i+1}`,`bk-r16-${i/2}`,false);
+  for (let i=0; i<4; i+=2) pair(`bk-r16-${i}`,`bk-r16-${i+1}`,`bk-qf-${i/2}`,false);
+  pair('bk-qf-0','bk-qf-1','bk-sf-0',false);
+  line('bk-sf-0','bk-final-0',true,true);   // SF-L right edge → Final left edge
+
+  // Right half (lines go leftward toward center)
+  for (let i=8; i<16; i+=2) pair(`bk-r32-${i}`,`bk-r32-${i+1}`,`bk-r16-${(i-8)/2+4}`,true);
+  for (let i=4; i<8;  i+=2) pair(`bk-r16-${i}`,`bk-r16-${i+1}`,`bk-qf-${(i-4)/2+2}`,true);
+  pair('bk-qf-2','bk-qf-3','bk-sf-1',true);
+  line('bk-sf-1','bk-final-0',false,false);  // SF-R left edge → Final right edge
+
+  svg.innerHTML = `<path d="${d}" fill="none" stroke="${CLR}" stroke-width="1.5" stroke-linejoin="round"/>`;
 }
 
 function renderKnockout() { return renderBracket(); }
