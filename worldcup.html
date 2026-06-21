@@ -195,7 +195,7 @@
       color:#6cf;
     }
     .standings-table .team-name{display:flex;align-items:center;gap:6px}
-    .standings-table .flag{font-size:1rem}
+    .standings-table .flag-img{width:22px;height:auto;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
     .num-col{text-align:center;width:36px;font-weight:600}
     .gd-col{text-align:center;width:44px}
 
@@ -269,7 +269,7 @@
       flex:1;
       min-width:0;
     }
-    .team .flag{font-size:2rem;line-height:1}
+    .team .flag-img{width:44px;height:auto;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.4)}
     .team .name{
       font-size:.8rem;
       font-weight:700;
@@ -427,22 +427,22 @@
    ===================================================================== */
 
 const FLAGS = {
-  "USA":"🇺🇸","Mexico":"🇲🇽","Canada":"🇨🇦","Panama":"🇵🇦","Jamaica":"🇯🇲",
-  "Honduras":"🇭🇳","Costa Rica":"🇨🇷","El Salvador":"🇸🇻","Haiti":"🇭🇹",
-  "Bolivia":"🇧🇴","Ecuador":"🇪🇨","Venezuela":"🇻🇪","Peru":"🇵🇪",
-  "Paraguay":"🇵🇾","Chile":"🇨🇱","Colombia":"🇨🇴","Uruguay":"🇺🇾",
-  "Argentina":"🇦🇷","Brazil":"🇧🇷",
-  "Morocco":"🇲🇦","Senegal":"🇸🇳","Nigeria":"🇳🇬","Ghana":"🇬🇭",
-  "Ivory Coast":"🇨🇮","Cameroon":"🇨🇲","Egypt":"🇪🇬","Algeria":"🇩🇿",
-  "South Africa":"🇿🇦","DR Congo":"🇨🇩","Tunisia":"🇹🇳","Mali":"🇲🇱",
-  "Spain":"🇪🇸","France":"🇫🇷","Germany":"🇩🇪","Portugal":"🇵🇹",
-  "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Netherlands":"🇳🇱","Belgium":"🇧🇪","Croatia":"🇭🇷",
-  "Italy":"🇮🇹","Switzerland":"🇨🇭","Denmark":"🇩🇰","Austria":"🇦🇹",
-  "Poland":"🇵🇱","Ukraine":"🇺🇦","Serbia":"🇷🇸","Turkey":"🇹🇷",
-  "Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Slovakia":"🇸🇰","Slovenia":"🇸🇮","Albania":"🇦🇱",
-  "Japan":"🇯🇵","South Korea":"🇰🇷","Australia":"🇦🇺","Iran":"🇮🇷",
-  "Saudi Arabia":"🇸🇦","Uzbekistan":"🇺🇿","Indonesia":"🇮🇩","Jordan":"🇯🇴",
-  "New Zealand":"🇳🇿"
+  "USA":"us","Mexico":"mx","Canada":"ca","Panama":"pa","Jamaica":"jm",
+  "Honduras":"hn","Costa Rica":"cr","El Salvador":"sv","Haiti":"ht",
+  "Bolivia":"bo","Ecuador":"ec","Venezuela":"ve","Peru":"pe",
+  "Paraguay":"py","Chile":"cl","Colombia":"co","Uruguay":"uy",
+  "Argentina":"ar","Brazil":"br",
+  "Morocco":"ma","Senegal":"sn","Nigeria":"ng","Ghana":"gh",
+  "Ivory Coast":"ci","Cameroon":"cm","Egypt":"eg","Algeria":"dz",
+  "South Africa":"za","DR Congo":"cd","Tunisia":"tn","Mali":"ml",
+  "Spain":"es","France":"fr","Germany":"de","Portugal":"pt",
+  "England":"gb-eng","Netherlands":"nl","Belgium":"be","Croatia":"hr",
+  "Italy":"it","Switzerland":"ch","Denmark":"dk","Austria":"at",
+  "Poland":"pl","Ukraine":"ua","Serbia":"rs","Turkey":"tr",
+  "Scotland":"gb-sct","Slovakia":"sk","Slovenia":"si","Albania":"al",
+  "Japan":"jp","South Korea":"kr","Australia":"au","Iran":"ir",
+  "Saudi Arabia":"sa","Uzbekistan":"uz","Indonesia":"id","Jordan":"jo",
+  "New Zealand":"nz"
 };
 
 const GROUPS = [
@@ -651,7 +651,9 @@ let activePhase = "group";
 let activeGroup = "all";
 
 function flag(team) {
-  return FLAGS[team] || "🏳️";
+  const code = FLAGS[team];
+  if (!code) return `<span style="font-size:1.6rem">🏳️</span>`;
+  return `<img class="flag-img" src="https://flagcdn.com/w40/${code}.png" alt="${team}" loading="lazy" />`;
 }
 
 function renderScorers(scorers, team) {
