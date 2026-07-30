@@ -1,21 +1,23 @@
+/* =========================================================
+   PLAYER DATA
+   honors: { wc: World Cups, cl: Champions Leagues,
+             bo: Ballon d'Ors, co: Euro/Copa (continental) }
+   ========================================================= */
 const PLAYERS = [
   {
     name: "Cristiano Ronaldo",
-    country: "Portugal",
-    countryCode: "PT",
-    currentClub: "Al-Nassr",
-    jerseyNumber: 7,
-    rarity: "diamond",
-    clubs: ["Sporting", "Manchester United", "Real Madrid", "Juventus", "Al-Nassr"],
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Al-Nassr", jerseyNumber: 7, rarity: "diamond",
+    clubs: ["Sporting CP","Manchester United","Real Madrid","Juventus","Al-Nassr"],
     careerTimeline: [
-      { club: "Sporting", years: "2002-2003" },
+      { club: "Sporting CP", years: "2002-2003" },
       { club: "Manchester United", years: "2003-2009" },
       { club: "Real Madrid", years: "2009-2018" },
       { club: "Juventus", years: "2018-2021" },
       { club: "Manchester United", years: "2021-2022" },
       { club: "Al-Nassr", years: "2023-" }
     ],
-    awards: ["Euro 2016", "Champions League x5", "Ballon d'Or x5"],
+    honors: { wc: 0, cl: 5, bo: 5, co: 1 },
     stats: { pace: 85, shooting: 93, passing: 82, dribbling: 86, defending: 35, physical: 78 },
     funFact: "He has his own museum in Madeira, Portugal called 'Museu CR7' and sleeps in 5 short 90-minute naps a day!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/44/Cristiano_Ronaldo_0876.jpg",
@@ -23,18 +25,15 @@ const PLAYERS = [
   },
   {
     name: "Lionel Messi",
-    country: "Argentina",
-    countryCode: "AR",
-    currentClub: "Inter Miami",
-    jerseyNumber: 10,
-    rarity: "diamond",
-    clubs: ["Barcelona", "PSG", "Inter Miami"],
+    country: "Argentina", countryCode: "AR",
+    currentClub: "Inter Miami", jerseyNumber: 10, rarity: "diamond",
+    clubs: ["Barcelona","PSG","Inter Miami"],
     careerTimeline: [
       { club: "Barcelona", years: "2004-2021" },
       { club: "PSG", years: "2021-2023" },
       { club: "Inter Miami", years: "2023-" }
     ],
-    awards: ["World Cup 2022", "Copa América x2", "Ballon d'Or x8"],
+    honors: { wc: 1, cl: 4, bo: 8, co: 2 },
     stats: { pace: 81, shooting: 90, passing: 91, dribbling: 95, defending: 34, physical: 65 },
     funFact: "His first contract with Barcelona was signed on a paper napkin at a restaurant!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Messi_2025.jpg",
@@ -42,18 +41,15 @@ const PLAYERS = [
   },
   {
     name: "Kylian Mbappé",
-    country: "France",
-    countryCode: "FR",
-    currentClub: "Real Madrid",
-    jerseyNumber: 9,
-    rarity: "gold",
-    clubs: ["Monaco", "PSG", "Real Madrid"],
+    country: "France", countryCode: "FR",
+    currentClub: "Real Madrid", jerseyNumber: 9, rarity: "gold",
+    clubs: ["Monaco","PSG","Real Madrid"],
     careerTimeline: [
       { club: "Monaco", years: "2015-2017" },
       { club: "PSG", years: "2017-2024" },
       { club: "Real Madrid", years: "2024-" }
     ],
-    awards: ["World Cup 2018", "Ligue 1 x6", "Ligue 1 Golden Boot x5"],
+    honors: { wc: 1, cl: 0, bo: 0, co: 0 },
     stats: { pace: 97, shooting: 89, passing: 80, dribbling: 92, defending: 36, physical: 78 },
     funFact: "He donated his entire 2018 World Cup bonus (about $500,000) to a children's charity!",
     imageUrl: "https://assets.goal.com/images/v3/blt5bc39fb9111ed00e/BeFunky-collage_-_2024-02-20T143853.984.jpg?auto=webp&format=pjpg&width=1920&quality=60",
@@ -61,19 +57,16 @@ const PLAYERS = [
   },
   {
     name: "Erling Haaland",
-    country: "Norway",
-    countryCode: "NO",
-    currentClub: "Manchester City",
-    jerseyNumber: 9,
-    rarity: "gold",
-    clubs: ["Molde", "RB Salzburg", "Borussia Dortmund", "Manchester City"],
+    country: "Norway", countryCode: "NO",
+    currentClub: "Manchester City", jerseyNumber: 9, rarity: "gold",
+    clubs: ["Molde","RB Salzburg","Borussia Dortmund","Manchester City"],
     careerTimeline: [
       { club: "Molde", years: "2017-2019" },
       { club: "RB Salzburg", years: "2019-2020" },
       { club: "Borussia Dortmund", years: "2020-2022" },
       { club: "Manchester City", years: "2022-" }
     ],
-    awards: ["Champions League", "Premier League x2", "Premier League Golden Boot"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 89, shooting: 94, passing: 65, dribbling: 80, defending: 45, physical: 91 },
     funFact: "He meditates before every match and his dad Alfie also played in the Premier League for Manchester City!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/71/Erling_Haaland_June_2025.jpg",
@@ -81,18 +74,15 @@ const PLAYERS = [
   },
   {
     name: "Jude Bellingham",
-    country: "England",
-    countryCode: "GB",
-    currentClub: "Real Madrid",
-    jerseyNumber: 5,
-    rarity: "gold",
-    clubs: ["Birmingham City", "Borussia Dortmund", "Real Madrid"],
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Real Madrid", jerseyNumber: 5, rarity: "gold",
+    clubs: ["Birmingham City","Borussia Dortmund","Real Madrid"],
     careerTimeline: [
       { club: "Birmingham City", years: "2019-2020" },
       { club: "Borussia Dortmund", years: "2020-2023" },
       { club: "Real Madrid", years: "2023-" }
     ],
-    awards: ["Champions League", "La Liga", "Kopa Trophy"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 82, shooting: 82, passing: 84, dribbling: 86, defending: 72, physical: 83 },
     funFact: "Birmingham City retired his #22 shirt when he was only 17 years old — the youngest player ever to get that honor!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/88/Jude_Bellingham_Laureus_2024_%28cropped2%29.jpg",
@@ -100,12 +90,9 @@ const PLAYERS = [
   },
   {
     name: "Mohamed Salah",
-    country: "Egypt",
-    countryCode: "EG",
-    currentClub: "Liverpool",
-    jerseyNumber: 11,
-    rarity: "gold",
-    clubs: ["Basel", "Chelsea", "Fiorentina", "Roma", "Liverpool"],
+    country: "Egypt", countryCode: "EG",
+    currentClub: "Liverpool", jerseyNumber: 11, rarity: "gold",
+    clubs: ["Basel","Chelsea","Fiorentina","Roma","Liverpool"],
     careerTimeline: [
       { club: "Basel", years: "2012-2014" },
       { club: "Chelsea", years: "2014-2015" },
@@ -113,7 +100,7 @@ const PLAYERS = [
       { club: "Roma", years: "2015-2017" },
       { club: "Liverpool", years: "2017-" }
     ],
-    awards: ["Champions League", "Premier League", "African Player of the Year x3"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 90, shooting: 87, passing: 81, dribbling: 90, defending: 45, physical: 75 },
     funFact: "He's known as the 'Egyptian King' and crime rates in Liverpool reportedly dropped when he signed!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/03/Mohamed_Salah.JPG",
@@ -121,36 +108,29 @@ const PLAYERS = [
   },
   {
     name: "Lamine Yamal",
-    country: "Spain",
-    countryCode: "ES",
-    currentClub: "Barcelona",
-    jerseyNumber: 19,
-    rarity: "gold",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Barcelona", jerseyNumber: 19, rarity: "gold",
     clubs: ["Barcelona"],
-    careerTimeline: [
-      { club: "Barcelona", years: "2023-" }
-    ],
-    awards: ["Euro 2024", "La Liga", "Golden Boy 2024"],
+    careerTimeline: [ { club: "Barcelona", years: "2023-" } ],
+    honors: { wc: 0, cl: 0, bo: 0, co: 1 },
     stats: { pace: 91, shooting: 76, passing: 83, dribbling: 90, defending: 30, physical: 58 },
     funFact: "He became the youngest ever goalscorer at a European Championship at just 16 years and 362 days old!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/df/Lamine_Yamal_in_2025_%28cropped2%29.jpg",
     fotmobUrl: "https://www.fotmob.com/players/1467236/lamine-yamal"
   },
   {
-    name: "Neymar Jr.",
-    country: "Brazil",
-    countryCode: "BR",
-    currentClub: "Al-Hilal",
-    jerseyNumber: 10,
-    rarity: "gold",
-    clubs: ["Santos", "Barcelona", "PSG", "Al-Hilal"],
+    name: "Neymar",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Santos", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Santos","Barcelona","PSG","Al-Hilal","Santos"],
     careerTimeline: [
       { club: "Santos", years: "2009-2013" },
       { club: "Barcelona", years: "2013-2017" },
       { club: "PSG", years: "2017-2023" },
-      { club: "Al-Hilal", years: "2023-" }
+      { club: "Al-Hilal", years: "2023-2025" },
+      { club: "Santos", years: "2025-" }
     ],
-    awards: ["Champions League 2015", "Copa Libertadores", "Olympic Gold 2016"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 1 },
     stats: { pace: 86, shooting: 83, passing: 86, dribbling: 94, defending: 30, physical: 61 },
     funFact: "He was named after his father, who was also a professional footballer, and he can solve a Rubik's cube!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Neymar_2018.jpg",
@@ -158,17 +138,14 @@ const PLAYERS = [
   },
   {
     name: "Vinícius Júnior",
-    country: "Brazil",
-    countryCode: "BR",
-    currentClub: "Real Madrid",
-    jerseyNumber: 7,
-    rarity: "gold",
-    clubs: ["Flamengo", "Real Madrid"],
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Real Madrid", jerseyNumber: 7, rarity: "gold",
+    clubs: ["Flamengo","Real Madrid"],
     careerTimeline: [
       { club: "Flamengo", years: "2017-2018" },
       { club: "Real Madrid", years: "2018-" }
     ],
-    awards: ["Champions League x2", "La Liga x2", "The Best FIFA Men's Player"],
+    honors: { wc: 0, cl: 2, bo: 0, co: 0 },
     stats: { pace: 95, shooting: 82, passing: 78, dribbling: 93, defending: 29, physical: 68 },
     funFact: "Real Madrid signed him when he was just 16 for €45 million before he'd even played a full professional season!",
     imageUrl: "https://i.guim.co.uk/img/media/ab52bf117d8210fa2d226175c898f5bf29011176/0_159_4795_2878/master/4795.jpg?width=620&dpr=2&s=none&crop=none",
@@ -176,17 +153,14 @@ const PLAYERS = [
   },
   {
     name: "Harry Kane",
-    country: "England",
-    countryCode: "GB",
-    currentClub: "Bayern Munich",
-    jerseyNumber: 9,
-    rarity: "gold",
-    clubs: ["Tottenham Hotspur", "Bayern Munich"],
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Bayern Munich", jerseyNumber: 9, rarity: "gold",
+    clubs: ["Tottenham Hotspur","Bayern Munich"],
     careerTimeline: [
       { club: "Tottenham Hotspur", years: "2011-2023" },
       { club: "Bayern Munich", years: "2023-" }
     ],
-    awards: ["World Cup Golden Boot 2018", "Bundesliga Golden Boot", "Premier League Golden Boot x3"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 70, shooting: 93, passing: 85, dribbling: 82, defending: 47, physical: 83 },
     funFact: "He was released by Arsenal's youth academy as a kid and went on to become Tottenham's all-time top scorer!",
     imageUrl: "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/8d0d/live/c1b67b10-0066-11ee-9edb-25f8156c1ac0.jpg",
@@ -194,17 +168,14 @@ const PLAYERS = [
   },
   {
     name: "Pelé",
-    country: "Brazil",
-    countryCode: "BR",
-    currentClub: "Retired",
-    jerseyNumber: 10,
-    rarity: "diamond",
-    clubs: ["Santos", "New York Cosmos"],
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 10, rarity: "diamond",
+    clubs: ["Santos","New York Cosmos"],
     careerTimeline: [
       { club: "Santos", years: "1956-1974" },
       { club: "New York Cosmos", years: "1975-1977" }
     ],
-    awards: ["World Cup 1958", "World Cup 1962", "World Cup 1970", "FIFA Player of the Century"],
+    honors: { wc: 3, cl: 0, bo: 0, co: 0 },
     stats: { pace: 90, shooting: 96, passing: 85, dribbling: 96, defending: 38, physical: 80 },
     funFact: "He scored over 1,000 career goals and once caused a ceasefire in a civil war in Nigeria so both sides could watch him play!",
     imageUrl: "https://static.dw.com/image/61527609_1004.webp",
@@ -212,19 +183,16 @@ const PLAYERS = [
   },
   {
     name: "Ronaldinho",
-    country: "Brazil",
-    countryCode: "BR",
-    currentClub: "Retired",
-    jerseyNumber: 10,
-    rarity: "diamond",
-    clubs: ["Grêmio", "PSG", "Barcelona", "AC Milan"],
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 10, rarity: "diamond",
+    clubs: ["Grêmio","PSG","Barcelona","AC Milan","Flamengo","Atlético Mineiro","Querétaro","Fluminense"],
     careerTimeline: [
       { club: "Grêmio", years: "1998-2001" },
       { club: "PSG", years: "2001-2003" },
       { club: "Barcelona", years: "2003-2008" },
       { club: "AC Milan", years: "2008-2011" }
     ],
-    awards: ["Ballon d'Or 2005", "World Cup 2002", "Champions League 2006"],
+    honors: { wc: 1, cl: 1, bo: 1, co: 1 },
     stats: { pace: 88, shooting: 82, passing: 90, dribbling: 97, defending: 25, physical: 70 },
     funFact: "He made the entire Santiago Bernabéu (Real Madrid's stadium) give him a standing ovation — as a Barcelona player!",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Ronaldinho_in_2019.jpg?width=800",
@@ -232,12 +200,9 @@ const PLAYERS = [
   },
   {
     name: "David Beckham",
-    country: "England",
-    countryCode: "GB",
-    currentClub: "Retired",
-    jerseyNumber: 7,
-    rarity: "gold",
-    clubs: ["Manchester United", "Real Madrid", "LA Galaxy", "AC Milan", "PSG"],
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Retired", jerseyNumber: 7, rarity: "gold",
+    clubs: ["Manchester United","Real Madrid","LA Galaxy","AC Milan","PSG"],
     careerTimeline: [
       { club: "Manchester United", years: "1992-2003" },
       { club: "Real Madrid", years: "2003-2007" },
@@ -245,7 +210,7 @@ const PLAYERS = [
       { club: "AC Milan", years: "2009-2010 (loan)" },
       { club: "PSG", years: "2013" }
     ],
-    awards: ["Champions League 1999", "La Liga 2007", "MLS Cup 2011 & 2012"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 72, shooting: 80, passing: 94, dribbling: 80, defending: 62, physical: 75 },
     funFact: "He can bend a ball so well they made a movie about it — 'Bend It Like Beckham'!",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/David%20Beckham%20Victoria%20Beckham%202019.jpg?width=800",
@@ -253,19 +218,16 @@ const PLAYERS = [
   },
   {
     name: "Zinedine Zidane",
-    country: "France",
-    countryCode: "FR",
-    currentClub: "Retired",
-    jerseyNumber: 5,
-    rarity: "diamond",
-    clubs: ["Cannes", "Bordeaux", "Juventus", "Real Madrid"],
+    country: "France", countryCode: "FR",
+    currentClub: "Retired", jerseyNumber: 5, rarity: "diamond",
+    clubs: ["Cannes","Bordeaux","Juventus","Real Madrid"],
     careerTimeline: [
       { club: "Cannes", years: "1989-1992" },
       { club: "Bordeaux", years: "1992-1996" },
       { club: "Juventus", years: "1996-2001" },
       { club: "Real Madrid", years: "2001-2006" }
     ],
-    awards: ["Ballon d'Or 1998", "World Cup 1998", "Champions League 2002"],
+    honors: { wc: 1, cl: 1, bo: 1, co: 1 },
     stats: { pace: 76, shooting: 84, passing: 92, dribbling: 95, defending: 40, physical: 78 },
     funFact: "His volley goal in the 2002 Champions League final is considered one of the greatest goals ever scored!",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Zinedine_Zidane.JPG?width=800",
@@ -273,12 +235,9 @@ const PLAYERS = [
   },
   {
     name: "Thierry Henry",
-    country: "France",
-    countryCode: "FR",
-    currentClub: "Retired",
-    jerseyNumber: 14,
-    rarity: "gold",
-    clubs: ["Monaco", "Juventus", "Arsenal", "Barcelona", "New York Red Bulls"],
+    country: "France", countryCode: "FR",
+    currentClub: "Retired", jerseyNumber: 14, rarity: "gold",
+    clubs: ["Monaco","Juventus","Arsenal","Barcelona","New York Red Bulls"],
     careerTimeline: [
       { club: "Monaco", years: "1994-1999" },
       { club: "Juventus", years: "1999" },
@@ -286,7 +245,7 @@ const PLAYERS = [
       { club: "Barcelona", years: "2007-2010" },
       { club: "New York Red Bulls", years: "2010-2014" }
     ],
-    awards: ["Premier League x2", "Champions League 2009", "World Cup 1998", "Euro 2000"],
+    honors: { wc: 1, cl: 1, bo: 0, co: 1 },
     stats: { pace: 93, shooting: 89, passing: 80, dribbling: 90, defending: 32, physical: 76 },
     funFact: "He's Arsenal's all-time top scorer with 228 goals and has a statue outside the Emirates Stadium!",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Thierry_Henry_portrait.jpg?width=800",
@@ -294,12 +253,9 @@ const PLAYERS = [
   },
   {
     name: "Zlatan Ibrahimović",
-    country: "Sweden",
-    countryCode: "SE",
-    currentClub: "Retired",
-    jerseyNumber: 11,
-    rarity: "diamond",
-    clubs: ["Malmö", "Ajax", "Juventus", "Inter Milan", "Barcelona", "AC Milan", "PSG", "Manchester United", "LA Galaxy", "AC Milan"],
+    country: "Sweden", countryCode: "SE",
+    currentClub: "Retired", jerseyNumber: 11, rarity: "diamond",
+    clubs: ["Malmö","Ajax","Juventus","Inter Milan","Barcelona","AC Milan","PSG","Manchester United","LA Galaxy","AC Milan"],
     careerTimeline: [
       { club: "Malmö", years: "1999-2001" },
       { club: "Ajax", years: "2001-2004" },
@@ -312,7 +268,7 @@ const PLAYERS = [
       { club: "LA Galaxy", years: "2018-2019" },
       { club: "AC Milan", years: "2020-2023" }
     ],
-    awards: ["Ligue 1 x4", "Serie A x4", "Guldbollen x12", "FIFA Puskás Award"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 78, shooting: 90, passing: 81, dribbling: 88, defending: 30, physical: 86 },
     funFact: "He once said 'I didn't injure myself, I am Zlatan!' and has a black belt in taekwondo!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Zlatan_Ibrahimovi%C4%87_Euro_2012_vs_England.JPG",
@@ -320,12 +276,9 @@ const PLAYERS = [
   },
   {
     name: "Diego Maradona",
-    country: "Argentina",
-    countryCode: "AR",
-    currentClub: "Retired",
-    jerseyNumber: 10,
-    rarity: "diamond",
-    clubs: ["Argentinos Juniors", "Boca Juniors", "Barcelona", "Napoli", "Sevilla", "Newell's Old Boys"],
+    country: "Argentina", countryCode: "AR",
+    currentClub: "Retired", jerseyNumber: 10, rarity: "diamond",
+    clubs: ["Argentinos Juniors","Boca Juniors","Barcelona","Napoli","Sevilla","Newell's Old Boys","Boca Juniors"],
     careerTimeline: [
       { club: "Argentinos Juniors", years: "1976-1981" },
       { club: "Boca Juniors", years: "1981-1982" },
@@ -335,7 +288,7 @@ const PLAYERS = [
       { club: "Newell's Old Boys", years: "1993-1994" },
       { club: "Boca Juniors", years: "1995-1997" }
     ],
-    awards: ["World Cup 1986", "Serie A x2", "Golden Ball 1986", "FIFA Player of the Century"],
+    honors: { wc: 1, cl: 0, bo: 0, co: 0 },
     stats: { pace: 88, shooting: 90, passing: 88, dribbling: 97, defending: 28, physical: 72 },
     funFact: "His 'Hand of God' and 'Goal of the Century' both happened in the same World Cup match against England in 1986!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Maradona-Mundial_86_con_la_copa.JPG",
@@ -343,17 +296,14 @@ const PLAYERS = [
   },
   {
     name: "Cole Palmer",
-    country: "England",
-    countryCode: "GB",
-    currentClub: "Chelsea",
-    jerseyNumber: 20,
-    rarity: "gold",
-    clubs: ["Manchester City", "Chelsea"],
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Chelsea", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Manchester City","Chelsea"],
     careerTimeline: [
       { club: "Manchester City", years: "2021-2023" },
       { club: "Chelsea", years: "2023-" }
     ],
-    awards: ["Premier League", "Champions League", "PFA Young Player of the Year 2024"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 79, shooting: 88, passing: 84, dribbling: 89, defending: 34, physical: 65 },
     funFact: "He scored 4 goals in a single half against Everton in 2024 — the first Chelsea player ever to do that in the Premier League!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Cole_Palmer_2025_FIFA_Club_World_Cup_Final.jpg",
@@ -361,40 +311,34 @@ const PLAYERS = [
   },
   {
     name: "Ousmane Dembélé",
-    country: "France",
-    countryCode: "FR",
-    currentClub: "PSG",
-    jerseyNumber: 10,
-    rarity: "gold",
-    clubs: ["Rennes", "Borussia Dortmund", "Barcelona", "PSG"],
+    country: "France", countryCode: "FR",
+    currentClub: "PSG", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Rennes","Borussia Dortmund","Barcelona","PSG"],
     careerTimeline: [
       { club: "Rennes", years: "2015-2016" },
       { club: "Borussia Dortmund", years: "2016-2017" },
       { club: "Barcelona", years: "2017-2023" },
       { club: "PSG", years: "2023-" }
     ],
-    awards: ["La Liga", "Copa del Rey x3", "Ligue 1"],
-    stats: { pace: 96, shooting: 80, passing: 78, dribbling: 92, defending: 27, physical: 68 },
-    funFact: "He's one of the fastest players in world football and leads Europe's top leagues in successful dribbles almost every season!",
+    honors: { wc: 1, cl: 1, bo: 1, co: 0 },
+    stats: { pace: 96, shooting: 82, passing: 80, dribbling: 92, defending: 30, physical: 68 },
+    funFact: "He won the 2025 Ballon d'Or after leading PSG to their first-ever Champions League title!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/95/Ousmane_Demb%C3%A9l%C3%A9_2018_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/players/718993/ousmane-dembele"
   },
   {
     name: "Raphinha",
-    country: "Brazil",
-    countryCode: "BR",
-    currentClub: "Barcelona",
-    jerseyNumber: 11,
-    rarity: "gold",
-    clubs: ["Vitória", "Sporting CP", "Rennes", "Leeds United", "Barcelona"],
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Barcelona", jerseyNumber: 11, rarity: "gold",
+    clubs: ["Vitória de Guimarães","Sporting CP","Rennes","Leeds United","Barcelona"],
     careerTimeline: [
-      { club: "Vitória", years: "2015-2016" },
+      { club: "Vitória de Guimarães", years: "2015-2016" },
       { club: "Sporting CP", years: "2016-2018" },
       { club: "Rennes", years: "2018-2020" },
       { club: "Leeds United", years: "2020-2022" },
       { club: "Barcelona", years: "2022-" }
     ],
-    awards: ["La Liga", "Copa del Rey", "Copa América 2024"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 91, shooting: 83, passing: 80, dribbling: 89, defending: 33, physical: 70 },
     funFact: "He went from being transfer-listed by Barcelona to their top scorer with 26 goals in the 2024-25 season — one of the greatest turnarounds in club history!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Raphael_Dias_Belloli_2023.jpg",
@@ -402,16 +346,11 @@ const PLAYERS = [
   },
   {
     name: "Bukayo Saka",
-    country: "England",
-    countryCode: "GB",
-    currentClub: "Arsenal",
-    jerseyNumber: 7,
-    rarity: "gold",
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Arsenal", jerseyNumber: 7, rarity: "gold",
     clubs: ["Arsenal"],
-    careerTimeline: [
-      { club: "Arsenal", years: "2018-" }
-    ],
-    awards: ["PFA Young Player of the Year x2", "Premier League Player of the Month x3", "FA Community Shield"],
+    careerTimeline: [ { club: "Arsenal", years: "2018-" } ],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 87, shooting: 83, passing: 83, dribbling: 88, defending: 56, physical: 70 },
     funFact: "He missed the decisive penalty in the Euro 2020 final at just 19 years old, then bounced back to become one of the best wingers in Europe — a true story of resilience!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/1_bukayo_saka_arsenal_2025_%28cropped%29.jpg",
@@ -419,17 +358,14 @@ const PLAYERS = [
   },
   {
     name: "Florian Wirtz",
-    country: "Germany",
-    countryCode: "DE",
-    currentClub: "Bayern Munich",
-    jerseyNumber: 10,
-    rarity: "gold",
-    clubs: ["Bayer Leverkusen", "Bayern Munich"],
+    country: "Germany", countryCode: "DE",
+    currentClub: "Liverpool", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Bayer Leverkusen","Liverpool"],
     careerTimeline: [
       { club: "Bayer Leverkusen", years: "2020-2025" },
-      { club: "Bayern Munich", years: "2025-" }
+      { club: "Liverpool", years: "2025-" }
     ],
-    awards: ["Bundesliga 2024", "DFB-Pokal 2024", "German Player of the Year 2024"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 81, shooting: 84, passing: 87, dribbling: 90, defending: 40, physical: 69 },
     funFact: "He was the heartbeat of the historic 2023-24 Bayer Leverkusen side that went the entire Bundesliga season unbeaten — a feat no German team had ever achieved before!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Florian_Wirtz%2C_2022-07-31%2C_Saisoner%C3%B6ffnung_Bayer_04%2C_Leverkusen_%281%29_%28cropped%29.jpg",
@@ -437,17 +373,14 @@ const PLAYERS = [
   },
   {
     name: "Jack Jewsbury",
-    country: "USA",
-    countryCode: "US",
-    currentClub: "Retired",
-    jerseyNumber: 13,
-    rarity: "gold",
-    clubs: ["Kansas City Wizards", "Portland Timbers"],
+    country: "United States", countryCode: "US",
+    currentClub: "Retired", jerseyNumber: 13, rarity: "gold",
+    clubs: ["Kansas City Wizards","Portland Timbers"],
     careerTimeline: [
       { club: "Kansas City Wizards", years: "2003-2010" },
       { club: "Portland Timbers", years: "2011-2015" }
     ],
-    awards: ["MLS Cup 2015", "Timbers Captain", "MLS All-Star"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 68, shooting: 70, passing: 78, dribbling: 72, defending: 76, physical: 80 },
     funFact: "He was the first-ever captain of the Portland Timbers in MLS and lifted the 2015 MLS Cup trophy for the city!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Jewsbury_%2830261107612%29.jpg",
@@ -455,17 +388,14 @@ const PLAYERS = [
   },
   {
     name: "Diego Valeri",
-    country: "Argentina",
-    countryCode: "AR",
-    currentClub: "Retired",
-    jerseyNumber: 8,
-    rarity: "gold",
-    clubs: ["Lanús", "Porto Alegre", "Portland Timbers"],
+    country: "Argentina", countryCode: "AR",
+    currentClub: "Retired", jerseyNumber: 8, rarity: "gold",
+    clubs: ["Lanús","Portland Timbers"],
     careerTimeline: [
       { club: "Lanús", years: "2003-2013" },
       { club: "Portland Timbers", years: "2013-2022" }
     ],
-    awards: ["MLS Cup 2015", "MLS MVP 2017", "MLS All-Star x4", "Timbers All-Time Top Scorer"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 72, shooting: 83, passing: 88, dribbling: 86, defending: 35, physical: 62 },
     funFact: "He scored the fastest goal in MLS Cup history at just 27 seconds and is the Timbers' all-time leading scorer with 86 goals!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Diego_Valeri_Portland_Timbers_vs_Colorado_Rapids_2016-10-16_%2830261185652%29.jpg",
@@ -473,28 +403,667 @@ const PLAYERS = [
   },
   {
     name: "Darlington Nagbe",
-    country: "USA",
-    countryCode: "US",
-    currentClub: "Columbus Crew",
-    jerseyNumber: 6,
-    rarity: "gold",
-    clubs: ["Portland Timbers", "Atlanta United", "Columbus Crew"],
+    country: "United States", countryCode: "US",
+    currentClub: "Columbus Crew", jerseyNumber: 6, rarity: "gold",
+    clubs: ["Portland Timbers","Atlanta United","Columbus Crew"],
     careerTimeline: [
       { club: "Portland Timbers", years: "2011-2017" },
       { club: "Atlanta United", years: "2018-2019" },
       { club: "Columbus Crew", years: "2020-" }
     ],
-    awards: ["MLS Cup 2015", "MLS Cup 2018", "MLS Cup 2020", "USMNT Cap"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 76, shooting: 70, passing: 84, dribbling: 87, defending: 65, physical: 74 },
     funFact: "Born in Liberia, he moved to the US as a child and scored one of the greatest goals in Timbers history — a stunning volley from outside the box!",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/97/Nagbe_Darlington_Columbus_Crew_Meet_the_Team_2022.jpg",
     fotmobUrl: "https://www.fotmob.com/players/335498/darlington-nagbe"
+  },
+
+  /* ===== MASTER-LIST ADDITIONS ===== */
+  {
+    name: "Achraf Hakimi",
+    country: "Morocco", countryCode: "MA",
+    currentClub: "PSG", jerseyNumber: 2, rarity: "gold",
+    clubs: ["Real Madrid","Borussia Dortmund","Inter Milan","PSG"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 94, shooting: 74, passing: 80, dribbling: 85, defending: 78, physical: 79 },
+    funFact: "He plays right-back but scores and assists like a winger — he helped Morocco become the first African team ever to reach a World Cup semifinal in 2022!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Achraf%20Hakimi"
+  },
+  {
+    name: "Alisson Becker",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Liverpool", jerseyNumber: 1, rarity: "gold",
+    clubs: ["Internacional","Roma","Liverpool"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 1 },
+    stats: { pace: 58, shooting: 22, passing: 76, dribbling: 68, defending: 25, physical: 82 },
+    funFact: "He's a goalkeeper who once scored a last-minute header to win a game for Liverpool — goalkeepers almost never score!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Alisson%20Becker"
+  },
+  {
+    name: "Bernardo Silva",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Manchester City", jerseyNumber: 20, rarity: "gold",
+    clubs: ["Benfica","Monaco","Manchester City"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 78, shooting: 78, passing: 86, dribbling: 90, defending: 62, physical: 62 },
+    funFact: "He's so good at keeping the ball that teammates joke defenders can't take it off him even in a phone booth!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Bernardo%20Silva"
+  },
+  {
+    name: "Bruno Fernandes",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Manchester United", jerseyNumber: 8, rarity: "gold",
+    clubs: ["Sporting CP","Manchester United"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 75, shooting: 86, passing: 88, dribbling: 82, defending: 65, physical: 74 },
+    funFact: "He's the captain of Manchester United and takes some of the most powerful penalties in the world!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Bruno%20Fernandes"
+  },
+  {
+    name: "Christian Pulisic",
+    country: "United States", countryCode: "US",
+    currentClub: "AC Milan", jerseyNumber: 11, rarity: "gold",
+    clubs: ["Borussia Dortmund","Chelsea","AC Milan"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 1 },
+    stats: { pace: 88, shooting: 80, passing: 79, dribbling: 87, defending: 40, physical: 63 },
+    funFact: "Nicknamed 'Captain America', he became the most expensive American player ever when Chelsea signed him!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Christian%20Pulisic"
+  },
+  {
+    name: "Dani Carvajal",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Real Madrid", jerseyNumber: 2, rarity: "gold",
+    clubs: ["Real Madrid"],
+    honors: { wc: 0, cl: 6, bo: 0, co: 1 },
+    stats: { pace: 80, shooting: 62, passing: 78, dribbling: 78, defending: 84, physical: 80 },
+    funFact: "He has won the Champions League SIX times — more than almost any player alive — and scored the winning header in a final!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Dani%20Carvajal"
+  },
+  {
+    name: "Declan Rice",
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Arsenal", jerseyNumber: 41, rarity: "gold",
+    clubs: ["West Ham United","Arsenal"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 76, shooting: 74, passing: 82, dribbling: 80, defending: 85, physical: 85 },
+    funFact: "He captained West Ham to a European trophy, then became one of the most expensive English players ever when Arsenal signed him!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Declan%20Rice"
+  },
+  {
+    name: "Désiré Doué",
+    country: "France", countryCode: "FR",
+    currentClub: "PSG", jerseyNumber: 14, rarity: "gold",
+    clubs: ["Rennes","PSG"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 86, shooting: 79, passing: 82, dribbling: 89, defending: 45, physical: 66 },
+    funFact: "As a teenager he scored twice in the 2025 Champions League final to help PSG win the biggest club trophy for the first time!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=D%C3%A9sir%C3%A9%20Dou%C3%A9"
+  },
+  {
+    name: "Diego Chará",
+    country: "Colombia", countryCode: "CO",
+    currentClub: "Portland Timbers", jerseyNumber: 21, rarity: "silver",
+    clubs: ["Deportes Tolima","Portland Timbers"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 74, shooting: 62, passing: 78, dribbling: 76, defending: 82, physical: 82 },
+    funFact: "He's a Portland Timbers legend who has played more games for the club than almost anyone in team history!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Diego%20Char%C3%A1"
+  },
+  {
+    name: "Emiliano Martínez",
+    country: "Argentina", countryCode: "AR",
+    currentClub: "Aston Villa", jerseyNumber: 23, rarity: "gold",
+    clubs: ["Arsenal","Aston Villa"],
+    honors: { wc: 1, cl: 0, bo: 0, co: 2 },
+    stats: { pace: 55, shooting: 20, passing: 72, dribbling: 64, defending: 25, physical: 84 },
+    funFact: "This goalkeeper made an incredible last-second save to help Argentina win the 2022 World Cup — and loves doing funny celebrations!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Emiliano%20Mart%C3%ADnez"
+  },
+  {
+    name: "Federico Valverde",
+    country: "Uruguay", countryCode: "UY",
+    currentClub: "Real Madrid", jerseyNumber: 15, rarity: "gold",
+    clubs: ["Peñarol","Real Madrid"],
+    honors: { wc: 0, cl: 2, bo: 0, co: 0 },
+    stats: { pace: 88, shooting: 84, passing: 84, dribbling: 82, defending: 80, physical: 86 },
+    funFact: "He can run all game long and shoots the ball so hard that teammates nicknamed him 'El Pajarito' (the little bird) — but his shots fly like rockets!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Federico%20Valverde"
+  },
+  {
+    name: "Jamal Musiala",
+    country: "Germany", countryCode: "DE",
+    currentClub: "Bayern Munich", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Bayern Munich"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 86, shooting: 80, passing: 83, dribbling: 92, defending: 40, physical: 63 },
+    funFact: "Nicknamed 'Bambi', he dribbles so smoothly it looks like the ball is glued to his feet!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Jamal%20Musiala"
+  },
+  {
+    name: "João Félix",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Al-Nassr", jerseyNumber: 79, rarity: "gold",
+    clubs: ["Benfica","Atlético Madrid","Chelsea","Barcelona","Al-Nassr"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 82, shooting: 80, passing: 80, dribbling: 88, defending: 40, physical: 65 },
+    funFact: "He became one of the most expensive teenagers in football history when Atlético Madrid paid €126 million for him!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Jo%C3%A3o%20F%C3%A9lix"
+  },
+  {
+    name: "João Neves",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "PSG", jerseyNumber: 87, rarity: "gold",
+    clubs: ["Benfica","PSG"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 80, shooting: 74, passing: 85, dribbling: 86, defending: 80, physical: 72 },
+    funFact: "He's a tiny midfielder with a giant engine — he won the Champions League with PSG when he was still a teenager!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Jo%C3%A3o%20Neves"
+  },
+  {
+    name: "Johan Cruyff",
+    country: "Netherlands", countryCode: "NL",
+    currentClub: "Retired", jerseyNumber: 14, rarity: "diamond",
+    clubs: ["Ajax","Barcelona","Ajax","Feyenoord"],
+    honors: { wc: 0, cl: 3, bo: 3, co: 0 },
+    stats: { pace: 88, shooting: 86, passing: 92, dribbling: 94, defending: 45, physical: 70 },
+    funFact: "He invented a famous move called the 'Cruyff Turn' that players all over the world still use today!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Johan%20Cruyff"
+  },
+  {
+    name: "Joshua Kimmich",
+    country: "Germany", countryCode: "DE",
+    currentClub: "Bayern Munich", jerseyNumber: 6, rarity: "gold",
+    clubs: ["RB Leipzig","Bayern Munich"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 76, shooting: 74, passing: 88, dribbling: 82, defending: 82, physical: 74 },
+    funFact: "He can play almost any position on the field and is famous for never, ever giving up on a play!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Joshua%20Kimmich"
+  },
+  {
+    name: "Kaká",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 22, rarity: "diamond",
+    clubs: ["São Paulo","AC Milan","Real Madrid","AC Milan","Orlando City"],
+    honors: { wc: 1, cl: 1, bo: 1, co: 0 },
+    stats: { pace: 89, shooting: 86, passing: 88, dribbling: 90, defending: 40, physical: 76 },
+    funFact: "He was the last player to win the Ballon d'Or before Messi and Ronaldo took over for over a decade!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Kak%C3%A1"
+  },
+  {
+    name: "Karim Benzema",
+    country: "France", countryCode: "FR",
+    currentClub: "Al-Ittihad", jerseyNumber: 9, rarity: "diamond",
+    clubs: ["Lyon","Real Madrid","Al-Ittihad"],
+    honors: { wc: 0, cl: 5, bo: 1, co: 0 },
+    stats: { pace: 80, shooting: 90, passing: 84, dribbling: 88, defending: 40, physical: 78 },
+    funFact: "He won the Ballon d'Or in 2022 after scoring loads of last-minute goals to help Real Madrid win the Champions League!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Karim%20Benzema"
+  },
+  {
+    name: "Kevin De Bruyne",
+    country: "Belgium", countryCode: "BE",
+    currentClub: "Napoli", jerseyNumber: 11, rarity: "diamond",
+    clubs: ["Genk","Chelsea","Werder Bremen","Wolfsburg","Manchester City","Napoli"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 74, shooting: 86, passing: 94, dribbling: 86, defending: 64, physical: 78 },
+    funFact: "He passes the ball so perfectly that many people call him the best passer in the whole world!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Kevin%20De%20Bruyne"
+  },
+  {
+    name: "Luka Modrić",
+    country: "Croatia", countryCode: "HR",
+    currentClub: "AC Milan", jerseyNumber: 14, rarity: "diamond",
+    clubs: ["Dinamo Zagreb","Tottenham Hotspur","Real Madrid","AC Milan"],
+    honors: { wc: 0, cl: 6, bo: 1, co: 0 },
+    stats: { pace: 74, shooting: 78, passing: 90, dribbling: 90, defending: 72, physical: 66 },
+    funFact: "He won the Ballon d'Or in 2018, breaking a 10-year streak where only Messi and Ronaldo had won it!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Luka%20Modri%C4%87"
+  },
+  {
+    name: "Luis Suárez",
+    country: "Uruguay", countryCode: "UY",
+    currentClub: "Inter Miami", jerseyNumber: 9, rarity: "gold",
+    clubs: ["Nacional","Groningen","Ajax","Liverpool","Barcelona","Atlético Madrid","Nacional","Grêmio","Inter Miami"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 1 },
+    stats: { pace: 78, shooting: 90, passing: 82, dribbling: 86, defending: 40, physical: 80 },
+    funFact: "He's one of Uruguay's greatest goalscorers ever and now plays alongside his best friend Lionel Messi at Inter Miami!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Luis%20Su%C3%A1rez"
+  },
+  {
+    name: "Marc Cucurella",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Chelsea", jerseyNumber: 3, rarity: "gold",
+    clubs: ["Barcelona","Getafe","Brighton","Chelsea"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 1 },
+    stats: { pace: 82, shooting: 60, passing: 78, dribbling: 82, defending: 82, physical: 76 },
+    funFact: "You can spot him instantly on the field because of his big, bouncy curly hair!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Marc%20Cucurella"
+  },
+  {
+    name: "Marcelo",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 12, rarity: "gold",
+    clubs: ["Fluminense","Real Madrid","Olympiacos","Fluminense"],
+    honors: { wc: 0, cl: 5, bo: 0, co: 0 },
+    stats: { pace: 84, shooting: 74, passing: 84, dribbling: 88, defending: 78, physical: 72 },
+    funFact: "He won the Champions League five times and is the most decorated player in Real Madrid's entire history!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Marcelo%20Vieira"
+  },
+  {
+    name: "Martin Ødegaard",
+    country: "Norway", countryCode: "NO",
+    currentClub: "Arsenal", jerseyNumber: 8, rarity: "gold",
+    clubs: ["Strømsgodset","Real Madrid","Heerenveen","Vitesse","Real Sociedad","Arsenal"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 76, shooting: 80, passing: 88, dribbling: 87, defending: 60, physical: 62 },
+    funFact: "He was so good as a kid that Real Madrid signed him when he was only 15 years old!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Martin%20%C3%98degaard"
+  },
+  {
+    name: "Michael Olise",
+    country: "France", countryCode: "FR",
+    currentClub: "Bayern Munich", jerseyNumber: 17, rarity: "gold",
+    clubs: ["Reading","Crystal Palace","Bayern Munich"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 84, shooting: 82, passing: 85, dribbling: 89, defending: 45, physical: 64 },
+    funFact: "He can curl free kicks and crosses with amazing accuracy — defenders never know what he'll do next!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Michael%20Olise"
+  },
+  {
+    name: "Nadine Angerer",
+    country: "Germany", countryCode: "DE",
+    currentClub: "Retired", jerseyNumber: 1, rarity: "gold",
+    clubs: ["Bayern Munich","Turbine Potsdam","Frankfurt","Portland Thorns"],
+    honors: { wc: 1, cl: 1, bo: 0, co: 3 },
+    stats: { pace: 58, shooting: 24, passing: 72, dribbling: 66, defending: 28, physical: 82 },
+    funFact: "This legendary goalkeeper saved a penalty in a World Cup final and didn't let in a single goal in the whole 2007 tournament!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Nadine%20Angerer"
+  },
+  {
+    name: "Nico Williams",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Athletic Club", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Athletic Club"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 1 },
+    stats: { pace: 93, shooting: 78, passing: 78, dribbling: 88, defending: 40, physical: 68 },
+    funFact: "He scored in the Euro 2024 final to help Spain become champions — and his brother Iñaki plays for Ghana!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Nico%20Williams"
+  },
+  {
+    name: "Nuno Mendes",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "PSG", jerseyNumber: 25, rarity: "gold",
+    clubs: ["Sporting CP","PSG"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 93, shooting: 68, passing: 80, dribbling: 85, defending: 82, physical: 78 },
+    funFact: "He's a left-back who is so fast he can sprint past wingers and defend the whole side of the pitch by himself!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Nuno%20Mendes"
+  },
+  {
+    name: "Patrik Schick",
+    country: "Czechia", countryCode: "CZ",
+    currentClub: "Bayer Leverkusen", jerseyNumber: 14, rarity: "gold",
+    clubs: ["Sparta Prague","Sampdoria","Roma","RB Leipzig","Bayer Leverkusen"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 80, shooting: 86, passing: 74, dribbling: 80, defending: 40, physical: 82 },
+    funFact: "He scored one of the greatest goals ever at Euro 2020 — a shot from almost the halfway line!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Patrik%20Schick"
+  },
+  {
+    name: "Pau Cubarsí",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Barcelona", jerseyNumber: 2, rarity: "gold",
+    clubs: ["Barcelona"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 80, shooting: 40, passing: 82, dribbling: 78, defending: 84, physical: 72 },
+    funFact: "He became one of Barcelona's most important defenders while still a teenager — super calm and never panics with the ball!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Pau%20Cubars%C3%AD"
+  },
+  {
+    name: "Pedri",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Barcelona", jerseyNumber: 8, rarity: "gold",
+    clubs: ["Las Palmas","Barcelona"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 1 },
+    stats: { pace: 76, shooting: 74, passing: 88, dribbling: 89, defending: 62, physical: 62 },
+    funFact: "He almost never loses the ball — some games he completes 100 passes without a single mistake!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Pedri"
+  },
+  {
+    name: "Pedro Neto",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Chelsea", jerseyNumber: 7, rarity: "gold",
+    clubs: ["Braga","Lazio","Wolverhampton Wanderers","Chelsea"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 91, shooting: 76, passing: 80, dribbling: 87, defending: 45, physical: 64 },
+    funFact: "He's lightning fast on the wing and helped Chelsea win a big trophy in the summer of 2025!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Pedro%20Neto"
+  },
+  {
+    name: "Phil Foden",
+    country: "England", countryCode: "GB-ENG",
+    currentClub: "Manchester City", jerseyNumber: 47, rarity: "gold",
+    clubs: ["Manchester City"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 84, shooting: 84, passing: 85, dribbling: 90, defending: 55, physical: 62 },
+    funFact: "He grew up a Manchester City fan and now plays for his favorite club — a real dream come true!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Phil%20Foden"
+  },
+  {
+    name: "Rafael Leão",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "AC Milan", jerseyNumber: 10, rarity: "gold",
+    clubs: ["Sporting CP","Lille","AC Milan"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 94, shooting: 82, passing: 78, dribbling: 89, defending: 35, physical: 78 },
+    funFact: "As well as football, he loves music and has even released his own rap songs!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Rafael%20Le%C3%A3o"
+  },
+  {
+    name: "Robert Lewandowski",
+    country: "Poland", countryCode: "PL",
+    currentClub: "Barcelona", jerseyNumber: 9, rarity: "diamond",
+    clubs: ["Znicz Pruszków","Lech Poznań","Borussia Dortmund","Bayern Munich","Barcelona"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 78, shooting: 92, passing: 80, dribbling: 84, defending: 42, physical: 82 },
+    funFact: "He once scored FIVE goals in just nine minutes — the fastest five goals in football history!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Robert%20Lewandowski"
+  },
+  {
+    name: "Roberto Carlos",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 3, rarity: "diamond",
+    clubs: ["Palmeiras","Inter Milan","Real Madrid","Fenerbahçe","Corinthians","Anzhi"],
+    honors: { wc: 1, cl: 3, bo: 0, co: 0 },
+    stats: { pace: 92, shooting: 84, passing: 82, dribbling: 84, defending: 80, physical: 82 },
+    funFact: "He scored a free kick that curved so much it looked like magic — scientists studied it to figure out how it was possible!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Roberto%20Carlos"
+  },
+  {
+    name: "Rodri",
+    country: "Spain", countryCode: "ES",
+    currentClub: "Manchester City", jerseyNumber: 16, rarity: "diamond",
+    clubs: ["Villarreal","Atlético Madrid","Manchester City"],
+    honors: { wc: 0, cl: 1, bo: 1, co: 1 },
+    stats: { pace: 68, shooting: 80, passing: 88, dribbling: 82, defending: 86, physical: 84 },
+    funFact: "He won the 2024 Ballon d'Or as a midfielder — and scored the winning goal in the Champions League final!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Rodri%20Hernandez"
+  },
+  {
+    name: "Ronaldo Nazário (R9)",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 9, rarity: "diamond",
+    clubs: ["Cruzeiro","PSV","Barcelona","Inter Milan","Real Madrid","AC Milan","Corinthians"],
+    honors: { wc: 2, cl: 0, bo: 2, co: 2 },
+    stats: { pace: 94, shooting: 93, passing: 80, dribbling: 94, defending: 30, physical: 82 },
+    funFact: "Many people call him the greatest striker ever — he came back from serious knee injuries to win the 2002 World Cup!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Ronaldo%20Nazario"
+  },
+  {
+    name: "Romelu Lukaku",
+    country: "Belgium", countryCode: "BE",
+    currentClub: "Napoli", jerseyNumber: 11, rarity: "gold",
+    clubs: ["Anderlecht","Chelsea","Everton","Manchester United","Inter Milan","Chelsea","Roma","Napoli"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 84, shooting: 88, passing: 74, dribbling: 78, defending: 40, physical: 90 },
+    funFact: "He's a giant, powerful striker who speaks six different languages!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Romelu%20Lukaku"
+  },
+  {
+    name: "Son Heung-min",
+    country: "South Korea", countryCode: "KR",
+    currentClub: "LAFC", jerseyNumber: 7, rarity: "gold",
+    clubs: ["Hamburger SV","Bayer Leverkusen","Tottenham Hotspur","LAFC"],
+    honors: { wc: 0, cl: 0, bo: 0, co: 0 },
+    stats: { pace: 88, shooting: 87, passing: 82, dribbling: 86, defending: 43, physical: 70 },
+    funFact: "He can shoot equally well with both his left and right foot, and won the Premier League Golden Boot for most goals!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Son%20Heung-min"
+  },
+  {
+    name: "Thibaut Courtois",
+    country: "Belgium", countryCode: "BE",
+    currentClub: "Real Madrid", jerseyNumber: 1, rarity: "gold",
+    clubs: ["Genk","Chelsea","Atlético Madrid","Chelsea","Real Madrid"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 58, shooting: 22, passing: 74, dribbling: 66, defending: 26, physical: 86 },
+    funFact: "He's one of the tallest goalkeepers in football and had a legendary game in the 2022 Champions League final, saving everything!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Thibaut%20Courtois"
+  },
+  {
+    name: "Virgil van Dijk",
+    country: "Netherlands", countryCode: "NL",
+    currentClub: "Liverpool", jerseyNumber: 4, rarity: "diamond",
+    clubs: ["Groningen","Celtic","Southampton","Liverpool"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 80, shooting: 60, passing: 82, dribbling: 76, defending: 90, physical: 88 },
+    funFact: "He's so good at defending that attackers say it feels impossible to dribble past him!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Virgil%20van%20Dijk"
+  },
+  {
+    name: "Vitinha",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "PSG", jerseyNumber: 17, rarity: "gold",
+    clubs: ["FC Porto","Wolverhampton Wanderers","FC Porto","PSG"],
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 78, shooting: 78, passing: 88, dribbling: 88, defending: 72, physical: 66 },
+    funFact: "He was the midfield engine that helped PSG finally win their first Champions League in 2025!",
+    imageUrl: "",
+    fotmobUrl: "https://www.fotmob.com/search?term=Vitinha%20PSG"
   }
 ];
 
-/* Country name → flag emoji helper */
-const FLAG_MAP = {
-  PT:"🇵🇹", AR:"🇦🇷", FR:"🇫🇷", NO:"🇳🇴", GB:"🇬🇧",
-  EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸", DE:"🇩🇪"
+/* =========================================================
+   COUNTRY FLAGS  (real flag images via flagcdn)
+   countryCode uses ISO-2, plus special gb-eng for England
+   ========================================================= */
+function flagUrl(code, size){
+  if(!code) return "";
+  const c = code.toLowerCase();      // "PT" -> "pt", "GB-ENG" -> "gb-eng"
+  const w = size || "w40";
+  return `https://flagcdn.com/${w}/${c}.png`;
+}
+/* Emoji fallback (used only if an image fails) */
+const FLAG_EMOJI = {
+  PT:"🇵🇹", AR:"🇦🇷", FR:"🇫🇷", NO:"🇳🇴", "GB-ENG":"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸", DE:"🇩🇪",
+  MA:"🇲🇦", CO:"🇨🇴", UY:"🇺🇾", NL:"🇳🇱", HR:"🇭🇷", BE:"🇧🇪",
+  CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷"
 };
-function getFlag(code){ return FLAG_MAP[code] || "⚽"; }
+function flagEmoji(code){ return FLAG_EMOJI[code] || "🏳️"; }
+
+/* =========================================================
+   CLUB CRESTS  (real club colors + short badge text)
+   c1 = main color, c2 = secondary, ink = text color
+   ========================================================= */
+const CLUBS = {
+  "Sporting CP":{c1:"#1a7a4c",c2:"#e6f4ed",ab:"SCP",ink:"#fff"},
+  "Manchester United":{c1:"#DA291C",c2:"#FBE122",ab:"MUN",ink:"#fff"},
+  "Real Madrid":{c1:"#f4f6fb",c2:"#00529F",ab:"RM",ink:"#1a2a55"},
+  "Juventus":{c1:"#141414",c2:"#ffffff",ab:"JUV",ink:"#fff"},
+  "Al-Nassr":{c1:"#F5C400",c2:"#0a4ea2",ab:"NAS",ink:"#1a2a55"},
+  "Al-Hilal":{c1:"#0a4ea2",c2:"#ffffff",ab:"HIL",ink:"#fff"},
+  "Al-Ittihad":{c1:"#111111",c2:"#f5c400",ab:"ITT",ink:"#f5c400"},
+  "Barcelona":{c1:"#A50044",c2:"#004D98",ab:"FCB",ink:"#fff"},
+  "PSG":{c1:"#0b1e50",c2:"#DA291C",ab:"PSG",ink:"#fff"},
+  "Inter Miami":{c1:"#f7b5cd",c2:"#111111",ab:"MIA",ink:"#5a1730"},
+  "Inter Milan":{c1:"#0a2196",c2:"#111111",ab:"INT",ink:"#fff"},
+  "Santos":{c1:"#f4f6fb",c2:"#111111",ab:"SAN",ink:"#1a1a1a"},
+  "New York Cosmos":{c1:"#0a9a4a",c2:"#f4f6fb",ab:"NYC",ink:"#fff"},
+  "New York Red Bulls":{c1:"#ED1E36",c2:"#003a70",ab:"NYR",ink:"#fff"},
+  "Monaco":{c1:"#e51b22",c2:"#f4f6fb",ab:"ASM",ink:"#fff"},
+  "Molde":{c1:"#0a4ea2",c2:"#ffffff",ab:"MOL",ink:"#fff"},
+  "RB Salzburg":{c1:"#d81e2c",c2:"#ffffff",ab:"RBS",ink:"#fff"},
+  "RB Leipzig":{c1:"#dd0741",c2:"#001f47",ab:"RBL",ink:"#fff"},
+  "Borussia Dortmund":{c1:"#FDE100",c2:"#111111",ab:"BVB",ink:"#111"},
+  "Manchester City":{c1:"#6CABDD",c2:"#ffffff",ab:"MCI",ink:"#0b2b45"},
+  "Birmingham City":{c1:"#1a4ea8",c2:"#ffffff",ab:"BIR",ink:"#fff"},
+  "Basel":{c1:"#d81e2c",c2:"#0a4ea2",ab:"BAS",ink:"#fff"},
+  "Chelsea":{c1:"#034694",c2:"#ffffff",ab:"CHE",ink:"#fff"},
+  "Fiorentina":{c1:"#5a2d82",c2:"#ffffff",ab:"FIO",ink:"#fff"},
+  "Roma":{c1:"#8e1b2e",c2:"#f0a500",ab:"ROM",ink:"#f0a500"},
+  "Grêmio":{c1:"#0d6fb8",c2:"#111111",ab:"GRE",ink:"#fff"},
+  "AC Milan":{c1:"#fb090b",c2:"#111111",ab:"MIL",ink:"#fff"},
+  "LA Galaxy":{c1:"#00245d",c2:"#f5c400",ab:"LAG",ink:"#f5c400"},
+  "LAFC":{c1:"#111111",c2:"#c39e6d",ab:"LAF",ink:"#c39e6d"},
+  "Cannes":{c1:"#d81e2c",c2:"#ffffff",ab:"CAN",ink:"#fff"},
+  "Bordeaux":{c1:"#0a1a3a",c2:"#8e1b2e",ab:"BOR",ink:"#fff"},
+  "Arsenal":{c1:"#EF0107",c2:"#ffffff",ab:"ARS",ink:"#fff"},
+  "Malmö":{c1:"#0a63b0",c2:"#ffffff",ab:"MAL",ink:"#fff"},
+  "Ajax":{c1:"#d2122e",c2:"#ffffff",ab:"AJA",ink:"#fff"},
+  "Tottenham Hotspur":{c1:"#ffffff",c2:"#132257",ab:"TOT",ink:"#132257"},
+  "Bayern Munich":{c1:"#dc052d",c2:"#0066b2",ab:"BAY",ink:"#fff"},
+  "Bayer Leverkusen":{c1:"#e32219",c2:"#111111",ab:"LEV",ink:"#fff"},
+  "Kansas City Wizards":{c1:"#003b7b",c2:"#93c020",ab:"KC",ink:"#fff"},
+  "Portland Timbers":{c1:"#004812",c2:"#d69a00",ab:"POR",ink:"#d69a00"},
+  "Portland Thorns":{c1:"#8a1538",c2:"#111111",ab:"THO",ink:"#fff"},
+  "Lanús":{c1:"#7a1523",c2:"#ffffff",ab:"LAN",ink:"#fff"},
+  "Atlanta United":{c1:"#80000a",c2:"#111111",ab:"ATL",ink:"#f0a500"},
+  "Columbus Crew":{c1:"#fff200",c2:"#111111",ab:"CLB",ink:"#111"},
+  "Internacional":{c1:"#e01e2c",c2:"#ffffff",ab:"INT",ink:"#fff"},
+  "Benfica":{c1:"#e00020",c2:"#ffffff",ab:"BEN",ink:"#fff"},
+  "Rennes":{c1:"#111111",c2:"#e30613",ab:"REN",ink:"#e30613"},
+  "Deportes Tolima":{c1:"#b8860b",c2:"#8e1b2e",ab:"TOL",ink:"#fff"},
+  "Aston Villa":{c1:"#670e36",c2:"#95bfe5",ab:"AVL",ink:"#95bfe5"},
+  "Peñarol":{c1:"#111111",c2:"#f5c400",ab:"PEÑ",ink:"#f5c400"},
+  "Feyenoord":{c1:"#e30613",c2:"#ffffff",ab:"FEY",ink:"#fff"},
+  "Dinamo Zagreb":{c1:"#0a63b0",c2:"#ffffff",ab:"DZG",ink:"#fff"},
+  "Lyon":{c1:"#ffffff",c2:"#d81e2c",ab:"OL",ink:"#0a1a3a"},
+  "Genk":{c1:"#0a63b0",c2:"#ffffff",ab:"GNK",ink:"#fff"},
+  "Werder Bremen":{c1:"#1d9053",c2:"#ffffff",ab:"BRE",ink:"#fff"},
+  "Wolfsburg":{c1:"#65b32e",c2:"#111111",ab:"WOB",ink:"#fff"},
+  "Napoli":{c1:"#12a0d7",c2:"#ffffff",ab:"NAP",ink:"#fff"},
+  "Getafe":{c1:"#0a5eb0",c2:"#ffffff",ab:"GET",ink:"#fff"},
+  "Brighton":{c1:"#0057b8",c2:"#ffffff",ab:"BHA",ink:"#fff"},
+  "Fluminense":{c1:"#7a1523",c2:"#0a5f3a",ab:"FLU",ink:"#fff"},
+  "Olympiacos":{c1:"#e30613",c2:"#ffffff",ab:"OLY",ink:"#fff"},
+  "Strømsgodset":{c1:"#0a4ea2",c2:"#ffffff",ab:"STR",ink:"#fff"},
+  "Heerenveen":{c1:"#005eb8",c2:"#e30613",ab:"HEE",ink:"#fff"},
+  "Vitesse":{c1:"#141414",c2:"#f5c400",ab:"VIT",ink:"#f5c400"},
+  "Real Sociedad":{c1:"#0067b1",c2:"#ffffff",ab:"RSO",ink:"#fff"},
+  "Reading":{c1:"#004494",c2:"#ffffff",ab:"REA",ink:"#fff"},
+  "Crystal Palace":{c1:"#1b458f",c2:"#c4122e",ab:"CRY",ink:"#fff"},
+  "Turbine Potsdam":{c1:"#0a63b0",c2:"#ffffff",ab:"POT",ink:"#fff"},
+  "Frankfurt":{c1:"#111111",c2:"#e1000f",ab:"SGE",ink:"#e1000f"},
+  "Athletic Club":{c1:"#ee2523",c2:"#ffffff",ab:"ATH",ink:"#fff"},
+  "Sparta Prague":{c1:"#822433",c2:"#f5c400",ab:"SPA",ink:"#f5c400"},
+  "Sampdoria":{c1:"#0a3a82",c2:"#e30613",ab:"SAM",ink:"#fff"},
+  "Las Palmas":{c1:"#fdd000",c2:"#004a99",ab:"LPA",ink:"#004a99"},
+  "Braga":{c1:"#b3122a",c2:"#ffffff",ab:"BRA",ink:"#fff"},
+  "Lazio":{c1:"#87d8f7",c2:"#ffffff",ab:"LAZ",ink:"#0b2b45"},
+  "Wolverhampton Wanderers":{c1:"#fdb913",c2:"#111111",ab:"WOL",ink:"#111"},
+  "Lille":{c1:"#e01e2c",c2:"#0a1a3a",ab:"LIL",ink:"#fff"},
+  "Vitória de Guimarães":{c1:"#111111",c2:"#ffffff",ab:"VIT",ink:"#fff"},
+  "Leeds United":{c1:"#ffffff",c2:"#1d428a",ab:"LEE",ink:"#1d428a"},
+  "Znicz Pruszków":{c1:"#e30613",c2:"#111111",ab:"ZNI",ink:"#fff"},
+  "Lech Poznań":{c1:"#0a63b0",c2:"#ffffff",ab:"LECH",ink:"#fff"},
+  "Chicago Fire":{c1:"#141c2e",c2:"#e30613",ab:"CHI",ink:"#e30613"},
+  "Palmeiras":{c1:"#0a5f3a",c2:"#ffffff",ab:"PAL",ink:"#fff"},
+  "Fenerbahçe":{c1:"#12296b",c2:"#f5c400",ab:"FEN",ink:"#f5c400"},
+  "Corinthians":{c1:"#111111",c2:"#ffffff",ab:"COR",ink:"#fff"},
+  "Anzhi":{c1:"#111111",c2:"#f5c400",ab:"ANZ",ink:"#f5c400"},
+  "Villarreal":{c1:"#ffe667",c2:"#005187",ab:"VIL",ink:"#005187"},
+  "Atlético Madrid":{c1:"#cb3524",c2:"#0a2a5e",ab:"ATM",ink:"#fff"},
+  "Atlético Mineiro":{c1:"#111111",c2:"#ffffff",ab:"CAM",ink:"#fff"},
+  "Flamengo":{c1:"#b3122a",c2:"#111111",ab:"FLA",ink:"#fff"},
+  "Cruzeiro":{c1:"#0a3a82",c2:"#ffffff",ab:"CRU",ink:"#fff"},
+  "PSV":{c1:"#ed1c24",c2:"#ffffff",ab:"PSV",ink:"#fff"},
+  "Anderlecht":{c1:"#5a2d82",c2:"#ffffff",ab:"AND",ink:"#fff"},
+  "Everton":{c1:"#003399",c2:"#ffffff",ab:"EVE",ink:"#fff"},
+  "Hamburger SV":{c1:"#111111",c2:"#0a63b0",ab:"HSV",ink:"#0a63b0"},
+  "Celtic":{c1:"#018749",c2:"#ffffff",ab:"CEL",ink:"#fff"},
+  "Southampton":{c1:"#d71920",c2:"#111111",ab:"SOU",ink:"#fff"},
+  "Groningen":{c1:"#0a8a3a",c2:"#ffffff",ab:"GRO",ink:"#fff"},
+  "FC Porto":{c1:"#00559e",c2:"#ffffff",ab:"POR",ink:"#fff"},
+  "Nacional":{c1:"#ffffff",c2:"#0a3a82",ab:"NAC",ink:"#0a3a82"},
+  "Newell's Old Boys":{c1:"#111111",c2:"#e30613",ab:"NOB",ink:"#e30613"},
+  "Boca Juniors":{c1:"#0a3a82",c2:"#f5c400",ab:"BOC",ink:"#f5c400"},
+  "Argentinos Juniors":{c1:"#e01e2c",c2:"#ffffff",ab:"ARG",ink:"#fff"},
+  "Sevilla":{c1:"#ffffff",c2:"#d81e2c",ab:"SEV",ink:"#d81e2c"},
+  "Querétaro":{c1:"#141414",c2:"#0a63b0",ab:"QRO",ink:"#fff"},
+  "São Paulo":{c1:"#e30613",c2:"#111111",ab:"SAO",ink:"#fff"},
+  "Orlando City":{c1:"#5a2d82",c2:"#f5c400",ab:"ORL",ink:"#f5c400"},
+  "West Ham United":{c1:"#7a263a",c2:"#1bb1e7",ab:"WHU",ink:"#1bb1e7"}
+};
+/* ESPN team IDs → real crest at https://a.espncdn.com/i/teamlogos/soccer/500/<id>.png
+   (verified against ESPN's official league team lists) */
+const CLUB_ESPN = {
+  "Real Madrid":86,"Barcelona":83,"Manchester United":360,"Manchester City":382,
+  "Chelsea":363,"Arsenal":359,"Liverpool":364,"Tottenham Hotspur":367,
+  "West Ham United":371,"Everton":368,"Aston Villa":362,"Brighton":331,
+  "Crystal Palace":384,"Wolverhampton Wanderers":380,"Southampton":376,
+  "Leeds United":357,"Birmingham City":392,
+  "Villarreal":102,"AC Milan":103,"Roma":104,"Atlético Madrid":1068,
+  "Fiorentina":109,"Inter Milan":110,"Juventus":111,"Lazio":112,"Napoli":114,
+  "RB Leipzig":11420,"Borussia Dortmund":124,"Frankfurt":125,"Hamburger SV":127,
+  "Bayer Leverkusen":131,"Bayern Munich":132,"Werder Bremen":137,"Wolfsburg":138,
+  "Sevilla":243,"Getafe":2922,"Real Sociedad":89,"Athletic Club":93,
+  "PSG":160,"Lille":166,"Lyon":167,"Monaco":174,"Rennes":169,
+  "Ajax":139,"Feyenoord":142,"Groningen":145,"Heerenveen":146,"PSV":148,
+  "Benfica":1929,"Sporting CP":2250,"Braga":2994,"FC Porto":437,"Vitória de Guimarães":5309,
+  "Orlando City":12011,"Chicago Fire":182,"Columbus Crew":183,"Atlanta United":18418,
+  "LA Galaxy":187,"LAFC":18966,"Inter Miami":20232,"Portland Timbers":9723,
+  "Newell's Old Boys":14,"Cruzeiro":2022,"Palmeiras":2029,"Santos":225,
+  "Fluminense":3445,"Corinthians":874,"Flamengo":819,"São Paulo":2026,
+  "Grêmio":6273,"Internacional":1936,"Atlético Mineiro":7632,
+  "Al-Ittihad":2276,"Al-Nassr":817,"Al-Hilal":929,"Celtic":256,"Malmö":2720,
+  "Molde":2715,"RB Salzburg":2790,"Olympiacos":435,"Fenerbahçe":436,"Basel":989,
+  "Argentinos Juniors":3,"Boca Juniors":5,"Anderlecht":441,"Genk":938,
+  "Deportes Tolima":5489,"Nacional":2684
+};
+function clubLogo(name){
+  const id = CLUB_ESPN[name];
+  return id ? `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png` : "";
+}
+
+/* Deterministic color for any club not in the map (so nothing ever breaks) */
+function clubData(name){
+  if(CLUBS[name]) return CLUBS[name];
+  let h = 0;
+  for(let i=0;i<name.length;i++){ h = (h*31 + name.charCodeAt(i)) & 0xffffff; }
+  const hue = h % 360;
+  const words = name.split(/\s+/);
+  const ab = (words.length>1 ? words.map(w=>w[0]).join("") : name.slice(0,3)).toUpperCase().slice(0,3);
+  return { c1:`hsl(${hue} 55% 42%)`, c2:`hsl(${(hue+40)%360} 55% 55%)`, ab, ink:"#fff" };
+}

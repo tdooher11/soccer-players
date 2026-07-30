@@ -137,6 +137,9 @@
   let soundOn = true;
   let audioCtx = null;
 
+  // Neutral avatar for players without a photo (used in modals)
+  const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23222a4a' width='120' height='120'/%3E%3Ctext x='50%25' y='58%25' font-size='60' text-anchor='middle' fill='%23ffffff'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E";
+
   // Load custom players from localStorage
   const saved = localStorage.getItem("customPlayers");
   if(saved){
@@ -225,60 +228,75 @@
   }
 
   /* =========================================================
-     RADAR CHART (Canvas)
+     GRAPHIC HELPERS — trophies, crests, flags, placeholders
      ========================================================= */
-  function drawRadar(canvas, stats, color){
-    const ctx = canvas.getContext("2d");
-    const w = canvas.width = 160;
-    const h = canvas.height = 160;
-    const cx = w/2, cy = h/2, r = 60;
-    const labels = ["PAC","SHO","PAS","DRI","DEF","PHY"];
-    const vals = [stats.pace, stats.shooting, stats.passing, stats.dribbling, stats.defending, stats.physical];
-    const n = 6;
 
-    ctx.clearRect(0,0,w,h);
+  // Hand-drawn SVG trophies (fallback if a real image fails to load)
+  const TROPHY_SVG = {
+    worldcup:`<svg viewBox="0 0 32 32" width="100%" height="100%"><defs><linearGradient id="tw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe57a"/><stop offset="1" stop-color="#c9922b"/></linearGradient></defs><ellipse cx="16" cy="9" rx="6.2" ry="6.6" fill="url(#tw)" stroke="#8a5f17" stroke-width=".6"/><path d="M11.5 12 Q8 20 13 24 L19 24 Q24 20 20.5 12 Z" fill="url(#tw)" stroke="#8a5f17" stroke-width=".6"/><rect x="11" y="24" width="10" height="2.4" rx="1" fill="#b07d20"/><rect x="9.5" y="26.4" width="13" height="3.2" rx="1.3" fill="url(#tw)" stroke="#8a5f17" stroke-width=".5"/></svg>`,
+    ucl:`<svg viewBox="0 0 32 32" width="100%" height="100%"><defs><linearGradient id="tu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3fb"/><stop offset="1" stop-color="#9aa8c4"/></linearGradient></defs><path d="M8 6 Q3 6 4 11 Q5 15 9 14" fill="none" stroke="url(#tu)" stroke-width="2.2"/><path d="M24 6 Q29 6 28 11 Q27 15 23 14" fill="none" stroke="url(#tu)" stroke-width="2.2"/><path d="M9 5 L23 5 Q23 17 16 21 Q9 17 9 5 Z" fill="url(#tu)" stroke="#6f7d99" stroke-width=".6"/><rect x="14" y="21" width="4" height="4" fill="#b7c1d6"/><rect x="10" y="25" width="12" height="2.6" rx="1" fill="url(#tu)"/><rect x="8.5" y="27.6" width="15" height="3" rx="1.3" fill="#7f8ca8"/></svg>`,
+    ballon:`<svg viewBox="0 0 32 32" width="100%" height="100%"><defs><radialGradient id="tb" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#fff1a8"/><stop offset="1" stop-color="#c8951f"/></radialGradient></defs><rect x="11" y="26" width="10" height="3" rx="1.3" fill="#7a5714"/><rect x="14.2" y="20" width="3.6" height="6" fill="#a9791d"/><circle cx="16" cy="13" r="9" fill="url(#tb)" stroke="#8a5f17" stroke-width=".6"/><path d="M16 6 l1.6 3.2 3.5.3-2.6 2.4.8 3.4-3.3-1.9-3.3 1.9.8-3.4-2.6-2.4 3.5-.3z" fill="#fff" opacity=".5"/></svg>`,
+    continental:`<svg viewBox="0 0 32 32" width="100%" height="100%"><defs><linearGradient id="tc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe57a"/><stop offset="1" stop-color="#c9922b"/></linearGradient></defs><path d="M10 6 Q5 6 6 10 Q7 13 10.5 12.5" fill="none" stroke="url(#tc)" stroke-width="2"/><path d="M22 6 Q27 6 26 10 Q25 13 21.5 12.5" fill="none" stroke="url(#tc)" stroke-width="2"/><path d="M10 5 L22 5 Q22 16 16 20 Q10 16 10 5 Z" fill="url(#tc)" stroke="#8a5f17" stroke-width=".6"/><rect x="10.5" y="24" width="11" height="2.4" rx="1" fill="url(#tc)"/><rect x="9" y="26.4" width="14" height="3" rx="1.3" fill="#8a5f17"/><path d="M16 8 l1.2 2.4 2.6.2-2 1.8.6 2.6-2.4-1.4-2.4 1.4.6-2.6-2-1.8 2.6-.2z" fill="#fff" opacity=".7"/></svg>`
+  };
+  // Real competition images (fall back to the SVGs above via onerror)
+  const TROPHY_IMG = {
+    worldcup:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/FIFA_World_Cup_Trophy_%28FIFAAH-305568%29.jpg/120px-FIFA_World_Cup_Trophy_%28FIFAAH-305568%29.jpg",
+    ucl:"https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/UEFA_Champions_League.svg/120px-UEFA_Champions_League.svg.png",
+    ballon:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/2016_Ballon_dOr_CR7Museum.jpg/120px-2016_Ballon_dOr_CR7Museum.jpg"
+  };
 
-    // grid
-    for(let ring = 1; ring <= 4; ring++){
-      ctx.beginPath();
-      for(let i = 0; i <= n; i++){
-        const angle = (Math.PI * 2 * i / n) - Math.PI/2;
-        const rr = r * ring / 4;
-        const x = cx + rr * Math.cos(angle);
-        const y = cy + rr * Math.sin(angle);
-        i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
-      }
-      ctx.strokeStyle = "rgba(255,255,255,0.1)";
-      ctx.stroke();
+  const EU = new Set(["PT","FR","ES","DE","NL","HR","BE","CZ","PL","SE","NO","GB-ENG"]);
+  const SA = new Set(["AR","BR","UY","CO"]);
+  function contiName(cc){
+    if(SA.has(cc)) return "Copa América";
+    if(cc === "US") return "Gold Cup";
+    if(cc === "MA" || cc === "EG") return "Africa Cup";
+    if(cc === "KR") return "Asian Cup";
+    return "Euros";
+  }
+
+  function trophyChip(kind){
+    const svg = TROPHY_SVG[kind];
+    const img = TROPHY_IMG[kind];
+    if(img){
+      return `<span class="tchip"><img src="${img}" alt="" loading="lazy" onerror="this.closest('.tchip').classList.add('imgfail')"><span class="tsvg">${svg}</span></span>`;
     }
+    return `<span class="tchip imgfail"><span class="tsvg">${svg}</span></span>`;
+  }
+  function trophyRow(label, kind, n){
+    if(!n) return "";
+    const show = Math.min(n, 5);
+    const icons = Array.from({length:show}).map(()=>trophyChip(kind)).join("");
+    const count = n > 1 ? `<b class="tx">×${n}</b>` : "";
+    return `<div class="trow"><span class="tlabel">${label}</span><span class="ticons">${icons}${count}</span></div>`;
+  }
 
-    // data
-    ctx.beginPath();
-    for(let i = 0; i <= n; i++){
-      const idx = i % n;
-      const angle = (Math.PI * 2 * idx / n) - Math.PI/2;
-      const rr = r * vals[idx] / 100;
-      const x = cx + rr * Math.cos(angle);
-      const y = cy + rr * Math.sin(angle);
-      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  function crestChip(name){
+    const d = clubData(name);
+    const fb = `<span class="crestfb" style="--c1:${d.c1};--c2:${d.c2};background:${d.c1};color:${d.ink}"><span>${d.ab}</span></span>`;
+    const logo = clubLogo(name);
+    if(logo){
+      return `<span class="crest" title="${name}"><img src="${logo}" alt="${name}" loading="lazy" onerror="this.closest('.crest').classList.add('imgfail')">${fb}</span>`;
     }
-    ctx.fillStyle = color || "rgba(102,204,255,0.25)";
-    ctx.fill();
-    ctx.strokeStyle = color ? color.replace("0.25","0.8") : "rgba(102,204,255,0.8)";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    return `<span class="crest imgfail" title="${name}">${fb}</span>`;
+  }
 
-    // labels
-    ctx.fillStyle = "#fff";
-    ctx.font = "bold 9px sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    for(let i = 0; i < n; i++){
-      const angle = (Math.PI * 2 * i / n) - Math.PI/2;
-      const x = cx + (r + 16) * Math.cos(angle);
-      const y = cy + (r + 16) * Math.sin(angle);
-      ctx.fillText(labels[i] + " " + vals[i], x, y);
+  function flagChip(cc){
+    const url = flagUrl(cc, "w80");
+    return `<span class="flag"><img src="${url}" alt="${cc}" onerror="this.closest('.flag').classList.add('imgfail')"><span class="flagfb">${flagEmoji(cc)}</span><span class="cc">${(cc||'').replace('GB-ENG','ENG')}</span></span>`;
+  }
+
+  function initials(name){
+    return name.replace(/\(.*\)/,'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
+  }
+  // Photo with graceful placeholder built from the player's current club colors
+  function heroMedia(p){
+    const d = clubData(p.currentClub && p.currentClub !== "Retired" ? p.currentClub : (p.clubs && p.clubs[p.clubs.length-1]) || "");
+    const ph = `<span class="ph" style="background:linear-gradient(150deg,${d.c1},${d.c2})"><span class="ph-init">${initials(p.name)}</span><span class="ph-num">${p.jerseyNumber||''}</span></span>`;
+    if(p.imageUrl){
+      return `<img class="hero-img" src="${p.imageUrl}" alt="${p.name}" loading="lazy" onerror="this.closest('.hero').classList.add('noimg')">${ph}`;
     }
+    return `${ph}`;
   }
 
   /* =========================================================
@@ -309,57 +327,54 @@
       return;
     }
 
-    grid.innerHTML = players.map((p, idx) => `
+    grid.innerHTML = players.map((p, idx) => {
+      const h = p.honors || {};
+      const trophies =
+        trophyRow("World Cup","worldcup",h.wc) +
+        trophyRow("Champions League","ucl",h.cl) +
+        trophyRow("Ballon d'Or","ballon",h.bo) +
+        trophyRow(contiName(p.countryCode),"continental",h.co);
+      const hasTrophies = (h.wc||0)+(h.cl||0)+(h.bo||0)+(h.co||0) > 0;
+      const timeline = p.careerTimeline
+        ? `<ul class="timeline">${p.careerTimeline.map(t => `<li>${t.club} <span class="years">${t.years}</span></li>`).join("")}</ul>`
+        : `<ul class="timeline">${(p.clubs||[]).map(c => '<li>'+c+'</li>').join("")}</ul>`;
+      return `
       <div class="card" data-rarity="${p.rarity || 'silver'}" data-idx="${idx}">
         <div class="card-inner">
           <div class="card-front">
-            <span class="jersey-number">${p.jerseyNumber || ''}</span>
-            <span class="rarity-badge ${p.rarity || 'silver'}">${p.rarity === 'diamond' ? 'Diamond' : p.rarity === 'gold' ? 'Gold' : 'Silver'}</span>
-            <img src="${p.imageUrl}" alt="${p.name}" />
-            <h2>${p.name}</h2>
-            <p class="player-info">
-              <span class="flag">${p.countryCode ? getFlag(p.countryCode) : ''}</span>
-              ${p.currentClub} &bull; ${p.country}
-            </p>
-            <p class="fun-fact">"${p.funFact || ''}"</p>
+            <div class="hero">
+              <span class="jersey">${p.jerseyNumber || ''}</span>
+              ${flagChip(p.countryCode)}
+              <span class="rarity-badge ${p.rarity || 'silver'}">${p.rarity || 'silver'}</span>
+              ${heroMedia(p)}
+            </div>
+            <div class="plate">
+              <h2 class="pname">${p.name}</h2>
+              <p class="pclub"><span class="dot"></span>${p.currentClub === "Retired" ? "Legend" : p.currentClub} &middot; ${p.country}</p>
+            </div>
+            <span class="lab">Trophy cabinet</span>
+            <div class="shelf">${hasTrophies ? trophies : '<p class="rising">⭐ Rising star — collecting trophies!</p>'}</div>
+            <span class="lab">Teams</span>
+            <div class="crests">${(p.clubs||[]).map(crestChip).join("")}</div>
+            <span class="flip-hint">tap for fun fact →</span>
           </div>
           <div class="card-back">
             <h3>${p.name}</h3>
-            <div class="radar-wrap"><canvas class="radar-canvas"></canvas></div>
-            <strong>Career Timeline</strong>
-            ${p.careerTimeline ? `
-              <ul class="timeline">
-                ${p.careerTimeline.map(t => `<li>${t.club} <span class="years">${t.years}</span></li>`).join("")}
-              </ul>
-            ` : `
-              <ul>${p.clubs.map(c => '<li>'+c+'</li>').join("")}</ul>
-            `}
-            <strong>Awards</strong>
-            <ul>${p.awards.map(a => '<li>'+a+'</li>').join("")}</ul>
+            <p class="fact">"${p.funFact || ''}"</p>
+            <strong>Career</strong>
+            ${timeline}
             <a href="${p.fotmobUrl}" target="_blank" rel="noopener">View on FotMob &rarr;</a>
           </div>
         </div>
-      </div>
-    `).join("");
-
-    // Draw radar charts
-    document.querySelectorAll(".card").forEach((card, i) => {
-      const p = players[i];
-      if(p.stats){
-        const canvas = card.querySelector(".radar-canvas");
-        if(canvas) drawRadar(canvas, p.stats);
-      }
-    });
+      </div>`;
+    }).join("");
 
     // Flip click
     document.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("click", () => {
+      card.addEventListener("click", e => {
+        if(e.target.closest("a")) return;   // let links work without flipping
         card.classList.toggle("flip");
-        if(card.classList.contains("flip")){
-          playFlipSound();
-        } else {
-          playFlipSound();
-        }
+        playFlipSound();
       });
     });
   }
@@ -660,12 +675,12 @@
     document.getElementById("compareResult").innerHTML = `
       <div class="compare-body">
         <div class="player-col">
-          <img src="${a.imageUrl}" alt="${a.name}" />
+          <img src="${a.imageUrl || PLACEHOLDER}" alt="${a.name}" onerror="this.src=PLACEHOLDER" />
           <h3>${a.name}</h3>
           <p style="opacity:.7;font-size:.85rem">${a.currentClub} &bull; #${a.jerseyNumber || '?'}</p>
         </div>
         <div class="player-col">
-          <img src="${b.imageUrl}" alt="${b.name}" />
+          <img src="${b.imageUrl || PLACEHOLDER}" alt="${b.name}" onerror="this.src=PLACEHOLDER" />
           <h3>${b.name}</h3>
           <p style="opacity:.7;font-size:.85rem">${b.currentClub} &bull; #${b.jerseyNumber || '?'}</p>
         </div>
@@ -697,7 +712,7 @@
     // Vote cards
     document.getElementById("voteGrid").innerHTML = allPlayers.map(p => `
       <div class="vote-card ${voted === p.name ? 'voted' : ''}" data-name="${p.name}">
-        <img src="${p.imageUrl}" alt="${p.name}" />
+        <img src="${p.imageUrl || PLACEHOLDER}" alt="${p.name}" onerror="this.src=PLACEHOLDER" />
         <div class="vname">${p.name}</div>
       </div>
     `).join("");
@@ -768,7 +783,7 @@
       const p = allPlayers.find(pl => pl.name === name);
       return p ? `
         <li draggable="true" data-name="${p.name}">
-          <img src="${p.imageUrl}" alt="${p.name}" />
+          <img src="${p.imageUrl || PLACEHOLDER}" alt="${p.name}" onerror="this.src=PLACEHOLDER" />
           <span class="rank-name">${p.name}</span>
         </li>
       ` : '';
