@@ -93,7 +93,7 @@ button{font-family:inherit;}
 
 /* ===== CARD ===== */
 .card{
-  perspective:1000px;
+  perspective:1200px;
   cursor:pointer;
   transition:transform 180ms ease;
 }
@@ -101,7 +101,7 @@ button{font-family:inherit;}
 
 .card-inner{
   position:relative;
-  height:460px;
+  height:560px;
   transition:transform .7s,box-shadow .2s;
   transform-style:preserve-3d;
   border-radius:18px;
@@ -115,208 +115,161 @@ button{font-family:inherit;}
   position:absolute;inset:0;
   backface-visibility:hidden;
   border-radius:18px;
-  padding:14px;
   overflow:hidden;
-}
-
-/* ===== RARITY BORDERS ===== */
-.card-front,.card-back{
   background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0)),#141a33;
   border:2px solid rgba(255,255,255,.1);
 }
+.card-front{display:flex;flex-direction:column}
 
-/* Silver (default) */
+/* ===== RARITY BORDERS ===== */
 .card[data-rarity="silver"] .card-front,
-.card[data-rarity="silver"] .card-back{
-  border-color:rgba(192,192,192,.4);
-}
-
-/* Gold */
+.card[data-rarity="silver"] .card-back{border-color:rgba(192,192,192,.4)}
 .card[data-rarity="gold"] .card-front,
 .card[data-rarity="gold"] .card-back{
-  border:2px solid transparent;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0)),#141a33;
-  background-clip:padding-box;
+  border:2px solid transparent;background-clip:padding-box;
   box-shadow:0 0 0 2px rgba(255,215,0,.5),0 12px 30px rgba(0,0,0,.35);
 }
-
-/* Diamond */
 .card[data-rarity="diamond"] .card-front,
 .card[data-rarity="diamond"] .card-back{
-  border:2px solid transparent;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,0)),#141a33;
-  background-clip:padding-box;
-  box-shadow:
-    0 0 0 2px rgba(102,204,255,.5),
-    0 0 20px rgba(102,204,255,.15),
-    0 12px 30px rgba(0,0,0,.35);
+  border:2px solid transparent;background-clip:padding-box;
+  box-shadow:0 0 0 2px rgba(102,204,255,.5),0 0 20px rgba(102,204,255,.15),0 12px 30px rgba(0,0,0,.35);
 }
 
-/* ===== HOLOGRAPHIC SHIMMER ===== */
-.card-front::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:18px;
-  background:linear-gradient(
-    105deg,
-    transparent 30%,
-    rgba(255,255,255,.08) 45%,
-    rgba(102,204,255,.12) 50%,
-    rgba(255,110,199,.10) 55%,
-    transparent 70%
-  );
-  opacity:0;
-  transition:opacity .3s;
-  pointer-events:none;
-  z-index:5;
+/* ===== HERO (photo / placeholder) ===== */
+.hero{
+  position:relative;height:230px;flex:none;overflow:hidden;
+  background:#0f1530;
 }
-.card:hover .card-front::before{
-  opacity:1;
-  animation:shimmer 1.5s ease-in-out infinite;
+.hero .hero-img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  display:block;transition:transform .25s;
 }
-@keyframes shimmer{
-  0%{transform:translateX(-100%)}
-  100%{transform:translateX(100%)}
+.card:hover .hero .hero-img{transform:scale(1.05)}
+.hero::after{ /* fade into card body */
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,rgba(20,26,51,.35) 80%,#141a33 100%);
 }
+/* placeholder (kit-style) shown when no photo / photo fails */
+.hero .ph{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;color:rgba(255,255,255,.92);z-index:1;
+}
+.hero .ph-init{font-size:3.6rem;font-weight:800;letter-spacing:2px;text-shadow:0 3px 10px rgba(0,0,0,.35)}
+.hero .ph-num{font-size:1rem;font-weight:700;opacity:.8;margin-top:2px}
+.hero .hero-img{position:relative;z-index:1}
+.hero.noimg .hero-img{display:none}
 
-/* ===== RARITY BADGE ===== */
+/* jersey number */
+.jersey{
+  position:absolute;top:12px;left:12px;z-index:4;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.25);font-weight:800;font-size:1.1rem;
+}
+/* country flag */
+.flag{
+  position:absolute;top:12px;right:12px;z-index:4;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 10px 4px 6px;
+}
+.flag img{width:26px;height:18px;object-fit:cover;border-radius:3px;display:block}
+.flag .flagfb{display:none;font-size:1.2rem;line-height:1}
+.flag.imgfail img{display:none}
+.flag.imgfail .flagfb{display:inline}
+.flag .cc{font-size:.7rem;font-weight:700;letter-spacing:.06em}
+
+/* rarity badge */
 .rarity-badge{
-  position:absolute;
-  top:10px;
-  right:10px;
-  padding:3px 10px;
-  border-radius:12px;
-  font-size:.7rem;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-  z-index:10;
+  position:absolute;bottom:12px;right:12px;z-index:4;
+  padding:3px 11px;border-radius:12px;font-size:.62rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.08em;
 }
-.rarity-badge.diamond{
-  background:linear-gradient(135deg,#6cf,#a06cf0);
-  color:#fff;
-}
-.rarity-badge.gold{
-  background:linear-gradient(135deg,#ffd700,#ff9500);
-  color:#1a1a2e;
-}
-.rarity-badge.silver{
-  background:rgba(192,192,192,.3);
-  color:#ccc;
+.rarity-badge.diamond{background:linear-gradient(135deg,#6cf,#a06cf0);color:#fff}
+.rarity-badge.gold{background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a2e}
+.rarity-badge.silver{background:rgba(192,192,192,.35);color:#eee}
+
+/* ===== NAME PLATE ===== */
+.plate{padding:8px 14px 2px}
+.pname{margin:0;font-size:1.35rem;font-weight:800;letter-spacing:-.2px;line-height:1.05}
+.pclub{margin:3px 0 0;font-size:.82rem;color:#6cf;font-weight:600;display:flex;align-items:center;gap:6px}
+.pclub .dot{width:6px;height:6px;border-radius:50%;background:#6cf;box-shadow:0 0 6px #6cf;flex:none}
+
+/* section label */
+.lab{
+  display:block;margin:12px 14px 6px;font-size:.6rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:#ffd700;
 }
 
-/* ===== JERSEY NUMBER ===== */
-.jersey-number{
-  position:absolute;
-  top:10px;
-  left:10px;
-  width:36px;
-  height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:rgba(0,0,0,.6);
-  backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.2);
-  font-weight:800;
-  font-size:1rem;
-  z-index:10;
+/* ===== TROPHY SHELF ===== */
+.shelf{padding:0 14px;display:flex;flex-direction:column;gap:6px}
+.rising{margin:0;font-size:.85rem;color:rgba(255,255,255,.55);font-style:italic}
+.trow{display:flex;align-items:center;gap:8px;min-height:28px}
+.tlabel{font-size:.68rem;color:rgba(255,255,255,.6);width:104px;flex:none;line-height:1.1}
+.ticons{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.tchip{
+  width:26px;height:26px;flex:none;border-radius:6px;overflow:hidden;
+  background:#f4f6fb;border:1px solid rgba(255,255,255,.15);
+  display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.35);
 }
+.tchip img{width:100%;height:100%;object-fit:contain;padding:2px;display:block}
+.tchip .tsvg{display:none;width:100%;height:100%;padding:2px}
+.tchip .tsvg svg{display:block}
+.tchip.imgfail img{display:none}
+.tchip.imgfail .tsvg{display:block}
+.tx{font-size:.72rem;font-weight:800;color:#ffd700;margin-left:2px}
 
-/* ===== CARD FRONT ===== */
-.card-front img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  object-position:top center;
-  border-radius:14px;
-  transition:transform 220ms ease;
+/* ===== CLUB CRESTS ===== */
+.crests{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px}
+.crest{
+  width:34px;height:34px;flex:none;border-radius:8px;overflow:hidden;
+  background:rgba(255,255,255,.92);display:grid;place-items:center;
+  box-shadow:0 2px 5px rgba(0,0,0,.35);
 }
-.card:hover .card-front img{transform:scale(1.04)}
-.card-front h2{
-  margin:10px 0 2px;
-  font-size:1.15rem;
-  letter-spacing:.3px;
+.crest img{width:100%;height:100%;object-fit:contain;padding:3px;display:block}
+.crest .crestfb{
+  display:none;width:100%;height:100%;place-items:center;
+  clip-path:none;font-weight:800;font-size:.62rem;
 }
-.card-front .player-info{
-  opacity:.85;
-  font-size:.9rem;
-  margin:0;
+.crest .crestfb span{position:relative;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.crest .crestfb::before{
+  content:"";position:absolute;inset:0;z-index:1;opacity:.92;
+  background:linear-gradient(135deg,var(--c2) 0 50%,transparent 50%);
 }
-.card-front .flag{font-size:1.1rem;vertical-align:middle;margin-right:2px}
+.crest.imgfail{background:transparent;position:relative}
+.crest.imgfail img{display:none}
+.crest.imgfail .crestfb{display:grid;position:relative;overflow:hidden}
 
-/* Fun fact at bottom of front */
-.card-front .fun-fact{
-  margin-top:8px;
-  font-size:.78rem;
-  opacity:.6;
-  font-style:italic;
-  line-height:1.3;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
+.flip-hint{
+  margin-top:auto;padding:8px 14px 12px;font-size:.66rem;
+  color:rgba(255,255,255,.35);text-align:right;letter-spacing:.03em;
 }
 
 /* ===== CARD BACK ===== */
 .card-back{
-  transform:rotateY(180deg);
-  overflow-y:auto;
-  padding:16px;
-  font-size:.88rem;
+  transform:rotateY(180deg);overflow-y:auto;padding:18px;font-size:.88rem;
 }
-.card-back h3{margin:0 0 8px;font-size:1rem;color:#6cf}
-.card-back strong{display:block;margin-top:8px;color:#ffd700;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
-.card-back ul{margin:4px 0 0;padding-left:18px}
-.card-back li{margin:2px 0;font-size:.84rem;opacity:.9}
-.card-back a{
-  display:inline-block;
-  margin-top:10px;
-  color:#6cf;
-  text-decoration:none;
-  font-weight:600;
+.card-back h3{margin:0 0 8px;font-size:1.05rem;color:#6cf}
+.card-back .fact{
+  font-style:italic;line-height:1.45;color:rgba(255,255,255,.9);
+  background:rgba(102,204,255,.08);border-left:3px solid #6cf;
+  padding:10px 12px;border-radius:8px;margin:0 0 6px;font-size:.9rem;
 }
+.card-back strong{display:block;margin-top:12px;color:#ffd700;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em}
+.card-back a{display:inline-block;margin-top:12px;color:#6cf;text-decoration:none;font-weight:600}
 .card-back a:hover{text-decoration:underline}
 
 /* ===== CAREER TIMELINE ===== */
 .timeline{
-  margin-top:8px;
-  padding:0;
-  list-style:none;
+  margin:8px 0 0;padding:0 0 0 14px;list-style:none;
   border-left:2px solid rgba(102,204,255,.3);
-  padding-left:14px;
 }
-.timeline li{
-  position:relative;
-  padding:3px 0;
-  font-size:.8rem;
-}
+.timeline li{position:relative;padding:3px 0;font-size:.82rem}
 .timeline li::before{
-  content:"";
-  position:absolute;
-  left:-19px;
-  top:8px;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#6cf;
+  content:"";position:absolute;left:-19px;top:8px;width:8px;height:8px;
+  border-radius:50%;background:#6cf;
 }
 .timeline .years{color:#6cf;font-size:.75rem}
-
-/* ===== RADAR CHART ===== */
-.radar-wrap{
-  display:flex;
-  justify-content:center;
-  margin:8px 0;
-}
-.radar-wrap canvas{
-  max-width:160px;
-  max-height:160px;
-}
 
 /* ===== LINKS ===== */
 a{color:#6cf;text-decoration:none}
@@ -643,8 +596,8 @@ a:hover{text-decoration:underline}
   .toolbar input[type="text"]{width:140px}
   .btn{padding:6px 12px;font-size:.8rem}
   .grid{grid-template-columns:1fr;gap:14px}
-  .card-inner{height:500px}
-  .card-front img{height:300px}
+  .card-inner{height:560px}
+  .hero{height:260px}
   .quiz-options{grid-template-columns:1fr}
   .compare-select{grid-template-columns:1fr}
   .compare-body{grid-template-columns:1fr}
