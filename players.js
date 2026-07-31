@@ -427,7 +427,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 94, shooting: 74, passing: 80, dribbling: 85, defending: 78, physical: 79 },
     funFact: "He plays right-back but scores and assists like a winger — he helped Morocco become the first African team ever to reach a World Cup semifinal in 2022!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Achraf_Hakimi_Morocco_v_Norway_7_June_2026-32.jpg/400px-Achraf_Hakimi_Morocco_v_Norway_7_June_2026-32.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Achraf%20Hakimi"
   },
   {
@@ -438,7 +438,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 1 },
     stats: { pace: 58, shooting: 22, passing: 76, dribbling: 68, defending: 25, physical: 82 },
     funFact: "He's a goalkeeper who once scored a last-minute header to win a game for Liverpool — goalkeepers almost never score!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Alisson_Becker_Brazil_V_Morocco_13_June_2026-117_%28cropped%29.jpg/400px-Alisson_Becker_Brazil_V_Morocco_13_June_2026-117_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Alisson%20Becker"
   },
   {
@@ -449,7 +449,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 78, shooting: 78, passing: 86, dribbling: 90, defending: 62, physical: 62 },
     funFact: "He's so good at keeping the ball that teammates joke defenders can't take it off him even in a phone booth!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Bernardo_Silva_Croatia_v_Portugal_2_July_2026-238.jpg/400px-Bernardo_Silva_Croatia_v_Portugal_2_July_2026-238.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Bernardo%20Silva"
   },
   {
@@ -460,7 +460,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 75, shooting: 86, passing: 88, dribbling: 82, defending: 65, physical: 74 },
     funFact: "He's the captain of Manchester United and takes some of the most powerful penalties in the world!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bruno_Fernandes_USMNT_v_Portugal_Mar_31_2026-27_%28cropped%29.jpg/400px-Bruno_Fernandes_USMNT_v_Portugal_Mar_31_2026-27_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Bruno%20Fernandes"
   },
   {
@@ -471,7 +471,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 1 },
     stats: { pace: 88, shooting: 80, passing: 79, dribbling: 87, defending: 40, physical: 63 },
     funFact: "Nicknamed 'Captain America', he became the most expensive American player ever when Chelsea signed him!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Christian_Pulisic_USMNT_v_Belgium_Mar_28_2026-73_%28cropped%29.jpg/400px-Christian_Pulisic_USMNT_v_Belgium_Mar_28_2026-73_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Christian%20Pulisic"
   },
   {
@@ -482,7 +482,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 6, bo: 0, co: 1 },
     stats: { pace: 80, shooting: 62, passing: 78, dribbling: 78, defending: 84, physical: 80 },
     funFact: "He has won the Champions League SIX times — more than almost any player alive — and scored the winning header in a final!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/UEFA_EURO_qualifiers_Sweden_vs_Spain_20191015_Dani_Carvajal_10_%28cropped%29.jpg/400px-UEFA_EURO_qualifiers_Sweden_vs_Spain_20191015_Dani_Carvajal_10_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Dani%20Carvajal"
   },
   {
@@ -493,7 +493,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 76, shooting: 74, passing: 82, dribbling: 80, defending: 85, physical: 85 },
     funFact: "He captained West Ham to a European trophy, then became one of the most expensive English players ever when Arsenal signed him!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Declan_Rice_England_v_Ghana_23_June_2026-150.jpg/400px-Declan_Rice_England_v_Ghana_23_June_2026-150.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Declan%20Rice"
   },
   {
@@ -504,7 +504,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 86, shooting: 79, passing: 82, dribbling: 89, defending: 45, physical: 66 },
     funFact: "As a teenager he scored twice in the 2025 Champions League final to help PSG win the biggest club trophy for the first time!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Desire_Doue_France_v_Senegal_16_June_2026-264.jpg/400px-Desire_Doue_France_v_Senegal_16_June_2026-264.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=D%C3%A9sir%C3%A9%20Dou%C3%A9"
   },
   {
@@ -515,7 +515,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 74, shooting: 62, passing: 78, dribbling: 76, defending: 82, physical: 82 },
     funFact: "He's a Portland Timbers legend who has played more games for the club than almost anyone in team history!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Diego_Char%C3%A1_Portland_Timbers_vs_Colorado_Rapids_2016-10-16.jpg/400px-Diego_Char%C3%A1_Portland_Timbers_vs_Colorado_Rapids_2016-10-16.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Diego%20Char%C3%A1"
   },
   {
@@ -526,7 +526,7 @@ const PLAYERS = [
     honors: { wc: 1, cl: 0, bo: 0, co: 2 },
     stats: { pace: 55, shooting: 20, passing: 72, dribbling: 64, defending: 25, physical: 84 },
     funFact: "This goalkeeper made an incredible last-second save to help Argentina win the 2022 World Cup — and loves doing funny celebrations!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Emiliano_Martinez_Argentina_v_Egypt_7_July_2026-093_%28cropped%29.jpg/400px-Emiliano_Martinez_Argentina_v_Egypt_7_July_2026-093_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Emiliano%20Mart%C3%ADnez"
   },
   {
@@ -537,7 +537,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 2, bo: 0, co: 0 },
     stats: { pace: 88, shooting: 84, passing: 84, dribbling: 82, defending: 80, physical: 86 },
     funFact: "He can run all game long and shoots the ball so hard that teammates nicknamed him 'El Pajarito' (the little bird) — but his shots fly like rockets!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Federico_Valverde_2021_%28cropped%29.jpg/400px-Federico_Valverde_2021_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Federico%20Valverde"
   },
   {
@@ -548,7 +548,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 86, shooting: 80, passing: 83, dribbling: 92, defending: 40, physical: 63 },
     funFact: "Nicknamed 'Bambi', he dribbles so smoothly it looks like the ball is glued to his feet!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Jamal_Musiala_Ecuador_v_Germany_25_June_2026-174_%28cropped%29.jpg/400px-Jamal_Musiala_Ecuador_v_Germany_25_June_2026-174_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Jamal%20Musiala"
   },
   {
@@ -559,7 +559,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 82, shooting: 80, passing: 80, dribbling: 88, defending: 40, physical: 65 },
     funFact: "He became one of the most expensive teenagers in football history when Atlético Madrid paid €126 million for him!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Joao_Felix_Croatia_v_Portugal_2_July_2026-007.jpg/400px-Joao_Felix_Croatia_v_Portugal_2_July_2026-007.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Jo%C3%A3o%20F%C3%A9lix"
   },
   {
@@ -570,7 +570,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 80, shooting: 74, passing: 85, dribbling: 86, defending: 80, physical: 72 },
     funFact: "He's a tiny midfielder with a giant engine — he won the Champions League with PSG when he was still a teenager!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Joao_Neves_Croatia_v_Portugal_2_July_2026-102.jpg/400px-Joao_Neves_Croatia_v_Portugal_2_July_2026-102.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Jo%C3%A3o%20Neves"
   },
   {
@@ -581,7 +581,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 3, bo: 3, co: 0 },
     stats: { pace: 88, shooting: 86, passing: 92, dribbling: 94, defending: 45, physical: 70 },
     funFact: "He invented a famous move called the 'Cruyff Turn' that players all over the world still use today!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Johan_Cruijff_%281974%29.jpg/400px-Johan_Cruijff_%281974%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Johan%20Cruyff"
   },
   {
@@ -592,7 +592,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 76, shooting: 74, passing: 88, dribbling: 82, defending: 82, physical: 74 },
     funFact: "He can play almost any position on the field and is famous for never, ever giving up on a play!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Joshua_Kimmich_Ecuador_v_Germany_25_June_2026-149.jpg/400px-Joshua_Kimmich_Ecuador_v_Germany_25_June_2026-149.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Joshua%20Kimmich"
   },
   {
@@ -603,7 +603,7 @@ const PLAYERS = [
     honors: { wc: 1, cl: 1, bo: 1, co: 0 },
     stats: { pace: 89, shooting: 86, passing: 88, dribbling: 90, defending: 40, physical: 76 },
     funFact: "He was the last player to win the Ballon d'Or before Messi and Ronaldo took over for over a decade!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Kak%C3%A1_visited_Stadium_St._Petersburg.jpg/400px-Kak%C3%A1_visited_Stadium_St._Petersburg.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Kak%C3%A1"
   },
   {
@@ -614,7 +614,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 5, bo: 1, co: 0 },
     stats: { pace: 80, shooting: 90, passing: 84, dribbling: 88, defending: 40, physical: 78 },
     funFact: "He won the Ballon d'Or in 2022 after scoring loads of last-minute goals to help Real Madrid win the Champions League!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Karim_Benzema_Pick.jpg/400px-Karim_Benzema_Pick.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Karim%20Benzema"
   },
   {
@@ -625,7 +625,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 74, shooting: 86, passing: 94, dribbling: 86, defending: 64, physical: 78 },
     funFact: "He passes the ball so perfectly that many people call him the best passer in the whole world!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kevin_De_Bruyne_USMNT_v_Belgium_Mar_28_2026-64_%28cropped%29.jpg/400px-Kevin_De_Bruyne_USMNT_v_Belgium_Mar_28_2026-64_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Kevin%20De%20Bruyne"
   },
   {
@@ -636,7 +636,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 6, bo: 1, co: 0 },
     stats: { pace: 74, shooting: 78, passing: 90, dribbling: 90, defending: 72, physical: 66 },
     funFact: "He won the Ballon d'Or in 2018, breaking a 10-year streak where only Messi and Ronaldo had won it!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Luka_Modric_Croatia_v_Portugal_2_July_2026-055.jpg/400px-Luka_Modric_Croatia_v_Portugal_2_July_2026-055.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Luka%20Modri%C4%87"
   },
   {
@@ -647,7 +647,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 1 },
     stats: { pace: 78, shooting: 90, passing: 82, dribbling: 86, defending: 40, physical: 80 },
     funFact: "He's one of Uruguay's greatest goalscorers ever and now plays alongside his best friend Lionel Messi at Inter Miami!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Luis_Su%C3%A1rez_2026_%28cropped%29.jpg/400px-Luis_Su%C3%A1rez_2026_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Luis%20Su%C3%A1rez"
   },
   {
@@ -658,7 +658,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 1 },
     stats: { pace: 82, shooting: 60, passing: 78, dribbling: 82, defending: 82, physical: 76 },
     funFact: "You can spot him instantly on the field because of his big, bouncy curly hair!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Marc_Cucurella_Argentina_v_Spain_19_July_2026-064_%28cropped%29.jpg/400px-Marc_Cucurella_Argentina_v_Spain_19_July_2026-064_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Marc%20Cucurella"
   },
   {
@@ -669,7 +669,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 5, bo: 0, co: 0 },
     stats: { pace: 84, shooting: 74, passing: 84, dribbling: 88, defending: 78, physical: 72 },
     funFact: "He won the Champions League five times and is the most decorated player in Real Madrid's entire history!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Marcelo_Vieira_in_2022.jpg/400px-Marcelo_Vieira_in_2022.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Marcelo%20Vieira"
   },
   {
@@ -680,7 +680,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 76, shooting: 80, passing: 88, dribbling: 87, defending: 60, physical: 62 },
     funFact: "He was so good as a kid that Real Madrid signed him when he was only 15 years old!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Martin_Odegaard_France_v_Norway_26_June_26-014.jpg/400px-Martin_Odegaard_France_v_Norway_26_June_26-014.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Martin%20%C3%98degaard"
   },
   {
@@ -691,7 +691,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 84, shooting: 82, passing: 85, dribbling: 89, defending: 45, physical: 64 },
     funFact: "He can curl free kicks and crosses with amazing accuracy — defenders never know what he'll do next!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Michael_Olise_France_v_Senegal_16_June_2026-307_%28cropped%29.jpg/400px-Michael_Olise_France_v_Senegal_16_June_2026-307_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Michael%20Olise"
   },
   {
@@ -702,7 +702,7 @@ const PLAYERS = [
     honors: { wc: 1, cl: 1, bo: 0, co: 3 },
     stats: { pace: 58, shooting: 24, passing: 72, dribbling: 66, defending: 28, physical: 82 },
     funFact: "This legendary goalkeeper saved a penalty in a World Cup final and didn't let in a single goal in the whole 2007 tournament!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Nadine_Angerer_-_UEFA_EURO_2024_Fan_Zone_Hamburg_04.jpg/400px-Nadine_Angerer_-_UEFA_EURO_2024_Fan_Zone_Hamburg_04.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Nadine%20Angerer"
   },
   {
@@ -713,7 +713,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 1 },
     stats: { pace: 93, shooting: 78, passing: 78, dribbling: 88, defending: 40, physical: 68 },
     funFact: "He scored in the Euro 2024 final to help Spain become champions — and his brother Iñaki plays for Ghana!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Nico_Williams_Argentina_v_Spain_19_July_2026-196_%28cropped%29.jpg/400px-Nico_Williams_Argentina_v_Spain_19_July_2026-196_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Nico%20Williams"
   },
   {
@@ -724,7 +724,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 93, shooting: 68, passing: 80, dribbling: 85, defending: 82, physical: 78 },
     funFact: "He's a left-back who is so fast he can sprint past wingers and defend the whole side of the pitch by himself!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Nuno_Mendes_Croatia_v_Portugal_2_July_2026-135_%28cropped%29.jpg/400px-Nuno_Mendes_Croatia_v_Portugal_2_July_2026-135_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Nuno%20Mendes"
   },
   {
@@ -735,7 +735,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 80, shooting: 86, passing: 74, dribbling: 80, defending: 40, physical: 82 },
     funFact: "He scored one of the greatest goals ever at Euro 2020 — a shot from almost the halfway line!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3672_by_Stepro.jpg/400px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3672_by_Stepro.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Patrik%20Schick"
   },
   {
@@ -746,7 +746,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 80, shooting: 40, passing: 82, dribbling: 78, defending: 84, physical: 72 },
     funFact: "He became one of Barcelona's most important defenders while still a teenager — super calm and never panics with the ball!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Pau_Cubarsi_Argentina_v_Spain_19_July_2026-181_%28cropped%29.jpg/400px-Pau_Cubarsi_Argentina_v_Spain_19_July_2026-181_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Pau%20Cubars%C3%AD"
   },
   {
@@ -757,7 +757,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 1 },
     stats: { pace: 76, shooting: 74, passing: 88, dribbling: 89, defending: 62, physical: 62 },
     funFact: "He almost never loses the ball — some games he completes 100 passes without a single mistake!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Pedri_France_v_Spain_7.24.26-245.jpg/400px-Pedri_France_v_Spain_7.24.26-245.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Pedri"
   },
   {
@@ -768,7 +768,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 91, shooting: 76, passing: 80, dribbling: 87, defending: 45, physical: 64 },
     funFact: "He's lightning fast on the wing and helped Chelsea win a big trophy in the summer of 2025!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Pedro_Neto_Croatia_v_Portugal_2_July_2026-113.jpg/400px-Pedro_Neto_Croatia_v_Portugal_2_July_2026-113.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Pedro%20Neto"
   },
   {
@@ -779,7 +779,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 84, shooting: 84, passing: 85, dribbling: 90, defending: 55, physical: 62 },
     funFact: "He grew up a Manchester City fan and now plays for his favorite club — a real dream come true!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/2023-10-04_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League%2C_RB_Leipzig_-_Manchester_City_FC_1DX_2613%2C_Phil_Foden.jpg/400px-2023-10-04_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League%2C_RB_Leipzig_-_Manchester_City_FC_1DX_2613%2C_Phil_Foden.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Phil%20Foden"
   },
   {
@@ -790,7 +790,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 94, shooting: 82, passing: 78, dribbling: 89, defending: 35, physical: 78 },
     funFact: "As well as football, he loves music and has even released his own rap songs!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/RafaelLe%C3%A3oPortugal23.jpg/400px-RafaelLe%C3%A3oPortugal23.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Rafael%20Le%C3%A3o"
   },
   {
@@ -801,7 +801,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 78, shooting: 92, passing: 80, dribbling: 84, defending: 42, physical: 82 },
     funFact: "He once scored FIVE goals in just nine minutes — the fastest five goals in football history!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/2019147183134_2019-05-27_Fussball_1.FC_Kaiserslautern_vs_FC_Bayern_M%C3%BCnchen_-_Sven_-_1D_X_MK_II_-_0228_-_B70I8527_%28cropped%29.jpg/400px-2019147183134_2019-05-27_Fussball_1.FC_Kaiserslautern_vs_FC_Bayern_M%C3%BCnchen_-_Sven_-_1D_X_MK_II_-_0228_-_B70I8527_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Robert%20Lewandowski"
   },
   {
@@ -812,7 +812,7 @@ const PLAYERS = [
     honors: { wc: 1, cl: 3, bo: 0, co: 0 },
     stats: { pace: 92, shooting: 84, passing: 82, dribbling: 84, defending: 80, physical: 82 },
     funFact: "He scored a free kick that curved so much it looked like magic — scientists studied it to figure out how it was possible!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/LS3_1288_%2853332367864%29_%28cropped%29.jpg/400px-LS3_1288_%2853332367864%29_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Roberto%20Carlos"
   },
   {
@@ -823,7 +823,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 1, co: 1 },
     stats: { pace: 68, shooting: 80, passing: 88, dribbling: 82, defending: 86, physical: 84 },
     funFact: "He won the 2024 Ballon d'Or as a midfielder — and scored the winning goal in the Champions League final!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Rodri_Argentina_v_Spain_19_July_2026-187_%28cropped%29.jpg/400px-Rodri_Argentina_v_Spain_19_July_2026-187_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Rodri%20Hernandez"
   },
   {
@@ -834,7 +834,7 @@ const PLAYERS = [
     honors: { wc: 2, cl: 0, bo: 2, co: 2 },
     stats: { pace: 94, shooting: 93, passing: 80, dribbling: 94, defending: 30, physical: 82 },
     funFact: "Many people call him the greatest striker ever — he came back from serious knee injuries to win the 2002 World Cup!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Ronaldo_Lu%C3%ADs_Naz%C3%A1rio_de_Lima_2019_%283x4_cropped%29.jpg/400px-Ronaldo_Lu%C3%ADs_Naz%C3%A1rio_de_Lima_2019_%283x4_cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Ronaldo%20Nazario"
   },
   {
@@ -845,7 +845,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 84, shooting: 88, passing: 74, dribbling: 78, defending: 40, physical: 90 },
     funFact: "He's a giant, powerful striker who speaks six different languages!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Romelu_Lukaku_2021.jpg/400px-Romelu_Lukaku_2021.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Romelu%20Lukaku"
   },
   {
@@ -856,7 +856,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 88, shooting: 87, passing: 82, dribbling: 86, defending: 43, physical: 70 },
     funFact: "He can shoot equally well with both his left and right foot, and won the Premier League Golden Boot for most goals!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/BFA_2023_-2_Heung-Min_Son_%28cropped%29.jpg/400px-BFA_2023_-2_Heung-Min_Son_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Son%20Heung-min"
   },
   {
@@ -867,7 +867,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 58, shooting: 22, passing: 74, dribbling: 66, defending: 26, physical: 86 },
     funFact: "He's one of the tallest goalkeepers in football and had a legendary game in the 2022 Champions League final, saving everything!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Thibaut_Courtois_at_the_2018_World_Cup_%28cropped%29.jpg/400px-Thibaut_Courtois_at_the_2018_World_Cup_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Thibaut%20Courtois"
   },
   {
@@ -878,7 +878,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 80, shooting: 60, passing: 82, dribbling: 76, defending: 90, physical: 88 },
     funFact: "He's so good at defending that attackers say it feels impossible to dribble past him!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/20160604_AUT_NED_8876_%28cropped%29.jpg/400px-20160604_AUT_NED_8876_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Virgil%20van%20Dijk"
   },
   {
@@ -889,7 +889,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 1, bo: 0, co: 0 },
     stats: { pace: 78, shooting: 78, passing: 88, dribbling: 88, defending: 72, physical: 66 },
     funFact: "He was the midfield engine that helped PSG finally win their first Champions League in 2025!",
-    imageUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Vitinha_USMNT_v_Portugal_Mar_31_2026-50_%28cropped%29.jpg/400px-Vitinha_USMNT_v_Portugal_Mar_31_2026-50_%28cropped%29.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Vitinha%20PSG"
   }
 ];
