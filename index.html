@@ -299,6 +299,19 @@
     return `${ph}`;
   }
 
+  // Position: single-letter emblem (for the kid) + full word (for everyone else)
+  const POS = {
+    GK: { l:"G", w:"Goalkeeper", c:"#f4a300" },
+    DEF:{ l:"D", w:"Defender",   c:"#3b82f6" },
+    MID:{ l:"M", w:"Midfielder", c:"#22c55e" },
+    FWD:{ l:"S", w:"Striker",    c:"#ef4444" }
+  };
+  function posBadge(p){
+    const d = POS[p.pos];
+    if(!d) return "";
+    return `<span class="pos"><span class="pos-em" style="background:${d.c}">${d.l}</span><span class="pos-word">${d.w}</span></span>`;
+  }
+
   // Age from birthdate, computed live so it never goes stale.
   // For players who have passed away, show their years and age reached.
   function ageInfo(p){
@@ -361,6 +374,7 @@
               <span class="jersey">${p.jerseyNumber || ''}</span>
               ${flagChip(p.countryCode)}
               <span class="rarity-badge ${p.rarity || 'silver'}">${p.rarity || 'silver'}</span>
+              ${posBadge(p)}
               ${heroMedia(p)}
             </div>
             <div class="plate">
