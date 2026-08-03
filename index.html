@@ -9,7 +9,7 @@
 <body>
   <header class="hero">
     <h1>Favorite Soccer Stars</h1>
-    <p>Tap a card to flip it! Collect, compare, quiz yourself, and vote for the GOAT.</p>
+    <p>Collect, compare, quiz yourself, and vote for the GOAT.</p>
     <a href="worldcup.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:6px 16px;color:#ffd700;text-decoration:none;font-size:.85rem;font-weight:600;transition:background .2s" onmouseover="this.style.background='rgba(255,215,0,.2)'" onmouseout="this.style.background='rgba(255,215,0,.12)'">🏆 2026 World Cup Scores &amp; Schedule →</a>
   </header>
 
@@ -363,9 +363,6 @@
         trophyRow("Ballon d'Or","ballon",h.bo) +
         trophyRow(contiName(p.countryCode),"continental",h.co);
       const hasTrophies = (h.wc||0)+(h.cl||0)+(h.bo||0)+(h.co||0) > 0;
-      const timeline = p.careerTimeline
-        ? `<ul class="timeline">${p.careerTimeline.map(t => `<li>${t.club} <span class="years">${t.years}</span></li>`).join("")}</ul>`
-        : `<ul class="timeline">${(p.clubs||[]).map(c => '<li>'+c+'</li>').join("")}</ul>`;
       return `
       <div class="card" data-rarity="${p.rarity || 'silver'}" data-idx="${idx}">
         <div class="card-inner">
@@ -386,27 +383,10 @@
             <div class="shelf">${hasTrophies ? trophies : '<p class="rising">⭐ Rising star — collecting trophies!</p>'}</div>
             <span class="lab">Teams</span>
             <div class="crests">${(p.clubs||[]).map(crestChip).join("")}</div>
-            <span class="flip-hint">tap for fun fact →</span>
-          </div>
-          <div class="card-back">
-            <h3>${p.name}</h3>
-            <p class="fact">"${p.funFact || ''}"</p>
-            <strong>Career</strong>
-            ${timeline}
-            <a href="${p.fotmobUrl}" target="_blank" rel="noopener">View on FotMob &rarr;</a>
           </div>
         </div>
       </div>`;
     }).join("");
-
-    // Flip click
-    document.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("click", e => {
-        if(e.target.closest("a")) return;   // let links work without flipping
-        card.classList.toggle("flip");
-        playFlipSound();
-      });
-    });
   }
 
   render();
@@ -461,10 +441,7 @@
         const winner = Math.floor(Math.random() * cards.length);
         cards[winner].style.transform = "scale(1.08)";
         cards[winner].scrollIntoView({behavior:"smooth", block:"center"});
-        setTimeout(() => {
-          cards[winner].classList.add("flip");
-          playFlipSound();
-        }, 400);
+        playFlipSound();
       }
     }, 100);
   });
