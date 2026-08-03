@@ -344,7 +344,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 79, shooting: 88, passing: 84, dribbling: 89, defending: 34, physical: 65 },
     funFact: "He scored 4 goals in a single half against Everton in 2024 — the first Chelsea player ever to do that in the Premier League!",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Cole_Palmer_2025_FIFA_Club_World_Cup_Final.jpg",
+    imageUrl: "assets/players/cole-palmer.jpg",
     fotmobUrl: "https://www.fotmob.com/players/1187247/cole-palmer"
   },
   {
@@ -363,7 +363,7 @@ const PLAYERS = [
     honors: { wc: 1, cl: 1, bo: 1, co: 0 },
     stats: { pace: 96, shooting: 82, passing: 80, dribbling: 92, defending: 30, physical: 68 },
     funFact: "He won the 2025 Ballon d'Or after leading PSG to their first-ever Champions League title!",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/95/Ousmane_Demb%C3%A9l%C3%A9_2018_%28cropped%29.jpg",
+    imageUrl: "assets/players/ousmane-dembele.jpg",
     fotmobUrl: "https://www.fotmob.com/players/718993/ousmane-dembele"
   },
   {
@@ -383,7 +383,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 91, shooting: 83, passing: 80, dribbling: 89, defending: 33, physical: 70 },
     funFact: "He went from being transfer-listed by Barcelona to their top scorer with 26 goals in the 2024-25 season — one of the greatest turnarounds in club history!",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Raphael_Dias_Belloli_2023.jpg",
+    imageUrl: "assets/players/raphinha.jpg",
     fotmobUrl: "https://www.fotmob.com/players/833612/raphinha"
   },
   {
@@ -397,7 +397,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 87, shooting: 83, passing: 83, dribbling: 88, defending: 56, physical: 70 },
     funFact: "He missed the decisive penalty in the Euro 2020 final at just 19 years old, then bounced back to become one of the best wingers in Europe — a true story of resilience!",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/1_bukayo_saka_arsenal_2025_%28cropped%29.jpg",
+    imageUrl: "assets/players/bukayo-saka.jpg",
     fotmobUrl: "https://www.fotmob.com/players/961995/bukayo-saka"
   },
   {
@@ -414,7 +414,7 @@ const PLAYERS = [
     honors: { wc: 0, cl: 0, bo: 0, co: 0 },
     stats: { pace: 81, shooting: 84, passing: 87, dribbling: 90, defending: 40, physical: 69 },
     funFact: "He was the heartbeat of the historic 2023-24 Bayer Leverkusen side that went the entire Bundesliga season unbeaten — a feat no German team had ever achieved before!",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Florian_Wirtz%2C_2022-07-31%2C_Saisoner%C3%B6ffnung_Bayer_04%2C_Leverkusen_%281%29_%28cropped%29.jpg",
+    imageUrl: "assets/players/florian-wirtz.jpg",
     fotmobUrl: "https://www.fotmob.com/players/1101028/florian-wirtz"
   },
   {
