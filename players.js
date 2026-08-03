@@ -1030,6 +1030,19 @@ const PLAYERS = [
     funFact: "He was the midfield engine that helped PSG finally win their first Champions League in 2025!",
     imageUrl: "assets/players/vitinha.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Vitinha%20PSG"
+  },
+  {
+    name: "Casemiro",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Manchester United", jerseyNumber: 18, rarity: "gold",
+    clubs: ["São Paulo","Real Madrid","Manchester United"],
+    dob: "1992-02-23",
+    pos: "MID",
+    honors: { wc: 0, cl: 3, bo: 0, co: 1 },
+    stats: { pace: 62, shooting: 74, passing: 78, dribbling: 72, defending: 88, physical: 87 },
+    funFact: "He's a defensive midfielder who guards his team like a wall — and he won the Champions League three times in a row with Real Madrid!",
+    imageUrl: "assets/players/casemiro.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Casemiro"
   }
 ];
 
