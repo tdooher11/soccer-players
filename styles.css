@@ -189,6 +189,20 @@ button{font-family:inherit;}
 .rarity-badge.gold{background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a2e}
 .rarity-badge.silver{background:rgba(192,192,192,.35);color:#eee}
 
+/* position badge: colored letter emblem + full word */
+.pos{
+  position:absolute;bottom:12px;left:12px;z-index:4;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:3px 11px 3px 3px;
+}
+.pos-em{
+  width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  font-weight:800;font-size:.9rem;color:#fff;flex:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+.pos-word{font-size:.72rem;font-weight:700;letter-spacing:.02em;color:#fff}
+
 /* ===== NAME PLATE ===== */
 .plate{padding:8px 14px 2px}
 .pname{margin:0;font-size:1.35rem;font-weight:800;letter-spacing:-.2px;line-height:1.05}
