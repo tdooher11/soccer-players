@@ -195,8 +195,9 @@ button{font-family:inherit;}
 /* when trivia is on and the card is not yet revealed: cover photo, blur name */
 .trivia .card{cursor:pointer}
 .trivia .card:not(.revealed) .qmark{display:flex}
-/* keep the country flag visible over the cover as a guessing clue */
-.trivia .card:not(.revealed) .flag{z-index:7}
+/* keep the country flag + position visible over the cover as guessing clues */
+.trivia .card:not(.revealed) .flag,
+.trivia .card:not(.revealed) .pos{z-index:7}
 .trivia .card:not(.revealed) .pname{filter:blur(9px);user-select:none}
 .trivia .card:not(.revealed) .pname *{pointer-events:none}
 /* a revealed card animates back to normal */
