@@ -21,6 +21,7 @@
     <button class="btn" data-filter="legends">Legends</button>
     <button class="btn btn-accent" id="shuffleBtn">Shuffle</button>
     <button class="btn btn-accent" id="randomBtn">Random!</button>
+    <button class="btn" id="triviaBtn">🕵️ Trivia Mode</button>
     <button class="btn btn-gold" id="quizBtn">Quiz</button>
     <button class="btn btn-gold" id="compareBtn">Compare</button>
     <button class="btn btn-gold" id="voteBtn">GOAT Vote</button>
@@ -373,6 +374,7 @@
               <span class="rarity-badge ${p.rarity || 'silver'}">${p.rarity || 'silver'}</span>
               ${posBadge(p)}
               ${heroMedia(p)}
+              <span class="qmark">?<small>tap to reveal</small></span>
             </div>
             <div class="plate">
               <h2 class="pname">${p.name}</h2>
@@ -390,6 +392,26 @@
   }
 
   render();
+
+  /* =========================================================
+     TRIVIA MODE — hide photo + blur name, tap a card to reveal
+     ========================================================= */
+  let triviaMode = false;
+  const triviaBtn = document.getElementById("triviaBtn");
+  triviaBtn.addEventListener("click", () => {
+    triviaMode = !triviaMode;
+    grid.classList.toggle("trivia", triviaMode);
+    triviaBtn.classList.toggle("active", triviaMode);
+    // reset any revealed cards each time the mode is toggled
+    grid.querySelectorAll(".card.revealed").forEach(c => c.classList.remove("revealed"));
+  });
+  // Delegated so it keeps working after the grid re-renders
+  grid.addEventListener("click", e => {
+    if(!triviaMode) return;
+    if(e.target.closest("a")) return;      // let links work
+    const card = e.target.closest(".card");
+    if(card){ card.classList.toggle("revealed"); playFlipSound(); }
+  });
 
   /* =========================================================
      SEARCH & FILTER
