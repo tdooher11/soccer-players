@@ -1043,6 +1043,20 @@ const PLAYERS = [
     funFact: "He's a defensive midfielder who guards his team like a wall — and he won the Champions League three times in a row with Real Madrid!",
     imageUrl: "assets/players/casemiro.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Casemiro"
+  },
+  {
+    name: "Eusébio",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Retired", jerseyNumber: 10, rarity: "diamond",
+    clubs: ["Benfica"],
+    dob: "1942-01-25",
+    died: "2014-01-05",
+    pos: "FWD",
+    honors: { wc: 0, cl: 1, bo: 1, co: 0 },
+    stats: { pace: 92, shooting: 94, passing: 78, dribbling: 90, defending: 30, physical: 80 },
+    funFact: "Nicknamed the 'Black Panther', he was one of the fastest and most powerful strikers ever — he was the top scorer of the 1966 World Cup and has a statue outside Benfica's stadium!",
+    imageUrl: "assets/players/eusebio.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Eusebio"
   }
 ];
 
