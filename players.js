@@ -1057,6 +1057,47 @@ const PLAYERS = [
     funFact: "Nicknamed the 'Black Panther', he was one of the fastest and most powerful strikers ever — he was the top scorer of the 1966 World Cup and has a statue outside Benfica's stadium!",
     imageUrl: "assets/players/eusebio.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Eusebio"
+  },
+  {
+    name: "Franz Beckenbauer",
+    country: "Germany", countryCode: "DE",
+    currentClub: "Retired", jerseyNumber: 5, rarity: "diamond",
+    clubs: ["Bayern Munich","New York Cosmos","Hamburger SV"],
+    dob: "1945-09-11",
+    died: "2024-01-07",
+    pos: "DEF",
+    honors: { wc: 1, cl: 3, bo: 2, co: 1 },
+    stats: { pace: 78, shooting: 80, passing: 92, dribbling: 86, defending: 88, physical: 84 },
+    funFact: "Nicknamed 'Der Kaiser' (The Emperor), he invented the modern attacking defender role — and he won the World Cup as both a player and a coach!",
+    imageUrl: "assets/players/franz-beckenbauer.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Franz%20Beckenbauer"
+  },
+  {
+    name: "Ferenc Puskás",
+    country: "Hungary", countryCode: "HU",
+    currentClub: "Retired", jerseyNumber: 10, rarity: "diamond",
+    clubs: ["Budapest Honvéd","Real Madrid"],
+    dob: "1927-04-02",
+    died: "2006-11-17",
+    pos: "FWD",
+    honors: { wc: 0, cl: 3, bo: 0, co: 0 },
+    stats: { pace: 80, shooting: 95, passing: 86, dribbling: 88, defending: 30, physical: 76 },
+    funFact: "He scored an incredible 700+ career goals, and FIFA named its award for the best goal of the year the 'Puskás Award' after him!",
+    imageUrl: "assets/players/ferenc-puskas.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Ferenc%20Puskas"
+  },
+  {
+    name: "Luís Figo",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Retired", jerseyNumber: 7, rarity: "diamond",
+    clubs: ["Sporting CP","Barcelona","Real Madrid","Inter Milan"],
+    dob: "1972-11-04",
+    pos: "FWD",
+    honors: { wc: 0, cl: 0, bo: 1, co: 0 },
+    stats: { pace: 86, shooting: 82, passing: 88, dribbling: 92, defending: 40, physical: 74 },
+    funFact: "He won the Ballon d'Or in 2000 and made one of the most shocking transfers ever — moving straight from Barcelona to their biggest rivals, Real Madrid!",
+    imageUrl: "assets/players/luis-figo.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Luis%20Figo"
   }
 ];
 
@@ -1074,7 +1115,7 @@ const FLAG_EMOJI = {
   PT:"🇵🇹", AR:"🇦🇷", FR:"🇫🇷", NO:"🇳🇴", "GB-ENG":"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
   EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸", DE:"🇩🇪",
   MA:"🇲🇦", CO:"🇨🇴", UY:"🇺🇾", NL:"🇳🇱", HR:"🇭🇷", BE:"🇧🇪",
-  CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷"
+  CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷", HU:"🇭🇺"
 };
 function flagEmoji(code){ return FLAG_EMOJI[code] || "🏳️"; }
 
