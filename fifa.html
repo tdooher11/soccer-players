@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Which Team? — FIFA / EA FC</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .fifa-wrap{max-width:1100px;margin:0 auto;padding:10px 18px 60px}
+    .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(102,204,255,.12);
+      border:1px solid rgba(102,204,255,.35);border-radius:20px;padding:6px 16px;color:#6cf;text-decoration:none;
+      font-size:.85rem;font-weight:600}
+    .backlink:hover{background:rgba(102,204,255,.2);text-decoration:none}
+
+    /* edition tabs */
+    .editions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 6px}
+    .ed-btn{
+      padding:10px 22px;border-radius:22px;border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);color:#fff;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;
+    }
+    .ed-btn:hover{background:rgba(255,255,255,.14)}
+    .ed-btn.active{background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a2e;border-color:transparent}
+    .ed-note{text-align:center;color:rgba(255,255,255,.55);font-size:.82rem;margin:2px 0 18px}
+
+    /* team section */
+    .team{margin:0 0 26px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 16px 18px}
+    .team-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.08)}
+    .team-logo{width:48px;height:48px;flex:none;border-radius:10px;background:rgba(255,255,255,.92);
+      display:grid;place-items:center;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+    .team-logo img{width:100%;height:100%;object-fit:contain;padding:4px}
+    .team-logo.imgfail img{display:none}
+    .team-logo .fb{display:none;width:100%;height:100%;place-items:center;font-weight:800;font-size:.8rem}
+    .team-logo.imgfail .fb{display:grid}
+    .team-logo.legend{background:linear-gradient(135deg,#ffd700,#ff9500);font-size:1.6rem}
+    .team-name{font-size:1.25rem;font-weight:800;margin:0;letter-spacing:-.2px}
+    .team-count{margin-left:auto;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.6);
+      background:rgba(255,255,255,.07);padding:3px 11px;border-radius:20px;flex:none}
+
+    /* player minis */
+    .mini-row{display:flex;flex-wrap:wrap;gap:14px}
+    .mini{width:96px;text-align:center}
+    .mini-photo{position:relative;width:80px;height:80px;margin:0 auto 6px;border-radius:50%;
+      overflow:hidden;background:#0f1530;border:2px solid rgba(255,255,255,.15)}
+    .mini-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+    .mini-flag{position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border-radius:50%;
+      overflow:hidden;border:2px solid #141a33;background:#141a33;display:grid;place-items:center}
+    .mini-flag img{width:100%;height:100%;object-fit:cover}
+    .mini-flag .fe{display:none;font-size:.9rem}
+    .mini-flag.imgfail img{display:none}
+    .mini-flag.imgfail .fe{display:block}
+    .mini-name{font-size:.78rem;font-weight:600;line-height:1.15}
+    .mini-legend-tag{display:block;font-size:.62rem;color:#ffd700;font-weight:700;margin-top:1px}
+
+    .toosoon .team-logo.legend{background:linear-gradient(135deg,#6cf,#a06cf0)}
+    @media(max-width:600px){
+      .mini{width:82px}
+      .mini-photo{width:68px;height:68px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Which Team? ⚽🎮</h1>
+    <p>See what team every player is on across the games. Tap an edition!</p>
+    <a class="backlink" href="index.html">← Back to Player Cards</a>
+  </header>
+
+  <main class="fifa-wrap">
+    <div class="editions" id="editions">
+      <button class="ed-btn" data-ed="e18">FIFA 18</button>
+      <button class="ed-btn" data-ed="e24">EA FC 24</button>
+      <button class="ed-btn active" data-ed="e26">EA FC 26</button>
+    </div>
+    <p class="ed-note" id="edNote"></p>
+    <div id="teams"></div>
+  </main>
+
+  <script src="players.js"></script>
+  <script src="fifa-teams.js"></script>
+  <script>
+    const BALL = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23222a4a' width='120' height='120'/%3E%3Ctext x='50%25' y='60%25' font-size='60' text-anchor='middle' fill='%23fff'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E";
+    const NOTES = {
+      e18: "FIFA 18 — the 2017-18 season. Some of today's stars were still too young to be in the game!",
+      e24: "EA SPORTS FC 24 — the 2023-24 season.",
+      e26: "EA SPORTS FC 26 — the newest game, 2025-26 season."
+    };
+    const byName = {};
+    PLAYERS.forEach(p => byName[p.name] = p);
+
+    function miniCard(p){
+      const flag = flagUrl(p.countryCode);
+      return `<div class="mini">
+        <div class="mini-photo">
+          <img src="${p.imageUrl || BALL}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=BALL">
+          <span class="mini-flag"><img src="${flag}" alt="" onerror="this.closest('.mini-flag').classList.add('imgfail')"><span class="fe">${flagEmoji(p.countryCode)}</span></span>
+        </div>
+        <div class="mini-name">${p.name}</div>
+      </div>`;
+    }
+
+    function teamBlock(club, players, opts={}){
+      let logoHtml;
+      if(opts.legend){
+        logoHtml = `<span class="team-logo legend">${opts.icon || '⭐'}</span>`;
+      } else {
+        const d = clubData(club);
+        const logo = clubLogo(club);
+        const fb = `<span class="fb" style="color:${d.ink};background:${d.c1}">${d.ab}</span>`;
+        logoHtml = logo
+          ? `<span class="team-logo"><img src="${logo}" alt="${club}" loading="lazy" onerror="this.closest('.team-logo').classList.add('imgfail')">${fb}</span>`
+          : `<span class="team-logo imgfail">${fb}</span>`;
+      }
+      return `<div class="team ${opts.cls||''}">
+        <div class="team-head">${logoHtml}<h2 class="team-name">${club}</h2><span class="team-count">${players.length} player${players.length>1?'s':''}</span></div>
+        <div class="mini-row">${players.map(miniCard).join("")}</div>
+      </div>`;
+    }
+
+    function render(ed){
+      document.getElementById("edNote").textContent = NOTES[ed];
+      const groups = {}; const legends = []; const tooSoon = [];
+      PLAYERS.forEach(p => {
+        const t = FC_TEAMS[p.name] ? FC_TEAMS[p.name][ed] : undefined;
+        if(t === "LEGEND") legends.push(p);
+        else if(t == null) tooSoon.push(p);
+        else (groups[t] = groups[t] || []).push(p);
+      });
+      // clubs sorted by squad size (desc), then name
+      const clubs = Object.keys(groups).sort((a,b) => groups[b].length - groups[a].length || a.localeCompare(b));
+      let html = clubs.map(c => teamBlock(c, groups[c])).join("");
+      if(legends.length) html += teamBlock("Legends", legends, {legend:true, icon:'👑'});
+      if(tooSoon.length) html += teamBlock("Too young for this game!", tooSoon, {legend:true, icon:'🐣', cls:'toosoon'});
+      document.getElementById("teams").innerHTML = html;
+    }
+
+    document.querySelectorAll(".ed-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".ed-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(btn.dataset.ed);
+        window.scrollTo({top:0, behavior:"smooth"});
+      });
+    });
+
+    render("e26");
+  </script>
+</body>
+</html>
