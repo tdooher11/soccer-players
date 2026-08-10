@@ -81,3 +81,56 @@ const FC_TEAMS = {
   "Ferenc Puskás":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Luís Figo":           { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" }
 };
+
+/* =========================================================
+   SPECIAL TEAMS (retired legends + Classic XI squads)
+   Rosters are researched from the actual games — see notes:
+   - FC 26 has ten "Classic XI" kick-off squads (club + league
+     all-time XIs) that mix Icons, Heroes AND current players.
+   - FC 24 had a single "Soccer Aid World XI" kick-off team.
+   - FIFA 18 legends were FUT Icons (verified against the FIFA 18 list).
+   A player can appear on several teams (e.g. Zidane) — that's real.
+   "logo" -> use that club's crest; "icon" -> an emoji emblem.
+   ========================================================= */
+const SPECIAL_TEAMS = {
+  e18: [
+    { name:"Icons (FUT Legends)", icon:"👑",
+      players:["Pelé","Diego Maradona","Ronaldinho","Thierry Henry","Ronaldo Nazário (R9)","Roberto Carlos"] },
+    { name:"Not in this game", icon:"🚫",
+      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Jack Jewsbury","Nadine Angerer"] }
+  ],
+  e24: [
+    { name:"Soccer Aid World XI", icon:"🌍",
+      players:["Pelé","Ronaldinho","David Beckham","Zinedine Zidane","Roberto Carlos","Luís Figo"] },
+    { name:"Icons (FUT Legends)", icon:"👑",
+      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás"] },
+    { name:"Not in this game", icon:"🚫",
+      players:["Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
+  ],
+  e26: [
+    { name:"Bayern Munich · Classic XI",  logo:"Bayern Munich",
+      players:["Franz Beckenbauer","Jamal Musiala","Michael Olise"] },
+    { name:"Chelsea · Classic XI",        logo:"Chelsea",
+      players:["Cole Palmer"] },
+    { name:"Juventus · Classic XI",       logo:"Juventus",
+      players:["Zinedine Zidane"] },
+    { name:"Liverpool · Classic XI",      logo:"Liverpool",
+      players:["Alisson Becker","Virgil van Dijk","Mohamed Salah"] },
+    { name:"Real Madrid · Classic XI",    logo:"Real Madrid",
+      players:["Roberto Carlos","Zinedine Zidane","Dani Carvajal","Jude Bellingham","Kylian Mbappé"] },
+    { name:"Bundesliga · Classic XI",     icon:"🇩🇪",
+      players:["Franz Beckenbauer"] },
+    { name:"La Liga · Classic XI",        icon:"🇪🇸",
+      players:["Luís Figo","Johan Cruyff","Zinedine Zidane"] },
+    { name:"Ligue 1 · Classic XI",        icon:"🇫🇷",
+      players:["Zlatan Ibrahimović","Ronaldinho","Thierry Henry"] },
+    { name:"Premier League · Classic XI", icon:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      players:["Thierry Henry"] },
+    { name:"Serie A · Classic XI",        icon:"🇮🇹",
+      players:["Zinedine Zidane","Ronaldo Nazário (R9)","Diego Maradona"] },
+    { name:"Icons (FUT Legends)",         icon:"👑",
+      players:["Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo"] },
+    { name:"Not in this game",            icon:"🚫",
+      players:["Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
+  ]
+};
