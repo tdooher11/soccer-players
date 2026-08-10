@@ -35,6 +35,8 @@
     .team-logo.imgfail .fb{display:grid}
     .team-logo.legend{background:linear-gradient(135deg,#ffd700,#ff9500);font-size:1.6rem}
     .team-name{font-size:1.25rem;font-weight:800;margin:0;letter-spacing:-.2px}
+    .team-tag{font-size:.6rem;font-weight:800;letter-spacing:.1em;color:#1a1a2e;
+      background:linear-gradient(135deg,#ffd700,#ff9500);padding:3px 9px;border-radius:20px;flex:none}
     .team-count{margin-left:auto;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.6);
       background:rgba(255,255,255,.07);padding:3px 11px;border-radius:20px;flex:none}
 
@@ -82,9 +84,9 @@
   <script>
     const BALL = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23222a4a' width='120' height='120'/%3E%3Ctext x='50%25' y='60%25' font-size='60' text-anchor='middle' fill='%23fff'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E";
     const NOTES = {
-      e18: "FIFA 18 — the 2017-18 season. Some of today's stars were still too young to be in the game!",
-      e24: "EA SPORTS FC 24 — the 2023-24 season.",
-      e26: "EA SPORTS FC 26 — the newest game, 2025-26 season."
+      e18: "FIFA 18 (2017-18). Retired greats were FUT Icons; some of today's stars were still too young to be in the game!",
+      e24: "EA SPORTS FC 24 (2023-24). Retired greats are FUT Icons, plus a Soccer Aid World XI kick-off team.",
+      e26: "EA SPORTS FC 26 (2025-26). Includes the ten Classic XI squads — club & league all-time teams that mix legends with current stars."
     };
     const byName = {};
     PLAYERS.forEach(p => byName[p.name] = p);
@@ -100,11 +102,14 @@
       </div>`;
     }
 
-    function teamBlock(club, players, opts={}){
+    // title = section heading; opts.logo = club name (use its crest);
+    // opts.icon = emoji emblem instead of a crest.
+    function teamBlock(title, players, opts={}){
       let logoHtml;
-      if(opts.legend){
-        logoHtml = `<span class="team-logo legend">${opts.icon || '⭐'}</span>`;
+      if(opts.icon){
+        logoHtml = `<span class="team-logo legend">${opts.icon}</span>`;
       } else {
+        const club = opts.logo || title;
         const d = clubData(club);
         const logo = clubLogo(club);
         const fb = `<span class="fb" style="color:${d.ink};background:${d.c1}">${d.ab}</span>`;
@@ -112,26 +117,36 @@
           ? `<span class="team-logo"><img src="${logo}" alt="${club}" loading="lazy" onerror="this.closest('.team-logo').classList.add('imgfail')">${fb}</span>`
           : `<span class="team-logo imgfail">${fb}</span>`;
       }
+      const tag = opts.tag ? `<span class="team-tag">${opts.tag}</span>` : '';
       return `<div class="team ${opts.cls||''}">
-        <div class="team-head">${logoHtml}<h2 class="team-name">${club}</h2><span class="team-count">${players.length} player${players.length>1?'s':''}</span></div>
+        <div class="team-head">${logoHtml}<h2 class="team-name">${title}</h2>${tag}<span class="team-count">${players.length} player${players.length>1?'s':''}</span></div>
         <div class="mini-row">${players.map(miniCard).join("")}</div>
       </div>`;
     }
 
     function render(ed){
       document.getElementById("edNote").textContent = NOTES[ed];
-      const groups = {}; const legends = []; const tooSoon = [];
+      // 1) real-club groups (active players only; retired = "LEGEND", too-young = null)
+      const groups = {}; const tooSoon = [];
       PLAYERS.forEach(p => {
         const t = FC_TEAMS[p.name] ? FC_TEAMS[p.name][ed] : undefined;
-        if(t === "LEGEND") legends.push(p);
-        else if(t == null) tooSoon.push(p);
-        else (groups[t] = groups[t] || []).push(p);
+        if(t === "LEGEND") return;              // placed via the special teams below
+        if(t == null){ tooSoon.push(p); return; }
+        (groups[t] = groups[t] || []).push(p);
       });
-      // clubs sorted by squad size (desc), then name
       const clubs = Object.keys(groups).sort((a,b) => groups[b].length - groups[a].length || a.localeCompare(b));
       let html = clubs.map(c => teamBlock(c, groups[c])).join("");
-      if(legends.length) html += teamBlock("Legends", legends, {legend:true, icon:'👑'});
-      if(tooSoon.length) html += teamBlock("Too young for this game!", tooSoon, {legend:true, icon:'🐣', cls:'toosoon'});
+
+      // 2) special teams (researched rosters): Classic XI / Soccer Aid / Icons / Not-in-game
+      (SPECIAL_TEAMS[ed] || []).forEach(t => {
+        const ps = t.players.map(n => byName[n]).filter(Boolean);
+        if(!ps.length) return;
+        const tag = /Classic XI/.test(t.name) ? "CLASSIC XI" : "";
+        html += teamBlock(t.name, ps, { logo:t.logo, icon:t.icon, tag });
+      });
+
+      // 3) young players who weren't in the game yet
+      if(tooSoon.length) html += teamBlock("Too young for this game!", tooSoon, {icon:'🐣', cls:'toosoon'});
       document.getElementById("teams").innerHTML = html;
     }
 
