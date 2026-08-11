@@ -1098,6 +1098,32 @@ const PLAYERS = [
     funFact: "He won the Ballon d'Or in 2000 and made one of the most shocking transfers ever — moving straight from Barcelona to their biggest rivals, Real Madrid!",
     imageUrl: "assets/players/luis-figo.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Luis%20Figo"
+  },
+  {
+    name: "Antonio Rüdiger",
+    country: "Germany", countryCode: "DE",
+    currentClub: "Real Madrid", jerseyNumber: 22, rarity: "gold",
+    clubs: ["VfB Stuttgart","Roma","Chelsea","Real Madrid"],
+    dob: "1993-03-03",
+    pos: "DEF",
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 82, shooting: 45, passing: 72, dribbling: 70, defending: 86, physical: 88 },
+    funFact: "He's a super-strong defender famous for his giant smile — he won the Champions League with Chelsea and now shuts down the world's best strikers for Real Madrid!",
+    imageUrl: "assets/players/antonio-rudiger.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Antonio%20R%C3%BCdiger"
+  },
+  {
+    name: "Petr Čech",
+    country: "Czechia", countryCode: "CZ",
+    currentClub: "Retired", jerseyNumber: 1, rarity: "gold",
+    clubs: ["Sparta Prague","Rennes","Chelsea","Arsenal"],
+    dob: "1982-05-20",
+    pos: "GK",
+    honors: { wc: 0, cl: 1, bo: 0, co: 0 },
+    stats: { pace: 55, shooting: 20, passing: 70, dribbling: 62, defending: 25, physical: 85 },
+    funFact: "He wore a special head guard to protect him after an injury, and he holds the record for the most clean sheets (games without letting in a goal) in Premier League history!",
+    imageUrl: "assets/players/petr-cech.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Petr%20Cech"
   }
 ];
 
