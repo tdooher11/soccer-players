@@ -88,8 +88,8 @@
       e24: "EA SPORTS FC 24 (2023-24). Retired greats are FUT Icons, plus a Soccer Aid World XI kick-off team.",
       e26: "EA SPORTS FC 26 (2025-26). Includes the ten Classic XI squads — club & league all-time teams that mix legends with current stars."
     };
+    let PLAYERS = [];              // filled from players.json by boot()
     const byName = {};
-    PLAYERS.forEach(p => byName[p.name] = p);
 
     function miniCard(p){
       const flag = flagUrl(p.countryCode);
@@ -159,7 +159,18 @@
       });
     });
 
-    render("e26");
+    // Load the roster from players.json (single source of truth), then render.
+    (async function boot(){
+      try{
+        PLAYERS = await loadPlayers();
+      }catch(err){
+        document.getElementById("teams").innerHTML = '<p class="ed-note">Couldn\'t load the player list. Please refresh.</p>';
+        console.error(err);
+        return;
+      }
+      PLAYERS.forEach(p => byName[p.name] = p);
+      render("e26");
+    })();
   </script>
 </body>
 </html>
