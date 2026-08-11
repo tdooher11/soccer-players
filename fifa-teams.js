@@ -79,7 +79,9 @@ const FC_TEAMS = {
   "Eusébio":             { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Franz Beckenbauer":   { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Ferenc Puskás":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
-  "Luís Figo":           { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" }
+  "Luís Figo":           { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Antonio Rüdiger":     { e18:"Chelsea",            e24:"Real Madrid",        e26:"Real Madrid" },
+  "Petr Čech":           { e18:"Arsenal",            e24:"LEGEND",             e26:"LEGEND" }
 };
 
 /* =========================================================
@@ -103,7 +105,7 @@ const SPECIAL_TEAMS = {
     { name:"Soccer Aid World XI", icon:"🌍",
       players:["Pelé","Ronaldinho","David Beckham","Zinedine Zidane","Roberto Carlos","Luís Figo"] },
     { name:"Icons (FUT Legends)", icon:"👑",
-      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás"] },
+      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech"] },
     { name:"Not in this game", icon:"🚫",
       players:["Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
   ],
@@ -111,7 +113,7 @@ const SPECIAL_TEAMS = {
     { name:"Bayern Munich · Classic XI",  logo:"Bayern Munich",
       players:["Franz Beckenbauer","Jamal Musiala","Michael Olise"] },
     { name:"Chelsea · Classic XI",        logo:"Chelsea",
-      players:["Cole Palmer"] },
+      players:["Petr Čech","Cole Palmer"] },
     { name:"Juventus · Classic XI",       logo:"Juventus",
       players:["Zinedine Zidane"] },
     { name:"Liverpool · Classic XI",      logo:"Liverpool",
@@ -123,7 +125,7 @@ const SPECIAL_TEAMS = {
     { name:"La Liga · Classic XI",        icon:"🇪🇸",
       players:["Luís Figo","Johan Cruyff","Zinedine Zidane"] },
     { name:"Ligue 1 · Classic XI",        icon:"🇫🇷",
-      players:["Zlatan Ibrahimović","Ronaldinho","Thierry Henry"] },
+      players:["Petr Čech","Zlatan Ibrahimović","Ronaldinho","Thierry Henry"] },
     { name:"Premier League · Classic XI", icon:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       players:["Thierry Henry"] },
     { name:"Serie A · Classic XI",        icon:"🇮🇹",
