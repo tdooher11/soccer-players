@@ -1137,6 +1137,19 @@ const PLAYERS = [
     funFact: "He's the only player ever to play in three World Cup finals in a row (1994, 1998, 2002) — and he captained Brazil to the trophy in 2002!",
     imageUrl: "assets/players/cafu.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Cafu"
+  },
+  {
+    name: "Pepe",
+    country: "Portugal", countryCode: "PT",
+    currentClub: "Retired", jerseyNumber: 3, rarity: "gold",
+    clubs: ["FC Porto","Real Madrid","Beşiktaş"],
+    dob: "1983-02-26",
+    pos: "DEF",
+    honors: { wc: 0, cl: 3, bo: 0, co: 1 },
+    stats: { pace: 72, shooting: 45, passing: 70, dribbling: 66, defending: 87, physical: 88 },
+    funFact: "One of the toughest defenders ever, he kept playing at the very top into his 40s — he became the oldest outfield player in European Championship history at age 41!",
+    imageUrl: "assets/players/pepe.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Pepe%20Porto"
   }
 ];
 

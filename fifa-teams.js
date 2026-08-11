@@ -82,7 +82,8 @@ const FC_TEAMS = {
   "Luís Figo":           { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Antonio Rüdiger":     { e18:"Chelsea",            e24:"Real Madrid",        e26:"Real Madrid" },
   "Petr Čech":           { e18:"Arsenal",            e24:"LEGEND",             e26:"LEGEND" },
-  "Cafu":                { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" }
+  "Cafu":                { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Pepe":                { e18:"Beşiktaş",           e24:"FC Porto",           e26:"LEGEND" }
 };
 
 /* =========================================================
@@ -134,6 +135,6 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)",         icon:"👑",
       players:["Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo"] },
     { name:"Not in this game",            icon:"🚫",
-      players:["Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
+      players:["Pepe","Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
   ]
 };
