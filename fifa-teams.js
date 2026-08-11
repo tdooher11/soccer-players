@@ -81,7 +81,8 @@ const FC_TEAMS = {
   "Ferenc Puskás":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Luís Figo":           { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Antonio Rüdiger":     { e18:"Chelsea",            e24:"Real Madrid",        e26:"Real Madrid" },
-  "Petr Čech":           { e18:"Arsenal",            e24:"LEGEND",             e26:"LEGEND" }
+  "Petr Čech":           { e18:"Arsenal",            e24:"LEGEND",             e26:"LEGEND" },
+  "Cafu":                { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" }
 };
 
 /* =========================================================
@@ -99,13 +100,13 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Pelé","Diego Maradona","Ronaldinho","Thierry Henry","Ronaldo Nazário (R9)","Roberto Carlos"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Jack Jewsbury","Nadine Angerer"] }
+      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Jack Jewsbury","Nadine Angerer"] }
   ],
   e24: [
     { name:"Soccer Aid World XI", icon:"🌍",
       players:["Pelé","Ronaldinho","David Beckham","Zinedine Zidane","Roberto Carlos","Luís Figo"] },
     { name:"Icons (FUT Legends)", icon:"👑",
-      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech"] },
+      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu"] },
     { name:"Not in this game", icon:"🚫",
       players:["Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
   ],
@@ -129,7 +130,7 @@ const SPECIAL_TEAMS = {
     { name:"Premier League · Classic XI", icon:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       players:["Thierry Henry"] },
     { name:"Serie A · Classic XI",        icon:"🇮🇹",
-      players:["Zinedine Zidane","Ronaldo Nazário (R9)","Diego Maradona"] },
+      players:["Cafu","Zinedine Zidane","Ronaldo Nazário (R9)","Diego Maradona"] },
     { name:"Icons (FUT Legends)",         icon:"👑",
       players:["Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo"] },
     { name:"Not in this game",            icon:"🚫",

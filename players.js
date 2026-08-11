@@ -1124,6 +1124,19 @@ const PLAYERS = [
     funFact: "He wore a special head guard to protect him after an injury, and he holds the record for the most clean sheets (games without letting in a goal) in Premier League history!",
     imageUrl: "assets/players/petr-cech.jpg",
     fotmobUrl: "https://www.fotmob.com/search?term=Petr%20Cech"
+  },
+  {
+    name: "Cafu",
+    country: "Brazil", countryCode: "BR",
+    currentClub: "Retired", jerseyNumber: 2, rarity: "diamond",
+    clubs: ["São Paulo","Palmeiras","Roma","AC Milan"],
+    dob: "1970-06-07",
+    pos: "DEF",
+    honors: { wc: 2, cl: 1, bo: 0, co: 2 },
+    stats: { pace: 88, shooting: 60, passing: 78, dribbling: 82, defending: 82, physical: 84 },
+    funFact: "He's the only player ever to play in three World Cup finals in a row (1994, 1998, 2002) — and he captained Brazil to the trophy in 2002!",
+    imageUrl: "assets/players/cafu.jpg",
+    fotmobUrl: "https://www.fotmob.com/search?term=Cafu"
   }
 ];
 
