@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roll of Honour — Who Won What</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .trophy-wrap{max-width:1080px;margin:0 auto;padding:10px 18px 60px}
+    .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(255,215,0,.12);
+      border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:6px 16px;color:#ffd700;text-decoration:none;
+      font-size:.85rem;font-weight:600}
+    .backlink:hover{background:rgba(255,215,0,.2);text-decoration:none}
+
+    .comps{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 20px}
+    .comp-btn{padding:10px 20px;border-radius:22px;border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+    .comp-btn:hover{background:rgba(255,255,255,.14)}
+    .comp-btn.active{background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a2e;border-color:transparent}
+
+    /* competition header */
+    .comp-head{display:flex;align-items:center;gap:16px;margin:4px 0 20px;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px 18px}
+    .comp-trophy{width:70px;height:70px;flex:none;display:grid;place-items:center;font-size:3rem}
+    .comp-trophy img{max-width:100%;max-height:70px;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5))}
+    .comp-title h2{margin:0;font-size:1.5rem;font-weight:800;letter-spacing:-.3px}
+    .comp-title p{margin:3px 0 0;color:var(--muted,rgba(255,255,255,.6));font-size:.88rem}
+
+    .sec-lab{display:block;margin:22px 4px 10px;font-size:.68rem;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:#ffd700}
+
+    /* leaderboard */
+    .board{display:flex;flex-direction:column;gap:7px}
+    .board-row{display:flex;align-items:center;gap:12px}
+    .board-rank{width:22px;text-align:right;font-weight:800;color:rgba(255,255,255,.4);font-size:.85rem;flex:none}
+    .board-name{width:170px;flex:none;display:flex;align-items:center;gap:9px;font-weight:600;font-size:.9rem}
+    .board-bar{flex:1;height:22px;background:rgba(255,255,255,.06);border-radius:11px;overflow:hidden}
+    .board-fill{height:100%;background:linear-gradient(90deg,#ffd700,#ff9500);border-radius:11px;min-width:3px}
+    .board-count{width:34px;flex:none;font-weight:800;font-size:.95rem;color:#ffd700}
+
+    /* year grid */
+    .years{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .yr{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:12px;
+      background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+    .yr-year{font-weight:800;font-size:1.05rem;color:#6cf;flex:none;width:42px;font-variant-numeric:tabular-nums}
+    .yr-name{font-weight:600;font-size:.86rem;line-height:1.15}
+
+    /* team emblem (flag or crest) */
+    .emb{width:30px;height:30px;flex:none;border-radius:7px;overflow:hidden;display:grid;place-items:center;
+      background:rgba(255,255,255,.92);box-shadow:0 1px 3px rgba(0,0,0,.4)}
+    .emb.flag{background:transparent;border-radius:5px}
+    .emb img{width:100%;height:100%;object-fit:contain;padding:2px}
+    .emb.flag img{object-fit:cover;padding:0}
+    .emb .fb{display:none;width:100%;height:100%;place-items:center;font-weight:800;font-size:.6rem}
+    .emb.imgfail{background:transparent}
+    .emb.imgfail img{display:none}
+    .emb.imgfail .fb{display:grid}
+    .emb.flag.imgfail{background:rgba(255,255,255,.06)}
+    .emb.flag.imgfail .fb{font-size:1rem}
+
+    @media(max-width:560px){
+      .board-name{width:130px}
+      .years{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Roll of Honour 🏆</h1>
+    <p>Who won what — and how many times. Tap a competition!</p>
+    <a class="backlink" href="index.html">← Back to Player Cards</a>
+  </header>
+
+  <main class="trophy-wrap">
+    <div class="comps" id="comps">
+      <button class="comp-btn active" data-comp="worldcup">🌍 World Cup</button>
+      <button class="comp-btn" data-comp="ucl">⭐ Champions League</button>
+      <button class="comp-btn" data-comp="euros">🇪🇺 Euros</button>
+      <button class="comp-btn" data-comp="mls">🇺🇸 MLS Cup</button>
+    </div>
+    <div id="content"></div>
+  </main>
+
+  <script src="players.js"></script>
+  <script src="honours.js"></script>
+  <script>
+    // Normalize for the "most titles" count (West Germany counts as Germany).
+    const normName = n => n.replace("West Germany", "Germany");
+
+    function emblem(win, kind){
+      if(kind === "nation"){
+        const url = flagUrl(win.cc);
+        return `<span class="emb flag"><img src="${url}" alt="" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(win.cc)}</span></span>`;
+      }
+      const club = win.logo || win.w;
+      const d = clubData(club);
+      const logo = clubLogo(club);
+      const fb = `<span class="fb" style="color:${d.ink};background:${d.c1}">${d.ab}</span>`;
+      return logo
+        ? `<span class="emb"><img src="${logo}" alt="${club}" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')">${fb}</span>`
+        : `<span class="emb imgfail">${fb}</span>`;
+    }
+
+    function render(key){
+      const c = HONOURS[key];
+      const trophyHtml = c.trophy.img
+        ? `<img src="${c.trophy.img}" alt="${c.name}">`
+        : (c.trophy.icon || "🏆");
+
+      // leaderboard: count titles by (normalized) winner, keep a sample entry for the emblem
+      const counts = {}; const sample = {};
+      c.winners.forEach(win => {
+        const key2 = normName(win.w);
+        counts[key2] = (counts[key2] || 0) + 1;
+        if(!sample[key2]) sample[key2] = win;
+      });
+      const ranked = Object.keys(counts).sort((a,b) => counts[b] - counts[a] || a.localeCompare(b));
+      const max = counts[ranked[0]] || 1;
+      const board = ranked.slice(0, 8).map((name, i) => `
+        <div class="board-row">
+          <span class="board-rank">${i+1}</span>
+          <span class="board-name">${emblem(sample[name], c.kind)}${name}</span>
+          <span class="board-bar"><span class="board-fill" style="width:${counts[name]/max*100}%"></span></span>
+          <span class="board-count">${counts[name]}</span>
+        </div>`).join("");
+
+      const years = c.winners.map(win => `
+        <div class="yr">
+          <span class="yr-year">${win.year}</span>
+          ${emblem(win, c.kind)}
+          <span class="yr-name">${win.w}</span>
+        </div>`).join("");
+
+      const span = `${c.winners[c.winners.length-1].year}–${c.winners[0].year}`;
+      document.getElementById("content").innerHTML = `
+        <div class="comp-head">
+          <span class="comp-trophy">${trophyHtml}</span>
+          <div class="comp-title"><h2>${c.name}</h2><p>${c.blurb} · ${c.winners.length} titles, ${span}</p></div>
+        </div>
+        <span class="sec-lab">Most titles</span>
+        <div class="board">${board}</div>
+        <span class="sec-lab">Every winner, year by year</span>
+        <div class="years">${years}</div>
+      `;
+    }
+
+    document.querySelectorAll(".comp-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".comp-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(btn.dataset.comp);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    render("worldcup");
+  </script>
+</body>
+</html>
