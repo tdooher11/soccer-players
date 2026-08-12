@@ -83,7 +83,8 @@ const FC_TEAMS = {
   "Antonio Rüdiger":     { e18:"Chelsea",            e24:"Real Madrid",        e26:"Real Madrid" },
   "Petr Čech":           { e18:"Arsenal",            e24:"LEGEND",             e26:"LEGEND" },
   "Cafu":                { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
-  "Pepe":                { e18:"Beşiktaş",           e24:"FC Porto",           e26:"LEGEND" }
+  "Pepe":                { e18:"Beşiktaş",           e24:"FC Porto",           e26:"LEGEND" },
+  "Alejandro Garnacho":  { e18:null,                 e24:"Manchester United",  e26:"Chelsea" }
 };
 
 /* =========================================================

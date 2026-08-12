@@ -2931,5 +2931,37 @@
     "funFact": "One of the toughest defenders ever, he kept playing at the very top into his 40s — he became the oldest outfield player in European Championship history at age 41!",
     "imageUrl": "assets/players/pepe.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Pepe%20Porto"
+  },
+  {
+    "name": "Alejandro Garnacho",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "currentClub": "Chelsea",
+    "jerseyNumber": 49,
+    "rarity": "gold",
+    "clubs": [
+      "Manchester United",
+      "Chelsea",
+      "Aston Villa"
+    ],
+    "dob": "2004-07-01",
+    "pos": "FWD",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 92,
+      "shooting": 78,
+      "passing": 72,
+      "dribbling": 87,
+      "defending": 30,
+      "physical": 68
+    },
+    "funFact": "He scored a jaw-dropping bicycle-kick goal against Everton — one of the most spectacular goals of the whole season!",
+    "imageUrl": "assets/players/alejandro-garnacho.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Alejandro%20Garnacho"
   }
 ]
