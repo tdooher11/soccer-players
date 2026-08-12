@@ -36,7 +36,7 @@
     .board-rank{width:22px;text-align:right;font-weight:800;color:rgba(255,255,255,.4);font-size:.85rem;flex:none}
     .board-name{width:170px;flex:none;display:flex;align-items:center;gap:9px;font-weight:600;font-size:.9rem}
     .board-bar{flex:1;height:22px;background:rgba(255,255,255,.06);border-radius:11px;overflow:hidden}
-    .board-fill{height:100%;background:linear-gradient(90deg,#ffd700,#ff9500);border-radius:11px;min-width:3px}
+    .board-fill{display:block;height:100%;background:linear-gradient(90deg,#ffd700,#ff9500);border-radius:11px;min-width:3px}
     .board-count{width:34px;flex:none;font-weight:800;font-size:.95rem;color:#ffd700}
 
     /* year grid */
@@ -47,17 +47,17 @@
     .yr-name{font-weight:600;font-size:.86rem;line-height:1.15}
 
     /* team emblem (flag or crest) */
-    .emb{width:30px;height:30px;flex:none;border-radius:7px;overflow:hidden;display:grid;place-items:center;
+    .emb{position:relative;width:30px;height:30px;flex:none;border-radius:7px;overflow:hidden;
       background:rgba(255,255,255,.92);box-shadow:0 1px 3px rgba(0,0,0,.4)}
-    .emb.flag{background:transparent;border-radius:5px}
-    .emb img{width:100%;height:100%;object-fit:contain;padding:2px}
-    .emb.flag img{object-fit:cover;padding:0}
-    .emb .fb{display:none;width:100%;height:100%;place-items:center;font-weight:800;font-size:.6rem}
-    .emb.imgfail{background:transparent}
+    .emb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:2px;display:block}
+    .emb .fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-weight:800;font-size:.6rem}
     .emb.imgfail img{display:none}
-    .emb.imgfail .fb{display:grid}
+    .emb.imgfail .fb{display:flex}
+    /* flags are naturally rectangular */
+    .emb.flag{width:36px;height:24px;background:transparent;border-radius:4px}
+    .emb.flag img{object-fit:cover;padding:0}
     .emb.flag.imgfail{background:rgba(255,255,255,.06)}
-    .emb.flag.imgfail .fb{font-size:1rem}
+    .emb.flag .fb{font-size:1.05rem}
 
     @media(max-width:560px){
       .board-name{width:130px}
