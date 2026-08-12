@@ -22,7 +22,8 @@ const FLAG_EMOJI = {
   PT:"🇵🇹", AR:"🇦🇷", FR:"🇫🇷", NO:"🇳🇴", "GB-ENG":"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
   EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸", DE:"🇩🇪",
   MA:"🇲🇦", CO:"🇨🇴", UY:"🇺🇾", NL:"🇳🇱", HR:"🇭🇷", BE:"🇧🇪",
-  CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷", HU:"🇭🇺"
+  CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷", HU:"🇭🇺",
+  IT:"🇮🇹", DK:"🇩🇰", GR:"🇬🇷", RU:"🇷🇺"
 };
 function flagEmoji(code){ return FLAG_EMOJI[code] || "🏳️"; }
 
@@ -163,7 +164,11 @@ const CLUB_ESPN = {
   "Al-Ittihad":2276,"Al-Nassr":817,"Al-Hilal":929,"Celtic":256,"Malmö":2720,
   "Molde":2715,"RB Salzburg":2790,"Olympiacos":435,"Fenerbahçe":436,"Basel":989,
   "Argentinos Juniors":3,"Boca Juniors":5,"Anderlecht":441,"Genk":938,
-  "Deportes Tolima":5489,"Nacional":2684
+  "Deportes Tolima":5489,"Nacional":2684,
+  "Marseille":176,"Nottingham Forest":393,"FCSB":484,"Ajax":139,
+  "D.C. United":193,"Houston Dynamo":6077,"San Jose Earthquakes":191,
+  "Real Salt Lake":4771,"Colorado Rapids":184,"Sporting Kansas City":186,
+  "Seattle Sounders":9726,"Toronto FC":7318,"New York City FC":17606
 };
 function clubLogo(name){
   const id = CLUB_ESPN[name];
