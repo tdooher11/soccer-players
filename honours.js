@@ -9,6 +9,7 @@ const HONOURS = {
     name: "FIFA World Cup", kind: "nation", trophy: { img: "assets/trophies/worldcup.jpg" },
     blurb: "Football's biggest prize — every four years since 1930.",
     winners: [
+      { year: 2026, w: "Spain", cc: "ES" },
       { year: 2022, w: "Argentina", cc: "AR" },
       { year: 2018, w: "France", cc: "FR" },
       { year: 2014, w: "Germany", cc: "DE" },

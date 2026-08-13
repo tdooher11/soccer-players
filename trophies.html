@@ -32,24 +32,24 @@
 
     /* leaderboard */
     .board{display:flex;flex-direction:column;gap:7px}
-    .board-row{display:flex;align-items:center;gap:12px}
-    .board-rank{width:22px;text-align:right;font-weight:800;color:rgba(255,255,255,.4);font-size:.85rem;flex:none}
-    .board-name{width:170px;flex:none;display:flex;align-items:center;gap:9px;font-weight:600;font-size:.9rem}
-    .board-bar{flex:1;height:22px;background:rgba(255,255,255,.06);border-radius:11px;overflow:hidden}
+    .board-row{display:grid;grid-template-columns:20px auto 150px 1fr 34px;align-items:center;gap:12px}
+    .board-rank{text-align:right;font-weight:800;color:rgba(255,255,255,.4);font-size:.85rem}
+    .board-name{font-weight:600;font-size:.9rem}
+    .board-bar{height:22px;background:rgba(255,255,255,.06);border-radius:11px;overflow:hidden}
     .board-fill{display:block;height:100%;background:linear-gradient(90deg,#ffd700,#ff9500);border-radius:11px;min-width:3px}
     .board-count{width:34px;flex:none;font-weight:800;font-size:.95rem;color:#ffd700}
 
-    /* year grid */
-    .years{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-    .yr{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:12px;
+    /* year-by-year: one left-aligned list, top to bottom */
+    .years{display:flex;flex-direction:column;gap:6px;max-width:460px}
+    .yr{display:grid;grid-template-columns:52px auto 1fr;align-items:center;gap:14px;padding:8px 14px;border-radius:12px;
       background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
-    .yr-year{font-weight:800;font-size:1.05rem;color:#6cf;flex:none;width:42px;font-variant-numeric:tabular-nums}
-    .yr-name{font-weight:600;font-size:.86rem;line-height:1.15}
+    .yr-year{font-weight:800;font-size:1.05rem;color:#6cf;font-variant-numeric:tabular-nums}
+    .yr-name{font-weight:600;font-size:.92rem;line-height:1.15}
 
     /* team emblem (flag or crest) */
     .emb{position:relative;width:30px;height:30px;flex:none;border-radius:7px;overflow:hidden;
       background:rgba(255,255,255,.92);box-shadow:0 1px 3px rgba(0,0,0,.4)}
-    .emb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:2px;display:block}
+    .emb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:2px;box-sizing:border-box}
     .emb .fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-weight:800;font-size:.6rem}
     .emb.imgfail img{display:none}
     .emb.imgfail .fb{display:flex}
@@ -120,7 +120,8 @@
       const board = ranked.slice(0, 8).map((name, i) => `
         <div class="board-row">
           <span class="board-rank">${i+1}</span>
-          <span class="board-name">${emblem(sample[name], c.kind)}${name}</span>
+          ${emblem(sample[name], c.kind)}
+          <span class="board-name">${name}</span>
           <span class="board-bar"><span class="board-fill" style="width:${counts[name]/max*100}%"></span></span>
           <span class="board-count">${counts[name]}</span>
         </div>`).join("");
