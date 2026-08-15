@@ -2963,5 +2963,37 @@
     "funFact": "He scored a jaw-dropping bicycle-kick goal against Everton — one of the most spectacular goals of the whole season!",
     "imageUrl": "assets/players/alejandro-garnacho.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Alejandro%20Garnacho"
+  },
+  {
+    "name": "David De Gea",
+    "country": "Spain",
+    "countryCode": "ES",
+    "currentClub": "Fiorentina",
+    "jerseyNumber": 43,
+    "rarity": "gold",
+    "clubs": [
+      "Atlético Madrid",
+      "Manchester United",
+      "Fiorentina"
+    ],
+    "dob": "1990-11-07",
+    "pos": "GK",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 57,
+      "shooting": 21,
+      "passing": 72,
+      "dribbling": 64,
+      "defending": 24,
+      "physical": 80
+    },
+    "funFact": "He is famous for making super-fast saves with his feet and legs, and he once made 14 saves in a single Premier League game — a record!",
+    "imageUrl": "assets/players/david-de-gea.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=David%20De%20Gea"
   }
 ]

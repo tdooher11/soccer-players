@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**78 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**79 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -84,6 +84,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 76 | Cafu | Brazil | Defender | Retired / Legend | 1970-06-07 | World Cup ×2, Champions League ×1, Continental ×2 | São Paulo → Palmeiras → Roma → AC Milan |
 | 77 | Pepe | Portugal | Defender | Retired / Legend | 1983-02-26 | Champions League ×3, Continental ×1 | FC Porto → Real Madrid → Beşiktaş |
 | 78 | Alejandro Garnacho | Argentina | Striker | Chelsea | 2004-07-01 | — | Manchester United → Chelsea → Aston Villa |
+| 79 | David De Gea | Spain | Goalkeeper | Fiorentina | 1990-11-07 | — | Atlético Madrid → Manchester United → Fiorentina |
 
 ## Fun facts
 
@@ -165,4 +166,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Cafu** — He's the only player ever to play in three World Cup finals in a row (1994, 1998, 2002) — and he captained Brazil to the trophy in 2002!
 - **Pepe** — One of the toughest defenders ever, he kept playing at the very top into his 40s — he became the oldest outfield player in European Championship history at age 41!
 - **Alejandro Garnacho** — He scored a jaw-dropping bicycle-kick goal against Everton — one of the most spectacular goals of the whole season!
+- **David De Gea** — He is famous for making super-fast saves with his feet and legs, and he once made 14 saves in a single Premier League game — a record!
 

@@ -34,6 +34,7 @@ const FC_TEAMS = {
   "Darlington Nagbe":    { e18:"Portland Timbers",   e24:"Columbus Crew",      e26:"Columbus Crew" },
   "Achraf Hakimi":       { e18:"Real Madrid",        e24:"PSG",                e26:"PSG" },
   "Alisson Becker":      { e18:"Roma",               e24:"Liverpool",          e26:"Liverpool" },
+  "David De Gea":        { e18:"Manchester United",  e24:null,                 e26:"Fiorentina" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
