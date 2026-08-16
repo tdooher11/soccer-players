@@ -2995,5 +2995,37 @@
     "funFact": "He is famous for making super-fast saves with his feet and legs, and he once made 14 saves in a single Premier League game — a record!",
     "imageUrl": "assets/players/david-de-gea.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=David%20De%20Gea"
+  },
+  {
+    "name": "Harry Maguire",
+    "country": "England",
+    "countryCode": "GB-ENG",
+    "currentClub": "Manchester United",
+    "jerseyNumber": 5,
+    "rarity": "gold",
+    "clubs": [
+      "Hull City",
+      "Leicester City",
+      "Manchester United"
+    ],
+    "dob": "1993-03-05",
+    "pos": "DEF",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 52,
+      "shooting": 52,
+      "passing": 66,
+      "dribbling": 60,
+      "defending": 83,
+      "physical": 87
+    },
+    "funFact": "He is a big, strong centre-back who is great at heading the ball — he scored important headers for England at the 2018 World Cup, where the team finished 4th!",
+    "imageUrl": "assets/players/harry-maguire.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Harry%20Maguire"
   }
 ]

@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**79 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**80 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -85,6 +85,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 77 | Pepe | Portugal | Defender | Retired / Legend | 1983-02-26 | Champions League ×3, Continental ×1 | FC Porto → Real Madrid → Beşiktaş |
 | 78 | Alejandro Garnacho | Argentina | Striker | Chelsea | 2004-07-01 | — | Manchester United → Chelsea → Aston Villa |
 | 79 | David De Gea | Spain | Goalkeeper | Fiorentina | 1990-11-07 | — | Atlético Madrid → Manchester United → Fiorentina |
+| 80 | Harry Maguire | England | Defender | Manchester United | 1993-03-05 | — | Hull City → Leicester City → Manchester United |
 
 ## Fun facts
 
@@ -167,4 +168,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Pepe** — One of the toughest defenders ever, he kept playing at the very top into his 40s — he became the oldest outfield player in European Championship history at age 41!
 - **Alejandro Garnacho** — He scored a jaw-dropping bicycle-kick goal against Everton — one of the most spectacular goals of the whole season!
 - **David De Gea** — He is famous for making super-fast saves with his feet and legs, and he once made 14 saves in a single Premier League game — a record!
+- **Harry Maguire** — He is a big, strong centre-back who is great at heading the ball — he scored important headers for England at the 2018 World Cup, where the team finished 4th!
 
