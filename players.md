@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**80 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**82 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -86,6 +86,8 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 78 | Alejandro Garnacho | Argentina | Striker | Chelsea | 2004-07-01 | — | Manchester United → Chelsea → Aston Villa |
 | 79 | David De Gea | Spain | Goalkeeper | Fiorentina | 1990-11-07 | — | Atlético Madrid → Manchester United → Fiorentina |
 | 80 | Harry Maguire | England | Defender | Manchester United | 1993-03-05 | — | Hull City → Leicester City → Manchester United |
+| 81 | Paolo Maldini | Italy | Defender | Retired / Legend | 1968-06-26 | Champions League ×5 | AC Milan |
+| 82 | Sergio Ramos | Spain | Defender | Monterrey | 1986-03-30 | World Cup ×1, Champions League ×4, Continental ×2 | Sevilla → Real Madrid → PSG → Monterrey |
 
 ## Fun facts
 
@@ -169,4 +171,6 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Alejandro Garnacho** — He scored a jaw-dropping bicycle-kick goal against Everton — one of the most spectacular goals of the whole season!
 - **David De Gea** — He is famous for making super-fast saves with his feet and legs, and he once made 14 saves in a single Premier League game — a record!
 - **Harry Maguire** — He is a big, strong centre-back who is great at heading the ball — he scored important headers for England at the 2018 World Cup, where the team finished 4th!
+- **Paolo Maldini** — He played his whole career — over 900 games and 25 years — for just one club, AC Milan, and won the Champions League 5 times!
+- **Sergio Ramos** — He is a defender who scores tons of goals with his head — including a last-minute equaliser in a Champions League final that Real Madrid went on to win!
 

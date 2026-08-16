@@ -36,6 +36,8 @@ const FC_TEAMS = {
   "Alisson Becker":      { e18:"Roma",               e24:"Liverpool",          e26:"Liverpool" },
   "David De Gea":        { e18:"Manchester United",  e24:null,                 e26:"Fiorentina" },
   "Harry Maguire":       { e18:"Leicester City",     e24:"Manchester United",  e26:"Manchester United" },
+  "Paolo Maldini":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Sergio Ramos":        { e18:"Real Madrid",        e24:"Sevilla",            e26:"Monterrey" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
@@ -104,13 +106,13 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Pelé","Diego Maradona","Ronaldinho","Thierry Henry","Ronaldo Nazário (R9)","Roberto Carlos"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Jack Jewsbury","Nadine Angerer"] }
+      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Paolo Maldini","Jack Jewsbury","Nadine Angerer"] }
   ],
   e24: [
     { name:"Soccer Aid World XI", icon:"🌍",
       players:["Pelé","Ronaldinho","David Beckham","Zinedine Zidane","Roberto Carlos","Luís Figo"] },
     { name:"Icons (FUT Legends)", icon:"👑",
-      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu"] },
+      players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu","Paolo Maldini"] },
     { name:"Not in this game", icon:"🚫",
       players:["Jack Jewsbury","Diego Valeri","Nadine Angerer"] }
   ],
@@ -134,7 +136,7 @@ const SPECIAL_TEAMS = {
     { name:"Premier League · Classic XI", icon:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       players:["Thierry Henry"] },
     { name:"Serie A · Classic XI",        icon:"🇮🇹",
-      players:["Cafu","Zinedine Zidane","Ronaldo Nazário (R9)","Diego Maradona"] },
+      players:["Cafu","Paolo Maldini","Zinedine Zidane","Ronaldo Nazário (R9)","Diego Maradona"] },
     { name:"Icons (FUT Legends)",         icon:"👑",
       players:["Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo"] },
     { name:"Not in this game",            icon:"🚫",

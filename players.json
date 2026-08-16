@@ -3027,5 +3027,68 @@
     "funFact": "He is a big, strong centre-back who is great at heading the ball — he scored important headers for England at the 2018 World Cup, where the team finished 4th!",
     "imageUrl": "assets/players/harry-maguire.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Harry%20Maguire"
+  },
+  {
+    "name": "Paolo Maldini",
+    "country": "Italy",
+    "countryCode": "IT",
+    "currentClub": "Retired",
+    "jerseyNumber": 3,
+    "rarity": "gold",
+    "clubs": [
+      "AC Milan"
+    ],
+    "dob": "1968-06-26",
+    "pos": "DEF",
+    "honors": {
+      "wc": 0,
+      "cl": 5,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 78,
+      "shooting": 52,
+      "passing": 80,
+      "dribbling": 76,
+      "defending": 92,
+      "physical": 85
+    },
+    "funFact": "He played his whole career — over 900 games and 25 years — for just one club, AC Milan, and won the Champions League 5 times!",
+    "imageUrl": "assets/players/paolo-maldini.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Paolo%20Maldini"
+  },
+  {
+    "name": "Sergio Ramos",
+    "country": "Spain",
+    "countryCode": "ES",
+    "currentClub": "Monterrey",
+    "jerseyNumber": 4,
+    "rarity": "gold",
+    "clubs": [
+      "Sevilla",
+      "Real Madrid",
+      "PSG",
+      "Monterrey"
+    ],
+    "dob": "1986-03-30",
+    "pos": "DEF",
+    "honors": {
+      "wc": 1,
+      "cl": 4,
+      "bo": 0,
+      "co": 2
+    },
+    "stats": {
+      "pace": 75,
+      "shooting": 66,
+      "passing": 72,
+      "dribbling": 72,
+      "defending": 88,
+      "physical": 84
+    },
+    "funFact": "He is a defender who scores tons of goals with his head — including a last-minute equaliser in a Champions League final that Real Madrid went on to win!",
+    "imageUrl": "assets/players/sergio-ramos.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Sergio%20Ramos"
   }
 ]
