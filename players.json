@@ -3090,5 +3090,67 @@
     "funFact": "He is a defender who scores tons of goals with his head — including a last-minute equaliser in a Champions League final that Real Madrid went on to win!",
     "imageUrl": "assets/players/sergio-ramos.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Sergio%20Ramos"
+  },
+  {
+    "name": "Manuel Neuer",
+    "country": "Germany",
+    "countryCode": "DE",
+    "currentClub": "Bayern Munich",
+    "jerseyNumber": 1,
+    "rarity": "gold",
+    "clubs": [
+      "Schalke 04",
+      "Bayern Munich"
+    ],
+    "dob": "1986-03-27",
+    "pos": "GK",
+    "honors": {
+      "wc": 1,
+      "cl": 2,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 60,
+      "shooting": 25,
+      "passing": 85,
+      "dribbling": 75,
+      "defending": 28,
+      "physical": 83
+    },
+    "funFact": "He is famous as a \"sweeper-keeper\" who runs far out of his goal to kick the ball like an extra defender — and he won the 2014 World Cup with Germany!",
+    "imageUrl": "assets/players/manuel-neuer.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Manuel%20Neuer"
+  },
+  {
+    "name": "Iker Casillas",
+    "country": "Spain",
+    "countryCode": "ES",
+    "currentClub": "Retired",
+    "jerseyNumber": 1,
+    "rarity": "gold",
+    "clubs": [
+      "Real Madrid",
+      "FC Porto"
+    ],
+    "dob": "1981-05-20",
+    "pos": "GK",
+    "honors": {
+      "wc": 1,
+      "cl": 3,
+      "bo": 0,
+      "co": 2
+    },
+    "stats": {
+      "pace": 58,
+      "shooting": 22,
+      "passing": 70,
+      "dribbling": 66,
+      "defending": 25,
+      "physical": 80
+    },
+    "funFact": "He was the captain and goalkeeper when Spain won the 2010 World Cup, and he made a famous toe save in the final to keep the score 0-0!",
+    "imageUrl": "assets/players/iker-casillas.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Iker%20Casillas"
   }
 ]

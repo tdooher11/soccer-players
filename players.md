@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**82 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**84 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -88,6 +88,8 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 80 | Harry Maguire | England | Defender | Manchester United | 1993-03-05 | — | Hull City → Leicester City → Manchester United |
 | 81 | Paolo Maldini | Italy | Defender | Retired / Legend | 1968-06-26 | Champions League ×5 | AC Milan |
 | 82 | Sergio Ramos | Spain | Defender | Monterrey | 1986-03-30 | World Cup ×1, Champions League ×4, Continental ×2 | Sevilla → Real Madrid → PSG → Monterrey |
+| 83 | Manuel Neuer | Germany | Goalkeeper | Bayern Munich | 1986-03-27 | World Cup ×1, Champions League ×2 | Schalke 04 → Bayern Munich |
+| 84 | Iker Casillas | Spain | Goalkeeper | Retired / Legend | 1981-05-20 | World Cup ×1, Champions League ×3, Continental ×2 | Real Madrid → FC Porto |
 
 ## Fun facts
 
@@ -173,4 +175,6 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Harry Maguire** — He is a big, strong centre-back who is great at heading the ball — he scored important headers for England at the 2018 World Cup, where the team finished 4th!
 - **Paolo Maldini** — He played his whole career — over 900 games and 25 years — for just one club, AC Milan, and won the Champions League 5 times!
 - **Sergio Ramos** — He is a defender who scores tons of goals with his head — including a last-minute equaliser in a Champions League final that Real Madrid went on to win!
+- **Manuel Neuer** — He is famous as a "sweeper-keeper" who runs far out of his goal to kick the ball like an extra defender — and he won the 2014 World Cup with Germany!
+- **Iker Casillas** — He was the captain and goalkeeper when Spain won the 2010 World Cup, and he made a famous toe save in the final to keep the score 0-0!
 
