@@ -40,6 +40,7 @@ const FC_TEAMS = {
   "Sergio Ramos":        { e18:"Real Madrid",        e24:"Sevilla",            e26:"Monterrey" },
   "Manuel Neuer":        { e18:"Bayern Munich",      e24:"Bayern Munich",      e26:"Bayern Munich" },
   "Gabriel Jesus":       { e18:"Manchester City",    e24:"Arsenal",            e26:"Arsenal" },
+  "Alphonso Davies":     { e18:"Vancouver Whitecaps",e24:"Bayern Munich",      e26:"Bayern Munich" },
   "Iker Casillas":       { e18:"FC Porto",           e24:"LEGEND",             e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
