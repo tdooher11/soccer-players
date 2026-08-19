@@ -54,10 +54,10 @@
     .emb.imgfail img{display:none}
     .emb.imgfail .fb{display:flex}
     /* flags are naturally rectangular */
-    .emb.flag{width:36px;height:24px;background:transparent;border-radius:4px}
-    .emb.flag img{object-fit:cover;padding:0}
-    .emb.flag.imgfail{background:rgba(255,255,255,.06)}
-    .emb.flag .fb{font-size:1.05rem}
+    .emb.natflag{width:36px;height:24px;background:transparent;border-radius:4px}
+    .emb.natflag img{object-fit:cover;padding:0}
+    .emb.natflag.imgfail{background:rgba(255,255,255,.06)}
+    .emb.natflag .fb{font-size:1.05rem}
 
     @media(max-width:560px){
       .board-name{width:130px}
@@ -91,7 +91,7 @@
     function emblem(win, kind){
       if(kind === "nation"){
         const url = flagUrl(win.cc);
-        return `<span class="emb flag"><img src="${url}" alt="" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(win.cc)}</span></span>`;
+        return `<span class="emb natflag"><img src="${url}" alt="" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(win.cc)}</span></span>`;
       }
       const club = win.logo || win.w;
       const d = clubData(club);
