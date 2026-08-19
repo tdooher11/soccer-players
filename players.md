@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**84 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**85 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -90,6 +90,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 82 | Sergio Ramos | Spain | Defender | Monterrey | 1986-03-30 | World Cup ×1, Champions League ×4, Continental ×2 | Sevilla → Real Madrid → PSG → Monterrey |
 | 83 | Manuel Neuer | Germany | Goalkeeper | Bayern Munich | 1986-03-27 | World Cup ×1, Champions League ×2 | Schalke 04 → Bayern Munich |
 | 84 | Iker Casillas | Spain | Goalkeeper | Retired / Legend | 1981-05-20 | World Cup ×1, Champions League ×3, Continental ×2 | Real Madrid → FC Porto |
+| 85 | Gabriel Jesus | Brazil | Striker | Arsenal | 1997-04-03 | Continental ×1 | Palmeiras → Manchester City → Arsenal |
 
 ## Fun facts
 
@@ -177,4 +178,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Sergio Ramos** — He is a defender who scores tons of goals with his head — including a last-minute equaliser in a Champions League final that Real Madrid went on to win!
 - **Manuel Neuer** — He is famous as a "sweeper-keeper" who runs far out of his goal to kick the ball like an extra defender — and he won the 2014 World Cup with Germany!
 - **Iker Casillas** — He was the captain and goalkeeper when Spain won the 2010 World Cup, and he made a famous toe save in the final to keep the score 0-0!
+- **Gabriel Jesus** — Before he was famous, he helped paint the streets of his neighborhood in Brazil to celebrate the World Cup — and then grew up to play in it for Brazil!
 
