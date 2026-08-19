@@ -39,6 +39,7 @@ const FC_TEAMS = {
   "Paolo Maldini":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Sergio Ramos":        { e18:"Real Madrid",        e24:"Sevilla",            e26:"Monterrey" },
   "Manuel Neuer":        { e18:"Bayern Munich",      e24:"Bayern Munich",      e26:"Bayern Munich" },
+  "Gabriel Jesus":       { e18:"Manchester City",    e24:"Arsenal",            e26:"Arsenal" },
   "Iker Casillas":       { e18:"FC Porto",           e24:"LEGEND",             e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },

@@ -3152,5 +3152,37 @@
     "funFact": "He was the captain and goalkeeper when Spain won the 2010 World Cup, and he made a famous toe save in the final to keep the score 0-0!",
     "imageUrl": "assets/players/iker-casillas.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Iker%20Casillas"
+  },
+  {
+    "name": "Gabriel Jesus",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "currentClub": "Arsenal",
+    "jerseyNumber": 9,
+    "rarity": "gold",
+    "clubs": [
+      "Palmeiras",
+      "Manchester City",
+      "Arsenal"
+    ],
+    "dob": "1997-04-03",
+    "pos": "FWD",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 1
+    },
+    "stats": {
+      "pace": 85,
+      "shooting": 82,
+      "passing": 78,
+      "dribbling": 86,
+      "defending": 40,
+      "physical": 70
+    },
+    "funFact": "Before he was famous, he helped paint the streets of his neighborhood in Brazil to celebrate the World Cup — and then grew up to play in it for Brazil!",
+    "imageUrl": "assets/players/gabriel-jesus.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Gabriel%20Jesus"
   }
 ]
