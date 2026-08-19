@@ -3184,5 +3184,36 @@
     "funFact": "Before he was famous, he helped paint the streets of his neighborhood in Brazil to celebrate the World Cup — and then grew up to play in it for Brazil!",
     "imageUrl": "assets/players/gabriel-jesus.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Gabriel%20Jesus"
+  },
+  {
+    "name": "Alphonso Davies",
+    "country": "Canada",
+    "countryCode": "CA",
+    "currentClub": "Bayern Munich",
+    "jerseyNumber": 19,
+    "rarity": "gold",
+    "clubs": [
+      "Vancouver Whitecaps",
+      "Bayern Munich"
+    ],
+    "dob": "2000-11-02",
+    "pos": "DEF",
+    "honors": {
+      "wc": 0,
+      "cl": 1,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 96,
+      "shooting": 70,
+      "passing": 78,
+      "dribbling": 85,
+      "defending": 78,
+      "physical": 76
+    },
+    "funFact": "Nicknamed the \"Roadrunner,\" he is one of the fastest players in the world — he was born in a refugee camp and grew up to become Canada's biggest soccer star!",
+    "imageUrl": "assets/players/alphonso-davies.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Alphonso%20Davies"
   }
 ]
