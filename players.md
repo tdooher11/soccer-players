@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**86 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**87 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -92,6 +92,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 84 | Iker Casillas | Spain | Goalkeeper | Retired / Legend | 1981-05-20 | World Cup ×1, Champions League ×3, Continental ×2 | Real Madrid → FC Porto |
 | 85 | Gabriel Jesus | Brazil | Striker | Arsenal | 1997-04-03 | Continental ×1 | Palmeiras → Manchester City → Arsenal |
 | 86 | Alphonso Davies | Canada | Defender | Bayern Munich | 2000-11-02 | Champions League ×1 | Vancouver Whitecaps → Bayern Munich |
+| 87 | Clive Charles | England | Defender | Retired (RIP) | 1951–2003 (RIP) | — | West Ham United → Portland Timbers |
 
 ## Fun facts
 
@@ -181,4 +182,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Iker Casillas** — He was the captain and goalkeeper when Spain won the 2010 World Cup, and he made a famous toe save in the final to keep the score 0-0!
 - **Gabriel Jesus** — Before he was famous, he helped paint the streets of his neighborhood in Brazil to celebrate the World Cup — and then grew up to play in it for Brazil!
 - **Alphonso Davies** — Nicknamed the "Roadrunner," he is one of the fastest players in the world — he was born in a refugee camp and grew up to become Canada's biggest soccer star!
+- **Clive Charles** — The Portland Timbers retired his number 3 — the only shirt number the team has ever retired! He was one of the first Black players in England's top league and became a beloved Portland coach.
 
