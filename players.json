@@ -3247,5 +3247,38 @@
     "funFact": "The Portland Timbers retired his number 3 — the only shirt number the team has ever retired! He was one of the first Black players in England's top league and became a beloved Portland coach.",
     "imageUrl": "",
     "fotmobUrl": "https://www.fotmob.com/search?term=Clive%20Charles"
+  },
+  {
+    "name": "Liam Ridgewell",
+    "country": "England",
+    "countryCode": "GB-ENG",
+    "currentClub": "Retired",
+    "jerseyNumber": 24,
+    "rarity": "gold",
+    "clubs": [
+      "Aston Villa",
+      "Birmingham City",
+      "West Bromwich Albion",
+      "Portland Timbers"
+    ],
+    "dob": "1984-07-21",
+    "pos": "DEF",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 68,
+      "shooting": 45,
+      "passing": 68,
+      "dribbling": 62,
+      "defending": 80,
+      "physical": 80
+    },
+    "funFact": "He was the captain of the Portland Timbers when they won their very first MLS Cup championship in 2015!",
+    "imageUrl": "assets/players/liam-ridgewell.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Liam%20Ridgewell"
   }
 ]
