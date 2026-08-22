@@ -52,6 +52,22 @@
       background:rgba(255,255,255,.1)}
     .pchip .pn{font-size:.76rem;font-weight:700;color:#dff1ff}
 
+    /* live / finished status */
+    .match-time .live{font-size:.72rem;font-weight:800;color:#ff5a5a;letter-spacing:.06em;
+      display:inline-flex;align-items:center;gap:4px}
+    .match-time .live::before{content:"";width:7px;height:7px;border-radius:50%;background:#ff5a5a;
+      animation:pulse 1.2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+    .match-time .ft{font-size:.72rem;font-weight:800;color:rgba(255,255,255,.55);letter-spacing:.06em}
+    .match-time .score{font-size:1.15rem;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;line-height:1.1}
+
+    /* playing indicators on player chips */
+    .pchip.started{border-color:rgba(80,220,120,.6);background:rgba(80,220,120,.16)}
+    .pchip.started .pn{color:#c9f7d4}
+    .pchip.sub{border-color:rgba(255,190,80,.55);background:rgba(255,190,80,.14)}
+    .pchip.sub .pn{color:#ffe6b3}
+    .pchip .st{font-size:.72rem;margin-left:2px}
+
     @media(max-width:520px){
       .match{grid-template-columns:52px 1fr;gap:10px;padding:12px}
       .side{font-size:.92rem}
@@ -75,26 +91,54 @@
   <script src="players.js"></script>
   <script>
     const API = "https://www.thesportsdb.com/api/v1/json/3";
-    const CACHE_TTL = 3 * 60 * 60 * 1000; // 3 hours
+    // Shorter TTL than before so live status/scores refresh; lineups cached briefly too.
+    const NEXT_TTL = 15 * 60 * 1000;   // 15 min
+    const LINEUP_TTL = 5 * 60 * 1000;  // 5 min
 
     function firstName(n){ return n.split(" ")[0]; }
 
-    // Cached fetch of a team's next events (localStorage, 3h TTL)
-    async function nextEvents(id){
-      const key = "sdb_next_" + id;
+    // generic cached GET (localStorage, per-key TTL)
+    async function cachedGet(url, cacheKey, ttl){
       try{
-        const raw = localStorage.getItem(key);
-        if(raw){
-          const c = JSON.parse(raw);
-          if(Date.now() - c.t < CACHE_TTL) return c.e;
-        }
+        const raw = localStorage.getItem(cacheKey);
+        if(raw){ const c = JSON.parse(raw); if(Date.now() - c.t < ttl) return c.d; }
       }catch(e){}
-      const res = await fetch(`${API}/eventsnext.php?id=${id}`, { cache:"no-store" });
+      const res = await fetch(url, { cache:"no-store" });
       if(!res.ok) throw new Error("http "+res.status);
-      const j = await res.json();
-      const e = j.events || [];
-      try{ localStorage.setItem(key, JSON.stringify({ t:Date.now(), e })); }catch(_){}
-      return e;
+      const d = await res.json();
+      try{ localStorage.setItem(cacheKey, JSON.stringify({ t:Date.now(), d })); }catch(_){}
+      return d;
+    }
+
+    async function nextEvents(id){
+      const j = await cachedGet(`${API}/eventsnext.php?id=${id}`, "sdb_next_" + id, NEXT_TTL);
+      return j.events || [];
+    }
+    async function lineup(eventId){
+      const j = await cachedGet(`${API}/lookuplineup.php?id=${eventId}`, "sdb_lu_" + eventId, LINEUP_TTL);
+      return j.lineup || [];
+    }
+
+    // match status → "upcoming" | "live" | "finished"
+    const FINISHED = new Set(["FT","AET","PEN","AP","Match Finished","FT_PEN"]);
+    function statusOf(ev){
+      const s = (ev.strStatus || "").trim();
+      if(!s || s === "NS" || s === "Not Started" || s === "TBD") return "upcoming";
+      if(FINISHED.has(s)) return "finished";
+      return "live"; // 1H, 2H, HT, ET, P, minute counts, etc.
+    }
+
+    // normalize a name for fuzzy matching (strip accents/punctuation, lowercase)
+    function norm(s){
+      return (s || "").normalize("NFD").replace(/[̀-ͯ]/g,"")
+        .toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+    }
+    // does a lineup entry refer to our player? (compared within the same club only)
+    function samePlayer(ourName, lineupName){
+      const a = norm(ourName), b = norm(lineupName);
+      if(!a || !b) return false;
+      if(a === b) return true;
+      return a.includes(b) || b.includes(a);
     }
 
     // small concurrency pool so we don't hammer the API
@@ -153,33 +197,75 @@
       });
       const clubs = Object.keys(clubPlayers).filter(c => ids[c]);
 
-      // fetch next match for each club (soonest single event)
+      // for each club: its current/next event, plus (if live/finished) who of our players played
       let anyOk = false;
       const results = await pool(clubs, 4, async (club) => {
         try{
           const events = await nextEvents(ids[club]);
           anyOk = true;
           const ev = (events || []).filter(e => e.strTimestamp).sort((a,b) => a.strTimestamp.localeCompare(b.strTimestamp))[0];
-          return ev ? { club, ev } : null;
-        }catch(e){ return { club, err:true }; }
+          if(!ev) return null;
+          const status = statusOf(ev);
+          let playing = null; // { playerName: "start" | "sub" }
+          if(status === "live" || status === "finished"){
+            try{
+              const lu = await lineup(ev.idEvent);
+              const ourSide = lu.filter(e => String(e.idTeam) === String(ids[club]));
+              if(ourSide.length){
+                playing = {};
+                (clubPlayers[club] || []).forEach(p => {
+                  const hit = ourSide.find(e => samePlayer(p.name, e.strPlayer));
+                  if(hit) playing[p.name] = String(hit.strSubstitute).toLowerCase() === "yes" ? "sub" : "start";
+                });
+              }
+            }catch(_){}
+          }
+          return { club, ev, status, playing };
+        }catch(e){ return null; }
       });
 
-      const matches = results.filter(r => r && r.ev);
+      const matches = results.filter(Boolean);
       if(!matches.length){
         document.getElementById("content").innerHTML = anyOk
-          ? `<div class="status">📭 No upcoming matches scheduled right now. Check back soon!</div>`
+          ? `<div class="status">📭 No matches scheduled right now. Check back soon!</div>`
           : `<div class="status">😕 Couldn't reach the live schedule right now. Please try again later.</div>`;
         return;
       }
 
-      // sort by kickoff, group by day
-      matches.sort((a,b) => a.ev.strTimestamp.localeCompare(b.ev.strTimestamp));
+      // live first, then everything by kickoff time
+      matches.sort((a,b) => {
+        if((a.status === "live") !== (b.status === "live")) return a.status === "live" ? -1 : 1;
+        return a.ev.strTimestamp.localeCompare(b.ev.strTimestamp);
+      });
 
-      let html = ""; let lastLabel = null;
-      matches.forEach(({ club, ev }) => {
-        const ts = ev.strTimestamp.replace(" ", "T") + (ev.strTimestamp.includes("Z") ? "" : "Z");
-        const g = dayGroup(ts);
-        if(g.label !== lastLabel){ html += `<span class="day-lab">${g.label}</span>`; lastLabel = g.label; }
+      const toISO = t => t.replace(" ", "T") + (t.includes("Z") ? "" : "Z");
+      const hasScore = ev => ev.intHomeScore != null && ev.intAwayScore != null;
+      function timeCell(m, ts){
+        if(m.status === "live"){
+          const sc = hasScore(m.ev) ? `<span class="score">${m.ev.intHomeScore}–${m.ev.intAwayScore}</span>` : "";
+          return `<span class="live">LIVE</span>${sc}`;
+        }
+        if(m.status === "finished"){
+          const sc = hasScore(m.ev) ? `<span class="score">${m.ev.intHomeScore}–${m.ev.intAwayScore}</span>` : "";
+          return `<span class="ft">FT</span>${sc}`;
+        }
+        const hasTime = !/00:00:00/.test(m.ev.strTimestamp);
+        const tp = timeParts(ts, hasTime);
+        return tp.tbd ? `<span class="tbd">${tp.tbd}</span>`
+                      : `<span class="t">${tp.t}</span><span class="ampm">${tp.ampm}</span>`;
+      }
+
+      const anyPlaying = matches.some(m => m.playing);
+      let html = anyPlaying
+        ? `<div class="status" style="padding:4px 4px 14px;text-align:left;font-size:.78rem;color:rgba(255,255,255,.6)">✅ Started · 🔄 Came on as sub — shown once a match is live or finished.</div>`
+        : "";
+      let lastLabel = null;
+
+      matches.forEach(m => {
+        const { club, ev } = m;
+        const ts = toISO(ev.strTimestamp);
+        const label = m.status === "live" ? "🔴 Playing Now" : dayGroup(ts).label;
+        if(label !== lastLabel){ html += `<span class="day-lab">${label}</span>`; lastLabel = label; }
 
         const home = ev.strHomeTeam, away = ev.strAwayTeam;
         // "ours" is whichever side matches the team id we queried (exact — handles the two Manchester clubs)
@@ -189,24 +275,24 @@
         const homeSide = `<span class="side ${homeOurs?'ours':'opp'}">${hb}${home||"TBD"}</span>`;
         const awaySide = `<span class="side ${!homeOurs?'ours':'opp'}">${ab}${away||"TBD"}</span>`;
 
-        const hasTime = !/00:00:00/.test(ev.strTimestamp);
-        const tp = timeParts(ts, hasTime);
-        const timeHtml = tp.tbd
-          ? `<span class="tbd">${tp.tbd}</span>`
-          : `<span class="t">${tp.t}</span><span class="ampm">${tp.ampm}</span>`;
-
-        const ours = (clubPlayers[club] || []).slice(0, 6).map(p =>
-          `<span class="pchip"><img src="${p.imageUrl}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="pn">${firstName(p.name)}</span></span>`
-        ).join("");
-        const more = clubPlayers[club].length > 6 ? `<span class="lead">+${clubPlayers[club].length-6} more</span>` : "";
+        const list = clubPlayers[club] || [];
+        const ours = list.slice(0, 6).map(p => {
+          const st = m.playing ? m.playing[p.name] : null;
+          const cls = st === "start" ? " started" : st === "sub" ? " sub" : "";
+          const icon = st === "start" ? `<span class="st" title="Started">✅</span>`
+                     : st === "sub" ? `<span class="st" title="Came on as substitute">🔄</span>` : "";
+          return `<span class="pchip${cls}"><img src="${p.imageUrl}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="pn">${firstName(p.name)}</span>${icon}</span>`;
+        }).join("");
+        const more = list.length > 6 ? `<span class="lead">+${list.length-6} more</span>` : "";
+        const lead = m.status === "live" ? "Playing now:" : m.status === "finished" ? "Who played:" : "Our players:";
 
         html += `
           <div class="match">
-            <div class="match-time">${timeHtml}</div>
+            <div class="match-time">${timeCell(m, ts)}</div>
             <div class="match-body">
               <div class="fixture">${homeSide}<span class="vs">vs</span>${awaySide}</div>
               <div class="comp">🏆 ${ev.strLeague || ""}</div>
-              <div class="ours-players"><span class="lead">Our players:</span>${ours}${more}</div>
+              <div class="ours-players"><span class="lead">${lead}</span>${ours}${more}</div>
             </div>
           </div>`;
       });
