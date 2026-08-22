@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upcoming Matches — Our Players' Teams</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .m-wrap{max-width:900px;margin:0 auto;padding:10px 16px 60px}
+    .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(255,215,0,.12);
+      border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:6px 16px;color:#ffd700;text-decoration:none;
+      font-size:.85rem;font-weight:600}
+    .backlink:hover{background:rgba(255,215,0,.2);text-decoration:none}
+
+    .status{text-align:center;color:rgba(255,255,255,.7);font-size:.95rem;padding:30px 10px}
+    .status .spin{display:inline-block;width:26px;height:26px;border:3px solid rgba(255,255,255,.2);
+      border-top-color:#ffd700;border-radius:50%;animation:sp 1s linear infinite;margin-bottom:12px}
+    @keyframes sp{to{transform:rotate(360deg)}}
+
+    .day-lab{display:block;margin:26px 4px 12px;font-size:.72rem;font-weight:800;letter-spacing:.12em;
+      text-transform:uppercase;color:#ffd700}
+    .day-lab:first-child{margin-top:8px}
+
+    .match{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;margin-bottom:12px;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 16px}
+    .match-time{text-align:center}
+    .match-time .t{font-size:1.15rem;font-weight:800;color:#6cf;font-variant-numeric:tabular-nums;line-height:1}
+    .match-time .ampm{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.08em}
+    .match-time .tbd{font-size:.7rem;color:rgba(255,255,255,.5);font-weight:700}
+
+    .match-body{min-width:0}
+    .fixture{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+    .side{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:1rem}
+    .side.ours{color:#fff}
+    .side.opp{color:rgba(255,255,255,.72);font-weight:600}
+    .vs{color:rgba(255,255,255,.4);font-weight:800;font-size:.8rem;padding:0 2px}
+    .side.ours .badge{box-shadow:0 0 0 2px #ffd700}
+    .badge{width:30px;height:30px;flex:none;border-radius:7px;overflow:hidden;background:rgba(255,255,255,.92);
+      display:grid;place-items:center}
+    .badge img{width:100%;height:100%;object-fit:contain;padding:3px;box-sizing:border-box}
+    .badge .bfb{font-weight:800;font-size:.62rem;color:#1a1a2e}
+
+    .comp{margin-top:5px;font-size:.74rem;color:rgba(255,255,255,.5);font-weight:600;
+      display:inline-flex;align-items:center;gap:6px}
+
+    .ours-players{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .ours-players .lead{font-size:.72rem;color:rgba(255,255,255,.55);font-weight:700}
+    .pchip{display:inline-flex;align-items:center;gap:5px;background:rgba(108,204,255,.12);
+      border:1px solid rgba(108,204,255,.3);border-radius:20px;padding:2px 9px 2px 2px}
+    .pchip img{width:24px;height:24px;border-radius:50%;object-fit:cover;object-position:top center;
+      background:rgba(255,255,255,.1)}
+    .pchip .pn{font-size:.76rem;font-weight:700;color:#dff1ff}
+
+    @media(max-width:520px){
+      .match{grid-template-columns:52px 1fr;gap:10px;padding:12px}
+      .side{font-size:.92rem}
+      .badge{width:26px;height:26px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Upcoming Matches ⚽📅</h1>
+    <p>When do our players' teams play next? Live schedule!</p>
+    <a class="backlink" href="index.html">← Back to Player Cards</a>
+  </header>
+
+  <main class="m-wrap">
+    <div id="content">
+      <div class="status"><span class="spin"></span><br>Loading upcoming matches…</div>
+    </div>
+  </main>
+
+  <script src="players.js"></script>
+  <script>
+    const API = "https://www.thesportsdb.com/api/v1/json/3";
+    const CACHE_TTL = 3 * 60 * 60 * 1000; // 3 hours
+
+    function firstName(n){ return n.split(" ")[0]; }
+
+    // Cached fetch of a team's next events (localStorage, 3h TTL)
+    async function nextEvents(id){
+      const key = "sdb_next_" + id;
+      try{
+        const raw = localStorage.getItem(key);
+        if(raw){
+          const c = JSON.parse(raw);
+          if(Date.now() - c.t < CACHE_TTL) return c.e;
+        }
+      }catch(e){}
+      const res = await fetch(`${API}/eventsnext.php?id=${id}`, { cache:"no-store" });
+      if(!res.ok) throw new Error("http "+res.status);
+      const j = await res.json();
+      const e = j.events || [];
+      try{ localStorage.setItem(key, JSON.stringify({ t:Date.now(), e })); }catch(_){}
+      return e;
+    }
+
+    // small concurrency pool so we don't hammer the API
+    async function pool(items, n, worker){
+      const out = []; let i = 0;
+      const runners = Array.from({length:Math.min(n, items.length)}, async () => {
+        while(i < items.length){ const idx = i++; out[idx] = await worker(items[idx]); }
+      });
+      await Promise.all(runners);
+      return out;
+    }
+
+    function badge(url, fallbackText){
+      const fb = `<span class="bfb">${fallbackText}</span>`;
+      return url
+        ? `<span class="badge"><img src="${url}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'bfb',textContent:'${fallbackText}'}))"></span>`
+        : `<span class="badge">${fb}</span>`;
+    }
+    function abbr(name){ return (name||"?").replace(/[^A-Za-z ]/g,"").split(" ").filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase() || "?"; }
+
+    function dayGroup(ts){
+      const d = new Date(ts);
+      const today = new Date(); today.setHours(0,0,0,0);
+      const md = new Date(d); md.setHours(0,0,0,0);
+      const diff = Math.round((md - today) / 86400000);
+      if(diff === 0) return { key:0, label:"Today" };
+      if(diff === 1) return { key:1, label:"Tomorrow" };
+      return { key:diff, label:d.toLocaleDateString(undefined,{weekday:"long", month:"short", day:"numeric"}) };
+    }
+    function timeParts(ts, hasTime){
+      if(!hasTime) return { t:"", ampm:"", tbd:"TBD" };
+      const d = new Date(ts);
+      let h = d.getHours(); const m = d.getMinutes();
+      const ampm = h >= 12 ? "PM" : "AM"; h = h % 12 || 12;
+      return { t:`${h}:${String(m).padStart(2,"0")}`, ampm, tbd:"" };
+    }
+
+    (async function boot(){
+      let players, ids;
+      try{
+        [players, ids] = await Promise.all([
+          loadPlayers(),
+          fetch("team-ids.json", { cache:"no-cache" }).then(r => r.json())
+        ]);
+      }catch(e){
+        document.getElementById("content").innerHTML =
+          `<div class="status">😕 Couldn't load the player list. Please refresh.</div>`;
+        return;
+      }
+
+      // club -> our players on it
+      const clubPlayers = {};
+      players.forEach(p => {
+        if(!p.currentClub || p.currentClub === "Retired") return;
+        (clubPlayers[p.currentClub] = clubPlayers[p.currentClub] || []).push(p);
+      });
+      const clubs = Object.keys(clubPlayers).filter(c => ids[c]);
+
+      // fetch next match for each club (soonest single event)
+      let anyOk = false;
+      const results = await pool(clubs, 4, async (club) => {
+        try{
+          const events = await nextEvents(ids[club]);
+          anyOk = true;
+          const ev = (events || []).filter(e => e.strTimestamp).sort((a,b) => a.strTimestamp.localeCompare(b.strTimestamp))[0];
+          return ev ? { club, ev } : null;
+        }catch(e){ return { club, err:true }; }
+      });
+
+      const matches = results.filter(r => r && r.ev);
+      if(!matches.length){
+        document.getElementById("content").innerHTML = anyOk
+          ? `<div class="status">📭 No upcoming matches scheduled right now. Check back soon!</div>`
+          : `<div class="status">😕 Couldn't reach the live schedule right now. Please try again later.</div>`;
+        return;
+      }
+
+      // sort by kickoff, group by day
+      matches.sort((a,b) => a.ev.strTimestamp.localeCompare(b.ev.strTimestamp));
+
+      let html = ""; let lastLabel = null;
+      matches.forEach(({ club, ev }) => {
+        const ts = ev.strTimestamp.replace(" ", "T") + (ev.strTimestamp.includes("Z") ? "" : "Z");
+        const g = dayGroup(ts);
+        if(g.label !== lastLabel){ html += `<span class="day-lab">${g.label}</span>`; lastLabel = g.label; }
+
+        const home = ev.strHomeTeam, away = ev.strAwayTeam;
+        // "ours" is whichever side matches the team id we queried (exact — handles the two Manchester clubs)
+        const homeOurs = String(ev.idHomeTeam) === String(ids[club]);
+        const hb = badge(ev.strHomeTeamBadge, abbr(home));
+        const ab = badge(ev.strAwayTeamBadge, abbr(away));
+        const homeSide = `<span class="side ${homeOurs?'ours':'opp'}">${hb}${home||"TBD"}</span>`;
+        const awaySide = `<span class="side ${!homeOurs?'ours':'opp'}">${ab}${away||"TBD"}</span>`;
+
+        const hasTime = !/00:00:00/.test(ev.strTimestamp);
+        const tp = timeParts(ts, hasTime);
+        const timeHtml = tp.tbd
+          ? `<span class="tbd">${tp.tbd}</span>`
+          : `<span class="t">${tp.t}</span><span class="ampm">${tp.ampm}</span>`;
+
+        const ours = (clubPlayers[club] || []).slice(0, 6).map(p =>
+          `<span class="pchip"><img src="${p.imageUrl}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="pn">${firstName(p.name)}</span></span>`
+        ).join("");
+        const more = clubPlayers[club].length > 6 ? `<span class="lead">+${clubPlayers[club].length-6} more</span>` : "";
+
+        html += `
+          <div class="match">
+            <div class="match-time">${timeHtml}</div>
+            <div class="match-body">
+              <div class="fixture">${homeSide}<span class="vs">vs</span>${awaySide}</div>
+              <div class="comp">🏆 ${ev.strLeague || ""}</div>
+              <div class="ours-players"><span class="lead">Our players:</span>${ours}${more}</div>
+            </div>
+          </div>`;
+      });
+
+      document.getElementById("content").innerHTML = html;
+    })();
+  </script>
+</body>
+</html>
