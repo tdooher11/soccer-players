@@ -43,6 +43,7 @@ const FC_TEAMS = {
   "Alphonso Davies":     { e18:"Vancouver Whitecaps",e24:"Bayern Munich",      e26:"Bayern Munich" },
   "Iker Casillas":       { e18:"FC Porto",           e24:"LEGEND",             e26:"LEGEND" },
   "Clive Charles":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Liam Ridgewell":      { e18:"Portland Timbers",   e24:"LEGEND",             e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
@@ -119,7 +120,7 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu","Paolo Maldini","Iker Casillas"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Jack Jewsbury","Diego Valeri","Clive Charles","Nadine Angerer"] }
+      players:["Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Nadine Angerer"] }
   ],
   e26: [
     { name:"Bayern Munich · Classic XI",  logo:"Bayern Munich",
@@ -145,6 +146,6 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)",         icon:"👑",
       players:["Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo"] },
     { name:"Not in this game",            icon:"🚫",
-      players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Nadine Angerer"] }
+      players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Nadine Angerer"] }
   ]
 };
