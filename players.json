@@ -3215,5 +3215,37 @@
     "funFact": "Nicknamed the \"Roadrunner,\" he is one of the fastest players in the world — he was born in a refugee camp and grew up to become Canada's biggest soccer star!",
     "imageUrl": "assets/players/alphonso-davies.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Alphonso%20Davies"
+  },
+  {
+    "name": "Clive Charles",
+    "country": "England",
+    "countryCode": "GB-ENG",
+    "currentClub": "Retired",
+    "jerseyNumber": 3,
+    "rarity": "gold",
+    "clubs": [
+      "West Ham United",
+      "Portland Timbers"
+    ],
+    "dob": "1951-10-03",
+    "died": "2003-08-26",
+    "pos": "DEF",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 70,
+      "shooting": 40,
+      "passing": 68,
+      "dribbling": 62,
+      "defending": 80,
+      "physical": 78
+    },
+    "funFact": "The Portland Timbers retired his number 3 — the only shirt number the team has ever retired! He was one of the first Black players in England's top league and became a beloved Portland coach.",
+    "imageUrl": "",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Clive%20Charles"
   }
 ]
