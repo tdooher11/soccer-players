@@ -58,6 +58,7 @@ const CLUBS = {
   "Schalke 04":{c1:"#004d9d",c2:"#ffffff",ab:"S04",ink:"#fff"},
   "Vancouver Whitecaps":{c1:"#04216a",c2:"#9dc2e5",ab:"VAN",ink:"#fff"},
   "West Bromwich Albion":{c1:"#122f67",c2:"#ffffff",ab:"WBA",ink:"#fff"},
+  "Kaiserslautern":{c1:"#e30613",c2:"#ffffff",ab:"FCK",ink:"#fff"},
   "Birmingham City":{c1:"#1a4ea8",c2:"#ffffff",ab:"BIR",ink:"#fff"},
   "Basel":{c1:"#d81e2c",c2:"#0a4ea2",ab:"BAS",ink:"#fff"},
   "Chelsea":{c1:"#034694",c2:"#ffffff",ab:"CHE",ink:"#fff"},
