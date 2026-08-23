@@ -3280,5 +3280,38 @@
     "funFact": "He was the captain of the Portland Timbers when they won their very first MLS Cup championship in 2015!",
     "imageUrl": "assets/players/liam-ridgewell.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Liam%20Ridgewell"
+  },
+  {
+    "name": "Miroslav Klose",
+    "country": "Germany",
+    "countryCode": "DE",
+    "currentClub": "Retired",
+    "jerseyNumber": 11,
+    "rarity": "gold",
+    "clubs": [
+      "Kaiserslautern",
+      "Werder Bremen",
+      "Bayern Munich",
+      "Lazio"
+    ],
+    "dob": "1978-06-09",
+    "pos": "FWD",
+    "honors": {
+      "wc": 1,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 74,
+      "shooting": 85,
+      "passing": 72,
+      "dribbling": 76,
+      "defending": 38,
+      "physical": 80
+    },
+    "funFact": "He scored 16 goals at the World Cup — more than anyone in history! — and he celebrated with a famous front-flip.",
+    "imageUrl": "assets/players/miroslav-klose.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Miroslav%20Klose"
   }
 ]

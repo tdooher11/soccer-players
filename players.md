@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**88 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**89 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -94,6 +94,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 86 | Alphonso Davies | Canada | Defender | Bayern Munich | 2000-11-02 | Champions League ×1 | Vancouver Whitecaps → Bayern Munich |
 | 87 | Clive Charles | England | Defender | Retired (RIP) | 1951–2003 (RIP) | — | West Ham United → Portland Timbers |
 | 88 | Liam Ridgewell | England | Defender | Retired / Legend | 1984-07-21 | — | Aston Villa → Birmingham City → West Bromwich Albion → Portland Timbers |
+| 89 | Miroslav Klose | Germany | Striker | Retired / Legend | 1978-06-09 | World Cup ×1 | Kaiserslautern → Werder Bremen → Bayern Munich → Lazio |
 
 ## Fun facts
 
@@ -185,4 +186,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Alphonso Davies** — Nicknamed the "Roadrunner," he is one of the fastest players in the world — he was born in a refugee camp and grew up to become Canada's biggest soccer star!
 - **Clive Charles** — The Portland Timbers retired his number 3 — the only shirt number the team has ever retired! He was one of the first Black players in England's top league and became a beloved Portland coach.
 - **Liam Ridgewell** — He was the captain of the Portland Timbers when they won their very first MLS Cup championship in 2015!
+- **Miroslav Klose** — He scored 16 goals at the World Cup — more than anyone in history! — and he celebrated with a famous front-flip.
 
