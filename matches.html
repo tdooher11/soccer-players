@@ -199,7 +199,7 @@
     }
 
     (async function boot(){
-      let players, ids;
+      let players, ids, BADGES = {};
       try{
         [players, ids] = await Promise.all([
           loadPlayers(),
@@ -209,6 +209,24 @@
         document.getElementById("content").innerHTML =
           `<div class="status">😕 Couldn't load the player list. Please refresh.</div>`;
         return;
+      }
+      // our clubs' correct crests (used instead of the event's home/away badge fields,
+      // which TheSportsDB occasionally has swapped). Optional — falls back gracefully.
+      try{ BADGES = await fetch("team-badges.json", { cache:"no-cache" }).then(r => r.json()); }catch(_){}
+
+      // pick the right crest for each side: our club's stored badge if it's ours,
+      // otherwise the event badge that isn't the other side's (by elimination).
+      const bkey = u => (u || "").split("/").pop().split("?")[0];
+      function badgeFor(ev, clubs){
+        const home = ev.strHomeTeamBadge || "", away = ev.strAwayTeamBadge || "";
+        const homeClub = clubs.find(c => String(ids[c]) === String(ev.idHomeTeam));
+        const awayClub = clubs.find(c => String(ids[c]) === String(ev.idAwayTeam));
+        let hU = homeClub ? (BADGES[homeClub] || "") : "";
+        let aU = awayClub ? (BADGES[awayClub] || "") : "";
+        const evb = [home, away].filter(Boolean);
+        if(!hU) hU = evb.find(b => bkey(b) !== bkey(aU)) || home;
+        if(!aU) aU = evb.find(b => bkey(b) !== bkey(hU)) || away;
+        return { hU, aU };
       }
 
       // club -> our players on it
@@ -307,8 +325,9 @@
         // a side is "ours" if any of our clubs in this match is that side (exact id match)
         const homeOurs = m.clubs.some(c => String(ids[c]) === String(ev.idHomeTeam));
         const awayOurs = m.clubs.some(c => String(ids[c]) === String(ev.idAwayTeam));
-        const hb = badge(ev.strHomeTeamBadge, abbr(home));
-        const ab = badge(ev.strAwayTeamBadge, abbr(away));
+        const { hU, aU } = badgeFor(ev, m.clubs);
+        const hb = badge(hU, abbr(home));
+        const ab = badge(aU, abbr(away));
         const homeSide = `<span class="side ${homeOurs?'ours':'opp'}">${hb}${home||"TBD"}</span>`;
         const awaySide = `<span class="side ${awayOurs?'ours':'opp'}">${ab}${away||"TBD"}</span>`;
 
