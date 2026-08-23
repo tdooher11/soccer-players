@@ -246,7 +246,20 @@
         }catch(e){ return null; }
       });
 
-      const matches = results.filter(Boolean);
+      // Dedupe: when two of our clubs play each other, both fetches return the same
+      // fixture — collapse to one card and merge our players (and lineup info) from both.
+      const byEvent = new Map();
+      results.filter(Boolean).forEach(r => {
+        const id = r.ev.idEvent || (r.ev.strEvent + "|" + r.ev.strTimestamp);
+        const existing = byEvent.get(id);
+        if(!existing){
+          byEvent.set(id, { ev:r.ev, status:r.status, clubs:[r.club], playing: r.playing ? {...r.playing} : null });
+        }else{
+          if(!existing.clubs.includes(r.club)) existing.clubs.push(r.club);
+          if(r.playing) existing.playing = Object.assign(existing.playing || {}, r.playing);
+        }
+      });
+      const matches = [...byEvent.values()];
       if(!matches.length){
         document.getElementById("content").innerHTML = anyOk
           ? `<div class="status">📭 No matches scheduled right now. Check back soon!</div>`
@@ -285,28 +298,33 @@
       let lastLabel = null;
 
       matches.forEach(m => {
-        const { club, ev } = m;
+        const { ev } = m;
         const ts = toISO(ev.strTimestamp);
         const label = m.status === "live" ? "🔴 Playing Now" : dayGroup(ts).label;
         if(label !== lastLabel){ html += `<span class="day-lab">${label}</span>`; lastLabel = label; }
 
         const home = ev.strHomeTeam, away = ev.strAwayTeam;
-        // "ours" is whichever side matches the team id we queried (exact — handles the two Manchester clubs)
-        const homeOurs = String(ev.idHomeTeam) === String(ids[club]);
+        // a side is "ours" if any of our clubs in this match is that side (exact id match)
+        const homeOurs = m.clubs.some(c => String(ids[c]) === String(ev.idHomeTeam));
+        const awayOurs = m.clubs.some(c => String(ids[c]) === String(ev.idAwayTeam));
         const hb = badge(ev.strHomeTeamBadge, abbr(home));
         const ab = badge(ev.strAwayTeamBadge, abbr(away));
         const homeSide = `<span class="side ${homeOurs?'ours':'opp'}">${hb}${home||"TBD"}</span>`;
-        const awaySide = `<span class="side ${!homeOurs?'ours':'opp'}">${ab}${away||"TBD"}</span>`;
+        const awaySide = `<span class="side ${awayOurs?'ours':'opp'}">${ab}${away||"TBD"}</span>`;
 
-        const list = clubPlayers[club] || [];
-        const ours = list.slice(0, 6).map(p => {
+        // our players from every tracked club in this match (home side listed first)
+        const orderedClubs = m.clubs.slice().sort((a,b) =>
+          (String(ids[a]) === String(ev.idHomeTeam) ? 0 : 1) - (String(ids[b]) === String(ev.idHomeTeam) ? 0 : 1));
+        const list = orderedClubs.flatMap(c => clubPlayers[c] || []);
+        const cap = m.clubs.length > 1 ? 10 : 6;
+        const ours = list.slice(0, cap).map(p => {
           const st = m.playing ? m.playing[p.name] : null;
           const cls = st === "start" ? " started" : st === "sub" ? " sub" : "";
           const icon = st === "start" ? `<span class="st" title="Started">✅</span>`
                      : st === "sub" ? `<span class="st" title="Came on as substitute">🔄</span>` : "";
           return `<span class="pchip${cls}"><img src="${p.imageUrl}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="pn">${firstName(p.name)}</span>${icon}</span>`;
         }).join("");
-        const more = list.length > 6 ? `<span class="lead">+${list.length-6} more</span>` : "";
+        const more = list.length > cap ? `<span class="lead">+${list.length-cap} more</span>` : "";
         const lead = m.status === "live" ? "Playing now:" : m.status === "finished" ? "Who played:" : "Our players:";
 
         html += `
