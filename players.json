@@ -3313,5 +3313,36 @@
     "funFact": "He scored 16 goals at the World Cup — more than anyone in history! — and he celebrated with a famous front-flip.",
     "imageUrl": "assets/players/miroslav-klose.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Miroslav%20Klose"
+  },
+  {
+    "name": "Andrés Iniesta",
+    "country": "Spain",
+    "countryCode": "ES",
+    "currentClub": "Retired",
+    "jerseyNumber": 8,
+    "rarity": "gold",
+    "clubs": [
+      "Barcelona",
+      "Vissel Kobe"
+    ],
+    "dob": "1984-05-11",
+    "pos": "MID",
+    "honors": {
+      "wc": 1,
+      "cl": 4,
+      "bo": 0,
+      "co": 2
+    },
+    "stats": {
+      "pace": 76,
+      "shooting": 72,
+      "passing": 92,
+      "dribbling": 90,
+      "defending": 60,
+      "physical": 66
+    },
+    "funFact": "He scored the goal that won Spain the 2010 World Cup — right at the end of the final!",
+    "imageUrl": "assets/players/andres-iniesta.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Andres%20Iniesta"
   }
 ]
