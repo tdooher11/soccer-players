@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**90 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**91 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -96,6 +96,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 88 | Liam Ridgewell | England | Defender | Retired / Legend | 1984-07-21 | — | Aston Villa → Birmingham City → West Bromwich Albion → Portland Timbers |
 | 89 | Miroslav Klose | Germany | Striker | Retired / Legend | 1978-06-09 | World Cup ×1 | Kaiserslautern → Werder Bremen → Bayern Munich → Lazio |
 | 90 | Andrés Iniesta | Spain | Midfielder | Retired / Legend | 1984-05-11 | World Cup ×1, Champions League ×4, Continental ×2 | Barcelona → Vissel Kobe |
+| 91 | Sophia Wilson | United States | Striker | Portland Thorns | 2000-08-10 | Continental ×1 | Portland Thorns |
 
 ## Fun facts
 
@@ -189,4 +190,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Liam Ridgewell** — He was the captain of the Portland Timbers when they won their very first MLS Cup championship in 2015!
 - **Miroslav Klose** — He scored 16 goals at the World Cup — more than anyone in history! — and he celebrated with a famous front-flip.
 - **Andrés Iniesta** — He scored the goal that won Spain the 2010 World Cup — right at the end of the final!
+- **Sophia Wilson** — She won a gold medal with the USA at the 2024 Olympics — and scored the goal that sent her team to the final!
 
