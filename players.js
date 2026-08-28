@@ -60,6 +60,7 @@ const CLUBS = {
   "West Bromwich Albion":{c1:"#122f67",c2:"#ffffff",ab:"WBA",ink:"#fff"},
   "Kaiserslautern":{c1:"#e30613",c2:"#ffffff",ab:"FCK",ink:"#fff"},
   "Vissel Kobe":{c1:"#9b1b30",c2:"#111111",ab:"KOB",ink:"#fff"},
+  "Portland Thorns":{c1:"#d5202b",c2:"#111111",ab:"THN",ink:"#fff"},
   "Birmingham City":{c1:"#1a4ea8",c2:"#ffffff",ab:"BIR",ink:"#fff"},
   "Basel":{c1:"#d81e2c",c2:"#0a4ea2",ab:"BAS",ink:"#fff"},
   "Chelsea":{c1:"#034694",c2:"#ffffff",ab:"CHE",ink:"#fff"},

@@ -3344,5 +3344,35 @@
     "funFact": "He scored the goal that won Spain the 2010 World Cup — right at the end of the final!",
     "imageUrl": "assets/players/andres-iniesta.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Andres%20Iniesta"
+  },
+  {
+    "name": "Sophia Wilson",
+    "country": "United States",
+    "countryCode": "US",
+    "currentClub": "Portland Thorns",
+    "jerseyNumber": 9,
+    "rarity": "gold",
+    "clubs": [
+      "Portland Thorns"
+    ],
+    "dob": "2000-08-10",
+    "pos": "FWD",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 1
+    },
+    "stats": {
+      "pace": 93,
+      "shooting": 86,
+      "passing": 78,
+      "dribbling": 88,
+      "defending": 38,
+      "physical": 70
+    },
+    "funFact": "She won a gold medal with the USA at the 2024 Olympics — and scored the goal that sent her team to the final!",
+    "imageUrl": "assets/players/sophia-wilson.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Sophia%20Wilson"
   }
 ]
