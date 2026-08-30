@@ -117,7 +117,10 @@
       });
       const ranked = Object.keys(counts).sort((a,b) => counts[b] - counts[a] || a.localeCompare(b));
       const max = counts[ranked[0]] || 1;
-      const board = ranked.slice(0, 8).map((name, i) => `
+      // nations lists are short (World Cup, Euros) — show every winner so no country is cut off;
+      // club lists (Champions League, MLS) have many winners, so keep a top-10 chart.
+      const topN = c.kind === "nation" ? ranked.length : 10;
+      const board = ranked.slice(0, topN).map((name, i) => `
         <div class="board-row">
           <span class="board-rank">${i+1}</span>
           ${emblem(sample[name], c.kind)}
