@@ -3374,5 +3374,36 @@
     "funFact": "She won a gold medal with the USA at the 2024 Olympics — and scored the goal that sent her team to the final!",
     "imageUrl": "assets/players/sophia-wilson.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Sophia%20Wilson"
+  },
+  {
+    "name": "Vozinha",
+    "country": "Cape Verde",
+    "countryCode": "CV",
+    "currentClub": "Colo-Colo",
+    "jerseyNumber": 1,
+    "rarity": "gold",
+    "clubs": [
+      "Chaves",
+      "Colo-Colo"
+    ],
+    "dob": "1986-06-03",
+    "pos": "GK",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 56,
+      "shooting": 20,
+      "passing": 66,
+      "dribbling": 60,
+      "defending": 24,
+      "physical": 80
+    },
+    "funFact": "He once worked as an electrician — then became a national hero by stopping Spain, the European champions, from scoring at Cape Verde's first-ever World Cup!",
+    "imageUrl": "assets/players/vozinha.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Vozinha"
   }
 ]

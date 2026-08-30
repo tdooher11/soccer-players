@@ -23,7 +23,7 @@ const FLAG_EMOJI = {
   EG:"🇪🇬", ES:"🇪🇸", BR:"🇧🇷", SE:"🇸🇪", US:"🇺🇸", DE:"🇩🇪",
   MA:"🇲🇦", CO:"🇨🇴", UY:"🇺🇾", NL:"🇳🇱", HR:"🇭🇷", BE:"🇧🇪",
   CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷", HU:"🇭🇺",
-  IT:"🇮🇹", DK:"🇩🇰", GR:"🇬🇷", RU:"🇷🇺", CA:"🇨🇦"
+  IT:"🇮🇹", DK:"🇩🇰", GR:"🇬🇷", RU:"🇷🇺", CA:"🇨🇦", CV:"🇨🇻"
 };
 function flagEmoji(code){ return FLAG_EMOJI[code] || "🏳️"; }
 
@@ -61,6 +61,7 @@ const CLUBS = {
   "Kaiserslautern":{c1:"#e30613",c2:"#ffffff",ab:"FCK",ink:"#fff"},
   "Vissel Kobe":{c1:"#9b1b30",c2:"#111111",ab:"KOB",ink:"#fff"},
   "Portland Thorns":{c1:"#d5202b",c2:"#111111",ab:"THN",ink:"#fff"},
+  "Colo-Colo":{c1:"#f4f6fb",c2:"#111111",ab:"CLC",ink:"#1a1a1a"},
   "Birmingham City":{c1:"#1a4ea8",c2:"#ffffff",ab:"BIR",ink:"#fff"},
   "Basel":{c1:"#d81e2c",c2:"#0a4ea2",ab:"BAS",ink:"#fff"},
   "Chelsea":{c1:"#034694",c2:"#ffffff",ab:"CHE",ink:"#fff"},
