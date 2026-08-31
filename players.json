@@ -3436,5 +3436,39 @@
     "funFact": "He is the only goalkeeper ever to win the Ballon d'Or (the best-player award), and people say he saved over 150 penalties — they called him the Black Spider!",
     "imageUrl": "assets/players/lev-yashin.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Lev%20Yashin"
+  },
+  {
+    "name": "Fabio Cannavaro",
+    "country": "Italy",
+    "countryCode": "IT",
+    "currentClub": "Retired",
+    "jerseyNumber": 5,
+    "rarity": "gold",
+    "clubs": [
+      "Napoli",
+      "Parma",
+      "Inter Milan",
+      "Juventus",
+      "Real Madrid"
+    ],
+    "dob": "1973-09-13",
+    "pos": "DEF",
+    "honors": {
+      "wc": 1,
+      "cl": 0,
+      "bo": 1,
+      "co": 0
+    },
+    "stats": {
+      "pace": 78,
+      "shooting": 40,
+      "passing": 70,
+      "dribbling": 72,
+      "defending": 91,
+      "physical": 82
+    },
+    "funFact": "He was the captain of Italy when they won the 2006 World Cup — and he won the Ballon d'Or that year, which is very rare for a defender!",
+    "imageUrl": "assets/players/fabio-cannavaro.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Fabio%20Cannavaro"
   }
 ]
