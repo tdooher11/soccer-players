@@ -3405,5 +3405,36 @@
     "funFact": "He once worked as an electrician — then became a national hero by stopping Spain, the European champions, from scoring at Cape Verde's first-ever World Cup!",
     "imageUrl": "assets/players/vozinha.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Vozinha"
+  },
+  {
+    "name": "Lev Yashin",
+    "country": "Soviet Union",
+    "countryCode": "RU",
+    "currentClub": "Retired",
+    "jerseyNumber": 1,
+    "rarity": "gold",
+    "clubs": [
+      "Dynamo Moscow"
+    ],
+    "dob": "1929-10-22",
+    "died": "1990-03-20",
+    "pos": "GK",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 1,
+      "co": 1
+    },
+    "stats": {
+      "pace": 60,
+      "shooting": 25,
+      "passing": 70,
+      "dribbling": 66,
+      "defending": 26,
+      "physical": 82
+    },
+    "funFact": "He is the only goalkeeper ever to win the Ballon d'Or (the best-player award), and people say he saved over 150 penalties — they called him the Black Spider!",
+    "imageUrl": "assets/players/lev-yashin.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Lev%20Yashin"
   }
 ]
