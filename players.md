@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**94 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**95 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -100,6 +100,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 92 | Vozinha | Cape Verde | Goalkeeper | Colo-Colo | 1986-06-03 | — | Chaves → Colo-Colo |
 | 93 | Lev Yashin | Soviet Union | Goalkeeper | Retired (RIP) | 1929–1990 (RIP) | Ballon d'Or ×1, Continental ×1 | Dynamo Moscow |
 | 94 | Fabio Cannavaro | Italy | Defender | Retired / Legend | 1973-09-13 | World Cup ×1, Ballon d'Or ×1 | Napoli → Parma → Inter Milan → Juventus → Real Madrid |
+| 95 | Jules Koundé | France | Defender | Barcelona | 1998-11-12 | — | Bordeaux → Sevilla → Barcelona |
 
 ## Fun facts
 
@@ -197,4 +198,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Vozinha** — He once worked as an electrician — then became a national hero by stopping Spain, the European champions, from scoring at Cape Verde's first-ever World Cup!
 - **Lev Yashin** — He is the only goalkeeper ever to win the Ballon d'Or (the best-player award), and people say he saved over 150 penalties — they called him the Black Spider!
 - **Fabio Cannavaro** — He was the captain of Italy when they won the 2006 World Cup — and he won the Ballon d'Or that year, which is very rare for a defender!
+- **Jules Koundé** — He is super fast and famous for his cool fashion style — and he helped France reach the World Cup final in 2022!
 
