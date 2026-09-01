@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**96 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**98 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -102,6 +102,8 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 94 | Fabio Cannavaro | Italy | Defender | Retired / Legend | 1973-09-13 | World Cup ×1, Ballon d'Or ×1 | Napoli → Parma → Inter Milan → Juventus → Real Madrid |
 | 95 | Jules Koundé | France | Defender | Barcelona | 1998-11-12 | — | Bordeaux → Sevilla → Barcelona |
 | 96 | Gianluigi Buffon | Italy | Goalkeeper | Retired / Legend | 1978-01-28 | World Cup ×1 | Parma → Juventus → PSG |
+| 97 | Tobin Heath | United States | Striker | Retired / Legend | 1988-05-29 | World Cup ×2, Continental ×1 | Portland Thorns → Manchester United → Arsenal |
+| 98 | Megan Rapinoe | United States | Striker | Retired / Legend | 1985-07-05 | World Cup ×2, Ballon d'Or ×1, Continental ×1 | OL Reign → Lyon |
 
 ## Fun facts
 
@@ -201,4 +203,6 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Fabio Cannavaro** — He was the captain of Italy when they won the 2006 World Cup — and he won the Ballon d'Or that year, which is very rare for a defender!
 - **Jules Koundé** — He is super fast and famous for his cool fashion style — and he helped France reach the World Cup final in 2022!
 - **Gianluigi Buffon** — He is one of the greatest goalkeepers ever — he won the 2006 World Cup with Italy, who almost never let the ball into their net the whole tournament!
+- **Tobin Heath** — She won two World Cups with the USA and was famous for her amazing tricks and skills with the ball!
+- **Megan Rapinoe** — She won the 2019 World Cup and was named the best player in the world that year — and she is famous for her bright pink hair and big celebrations!
 
