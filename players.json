@@ -3502,5 +3502,37 @@
     "funFact": "He is super fast and famous for his cool fashion style — and he helped France reach the World Cup final in 2022!",
     "imageUrl": "assets/players/jules-kounde.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Jules%20Kounde"
+  },
+  {
+    "name": "Gianluigi Buffon",
+    "country": "Italy",
+    "countryCode": "IT",
+    "currentClub": "Retired",
+    "jerseyNumber": 1,
+    "rarity": "gold",
+    "clubs": [
+      "Parma",
+      "Juventus",
+      "PSG"
+    ],
+    "dob": "1978-01-28",
+    "pos": "GK",
+    "honors": {
+      "wc": 1,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 58,
+      "shooting": 25,
+      "passing": 72,
+      "dribbling": 66,
+      "defending": 25,
+      "physical": 83
+    },
+    "funFact": "He is one of the greatest goalkeepers ever — he won the 2006 World Cup with Italy, who almost never let the ball into their net the whole tournament!",
+    "imageUrl": "assets/players/gianluigi-buffon.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Gianluigi%20Buffon"
   }
 ]
