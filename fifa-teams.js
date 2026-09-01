@@ -52,6 +52,8 @@ const FC_TEAMS = {
   "Fabio Cannavaro":     { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Jules Koundé":        { e18:"Bordeaux",           e24:"Barcelona",          e26:"Barcelona" },
   "Gianluigi Buffon":    { e18:"Juventus",           e24:"LEGEND",             e26:"LEGEND" },
+  "Tobin Heath":         { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Megan Rapinoe":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
@@ -120,7 +122,7 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Pelé","Diego Maradona","Ronaldinho","Thierry Henry","Ronaldo Nazário (R9)","Roberto Carlos","Lev Yashin"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Paolo Maldini","Fabio Cannavaro","Miroslav Klose","Clive Charles","Jack Jewsbury","Vozinha","Nadine Angerer"] }
+      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Paolo Maldini","Fabio Cannavaro","Miroslav Klose","Clive Charles","Jack Jewsbury","Vozinha","Tobin Heath","Megan Rapinoe","Nadine Angerer"] }
   ],
   e24: [
     { name:"Soccer Aid World XI", icon:"🌍",
@@ -128,7 +130,7 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu","Paolo Maldini","Fabio Cannavaro","Iker Casillas","Miroslav Klose","Lev Yashin"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Andrés Iniesta","Sophia Wilson","Gianluigi Buffon","Vozinha","Nadine Angerer"] }
+      players:["Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Andrés Iniesta","Sophia Wilson","Gianluigi Buffon","Vozinha","Tobin Heath","Megan Rapinoe","Nadine Angerer"] }
   ],
   e26: [
     { name:"Bayern Munich · Classic XI",  logo:"Bayern Munich",
@@ -154,6 +156,6 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)",         icon:"👑",
       players:["Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo","Miroslav Klose","Andrés Iniesta","Lev Yashin"] },
     { name:"Not in this game",            icon:"🚫",
-      players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Vozinha","Nadine Angerer"] }
+      players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Vozinha","Tobin Heath","Megan Rapinoe","Nadine Angerer"] }
   ]
 };

@@ -3534,5 +3534,68 @@
     "funFact": "He is one of the greatest goalkeepers ever — he won the 2006 World Cup with Italy, who almost never let the ball into their net the whole tournament!",
     "imageUrl": "assets/players/gianluigi-buffon.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Gianluigi%20Buffon"
+  },
+  {
+    "name": "Tobin Heath",
+    "country": "United States",
+    "countryCode": "US",
+    "currentClub": "Retired",
+    "jerseyNumber": 17,
+    "rarity": "gold",
+    "clubs": [
+      "Portland Thorns",
+      "Manchester United",
+      "Arsenal"
+    ],
+    "dob": "1988-05-29",
+    "pos": "FWD",
+    "honors": {
+      "wc": 2,
+      "cl": 0,
+      "bo": 0,
+      "co": 1
+    },
+    "stats": {
+      "pace": 84,
+      "shooting": 78,
+      "passing": 82,
+      "dribbling": 90,
+      "defending": 45,
+      "physical": 66
+    },
+    "funFact": "She won two World Cups with the USA and was famous for her amazing tricks and skills with the ball!",
+    "imageUrl": "assets/players/tobin-heath.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Tobin%20Heath"
+  },
+  {
+    "name": "Megan Rapinoe",
+    "country": "United States",
+    "countryCode": "US",
+    "currentClub": "Retired",
+    "jerseyNumber": 15,
+    "rarity": "gold",
+    "clubs": [
+      "OL Reign",
+      "Lyon"
+    ],
+    "dob": "1985-07-05",
+    "pos": "FWD",
+    "honors": {
+      "wc": 2,
+      "cl": 0,
+      "bo": 1,
+      "co": 1
+    },
+    "stats": {
+      "pace": 82,
+      "shooting": 80,
+      "passing": 84,
+      "dribbling": 85,
+      "defending": 44,
+      "physical": 64
+    },
+    "funFact": "She won the 2019 World Cup and was named the best player in the world that year — and she is famous for her bright pink hair and big celebrations!",
+    "imageUrl": "assets/players/megan-rapinoe.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Megan%20Rapinoe"
   }
 ]
