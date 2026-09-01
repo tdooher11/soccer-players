@@ -3470,5 +3470,37 @@
     "funFact": "He was the captain of Italy when they won the 2006 World Cup — and he won the Ballon d'Or that year, which is very rare for a defender!",
     "imageUrl": "assets/players/fabio-cannavaro.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Fabio%20Cannavaro"
+  },
+  {
+    "name": "Jules Koundé",
+    "country": "France",
+    "countryCode": "FR",
+    "currentClub": "Barcelona",
+    "jerseyNumber": 5,
+    "rarity": "gold",
+    "clubs": [
+      "Bordeaux",
+      "Sevilla",
+      "Barcelona"
+    ],
+    "dob": "1998-11-12",
+    "pos": "DEF",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 88,
+      "shooting": 52,
+      "passing": 76,
+      "dribbling": 80,
+      "defending": 85,
+      "physical": 74
+    },
+    "funFact": "He is super fast and famous for his cool fashion style — and he helped France reach the World Cup final in 2022!",
+    "imageUrl": "assets/players/jules-kounde.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Jules%20Kounde"
   }
 ]
