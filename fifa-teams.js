@@ -51,6 +51,7 @@ const FC_TEAMS = {
   "Lev Yashin":          { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Fabio Cannavaro":     { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Jules Koundé":        { e18:"Bordeaux",           e24:"Barcelona",          e26:"Barcelona" },
+  "Gianluigi Buffon":    { e18:"Juventus",           e24:"LEGEND",             e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
@@ -127,7 +128,7 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu","Paolo Maldini","Fabio Cannavaro","Iker Casillas","Miroslav Klose","Lev Yashin"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Andrés Iniesta","Sophia Wilson","Vozinha","Nadine Angerer"] }
+      players:["Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Andrés Iniesta","Sophia Wilson","Gianluigi Buffon","Vozinha","Nadine Angerer"] }
   ],
   e26: [
     { name:"Bayern Munich · Classic XI",  logo:"Bayern Munich",
@@ -135,7 +136,7 @@ const SPECIAL_TEAMS = {
     { name:"Chelsea · Classic XI",        logo:"Chelsea",
       players:["Petr Čech","Cole Palmer"] },
     { name:"Juventus · Classic XI",       logo:"Juventus",
-      players:["Zinedine Zidane"] },
+      players:["Gianluigi Buffon","Zinedine Zidane"] },
     { name:"Liverpool · Classic XI",      logo:"Liverpool",
       players:["Alisson Becker","Virgil van Dijk","Mohamed Salah"] },
     { name:"Real Madrid · Classic XI",    logo:"Real Madrid",

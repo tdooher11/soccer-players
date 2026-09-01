@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**95 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**96 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -101,6 +101,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 93 | Lev Yashin | Soviet Union | Goalkeeper | Retired (RIP) | 1929–1990 (RIP) | Ballon d'Or ×1, Continental ×1 | Dynamo Moscow |
 | 94 | Fabio Cannavaro | Italy | Defender | Retired / Legend | 1973-09-13 | World Cup ×1, Ballon d'Or ×1 | Napoli → Parma → Inter Milan → Juventus → Real Madrid |
 | 95 | Jules Koundé | France | Defender | Barcelona | 1998-11-12 | — | Bordeaux → Sevilla → Barcelona |
+| 96 | Gianluigi Buffon | Italy | Goalkeeper | Retired / Legend | 1978-01-28 | World Cup ×1 | Parma → Juventus → PSG |
 
 ## Fun facts
 
@@ -199,4 +200,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Lev Yashin** — He is the only goalkeeper ever to win the Ballon d'Or (the best-player award), and people say he saved over 150 penalties — they called him the Black Spider!
 - **Fabio Cannavaro** — He was the captain of Italy when they won the 2006 World Cup — and he won the Ballon d'Or that year, which is very rare for a defender!
 - **Jules Koundé** — He is super fast and famous for his cool fashion style — and he helped France reach the World Cup final in 2022!
+- **Gianluigi Buffon** — He is one of the greatest goalkeepers ever — he won the 2006 World Cup with Italy, who almost never let the ball into their net the whole tournament!
 
