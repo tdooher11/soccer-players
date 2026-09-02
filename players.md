@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**98 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**99 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -104,6 +104,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 96 | Gianluigi Buffon | Italy | Goalkeeper | Retired / Legend | 1978-01-28 | World Cup ×1 | Parma → Juventus → PSG |
 | 97 | Tobin Heath | United States | Striker | Retired / Legend | 1988-05-29 | World Cup ×2, Continental ×1 | Portland Thorns → Manchester United → Arsenal |
 | 98 | Megan Rapinoe | United States | Striker | Retired / Legend | 1985-07-05 | World Cup ×2, Ballon d'Or ×1, Continental ×1 | OL Reign → Lyon |
+| 99 | Frenkie de Jong | Netherlands | Midfielder | Barcelona | 1997-05-12 | — | Ajax → Barcelona |
 
 ## Fun facts
 
@@ -205,4 +206,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Gianluigi Buffon** — He is one of the greatest goalkeepers ever — he won the 2006 World Cup with Italy, who almost never let the ball into their net the whole tournament!
 - **Tobin Heath** — She won two World Cups with the USA and was famous for her amazing tricks and skills with the ball!
 - **Megan Rapinoe** — She won the 2019 World Cup and was named the best player in the world that year — and she is famous for her bright pink hair and big celebrations!
+- **Frenkie de Jong** — He is a super smooth midfielder who glides past defenders — as a young star at Ajax he helped them reach the Champions League semifinal!
 

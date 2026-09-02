@@ -54,6 +54,7 @@ const FC_TEAMS = {
   "Gianluigi Buffon":    { e18:"Juventus",           e24:"LEGEND",             e26:"LEGEND" },
   "Tobin Heath":         { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Megan Rapinoe":       { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Frenkie de Jong":     { e18:"Ajax",               e24:"Barcelona",          e26:"Barcelona" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },

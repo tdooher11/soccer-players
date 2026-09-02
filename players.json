@@ -3597,5 +3597,36 @@
     "funFact": "She won the 2019 World Cup and was named the best player in the world that year — and she is famous for her bright pink hair and big celebrations!",
     "imageUrl": "assets/players/megan-rapinoe.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Megan%20Rapinoe"
+  },
+  {
+    "name": "Frenkie de Jong",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "currentClub": "Barcelona",
+    "jerseyNumber": 21,
+    "rarity": "gold",
+    "clubs": [
+      "Ajax",
+      "Barcelona"
+    ],
+    "dob": "1997-05-12",
+    "pos": "MID",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 76,
+      "shooting": 68,
+      "passing": 87,
+      "dribbling": 89,
+      "defending": 72,
+      "physical": 76
+    },
+    "funFact": "He is a super smooth midfielder who glides past defenders — as a young star at Ajax he helped them reach the Champions League semifinal!",
+    "imageUrl": "assets/players/frenkie-de-jong.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Frenkie%20de%20Jong"
   }
 ]
