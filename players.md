@@ -30,7 +30,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 22 | Florian Wirtz | Germany | Midfielder | Liverpool | 2003-05-03 | — | Bayer Leverkusen → Liverpool |
 | 23 | Jack Jewsbury | United States | Midfielder | Retired / Legend | 1981-04-13 | — | Kansas City Wizards → Portland Timbers |
 | 24 | Diego Valeri | Argentina | Midfielder | Retired / Legend | 1986-05-01 | — | Lanús → Portland Timbers |
-| 25 | Darlington Nagbe | United States | Midfielder | Columbus Crew | 1990-07-19 | — | Portland Timbers → Atlanta United → Columbus Crew |
+| 25 | Darlington Nagbe | United States | Midfielder | Retired / Legend | 1990-07-19 | — | Portland Timbers → Atlanta United → Columbus Crew |
 | 26 | Achraf Hakimi | Morocco | Defender | PSG | 1998-11-04 | Champions League ×1 | Real Madrid → Borussia Dortmund → Inter Milan → PSG |
 | 27 | Alisson Becker | Brazil | Goalkeeper | Liverpool | 1992-10-02 | Champions League ×1, Continental ×1 | Internacional → Roma → Liverpool |
 | 28 | Bernardo Silva | Portugal | Midfielder | Manchester City | 1994-08-10 | Champions League ×1 | Benfica → Monaco → Manchester City |

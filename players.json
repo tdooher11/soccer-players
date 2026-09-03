@@ -1197,7 +1197,7 @@
     "name": "Darlington Nagbe",
     "country": "United States",
     "countryCode": "US",
-    "currentClub": "Columbus Crew",
+    "currentClub": "Retired",
     "jerseyNumber": 6,
     "rarity": "gold",
     "clubs": [
@@ -1216,7 +1216,7 @@
       },
       {
         "club": "Columbus Crew",
-        "years": "2020-"
+        "years": "2020-2025"
       }
     ],
     "dob": "1990-07-19",
@@ -1236,7 +1236,7 @@
       "physical": 74
     },
     "funFact": "Born in Liberia, he moved to the US as a child and scored one of the greatest goals in Timbers history — a stunning volley from outside the box!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/Nagbe_Darlington_Columbus_Crew_Meet_the_Team_2022.jpg",
+    "imageUrl": "assets/players/darlington-nagbe.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/335498/darlington-nagbe"
   },
   {
