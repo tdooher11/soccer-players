@@ -3690,5 +3690,36 @@
     "funFact": "He is Manchester United's all-time top scorer, and he once scored an amazing overhead bicycle-kick goal in the Manchester derby!",
     "imageUrl": "assets/players/wayne-rooney.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Wayne%20Rooney"
+  },
+  {
+    "name": "Thomas Müller",
+    "country": "Germany",
+    "countryCode": "DE",
+    "currentClub": "Vancouver Whitecaps",
+    "jerseyNumber": 13,
+    "rarity": "gold",
+    "clubs": [
+      "Bayern Munich",
+      "Vancouver Whitecaps"
+    ],
+    "dob": "1989-09-13",
+    "pos": "FWD",
+    "honors": {
+      "wc": 1,
+      "cl": 2,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 70,
+      "shooting": 82,
+      "passing": 85,
+      "dribbling": 78,
+      "defending": 55,
+      "physical": 75
+    },
+    "funFact": "He won the World Cup and is a Bayern Munich legend nicknamed the \"Raumdeuter\" (space investigator) because he is brilliant at finding space to score — and now he plays in Canada!",
+    "imageUrl": "assets/players/thomas-muller.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Thomas%20Muller"
   }
 ]

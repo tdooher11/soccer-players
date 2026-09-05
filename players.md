@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**101 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**102 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -107,6 +107,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 99 | Frenkie de Jong | Netherlands | Midfielder | Barcelona | 1997-05-12 | — | Ajax → Barcelona |
 | 100 | Gilberto Mora | Mexico | Midfielder | Club Tijuana | 2008-10-14 | Continental ×1 | Club Tijuana |
 | 101 | Wayne Rooney | England | Striker | Retired / Legend | 1985-10-24 | Champions League ×1 | Everton → Manchester United → D.C. United |
+| 102 | Thomas Müller | Germany | Striker | Vancouver Whitecaps | 1989-09-13 | World Cup ×1, Champions League ×2 | Bayern Munich → Vancouver Whitecaps |
 
 ## Fun facts
 
@@ -211,4 +212,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Frenkie de Jong** — He is a super smooth midfielder who glides past defenders — as a young star at Ajax he helped them reach the Champions League semifinal!
 - **Gilberto Mora** — At just 16 he became the youngest player ever to win an international trophy, helping Mexico win the 2025 Gold Cup — a real teenage superstar!
 - **Wayne Rooney** — He is Manchester United's all-time top scorer, and he once scored an amazing overhead bicycle-kick goal in the Manchester derby!
+- **Thomas Müller** — He won the World Cup and is a Bayern Munich legend nicknamed the "Raumdeuter" (space investigator) because he is brilliant at finding space to score — and now he plays in Canada!
 
