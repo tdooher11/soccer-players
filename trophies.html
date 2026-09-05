@@ -76,6 +76,7 @@
     <div class="comps" id="comps">
       <button class="comp-btn active" data-comp="worldcup">🌍 World Cup</button>
       <button class="comp-btn" data-comp="ucl">⭐ Champions League</button>
+      <button class="comp-btn" data-comp="ballondor">🥇 Ballon d'Or</button>
       <button class="comp-btn" data-comp="euros">🇪🇺 Euros</button>
       <button class="comp-btn" data-comp="mls">🇺🇸 MLS Cup</button>
     </div>
@@ -89,7 +90,7 @@
     const normName = n => n.replace("West Germany", "Germany");
 
     function emblem(win, kind){
-      if(kind === "nation"){
+      if(kind === "nation" || kind === "player"){  // player awards (Ballon d'Or) show the winner's flag
         const url = flagUrl(win.cc);
         return `<span class="emb natflag"><img src="${url}" alt="" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(win.cc)}</span></span>`;
       }
@@ -140,7 +141,7 @@
       document.getElementById("content").innerHTML = `
         <div class="comp-head">
           <span class="comp-trophy">${trophyHtml}</span>
-          <div class="comp-title"><h2>${c.name}</h2><p>${c.blurb} · ${c.winners.length} titles, ${span}</p></div>
+          <div class="comp-title"><h2>${c.name}</h2><p>${c.blurb} · ${c.winners.length} ${c.noun || "titles"}, ${span}</p></div>
         </div>
         <span class="sec-lab">Most titles</span>
         <div class="board">${board}</div>
