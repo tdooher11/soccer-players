@@ -3658,5 +3658,37 @@
     "funFact": "At just 16 he became the youngest player ever to win an international trophy, helping Mexico win the 2025 Gold Cup — a real teenage superstar!",
     "imageUrl": "assets/players/gilberto-mora.png",
     "fotmobUrl": "https://www.fotmob.com/search?term=Gilberto%20Mora"
+  },
+  {
+    "name": "Wayne Rooney",
+    "country": "England",
+    "countryCode": "GB-ENG",
+    "currentClub": "Retired",
+    "jerseyNumber": 10,
+    "rarity": "gold",
+    "clubs": [
+      "Everton",
+      "Manchester United",
+      "D.C. United"
+    ],
+    "dob": "1985-10-24",
+    "pos": "FWD",
+    "honors": {
+      "wc": 0,
+      "cl": 1,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 80,
+      "shooting": 88,
+      "passing": 82,
+      "dribbling": 82,
+      "defending": 55,
+      "physical": 82
+    },
+    "funFact": "He is Manchester United's all-time top scorer, and he once scored an amazing overhead bicycle-kick goal in the Manchester derby!",
+    "imageUrl": "assets/players/wayne-rooney.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Wayne%20Rooney"
   }
 ]
