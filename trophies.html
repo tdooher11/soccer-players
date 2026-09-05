@@ -58,6 +58,10 @@
     .emb.natflag img{object-fit:cover;padding:0}
     .emb.natflag.imgfail{background:rgba(255,255,255,.06)}
     .emb.natflag .fb{font-size:1.05rem}
+    /* round face photo (for Ballon d'Or winners who are on our roster) */
+    .emb.face{border-radius:50%;background:rgba(255,255,255,.08)}
+    .emb.face img{object-fit:cover;object-position:top center;padding:0}
+    .emb.face .fb{font-size:1rem}
 
     @media(max-width:560px){
       .board-name{width:130px}
@@ -89,10 +93,28 @@
     // Normalize for the "most titles" count (West Germany counts as Germany).
     const normName = n => n.replace("West Germany", "Germany");
 
+    // roster photos, keyed by a normalized name (accents/punctuation/"(R9)" stripped)
+    let PHOTO = {};
+    const normKey = s => (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .replace(/\(.*?\)/g,"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+
+    function flagEmblem(cc){
+      const url = flagUrl(cc);
+      return `<span class="emb natflag"><img src="${url}" alt="" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(cc)}</span></span>`;
+    }
+
     function emblem(win, kind){
-      if(kind === "nation" || kind === "player"){  // player awards (Ballon d'Or) show the winner's flag
-        const url = flagUrl(win.cc);
-        return `<span class="emb natflag"><img src="${url}" alt="" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(win.cc)}</span></span>`;
+      if(kind === "player"){
+        // show the winner's face if they're on our roster (match name AND country, so the
+        // Spanish Luis Suárez doesn't borrow the Uruguayan one's photo)
+        const ph = PHOTO[normKey(win.w)];
+        if(ph && ph.url && ph.cc === win.cc){
+          return `<span class="emb face"><img src="${ph.url}" alt="${win.w}" loading="lazy" onerror="this.closest('.emb').classList.add('imgfail')"><span class="fb">${flagEmoji(win.cc)}</span></span>`;
+        }
+        return flagEmblem(win.cc);
+      }
+      if(kind === "nation"){
+        return flagEmblem(win.cc);
       }
       const club = win.logo || win.w;
       const d = clubData(club);
@@ -160,6 +182,17 @@
     });
 
     render("worldcup");
+
+    // load roster photos in the background, then refresh the active tab so
+    // Ballon d'Or winners on our list show their faces
+    (async () => {
+      try{
+        const ps = await loadPlayers();
+        ps.forEach(p => { PHOTO[normKey(p.name)] = { url: p.imageUrl || "", cc: p.countryCode }; });
+      }catch(e){ return; }
+      const active = document.querySelector(".comp-btn.active");
+      if(active) render(active.dataset.comp);
+    })();
   </script>
 </body>
 </html>
