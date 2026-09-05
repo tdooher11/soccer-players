@@ -57,6 +57,7 @@ const FC_TEAMS = {
   "Frenkie de Jong":     { e18:"Ajax",               e24:"Barcelona",          e26:"Barcelona" },
   "Gilberto Mora":       { e18:null,                 e24:null,                 e26:"Club Tijuana" },
   "Wayne Rooney":        { e18:"Everton",            e24:"LEGEND",             e26:"LEGEND" },
+  "Thomas Müller":       { e18:"Bayern Munich",      e24:"Bayern Munich",      e26:"Vancouver Whitecaps" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
