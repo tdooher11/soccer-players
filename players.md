@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**100 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**101 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -106,6 +106,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 98 | Megan Rapinoe | United States | Striker | Retired / Legend | 1985-07-05 | World Cup ×2, Ballon d'Or ×1, Continental ×1 | OL Reign → Lyon |
 | 99 | Frenkie de Jong | Netherlands | Midfielder | Barcelona | 1997-05-12 | — | Ajax → Barcelona |
 | 100 | Gilberto Mora | Mexico | Midfielder | Club Tijuana | 2008-10-14 | Continental ×1 | Club Tijuana |
+| 101 | Wayne Rooney | England | Striker | Retired / Legend | 1985-10-24 | Champions League ×1 | Everton → Manchester United → D.C. United |
 
 ## Fun facts
 
@@ -209,4 +210,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Megan Rapinoe** — She won the 2019 World Cup and was named the best player in the world that year — and she is famous for her bright pink hair and big celebrations!
 - **Frenkie de Jong** — He is a super smooth midfielder who glides past defenders — as a young star at Ajax he helped them reach the Champions League semifinal!
 - **Gilberto Mora** — At just 16 he became the youngest player ever to win an international trophy, helping Mexico win the 2025 Gold Cup — a real teenage superstar!
+- **Wayne Rooney** — He is Manchester United's all-time top scorer, and he once scored an amazing overhead bicycle-kick goal in the Manchester derby!
 
