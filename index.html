@@ -250,7 +250,7 @@
   const SA = new Set(["AR","BR","UY","CO"]);
   function contiName(cc){
     if(SA.has(cc)) return "Copa América";
-    if(cc === "US") return "Gold Cup";
+    if(cc === "US" || cc === "MX") return "Gold Cup";
     if(cc === "MA" || cc === "EG" || cc === "CV") return "Africa Cup";
     if(cc === "KR") return "Asian Cup";
     return "Euros";
