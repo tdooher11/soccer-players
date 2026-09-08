@@ -12,7 +12,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 4 | Erling Haaland | Norway | Striker | Manchester City | 2000-07-21 | Champions League ×1 | Molde → RB Salzburg → Borussia Dortmund → Manchester City |
 | 5 | Jude Bellingham | England | Midfielder | Real Madrid | 2003-06-29 | Champions League ×1 | Birmingham City → Borussia Dortmund → Real Madrid |
 | 6 | Mohamed Salah | Egypt | Striker | Liverpool | 1992-06-15 | Champions League ×1 | Basel → Chelsea → Fiorentina → Roma → Liverpool |
-| 7 | Lamine Yamal | Spain | Striker | Barcelona | 2007-07-13 | Continental ×1 | Barcelona |
+| 7 | Lamine Yamal | Spain | Striker | Barcelona | 2007-07-13 | World Cup ×1, Continental ×1 | Barcelona |
 | 8 | Neymar | Brazil | Striker | Santos | 1992-02-05 | Champions League ×1, Continental ×1 | Santos → Barcelona → PSG → Al-Hilal → Santos |
 | 9 | Vinícius Júnior | Brazil | Striker | Real Madrid | 2000-07-12 | Champions League ×2 | Flamengo → Real Madrid |
 | 10 | Harry Kane | England | Striker | Bayern Munich | 1993-07-28 | — | Tottenham Hotspur → Bayern Munich |
@@ -36,7 +36,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 28 | Bernardo Silva | Portugal | Midfielder | Manchester City | 1994-08-10 | Champions League ×1 | Benfica → Monaco → Manchester City |
 | 29 | Bruno Fernandes | Portugal | Midfielder | Manchester United | 1994-09-08 | — | Sporting CP → Manchester United |
 | 30 | Christian Pulisic | United States | Striker | AC Milan | 1998-09-18 | Champions League ×1, Continental ×1 | Borussia Dortmund → Chelsea → AC Milan |
-| 31 | Dani Carvajal | Spain | Defender | Real Madrid | 1992-01-11 | Champions League ×6, Continental ×1 | Real Madrid |
+| 31 | Dani Carvajal | Spain | Defender | Real Madrid | 1992-01-11 | World Cup ×1, Champions League ×6, Continental ×1 | Real Madrid |
 | 32 | Declan Rice | England | Midfielder | Arsenal | 1999-01-14 | — | West Ham United → Arsenal |
 | 33 | Désiré Doué | France | Striker | PSG | 2005-06-03 | Champions League ×1 | Rennes → PSG |
 | 34 | Diego Chará | Colombia | Midfielder | Portland Timbers | 1986-04-05 | — | Deportes Tolima → Portland Timbers |
@@ -52,22 +52,22 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 44 | Kevin De Bruyne | Belgium | Midfielder | Napoli | 1991-06-28 | Champions League ×1 | Genk → Chelsea → Werder Bremen → Wolfsburg → Manchester City → Napoli |
 | 45 | Luka Modrić | Croatia | Midfielder | AC Milan | 1985-09-09 | Champions League ×6, Ballon d'Or ×1 | Dinamo Zagreb → Tottenham Hotspur → Real Madrid → AC Milan |
 | 46 | Luis Suárez | Uruguay | Striker | Inter Miami | 1987-01-24 | Champions League ×1, Continental ×1 | Nacional → Groningen → Ajax → Liverpool → Barcelona → Atlético Madrid → Nacional → Grêmio → Inter Miami |
-| 47 | Marc Cucurella | Spain | Defender | Chelsea | 1998-07-22 | Continental ×1 | Barcelona → Getafe → Brighton → Chelsea |
+| 47 | Marc Cucurella | Spain | Defender | Chelsea | 1998-07-22 | World Cup ×1, Continental ×1 | Barcelona → Getafe → Brighton → Chelsea |
 | 48 | Marcelo | Brazil | Defender | Retired / Legend | 1988-05-12 | Champions League ×5 | Fluminense → Real Madrid → Olympiacos → Fluminense |
 | 49 | Martin Ødegaard | Norway | Midfielder | Arsenal | 1998-12-17 | — | Strømsgodset → Real Madrid → Heerenveen → Vitesse → Real Sociedad → Arsenal |
 | 50 | Michael Olise | France | Striker | Bayern Munich | 2001-12-12 | — | Reading → Crystal Palace → Bayern Munich |
 | 51 | Nadine Angerer | Germany | Goalkeeper | Retired / Legend | 1978-11-10 | World Cup ×1, Champions League ×1, Continental ×3 | Bayern Munich → Turbine Potsdam → Frankfurt → Portland Thorns |
-| 52 | Nico Williams | Spain | Striker | Athletic Club | 2002-07-12 | Continental ×1 | Athletic Club |
+| 52 | Nico Williams | Spain | Striker | Athletic Club | 2002-07-12 | World Cup ×1, Continental ×1 | Athletic Club |
 | 53 | Nuno Mendes | Portugal | Defender | PSG | 2002-06-19 | Champions League ×1 | Sporting CP → PSG |
 | 54 | Patrik Schick | Czechia | Striker | Bayer Leverkusen | 1996-01-24 | — | Sparta Prague → Sampdoria → Roma → RB Leipzig → Bayer Leverkusen |
-| 55 | Pau Cubarsí | Spain | Defender | Barcelona | 2007-01-22 | — | Barcelona |
-| 56 | Pedri | Spain | Midfielder | Barcelona | 2002-11-25 | Continental ×1 | Las Palmas → Barcelona |
+| 55 | Pau Cubarsí | Spain | Defender | Barcelona | 2007-01-22 | World Cup ×1 | Barcelona |
+| 56 | Pedri | Spain | Midfielder | Barcelona | 2002-11-25 | World Cup ×1, Continental ×1 | Las Palmas → Barcelona |
 | 57 | Pedro Neto | Portugal | Striker | Chelsea | 2000-03-09 | — | Braga → Lazio → Wolverhampton Wanderers → Chelsea |
 | 58 | Phil Foden | England | Midfielder | Manchester City | 2000-05-28 | Champions League ×1 | Manchester City |
 | 59 | Rafael Leão | Portugal | Striker | AC Milan | 1999-06-10 | — | Sporting CP → Lille → AC Milan |
 | 60 | Robert Lewandowski | Poland | Striker | Barcelona | 1988-08-21 | Champions League ×1 | Znicz Pruszków → Lech Poznań → Borussia Dortmund → Bayern Munich → Barcelona |
 | 61 | Roberto Carlos | Brazil | Defender | Retired / Legend | 1973-04-10 | World Cup ×1, Champions League ×3 | Palmeiras → Inter Milan → Real Madrid → Fenerbahçe → Corinthians → Anzhi |
-| 62 | Rodri | Spain | Midfielder | Manchester City | 1996-06-22 | Champions League ×1, Ballon d'Or ×1, Continental ×1 | Villarreal → Atlético Madrid → Manchester City |
+| 62 | Rodri | Spain | Midfielder | Manchester City | 1996-06-22 | World Cup ×1, Champions League ×1, Ballon d'Or ×1, Continental ×1 | Villarreal → Atlético Madrid → Manchester City |
 | 63 | Ronaldo Nazário (R9) | Brazil | Striker | Retired / Legend | 1976-09-18 | World Cup ×2, Ballon d'Or ×2, Continental ×2 | Cruzeiro → PSV → Barcelona → Inter Milan → Real Madrid → AC Milan → Corinthians |
 | 64 | Romelu Lukaku | Belgium | Striker | Napoli | 1993-05-13 | — | Anderlecht → Chelsea → Everton → Manchester United → Inter Milan → Chelsea → Roma → Napoli |
 | 65 | Son Heung-min | South Korea | Striker | LAFC | 1992-07-08 | — | Hamburger SV → Bayer Leverkusen → Tottenham Hotspur → LAFC |
