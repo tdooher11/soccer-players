@@ -49,6 +49,8 @@
 
     .comp{margin-top:10px;font-size:.74rem;color:rgba(255,255,255,.5);font-weight:600;
       display:inline-flex;align-items:center;gap:6px}
+    .tv{margin-top:4px;font-size:.74rem;font-weight:700;color:#7fd2a0;
+      display:inline-flex;align-items:center;gap:6px}
 
     .team-players{display:flex;flex-direction:column;gap:6px;margin-top:8px;align-items:flex-start}
     .team-col.away .team-players{align-items:flex-end}
@@ -191,6 +193,23 @@
         : `<span class="badge">${fb}</span>`;
     }
     function abbr(name){ return (name||"?").replace(/[^A-Za-z ]/g,"").split(" ").filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase() || "?"; }
+
+    // Where to watch in the US, by competition. US soccer rights are league-wide and
+    // stable (multi-year deals), so we map the league to its US service. Returns null
+    // for leagues without a clear/known US home (no line shown then).
+    function usTvFor(league){
+      const l = (league || "").toLowerCase();
+      if(/major league soccer|\bmls\b|leagues cup/.test(l)) return "Apple TV";
+      if(/premier league/.test(l))                          return "Peacock / USA Network";
+      if(/spanish|la liga|copa del rey/.test(l))            return "ESPN+";
+      if(/bundesliga|german|dfb/.test(l))                   return "ESPN+";
+      if(/italian|coppa italia/.test(l))                    return "Paramount+";
+      if(/ligue 1|french|coupe de france/.test(l))          return "beIN Sports";
+      if(/champions league|europa league|conference league|super cup|uefa/.test(l)) return "Paramount+";
+      if(/fa cup|efl|carabao/.test(l))                      return "ESPN+";
+      if(/mexican|liga mx/.test(l))                         return "ViX / TUDN";
+      return null; // unknown league → no "watch on" line
+    }
 
     function dayGroup(ts){
       const d = new Date(ts);
@@ -361,6 +380,8 @@
 
         const homeCol = teamCol("home", homeOurs, badge(hU, abbr(home)), home, sidePlayers(ev.idHomeTeam));
         const awayCol = teamCol("away", awayOurs, badge(aU, abbr(away)), away, sidePlayers(ev.idAwayTeam));
+        const tv = usTvFor(ev.strLeague);
+        const tvLine = tv ? `<div class="tv">📺 Watch on ${tv}</div>` : "";
 
         html += `
           <div class="match">
@@ -368,6 +389,7 @@
             <div class="match-body">
               <div class="fixture-grid">${homeCol}<span class="vs2">vs</span>${awayCol}</div>
               <div class="comp">🏆 ${ev.strLeague || ""}</div>
+              ${tvLine}
             </div>
           </div>`;
       });
