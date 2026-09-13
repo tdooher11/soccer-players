@@ -24,7 +24,7 @@ const FLAG_EMOJI = {
   MA:"🇲🇦", CO:"🇨🇴", UY:"🇺🇾", NL:"🇳🇱", HR:"🇭🇷", BE:"🇧🇪",
   CZ:"🇨🇿", PL:"🇵🇱", KR:"🇰🇷", HU:"🇭🇺",
   IT:"🇮🇹", DK:"🇩🇰", GR:"🇬🇷", RU:"🇷🇺", CA:"🇨🇦", CV:"🇨🇻", MX:"🇲🇽",
-  "GB-SCT":"🏴󠁧󠁢󠁳󠁣󠁴󠁿", "GB-NIR":"🇬🇧", BG:"🇧🇬", LR:"🇱🇷", UA:"🇺🇦"
+  "GB-SCT":"🏴󠁧󠁢󠁳󠁣󠁴󠁿", "GB-NIR":"🇬🇧", BG:"🇧🇬", LR:"🇱🇷", UA:"🇺🇦", SN:"🇸🇳"
 };
 function flagEmoji(code){ return FLAG_EMOJI[code] || "🏳️"; }
 

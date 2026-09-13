@@ -3721,5 +3721,38 @@
     "funFact": "He won the World Cup and is a Bayern Munich legend nicknamed the \"Raumdeuter\" (space investigator) because he is brilliant at finding space to score — and now he plays in Canada!",
     "imageUrl": "assets/players/thomas-muller.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Thomas%20Muller"
+  },
+  {
+    "name": "Sadio Mané",
+    "country": "Senegal",
+    "countryCode": "SN",
+    "currentClub": "Al-Nassr",
+    "jerseyNumber": 10,
+    "rarity": "gold",
+    "clubs": [
+      "Southampton",
+      "Liverpool",
+      "Bayern Munich",
+      "Al-Nassr"
+    ],
+    "dob": "1992-04-10",
+    "pos": "FWD",
+    "honors": {
+      "wc": 0,
+      "cl": 1,
+      "bo": 0,
+      "co": 1
+    },
+    "stats": {
+      "pace": 90,
+      "shooting": 83,
+      "passing": 80,
+      "dribbling": 86,
+      "defending": 44,
+      "physical": 76
+    },
+    "funFact": "He won the Champions League with Liverpool and led Senegal to their very first Africa Cup of Nations title in 2022!",
+    "imageUrl": "assets/players/sadio-mane.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Sadio%20Mane"
   }
 ]
