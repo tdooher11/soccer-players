@@ -67,6 +67,8 @@ const CLUBS = {
   "Parma":{c1:"#ffd200",c2:"#003f87",ab:"PAR",ink:"#003f87"},
   "OL Reign":{c1:"#13284b",c2:"#6cc24a",ab:"RGN",ink:"#fff"},
   "Club Tijuana":{c1:"#e2231a",c2:"#111111",ab:"TIJ",ink:"#fff"},
+  "Atlético Nacional":{c1:"#00843d",c2:"#ffffff",ab:"NAC",ink:"#fff"},
+  "Millonarios":{c1:"#004aad",c2:"#ffffff",ab:"MLL",ink:"#fff"},
   "Birmingham City":{c1:"#1a4ea8",c2:"#ffffff",ab:"BIR",ink:"#fff"},
   "Basel":{c1:"#d81e2c",c2:"#0a4ea2",ab:"BAS",ink:"#fff"},
   "Chelsea":{c1:"#034694",c2:"#ffffff",ab:"CHE",ink:"#fff"},
