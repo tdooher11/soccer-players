@@ -3754,5 +3754,36 @@
     "funFact": "He won the Champions League with Liverpool and led Senegal to their very first Africa Cup of Nations title in 2022!",
     "imageUrl": "assets/players/sadio-mane.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Sadio%20Mane"
+  },
+  {
+    "name": "René Higuita",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "currentClub": "Retired",
+    "jerseyNumber": 1,
+    "rarity": "gold",
+    "clubs": [
+      "Millonarios",
+      "Atlético Nacional"
+    ],
+    "dob": "1966-08-27",
+    "pos": "GK",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 60,
+      "shooting": 60,
+      "passing": 78,
+      "dribbling": 82,
+      "defending": 22,
+      "physical": 68
+    },
+    "funFact": "He invented the amazing \"scorpion kick\" save — flicking the ball away with his heels while diving forward, like a scorpion's tail!",
+    "imageUrl": "assets/players/rene-higuita.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Rene%20Higuita"
   }
 ]
