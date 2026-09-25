@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**104 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**105 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -110,6 +110,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 102 | Thomas Müller | Germany | Striker | Vancouver Whitecaps | 1989-09-13 | World Cup ×1, Champions League ×2 | Bayern Munich → Vancouver Whitecaps |
 | 103 | Sadio Mané | Senegal | Striker | Al-Nassr | 1992-04-10 | Champions League ×1, Continental ×1 | Southampton → Liverpool → Bayern Munich → Al-Nassr |
 | 104 | René Higuita | Colombia | Goalkeeper | Retired / Legend | 1966-08-27 | — | Millonarios → Atlético Nacional |
+| 105 | Ruud Gullit | Netherlands | Midfielder | Retired / Legend | 1962-09-01 | Champions League ×2, Ballon d'Or ×1, Continental ×1 | PSV → AC Milan → Chelsea |
 
 ## Fun facts
 
@@ -217,4 +218,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Thomas Müller** — He won the World Cup and is a Bayern Munich legend nicknamed the "Raumdeuter" (space investigator) because he is brilliant at finding space to score — and now he plays in Canada!
 - **Sadio Mané** — He won the Champions League with Liverpool and led Senegal to their very first Africa Cup of Nations title in 2022!
 - **René Higuita** — He invented the amazing "scorpion kick" save — flicking the ball away with his heels while diving forward, like a scorpion's tail!
+- **Ruud Gullit** — He won the Ballon d'Or and — with his famous dreadlocks flying — captained the Netherlands to win Euro 1988, their only big trophy!
 
