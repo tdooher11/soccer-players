@@ -3785,5 +3785,37 @@
     "funFact": "He invented the amazing \"scorpion kick\" save — flicking the ball away with his heels while diving forward, like a scorpion's tail!",
     "imageUrl": "assets/players/rene-higuita.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Rene%20Higuita"
+  },
+  {
+    "name": "Ruud Gullit",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "currentClub": "Retired",
+    "jerseyNumber": 10,
+    "rarity": "gold",
+    "clubs": [
+      "PSV",
+      "AC Milan",
+      "Chelsea"
+    ],
+    "dob": "1962-09-01",
+    "pos": "MID",
+    "honors": {
+      "wc": 0,
+      "cl": 2,
+      "bo": 1,
+      "co": 1
+    },
+    "stats": {
+      "pace": 82,
+      "shooting": 84,
+      "passing": 86,
+      "dribbling": 86,
+      "defending": 74,
+      "physical": 86
+    },
+    "funFact": "He won the Ballon d'Or and — with his famous dreadlocks flying — captained the Netherlands to win Euro 1988, their only big trophy!",
+    "imageUrl": "assets/players/ruud-gullit.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Ruud%20Gullit"
   }
 ]
