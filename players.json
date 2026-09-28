@@ -3817,5 +3817,38 @@
     "funFact": "He won the Ballon d'Or and — with his famous dreadlocks flying — captained the Netherlands to win Euro 1988, their only big trophy!",
     "imageUrl": "assets/players/ruud-gullit.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Ruud%20Gullit"
+  },
+  {
+    "name": "Diogo Jota",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "currentClub": "Retired",
+    "jerseyNumber": 20,
+    "rarity": "gold",
+    "clubs": [
+      "FC Porto",
+      "Wolverhampton Wanderers",
+      "Liverpool"
+    ],
+    "dob": "1996-12-04",
+    "died": "2025-07-03",
+    "pos": "FWD",
+    "honors": {
+      "wc": 0,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 84,
+      "shooting": 85,
+      "passing": 76,
+      "dribbling": 82,
+      "defending": 40,
+      "physical": 70
+    },
+    "funFact": "A beloved Liverpool striker from Portugal, he was also one of the best video-game (FIFA) players in the world!",
+    "imageUrl": "assets/players/diogo-jota.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Diogo%20Jota"
   }
 ]

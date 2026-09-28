@@ -61,6 +61,7 @@ const FC_TEAMS = {
   "Sadio Mané":          { e18:"Liverpool",          e24:"Al-Nassr",           e26:"Al-Nassr" },
   "René Higuita":        { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Ruud Gullit":         { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
+  "Diogo Jota":          { e18:"Wolverhampton Wanderers", e24:"Liverpool",      e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
@@ -163,6 +164,6 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)",         icon:"👑",
       players:["Ruud Gullit","Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo","Miroslav Klose","Andrés Iniesta","Lev Yashin"] },
     { name:"Not in this game",            icon:"🚫",
-      players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Vozinha","Tobin Heath","Megan Rapinoe","René Higuita","Nadine Angerer"] }
+      players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Vozinha","Tobin Heath","Megan Rapinoe","René Higuita","Diogo Jota","Nadine Angerer"] }
   ]
 };
