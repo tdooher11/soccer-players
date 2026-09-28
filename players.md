@@ -1,6 +1,6 @@
 # Soccer Players — Master List
 
-**105 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
+**106 players.** This file is auto-generated from `players.json` (the single source of truth) by `build-md.js`. Do not edit it by hand — edit `players.json` and re-run the generator.
 
 Live data: https://tdooher11.github.io/soccer-players/players.json
 
@@ -111,6 +111,7 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 | 103 | Sadio Mané | Senegal | Striker | Al-Nassr | 1992-04-10 | Champions League ×1, Continental ×1 | Southampton → Liverpool → Bayern Munich → Al-Nassr |
 | 104 | René Higuita | Colombia | Goalkeeper | Retired / Legend | 1966-08-27 | — | Millonarios → Atlético Nacional |
 | 105 | Ruud Gullit | Netherlands | Midfielder | Retired / Legend | 1962-09-01 | Champions League ×2, Ballon d'Or ×1, Continental ×1 | PSV → AC Milan → Chelsea |
+| 106 | Diogo Jota | Portugal | Striker | Retired (RIP) | 1996–2025 (RIP) | — | FC Porto → Wolverhampton Wanderers → Liverpool |
 
 ## Fun facts
 
@@ -219,4 +220,5 @@ Live data: https://tdooher11.github.io/soccer-players/players.json
 - **Sadio Mané** — He won the Champions League with Liverpool and led Senegal to their very first Africa Cup of Nations title in 2022!
 - **René Higuita** — He invented the amazing "scorpion kick" save — flicking the ball away with his heels while diving forward, like a scorpion's tail!
 - **Ruud Gullit** — He won the Ballon d'Or and — with his famous dreadlocks flying — captained the Netherlands to win Euro 1988, their only big trophy!
+- **Diogo Jota** — A beloved Liverpool striker from Portugal, he was also one of the best video-game (FIFA) players in the world!
 
