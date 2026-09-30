@@ -3850,5 +3850,37 @@
     "funFact": "A beloved Liverpool striker from Portugal, he was also one of the best video-game (FIFA) players in the world!",
     "imageUrl": "assets/players/diogo-jota.jpg",
     "fotmobUrl": "https://www.fotmob.com/search?term=Diogo%20Jota"
+  },
+  {
+    "name": "Jairzinho",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "currentClub": "Retired",
+    "jerseyNumber": 7,
+    "rarity": "gold",
+    "clubs": [
+      "Botafogo",
+      "Cruzeiro",
+      "Marseille"
+    ],
+    "dob": "1944-12-25",
+    "pos": "FWD",
+    "honors": {
+      "wc": 1,
+      "cl": 0,
+      "bo": 0,
+      "co": 0
+    },
+    "stats": {
+      "pace": 92,
+      "shooting": 85,
+      "passing": 78,
+      "dribbling": 86,
+      "defending": 40,
+      "physical": 78
+    },
+    "funFact": "He scored a goal in every single game of the 1970 World Cup — all the way to the final — something no one else has ever done!",
+    "imageUrl": "assets/players/jairzinho.jpg",
+    "fotmobUrl": "https://www.fotmob.com/search?term=Jairzinho"
   }
 ]

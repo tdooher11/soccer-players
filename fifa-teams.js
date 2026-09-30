@@ -62,6 +62,7 @@ const FC_TEAMS = {
   "René Higuita":        { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Ruud Gullit":         { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Diogo Jota":          { e18:"Wolverhampton Wanderers", e24:"Liverpool",      e26:"LEGEND" },
+  "Jairzinho":           { e18:"LEGEND",             e24:"LEGEND",             e26:"LEGEND" },
   "Bernardo Silva":      { e18:"Manchester City",    e24:"Manchester City",    e26:"Manchester City" },
   "Bruno Fernandes":     { e18:"Sporting CP",        e24:"Manchester United",  e26:"Manchester United" },
   "Christian Pulisic":   { e18:"Borussia Dortmund",  e24:"AC Milan",           e26:"AC Milan" },
@@ -130,13 +131,13 @@ const SPECIAL_TEAMS = {
     { name:"Icons (FUT Legends)", icon:"👑",
       players:["Ruud Gullit","Pelé","Diego Maradona","Ronaldinho","Thierry Henry","Ronaldo Nazário (R9)","Roberto Carlos","Lev Yashin"] },
     { name:"Not in this game", icon:"🚫",
-      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Paolo Maldini","Fabio Cannavaro","Miroslav Klose","Clive Charles","Jack Jewsbury","Vozinha","Tobin Heath","Megan Rapinoe","René Higuita","Nadine Angerer"] }
+      players:["Zinedine Zidane","David Beckham","Johan Cruyff","Eusébio","Franz Beckenbauer","Ferenc Puskás","Luís Figo","Cafu","Paolo Maldini","Fabio Cannavaro","Miroslav Klose","Clive Charles","Jack Jewsbury","Vozinha","Tobin Heath","Megan Rapinoe","René Higuita","Jairzinho","Nadine Angerer"] }
   ],
   e24: [
     { name:"Soccer Aid World XI", icon:"🌍",
       players:["Pelé","Ronaldinho","David Beckham","Zinedine Zidane","Roberto Carlos","Luís Figo"] },
     { name:"Icons (FUT Legends)", icon:"👑",
-      players:["Ruud Gullit","Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu","Paolo Maldini","Fabio Cannavaro","Iker Casillas","Miroslav Klose","Lev Yashin","Wayne Rooney"] },
+      players:["Ruud Gullit","Diego Maradona","Thierry Henry","Zlatan Ibrahimović","Johan Cruyff","Kaká","Ronaldo Nazário (R9)","Eusébio","Franz Beckenbauer","Ferenc Puskás","Petr Čech","Cafu","Paolo Maldini","Fabio Cannavaro","Iker Casillas","Miroslav Klose","Lev Yashin","Wayne Rooney","Jairzinho"] },
     { name:"Not in this game", icon:"🚫",
       players:["Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Andrés Iniesta","Sophia Wilson","Gianluigi Buffon","Vozinha","Tobin Heath","Megan Rapinoe","René Higuita","Nadine Angerer"] }
   ],
@@ -162,7 +163,7 @@ const SPECIAL_TEAMS = {
     { name:"Serie A · Classic XI",        icon:"🇮🇹",
       players:["Cafu","Paolo Maldini","Fabio Cannavaro","Zinedine Zidane","Ronaldo Nazário (R9)","Diego Maradona"] },
     { name:"Icons (FUT Legends)",         icon:"👑",
-      players:["Ruud Gullit","Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo","Miroslav Klose","Andrés Iniesta","Lev Yashin"] },
+      players:["Ruud Gullit","Pelé","David Beckham","Kaká","Eusébio","Ferenc Puskás","Marcelo","Miroslav Klose","Andrés Iniesta","Lev Yashin","Jairzinho"] },
     { name:"Not in this game",            icon:"🚫",
       players:["Pepe","Jack Jewsbury","Diego Valeri","Clive Charles","Liam Ridgewell","Vozinha","Tobin Heath","Megan Rapinoe","René Higuita","Diogo Jota","Nadine Angerer"] }
   ]
