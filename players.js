@@ -69,6 +69,7 @@ const CLUBS = {
   "Club Tijuana":{c1:"#e2231a",c2:"#111111",ab:"TIJ",ink:"#fff"},
   "Atlético Nacional":{c1:"#00843d",c2:"#ffffff",ab:"NAC",ink:"#fff"},
   "Millonarios":{c1:"#004aad",c2:"#ffffff",ab:"MLL",ink:"#fff"},
+  "Botafogo":{c1:"#111111",c2:"#ffffff",ab:"BOT",ink:"#fff"},
   "Birmingham City":{c1:"#1a4ea8",c2:"#ffffff",ab:"BIR",ink:"#fff"},
   "Basel":{c1:"#d81e2c",c2:"#0a4ea2",ab:"BAS",ink:"#fff"},
   "Chelsea":{c1:"#034694",c2:"#ffffff",ab:"CHE",ink:"#fff"},
