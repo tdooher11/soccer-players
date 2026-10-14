@@ -1,0 +1,863 @@
+{
+ "Sporting CP": {
+  "name": "Sporting CP",
+  "short": "SCP",
+  "c1": "#1a7a4c",
+  "c2": "#e6f4ed",
+  "ink": "#fff"
+ },
+ "Manchester United": {
+  "name": "Manchester United",
+  "short": "MUN",
+  "c1": "#DA291C",
+  "c2": "#FBE122",
+  "ink": "#fff"
+ },
+ "Real Madrid": {
+  "name": "Real Madrid",
+  "short": "RM",
+  "c1": "#f4f6fb",
+  "c2": "#00529F",
+  "ink": "#1a2a55"
+ },
+ "Juventus": {
+  "name": "Juventus",
+  "short": "JUV",
+  "c1": "#141414",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Al-Nassr": {
+  "name": "Al-Nassr",
+  "short": "NAS",
+  "c1": "#F5C400",
+  "c2": "#0a4ea2",
+  "ink": "#1a2a55"
+ },
+ "Al-Hilal": {
+  "name": "Al-Hilal",
+  "short": "HIL",
+  "c1": "#0a4ea2",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Al-Ittihad": {
+  "name": "Al-Ittihad",
+  "short": "ITT",
+  "c1": "#111111",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Barcelona": {
+  "name": "Barcelona",
+  "short": "FCB",
+  "c1": "#A50044",
+  "c2": "#004D98",
+  "ink": "#fff"
+ },
+ "PSG": {
+  "name": "PSG",
+  "short": "PSG",
+  "c1": "#0b1e50",
+  "c2": "#DA291C",
+  "ink": "#fff"
+ },
+ "Inter Miami": {
+  "name": "Inter Miami",
+  "short": "MIA",
+  "c1": "#f7b5cd",
+  "c2": "#111111",
+  "ink": "#5a1730"
+ },
+ "Inter Milan": {
+  "name": "Inter Milan",
+  "short": "INT",
+  "c1": "#0a2196",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Santos": {
+  "name": "Santos",
+  "short": "SAN",
+  "c1": "#f4f6fb",
+  "c2": "#111111",
+  "ink": "#1a1a1a"
+ },
+ "New York Cosmos": {
+  "name": "New York Cosmos",
+  "short": "NYC",
+  "c1": "#0a9a4a",
+  "c2": "#f4f6fb",
+  "ink": "#fff"
+ },
+ "New York Red Bulls": {
+  "name": "New York Red Bulls",
+  "short": "NYR",
+  "c1": "#ED1E36",
+  "c2": "#003a70",
+  "ink": "#fff"
+ },
+ "Monaco": {
+  "name": "Monaco",
+  "short": "ASM",
+  "c1": "#e51b22",
+  "c2": "#f4f6fb",
+  "ink": "#fff"
+ },
+ "Molde": {
+  "name": "Molde",
+  "short": "MOL",
+  "c1": "#0a4ea2",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "RB Salzburg": {
+  "name": "RB Salzburg",
+  "short": "RBS",
+  "c1": "#d81e2c",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "RB Leipzig": {
+  "name": "RB Leipzig",
+  "short": "RBL",
+  "c1": "#dd0741",
+  "c2": "#001f47",
+  "ink": "#fff"
+ },
+ "Borussia Dortmund": {
+  "name": "Borussia Dortmund",
+  "short": "BVB",
+  "c1": "#FDE100",
+  "c2": "#111111",
+  "ink": "#111"
+ },
+ "Manchester City": {
+  "name": "Manchester City",
+  "short": "MCI",
+  "c1": "#6CABDD",
+  "c2": "#ffffff",
+  "ink": "#0b2b45"
+ },
+ "Leicester City": {
+  "name": "Leicester City",
+  "short": "LEI",
+  "c1": "#003090",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Hull City": {
+  "name": "Hull City",
+  "short": "HUL",
+  "c1": "#f18a00",
+  "c2": "#111111",
+  "ink": "#111"
+ },
+ "Monterrey": {
+  "name": "Monterrey",
+  "short": "MTY",
+  "c1": "#00295b",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Schalke 04": {
+  "name": "Schalke 04",
+  "short": "S04",
+  "c1": "#004d9d",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Vancouver Whitecaps": {
+  "name": "Vancouver Whitecaps",
+  "short": "VAN",
+  "c1": "#04216a",
+  "c2": "#9dc2e5",
+  "ink": "#fff"
+ },
+ "West Bromwich Albion": {
+  "name": "West Bromwich Albion",
+  "short": "WBA",
+  "c1": "#122f67",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Kaiserslautern": {
+  "name": "Kaiserslautern",
+  "short": "FCK",
+  "c1": "#e30613",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Vissel Kobe": {
+  "name": "Vissel Kobe",
+  "short": "KOB",
+  "c1": "#9b1b30",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Portland Thorns": {
+  "name": "Portland Thorns",
+  "short": "THO",
+  "c1": "#8a1538",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Colo-Colo": {
+  "name": "Colo-Colo",
+  "short": "CLC",
+  "c1": "#f4f6fb",
+  "c2": "#111111",
+  "ink": "#1a1a1a"
+ },
+ "Dynamo Moscow": {
+  "name": "Dynamo Moscow",
+  "short": "DYN",
+  "c1": "#1a4ea8",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Parma": {
+  "name": "Parma",
+  "short": "PAR",
+  "c1": "#ffd200",
+  "c2": "#003f87",
+  "ink": "#003f87"
+ },
+ "OL Reign": {
+  "name": "OL Reign",
+  "short": "RGN",
+  "c1": "#13284b",
+  "c2": "#6cc24a",
+  "ink": "#fff"
+ },
+ "Club Tijuana": {
+  "name": "Club Tijuana",
+  "short": "TIJ",
+  "c1": "#e2231a",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Atlético Nacional": {
+  "name": "Atlético Nacional",
+  "short": "NAC",
+  "c1": "#00843d",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Millonarios": {
+  "name": "Millonarios",
+  "short": "MLL",
+  "c1": "#004aad",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Botafogo": {
+  "name": "Botafogo",
+  "short": "BOT",
+  "c1": "#111111",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Birmingham City": {
+  "name": "Birmingham City",
+  "short": "BIR",
+  "c1": "#1a4ea8",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Basel": {
+  "name": "Basel",
+  "short": "BAS",
+  "c1": "#d81e2c",
+  "c2": "#0a4ea2",
+  "ink": "#fff"
+ },
+ "Chelsea": {
+  "name": "Chelsea",
+  "short": "CHE",
+  "c1": "#034694",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Fiorentina": {
+  "name": "Fiorentina",
+  "short": "FIO",
+  "c1": "#5a2d82",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Roma": {
+  "name": "Roma",
+  "short": "ROM",
+  "c1": "#8e1b2e",
+  "c2": "#f0a500",
+  "ink": "#f0a500"
+ },
+ "Grêmio": {
+  "name": "Grêmio",
+  "short": "GRE",
+  "c1": "#0d6fb8",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "AC Milan": {
+  "name": "AC Milan",
+  "short": "MIL",
+  "c1": "#fb090b",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "LA Galaxy": {
+  "name": "LA Galaxy",
+  "short": "LAG",
+  "c1": "#00245d",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "LAFC": {
+  "name": "LAFC",
+  "short": "LAF",
+  "c1": "#111111",
+  "c2": "#c39e6d",
+  "ink": "#c39e6d"
+ },
+ "Cannes": {
+  "name": "Cannes",
+  "short": "CAN",
+  "c1": "#d81e2c",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Bordeaux": {
+  "name": "Bordeaux",
+  "short": "BOR",
+  "c1": "#0a1a3a",
+  "c2": "#8e1b2e",
+  "ink": "#fff"
+ },
+ "Arsenal": {
+  "name": "Arsenal",
+  "short": "ARS",
+  "c1": "#EF0107",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Malmö": {
+  "name": "Malmö",
+  "short": "MAL",
+  "c1": "#0a63b0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Ajax": {
+  "name": "Ajax",
+  "short": "AJA",
+  "c1": "#d2122e",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Tottenham Hotspur": {
+  "name": "Tottenham Hotspur",
+  "short": "TOT",
+  "c1": "#ffffff",
+  "c2": "#132257",
+  "ink": "#132257"
+ },
+ "Bayern Munich": {
+  "name": "Bayern Munich",
+  "short": "BAY",
+  "c1": "#dc052d",
+  "c2": "#0066b2",
+  "ink": "#fff"
+ },
+ "Bayer Leverkusen": {
+  "name": "Bayer Leverkusen",
+  "short": "LEV",
+  "c1": "#e32219",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Kansas City Wizards": {
+  "name": "Kansas City Wizards",
+  "short": "KC",
+  "c1": "#003b7b",
+  "c2": "#93c020",
+  "ink": "#fff"
+ },
+ "Portland Timbers": {
+  "name": "Portland Timbers",
+  "short": "POR",
+  "c1": "#004812",
+  "c2": "#d69a00",
+  "ink": "#d69a00"
+ },
+ "Lanús": {
+  "name": "Lanús",
+  "short": "LAN",
+  "c1": "#7a1523",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Atlanta United": {
+  "name": "Atlanta United",
+  "short": "ATL",
+  "c1": "#80000a",
+  "c2": "#111111",
+  "ink": "#f0a500"
+ },
+ "Columbus Crew": {
+  "name": "Columbus Crew",
+  "short": "CLB",
+  "c1": "#fff200",
+  "c2": "#111111",
+  "ink": "#111"
+ },
+ "Internacional": {
+  "name": "Internacional",
+  "short": "INT",
+  "c1": "#e01e2c",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Benfica": {
+  "name": "Benfica",
+  "short": "BEN",
+  "c1": "#e00020",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Rennes": {
+  "name": "Rennes",
+  "short": "REN",
+  "c1": "#111111",
+  "c2": "#e30613",
+  "ink": "#e30613"
+ },
+ "Deportes Tolima": {
+  "name": "Deportes Tolima",
+  "short": "TOL",
+  "c1": "#b8860b",
+  "c2": "#8e1b2e",
+  "ink": "#fff"
+ },
+ "Aston Villa": {
+  "name": "Aston Villa",
+  "short": "AVL",
+  "c1": "#670e36",
+  "c2": "#95bfe5",
+  "ink": "#95bfe5"
+ },
+ "Peñarol": {
+  "name": "Peñarol",
+  "short": "PEÑ",
+  "c1": "#111111",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Feyenoord": {
+  "name": "Feyenoord",
+  "short": "FEY",
+  "c1": "#e30613",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Dinamo Zagreb": {
+  "name": "Dinamo Zagreb",
+  "short": "DZG",
+  "c1": "#0a63b0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Lyon": {
+  "name": "Lyon",
+  "short": "OL",
+  "c1": "#ffffff",
+  "c2": "#d81e2c",
+  "ink": "#0a1a3a"
+ },
+ "Genk": {
+  "name": "Genk",
+  "short": "GNK",
+  "c1": "#0a63b0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Werder Bremen": {
+  "name": "Werder Bremen",
+  "short": "BRE",
+  "c1": "#1d9053",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Wolfsburg": {
+  "name": "Wolfsburg",
+  "short": "WOB",
+  "c1": "#65b32e",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Napoli": {
+  "name": "Napoli",
+  "short": "NAP",
+  "c1": "#12a0d7",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Getafe": {
+  "name": "Getafe",
+  "short": "GET",
+  "c1": "#0a5eb0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Brighton": {
+  "name": "Brighton",
+  "short": "BHA",
+  "c1": "#0057b8",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Fluminense": {
+  "name": "Fluminense",
+  "short": "FLU",
+  "c1": "#7a1523",
+  "c2": "#0a5f3a",
+  "ink": "#fff"
+ },
+ "Olympiacos": {
+  "name": "Olympiacos",
+  "short": "OLY",
+  "c1": "#e30613",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Strømsgodset": {
+  "name": "Strømsgodset",
+  "short": "STR",
+  "c1": "#0a4ea2",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Heerenveen": {
+  "name": "Heerenveen",
+  "short": "HEE",
+  "c1": "#005eb8",
+  "c2": "#e30613",
+  "ink": "#fff"
+ },
+ "Vitesse": {
+  "name": "Vitesse",
+  "short": "VIT",
+  "c1": "#141414",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Real Sociedad": {
+  "name": "Real Sociedad",
+  "short": "RSO",
+  "c1": "#0067b1",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Reading": {
+  "name": "Reading",
+  "short": "REA",
+  "c1": "#004494",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Crystal Palace": {
+  "name": "Crystal Palace",
+  "short": "CRY",
+  "c1": "#1b458f",
+  "c2": "#c4122e",
+  "ink": "#fff"
+ },
+ "Turbine Potsdam": {
+  "name": "Turbine Potsdam",
+  "short": "POT",
+  "c1": "#0a63b0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Frankfurt": {
+  "name": "Frankfurt",
+  "short": "SGE",
+  "c1": "#111111",
+  "c2": "#e1000f",
+  "ink": "#e1000f"
+ },
+ "Athletic Club": {
+  "name": "Athletic Club",
+  "short": "ATH",
+  "c1": "#ee2523",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Sparta Prague": {
+  "name": "Sparta Prague",
+  "short": "SPA",
+  "c1": "#822433",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Sampdoria": {
+  "name": "Sampdoria",
+  "short": "SAM",
+  "c1": "#0a3a82",
+  "c2": "#e30613",
+  "ink": "#fff"
+ },
+ "Las Palmas": {
+  "name": "Las Palmas",
+  "short": "LPA",
+  "c1": "#fdd000",
+  "c2": "#004a99",
+  "ink": "#004a99"
+ },
+ "Braga": {
+  "name": "Braga",
+  "short": "BRA",
+  "c1": "#b3122a",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Lazio": {
+  "name": "Lazio",
+  "short": "LAZ",
+  "c1": "#87d8f7",
+  "c2": "#ffffff",
+  "ink": "#0b2b45"
+ },
+ "Wolverhampton Wanderers": {
+  "name": "Wolverhampton Wanderers",
+  "short": "WOL",
+  "c1": "#fdb913",
+  "c2": "#111111",
+  "ink": "#111"
+ },
+ "Lille": {
+  "name": "Lille",
+  "short": "LIL",
+  "c1": "#e01e2c",
+  "c2": "#0a1a3a",
+  "ink": "#fff"
+ },
+ "Vitória de Guimarães": {
+  "name": "Vitória de Guimarães",
+  "short": "VIT",
+  "c1": "#111111",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Leeds United": {
+  "name": "Leeds United",
+  "short": "LEE",
+  "c1": "#ffffff",
+  "c2": "#1d428a",
+  "ink": "#1d428a"
+ },
+ "Znicz Pruszków": {
+  "name": "Znicz Pruszków",
+  "short": "ZNI",
+  "c1": "#e30613",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Lech Poznań": {
+  "name": "Lech Poznań",
+  "short": "LECH",
+  "c1": "#0a63b0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Chicago Fire": {
+  "name": "Chicago Fire",
+  "short": "CHI",
+  "c1": "#141c2e",
+  "c2": "#e30613",
+  "ink": "#e30613"
+ },
+ "Palmeiras": {
+  "name": "Palmeiras",
+  "short": "PAL",
+  "c1": "#0a5f3a",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Fenerbahçe": {
+  "name": "Fenerbahçe",
+  "short": "FEN",
+  "c1": "#12296b",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Corinthians": {
+  "name": "Corinthians",
+  "short": "COR",
+  "c1": "#111111",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Anzhi": {
+  "name": "Anzhi",
+  "short": "ANZ",
+  "c1": "#111111",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Villarreal": {
+  "name": "Villarreal",
+  "short": "VIL",
+  "c1": "#ffe667",
+  "c2": "#005187",
+  "ink": "#005187"
+ },
+ "Atlético Madrid": {
+  "name": "Atlético Madrid",
+  "short": "ATM",
+  "c1": "#cb3524",
+  "c2": "#0a2a5e",
+  "ink": "#fff"
+ },
+ "Atlético Mineiro": {
+  "name": "Atlético Mineiro",
+  "short": "CAM",
+  "c1": "#111111",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Flamengo": {
+  "name": "Flamengo",
+  "short": "FLA",
+  "c1": "#b3122a",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Cruzeiro": {
+  "name": "Cruzeiro",
+  "short": "CRU",
+  "c1": "#0a3a82",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "PSV": {
+  "name": "PSV",
+  "short": "PSV",
+  "c1": "#ed1c24",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Anderlecht": {
+  "name": "Anderlecht",
+  "short": "AND",
+  "c1": "#5a2d82",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Everton": {
+  "name": "Everton",
+  "short": "EVE",
+  "c1": "#003399",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Hamburger SV": {
+  "name": "Hamburger SV",
+  "short": "HSV",
+  "c1": "#111111",
+  "c2": "#0a63b0",
+  "ink": "#0a63b0"
+ },
+ "Celtic": {
+  "name": "Celtic",
+  "short": "CEL",
+  "c1": "#018749",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Southampton": {
+  "name": "Southampton",
+  "short": "SOU",
+  "c1": "#d71920",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Groningen": {
+  "name": "Groningen",
+  "short": "GRO",
+  "c1": "#0a8a3a",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "FC Porto": {
+  "name": "FC Porto",
+  "short": "POR",
+  "c1": "#00559e",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Nacional": {
+  "name": "Nacional",
+  "short": "NAC",
+  "c1": "#ffffff",
+  "c2": "#0a3a82",
+  "ink": "#0a3a82"
+ },
+ "Newell's Old Boys": {
+  "name": "Newell's Old Boys",
+  "short": "NOB",
+  "c1": "#111111",
+  "c2": "#e30613",
+  "ink": "#e30613"
+ },
+ "Boca Juniors": {
+  "name": "Boca Juniors",
+  "short": "BOC",
+  "c1": "#0a3a82",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "Argentinos Juniors": {
+  "name": "Argentinos Juniors",
+  "short": "ARG",
+  "c1": "#e01e2c",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Sevilla": {
+  "name": "Sevilla",
+  "short": "SEV",
+  "c1": "#ffffff",
+  "c2": "#d81e2c",
+  "ink": "#d81e2c"
+ },
+ "Querétaro": {
+  "name": "Querétaro",
+  "short": "QRO",
+  "c1": "#141414",
+  "c2": "#0a63b0",
+  "ink": "#fff"
+ },
+ "São Paulo": {
+  "name": "São Paulo",
+  "short": "SAO",
+  "c1": "#e30613",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Orlando City": {
+  "name": "Orlando City",
+  "short": "ORL",
+  "c1": "#5a2d82",
+  "c2": "#f5c400",
+  "ink": "#f5c400"
+ },
+ "West Ham United": {
+  "name": "West Ham United",
+  "short": "WHU",
+  "c1": "#7a263a",
+  "c2": "#1bb1e7",
+  "ink": "#1bb1e7"
+ }
+}

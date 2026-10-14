@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Soccer Brain Studio launcher: ./soccer-brain --help
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PY="$DIR/.venv/bin/python"
+[ -x "$PY" ] || PY="python3"
+cd "$DIR" && exec "$PY" -m backend.cli "$@"

@@ -1,0 +1,235 @@
+{
+ "_comment": "Facts beyond the master list. Each needs a source. The importer applies them with provenance 'verified' and never lets a re-import overwrite them.",
+ "players": {
+  "Cristiano Ronaldo": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2008,
+      2013,
+      2014,
+      2016,
+      2017
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Lionel Messi": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2009,
+      2010,
+      2011,
+      2012,
+      2015,
+      2019,
+      2021,
+      2023
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Ronaldinho": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2005
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Zinedine Zidane": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1998
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Ousmane Dembélé": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2025
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Johan Cruyff": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1971,
+      1973,
+      1974
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Kaká": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2007
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Karim Benzema": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2022
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Luka Modrić": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2018
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Rodri": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2024
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Ronaldo Nazário (R9)": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1997,
+      2002
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Eusébio": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1965
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Franz Beckenbauer": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1972,
+      1976
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Luís Figo": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2000
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Lev Yashin": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1963
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Fabio Cannavaro": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      2006
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Ruud Gullit": {
+   "achievements": {
+    "ballon_dor": {
+     "years": [
+      1987
+     ],
+     "sourceUrl": "https://en.wikipedia.org/wiki/Ballon_d%27Or",
+     "verifiedAt": "2026-10-14"
+    }
+   }
+  },
+  "Nadine Angerer": {
+   "category": {
+    "value": "women",
+    "detail": "Plays/played in women's football; World Cup = FIFA Women's World Cup",
+    "verifiedAt": "2026-10-14"
+   }
+  },
+  "Sophia Wilson": {
+   "category": {
+    "value": "women",
+    "detail": "Plays/played in women's football; World Cup = FIFA Women's World Cup",
+    "verifiedAt": "2026-10-14"
+   }
+  },
+  "Tobin Heath": {
+   "category": {
+    "value": "women",
+    "detail": "Plays/played in women's football; World Cup = FIFA Women's World Cup",
+    "verifiedAt": "2026-10-14"
+   }
+  },
+  "Megan Rapinoe": {
+   "category": {
+    "value": "women",
+    "detail": "Plays/played in women's football; World Cup = FIFA Women's World Cup",
+    "verifiedAt": "2026-10-14"
+   }
+  }
+ }
+}

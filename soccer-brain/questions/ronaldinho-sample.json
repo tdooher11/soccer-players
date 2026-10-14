@@ -1,0 +1,24 @@
+{
+  "id": "ronaldinho-sample",
+  "format": "guess_player",
+  "difficulty": "medium",
+  "playerId": "ronaldinho",
+  "title": "GUESS THE PLAYER",
+  "introSpeech": "Guess the player!",
+  "clues": [
+    {"text": "I'm from Brazil.", "visual": {"kind": "flag", "code": "BR"}, "fact": "country:BR"},
+    {"text": "I played for PSG.", "visual": {"kind": "club", "club": {"name": "PSG", "short": "PSG", "c1": "#0b1e50", "c2": "#DA291C", "ink": "#fff"}}, "fact": "club:PSG"},
+    {"text": "I became a legend at Barcelona.", "visual": {"kind": "club", "club": {"name": "Barcelona", "short": "FCB", "c1": "#A50044", "c2": "#004D98", "ink": "#fff"}}, "fact": "primary_club:Barcelona"},
+    {"text": "I won the 2005 Ballon d'Or.", "visual": {"kind": "icon", "icon": "ballon"}, "fact": "ballon_dor:2005"}
+  ],
+  "answer": {
+    "title": "RONALDINHO",
+    "spoken": "Ronaldinho",
+    "subtitle": "Brazil · Barcelona legend",
+    "flagCode": "BR",
+    "imageSrc": "img/ed3b0e0bf5f6.jpg",
+    "club": {"name": "Barcelona", "short": "FCB", "c1": "#A50044", "c2": "#004D98", "ink": "#fff"},
+    "jerseyNumber": 10
+  },
+  "durationSeconds": 18
+}

@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+dist/
+models/
+output/
+public/tts/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+data/last-import-report.json
+data/questions.json
+data/production-history.json
+public/img/

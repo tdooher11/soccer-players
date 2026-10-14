@@ -12,6 +12,8 @@ Live site: https://tdooher11.github.io/soccer-players/
 - `trophies.html` — "Roll of Honour" — competition winners by year (`honours.js`).
 - `matches.html` — "Upcoming Matches" — live fixtures + who's playing, for our players' teams.
 - `worldcup.html` — 2026 World Cup scores/schedule.
+- `soccer-brain/` — **Soccer Brain Studio**, a separate local app that turns `players.json` into trivia
+  Shorts (Remotion + Python). It has its own `CLAUDE.md`/`README.md`; the `soccer-brain` skill drives it.
 
 ## Single source of truth
 - **`players.json` is canonical.** All player data lives here.

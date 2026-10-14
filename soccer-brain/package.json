@@ -1,0 +1,36 @@
+{
+  "name": "soccer-brain",
+  "description": "Soccer Brain Studio \u2014 soccer trivia Shorts generator (Remotion + Python)",
+  "scripts": {
+    "studio": "remotion studio",
+    "ui:dev": "vite",
+    "ui:build": "vite build",
+    "typecheck": "tsc -p ."
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@fontsource/montserrat": "^5.3.0",
+    "@fontsource/nunito": "^5.3.0",
+    "@remotion/bundler": "^4.0.535",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/fonts": "^4.0.535",
+    "@remotion/layout-utils": "^4.0.535",
+    "@remotion/media": "^4.0.535",
+    "@remotion/media-utils": "^4.0.535",
+    "@remotion/player": "^4.0.535",
+    "@remotion/renderer": "^4.0.535",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.535",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "5.9",
+    "vite": "^7.3.7"
+  },
+  "private": true,
+  "type": "module"
+}

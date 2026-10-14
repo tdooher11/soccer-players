@@ -1,0 +1,180 @@
+{
+ "format": "guess_player",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "theme": "stadium-gold",
+ "textScale": 1.0,
+ "title": "GUESS THE PLAYER",
+ "question": null,
+ "clues": [
+  {
+   "text": "I'm from Brazil.",
+   "visual": {
+    "kind": "flag",
+    "code": "BR"
+   }
+  },
+  {
+   "text": "I played for PSG.",
+   "visual": {
+    "kind": "club",
+    "club": {
+     "name": "PSG",
+     "short": "PSG",
+     "c1": "#0b1e50",
+     "c2": "#DA291C",
+     "ink": "#fff"
+    }
+   }
+  },
+  {
+   "text": "I became a legend at Barcelona.",
+   "visual": {
+    "kind": "club",
+    "club": {
+     "name": "Barcelona",
+     "short": "FCB",
+     "c1": "#A50044",
+     "c2": "#004D98",
+     "ink": "#fff"
+    }
+   }
+  },
+  {
+   "text": "I won the 2005 Ballon d'Or.",
+   "visual": {
+    "kind": "icon",
+    "icon": "ballon"
+   }
+  }
+ ],
+ "chips": [],
+ "answer": {
+  "title": "RONALDINHO",
+  "subtitle": "Brazil · Barcelona legend",
+  "flagCode": "BR",
+  "imageSrc": "img/ed3b0e0bf5f6.jpg",
+  "club": {
+   "name": "Barcelona",
+   "short": "FCB",
+   "c1": "#A50044",
+   "c2": "#004D98",
+   "ink": "#fff"
+  },
+  "jerseyNumber": 10,
+  "details": [],
+  "verdict": null,
+  "versus": null
+ },
+ "showAnswerImage": true,
+ "timeline": {
+  "totalFrames": 562,
+  "scenes": [
+   {
+    "id": "clue-1",
+    "type": "clue",
+    "index": 0,
+    "from": 0,
+    "durationInFrames": 72
+   },
+   {
+    "id": "clue-2",
+    "type": "clue",
+    "index": 1,
+    "from": 72,
+    "durationInFrames": 90
+   },
+   {
+    "id": "clue-3",
+    "type": "clue",
+    "index": 2,
+    "from": 162,
+    "durationInFrames": 90
+   },
+   {
+    "id": "clue-4",
+    "type": "clue",
+    "index": 3,
+    "from": 252,
+    "durationInFrames": 90
+   },
+   {
+    "id": "countdown",
+    "type": "countdown",
+    "index": 0,
+    "from": 342,
+    "durationInFrames": 90
+   },
+   {
+    "id": "reveal",
+    "type": "reveal",
+    "index": 0,
+    "from": 432,
+    "durationInFrames": 90
+   },
+   {
+    "id": "outro",
+    "type": "outro",
+    "index": 0,
+    "from": 522,
+    "durationInFrames": 40
+   }
+  ]
+ },
+ "audio": {
+  "narration": [
+   {
+    "src": "tts/06094db7615f5bb79fc4.wav",
+    "from": 6,
+    "durationInFrames": 57,
+    "volume": 1.0,
+    "sceneId": "clue-1"
+   },
+   {
+    "src": "tts/84cfb5b7788d82ed0667.wav",
+    "from": 78,
+    "durationInFrames": 48,
+    "volume": 1.0,
+    "sceneId": "clue-2"
+   },
+   {
+    "src": "tts/f1dfbe1b25866f6a759a.wav",
+    "from": 168,
+    "durationInFrames": 67,
+    "volume": 1.0,
+    "sceneId": "clue-3"
+   },
+   {
+    "src": "tts/2c6a3e950bccf4852fe6.wav",
+    "from": 258,
+    "durationInFrames": 71,
+    "volume": 1.0,
+    "sceneId": "clue-4"
+   },
+   {
+    "src": "tts/ced77867bfca58b978b9.wav",
+    "from": 441,
+    "durationInFrames": 37,
+    "volume": 1.0,
+    "sceneId": "reveal"
+   },
+   {
+    "src": "tts/cb230c1416395d530a93.wav",
+    "from": 525,
+    "durationInFrames": 27,
+    "volume": 1.0,
+    "sceneId": "outro"
+   }
+  ],
+  "music": {
+   "src": "audio/music/stadium-pulse.mp3",
+   "volume": 0.22
+  },
+  "sfxVolume": 1.0
+ },
+ "branding": {
+  "channel": "Soccer Brain",
+  "handle": null
+ }
+}
