@@ -55,7 +55,9 @@ def extract_frames(video: Path, props: dict, out_dir: Path) -> list[Path]:
     return frames
 
 
-def transcribe(video: Path) -> list[dict] | None:
+def transcribe(video: Path, hint: str | None = None) -> list[dict] | None:
+    """Word-level transcript. `hint` primes Whisper with rare names (e.g. "Kaká") so it can spell them;
+    this also makes the "spoken before the reveal" check stricter, not looser."""
     try:
         import numpy as np
         from faster_whisper import WhisperModel
@@ -63,7 +65,8 @@ def transcribe(video: Path) -> list[dict] | None:
         return None
     raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(video), "-ac", "1", "-ar", "16000", "-f", "f32le", "-"], capture_output=True, check=True).stdout
     model = WhisperModel("small.en", device="cpu", compute_type="int8")
-    segs, _ = model.transcribe(np.frombuffer(raw, np.float32), word_timestamps=True)
+    prompt = f"Soccer trivia. Names: {hint}." if hint else None
+    segs, _ = model.transcribe(np.frombuffer(raw, np.float32), word_timestamps=True, initial_prompt=prompt)
     return [{"t": round(w.start, 2), "word": w.word.strip()} for s in segs for w in (s.words or [])]
 
 
@@ -121,7 +124,7 @@ def check_video(folder: Path, *, with_transcript: bool = True) -> dict:
 
     transcript = None
     if with_transcript and props["audio"]["narration"]:
-        transcript = transcribe(video)
+        transcript = transcribe(video, hint=question["answer"].get("spoken") or question["answer"]["title"].title())
         if transcript is not None and mystery:
             early = [w for w in transcript if w["t"] < reveal_t - 0.05]
             spoken_leak = ans_tokens & set(_norm(" ".join(w["word"] for w in early)).split())

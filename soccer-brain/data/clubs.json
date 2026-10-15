@@ -859,5 +859,54 @@
   "c1": "#7a263a",
   "c2": "#1bb1e7",
   "ink": "#1bb1e7"
+ },
+ "Liverpool": {
+  "name": "Liverpool",
+  "short": "LIV",
+  "c1": "#C8102E",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "VfB Stuttgart": {
+  "name": "VfB Stuttgart",
+  "short": "VFB",
+  "c1": "#E32219",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Budapest Honvéd": {
+  "name": "Budapest Honvéd",
+  "short": "HON",
+  "c1": "#C8102E",
+  "c2": "#111111",
+  "ink": "#fff"
+ },
+ "Marseille": {
+  "name": "Marseille",
+  "short": "OM",
+  "c1": "#2FAEE0",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Beşiktaş": {
+  "name": "Beşiktaş",
+  "short": "BJK",
+  "c1": "#111111",
+  "c2": "#ffffff",
+  "ink": "#fff"
+ },
+ "Chaves": {
+  "name": "Chaves",
+  "short": "CHA",
+  "c1": "#0047AB",
+  "c2": "#E30613",
+  "ink": "#fff"
+ },
+ "D.C. United": {
+  "name": "D.C. United",
+  "short": "DCU",
+  "c1": "#111111",
+  "c2": "#EF3E42",
+  "ink": "#fff"
  }
 }
