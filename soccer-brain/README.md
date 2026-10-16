@@ -22,7 +22,7 @@ Needs **git**, **Node 18+**, **Python 3.11+** and **FFmpeg**. Remotion downloads
 Chrome the first time you render. Allow ~2 GB of disk (voices ~650 MB + dependencies).
 
 **Mac** (with [Homebrew](https://brew.sh)): `brew install git node python@3.12 ffmpeg`
-**Windows**: use [WSL](https://learn.microsoft.com/windows/wsl/install) (Ubuntu) and follow the Linux line.
+**Windows**: use WSL (Linux inside Windows) — see [Windows setup](#windows-setup-wsl) below.
 **Linux** (Ubuntu/Debian): `sudo apt install git python3-venv ffmpeg`, plus Node 18+ from
 [nodejs.org](https://nodejs.org) (the distro's `nodejs` package is often too old).
 
@@ -39,6 +39,24 @@ python3 -m venv .venv          # on a Mac with Homebrew: python3.12 -m venv .ven
 Re-run `./soccer-brain import` whenever `../players.json` changes (it never overwrites your edits).
 
 Check it works: `./soccer-brain render --player ronaldinho` (≈2 min) → `output/<today>/ronaldinho/video.mp4`.
+
+### Windows setup (WSL)
+
+1. Open **PowerShell as Administrator**, run `wsl --install`, restart, then open **Ubuntu** from the
+   Start menu and pick a username/password.
+2. In the Ubuntu window:
+   ```bash
+   sudo apt update && sudo apt install -y git python3-venv python3-pip ffmpeg curl
+   python3 --version                       # must be 3.11 or newer
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+   source ~/.bashrc && nvm install 22      # Node.js
+   npx -y playwright@1.56.0 install-deps chromium   # system libraries the video renderer's Chrome needs
+   ```
+3. Clone into your Linux home folder (`cd ~`), **not** under `/mnt/c` (that is much slower), then run
+   the commands in the box above from `git clone` onward.
+4. `./soccer-brain studio`, then open **http://localhost:8000** in your normal Windows browser.
+   If it doesn't load, use `./soccer-brain studio --host 0.0.0.0`.
+5. To see videos in File Explorer: `cd output && explorer.exe .`
 
 Optional: `.venv/bin/pip install faster-whisper` enables the "is the answer spoken too early?" QA check.
 Optional: `cp .env.example .env` to change the channel name, default voice, or add paid TTS keys.
