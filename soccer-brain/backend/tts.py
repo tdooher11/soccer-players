@@ -78,6 +78,29 @@ class Provider:
 # ------------------------------------------------------------------- local providers
 
 
+# espeak-ng (used by both local voices for phonemes) silently ignores a data directory whose
+# path is too long and then crashes the process. Keep a copy somewhere short if needed.
+ESPEAK_MAX_PATH = 120
+
+
+def short_espeak_data(path: str) -> str:
+    """Return `path`, or a copy of it in a short cache dir when `path` is too long for espeak."""
+    import shutil
+    from pathlib import Path
+
+    if len(path) <= ESPEAK_MAX_PATH:
+        return path
+    for base in (Path.home() / ".cache" / "soccer-brain", Path("/tmp") / "soccer-brain"):
+        dest = base / Path(path).parent.name / "espeak-ng-data"
+        if len(str(dest)) > ESPEAK_MAX_PATH:
+            continue
+        if not (dest / "phontab").exists():
+            log.info("copying espeak-ng data to short path %s", dest)
+            shutil.copytree(path, dest, dirs_exist_ok=True)
+        return str(dest)
+    return path
+
+
 class KokoroProvider(Provider):
     name = "kokoro"
     VOICES = {
@@ -115,10 +138,13 @@ class KokoroProvider(Provider):
     def _get(self):
         with self._lock:
             if KokoroProvider._engine is None:
+                import espeakng_loader
                 from kokoro_onnx import Kokoro
+                from kokoro_onnx.config import EspeakConfig
 
                 m, v = self._paths()
-                KokoroProvider._engine = Kokoro(str(m), str(v))
+                cfg = EspeakConfig(lib_path=espeakng_loader.get_library_path(), data_path=short_espeak_data(espeakng_loader.get_data_path()))
+                KokoroProvider._engine = Kokoro(str(m), str(v), espeak_config=cfg)
             return KokoroProvider._engine
 
     def synthesize(self, text, voice, speed):
@@ -160,7 +186,10 @@ class PiperProvider(Provider):
 
         with self._lock:
             if voice not in self._cache:
-                self._cache[voice] = PiperVoice.load(self._dir() / f"{voice}.onnx")
+                import piper
+
+                data = Path(piper.__file__).parent / "espeak-ng-data"
+                self._cache[voice] = PiperVoice.load(self._dir() / f"{voice}.onnx", espeak_data_dir=short_espeak_data(str(data)))
             pv = self._cache[voice]
             buf = io.BytesIO()
             with wave.open(buf, "wb") as wf:

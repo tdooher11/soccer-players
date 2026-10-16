@@ -18,17 +18,27 @@ and sound effects that were synthesized from scratch, and checked automatically 
 
 ## 1. Install (once)
 
-Needs **Node 18+**, **Python 3.11+**, **FFmpeg**, and a Chrome/Chromium (Remotion downloads its own
-headless Chrome automatically if none is found).
+Needs **git**, **Node 18+**, **Python 3.11+** and **FFmpeg**. Remotion downloads its own headless
+Chrome the first time you render. Allow ~2 GB of disk (voices ~650 MB + dependencies).
+
+**Mac** (with [Homebrew](https://brew.sh)): `brew install git node python@3.12 ffmpeg`
+**Windows**: use [WSL](https://learn.microsoft.com/windows/wsl/install) (Ubuntu) and follow the Linux line.
+**Linux** (Ubuntu/Debian): `sudo apt install git python3-venv ffmpeg`, plus Node 18+ from
+[nodejs.org](https://nodejs.org) (the distro's `nodejs` package is often too old).
 
 ```bash
-cd soccer-brain
+git clone https://github.com/tdooher11/soccer-players.git
+cd soccer-players/soccer-brain
 npm install
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-./soccer-brain setup      # downloads the free voices (~650 MB), builds music/SFX, imports players
+python3 -m venv .venv          # on a Mac with Homebrew: python3.12 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+./soccer-brain setup           # downloads the free voices, builds music/SFX, imports players (5–10 min)
 ```
 
 `setup` = `scripts/setup_models.sh` + `./soccer-brain assets` + `./soccer-brain import`.
+Re-run `./soccer-brain import` whenever `../players.json` changes (it never overwrites your edits).
+
+Check it works: `./soccer-brain render --player ronaldinho` (≈2 min) → `output/<today>/ronaldinho/video.mp4`.
 
 Optional: `.venv/bin/pip install faster-whisper` enables the "is the answer spoken too early?" QA check.
 Optional: `cp .env.example .env` to change the channel name, default voice, or add paid TTS keys.
@@ -180,6 +190,17 @@ or per player with "Spoken name" in the Players editor.
 - **Club badges:** never real crests — a generic shield in club colours with letters.
 - **Remotion** is free for individuals and companies of up to 3 people; larger companies need a
   [Remotion company licence](https://www.remotion.dev/license).
+
+## Troubleshooting
+
+- **`python3 --version` is below 3.11** (common on Macs): install `python@3.12` and create the venv
+  with `python3.12 -m venv .venv`. Delete an old `.venv` folder first.
+- **`ffmpeg: command not found`**: install FFmpeg (see above) and open a new terminal.
+- **First render is slow / downloads something**: Remotion fetches its headless Chrome once.
+- **Port 8000 in use**: `./soccer-brain studio --port 8080`.
+- **Changed the UI code?** `./soccer-brain studio --build` rebuilds it.
+- **No narration / TTS errors**: run `./soccer-brain voices`; if Kokoro says "not set up", re-run
+  `./soccer-brain setup` (it only downloads what's missing).
 
 ## Known limitations
 
