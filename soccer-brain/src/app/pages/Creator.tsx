@@ -20,7 +20,7 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
   const [format, setFormat] = useState('guess_player');
   const [playerIds, setPlayerIds] = useState<string[]>(['ronaldinho']);
   const [difficulty, setDifficulty] = useState('medium');
-  const [duration, setDuration] = useState(18);
+  const [duration, setDuration] = useState(20);
   const [extra, setExtra] = useState<{stat?: string; statement?: string; club?: string}>({});
   const [question, setQuestion] = useState<Question | null>(null);
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);

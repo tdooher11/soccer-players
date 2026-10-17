@@ -20,6 +20,7 @@ from .models import (
     Branding,
     ClueProps,
     MusicSpec,
+    OutroProps,
     Question,
     Scene,
     Timeline,
@@ -38,6 +39,17 @@ TAIL = {"clue": 9, "countdown": 0, "reveal": 14, "outro": 10}
 FIRST_LINE_EXTRA_LEAD = 4  # let the opening whoosh pass before "Guess the player!"
 MIN_SECONDS = {"clue": 2.0, "countdown": 2.0, "reveal": 2.8, "outro": 1.0}
 MAX_AUTO_SPEEDUP = 1.12
+
+# The closing call-to-action: asks viewers to comment how many clues they needed.
+# (title, subtitle) on screen + what the narrator says. Overridable per question.
+_COMMENT = "Comment how many you needed!"
+OUTRO = {
+    "guess_player": ("HOW MANY CLUES?", _COMMENT, "Got it? Comment how many clues you needed!"),
+    "career_path": ("HOW MANY CLUBS?", _COMMENT, "Got it? Comment how many clubs you needed!"),
+    "guess_club": ("HOW MANY PLAYERS?", _COMMENT, "Got it? Comment how many players you needed!"),
+    "who_won_more": ("DID YOU GET IT?", "Tell us in the comments!", "Did you get it right? Tell us in the comments!"),
+    "true_false": ("DID YOU GET IT?", "Tell us in the comments!", "Did you get it right? Tell us in the comments!"),
+}
 # Running slightly long is better than rushing the narrator.
 OVERRUN_TOLERANCE_SECONDS = 0.75
 
@@ -78,7 +90,7 @@ def plan_scenes(q: Question, s: VideoSettings) -> list[PlannedScene]:
     T = q.duration_seconds
     C = float(s.countdown_seconds)
     R = 3.0
-    O = 1.0
+    O = 2.5
     n = max(1, len(q.clues))
     clue_total = max(T - C - R - O, n * MIN_SECONDS["clue"])
     first = min(2.0, clue_total / n) if n > 1 else clue_total
@@ -96,7 +108,7 @@ def plan_scenes(q: Question, s: VideoSettings) -> list[PlannedScene]:
     scenes.append(PlannedScene("countdown", "countdown", 0, C))
     reveal = q.reveal_speech or f"It's {spoken_name(q)}!"
     scenes.append(PlannedScene("reveal", "reveal", 0, R, reveal))
-    scenes.append(PlannedScene("outro", "outro", 0, O, q.outro_speech or None))
+    scenes.append(PlannedScene("outro", "outro", 0, O, q.outro_speech or OUTRO[q.format][2]))
     return scenes
 
 
@@ -140,6 +152,12 @@ def _fit(scenes: list[PlannedScene], fps: int, target_frames: int, tolerance: in
         if total_slack > 0:
             take = min(excess, total_slack)
             cut = [math.floor(take * sl / total_slack) for sl in slack]
+            # Hand out frames lost to rounding, biggest slack first, so the cut is exact.
+            for i in sorted(range(len(slack)), key=lambda i: -slack[i]):
+                if sum(cut) >= take:
+                    break
+                if cut[i] < slack[i]:
+                    cut[i] += 1
             durs = [d - c for d, c in zip(durs, cut)]
     elif sum(durs) < target_frames:
         excess = sum(durs) - target_frames
@@ -221,6 +239,7 @@ def build_props(q: Question, s: VideoSettings, *, auto_speed: bool = True) -> tu
             sfxVolume=s.sfx_volume,
         ),
         branding=Branding(channel=settings.channel_name, handle=settings.channel_handle),
+        outro=OutroProps(title=q.outro_title or OUTRO[q.format][0], subtitle=q.outro_subtitle or OUTRO[q.format][1]),
     )
     if s.music and props.audio.music is None:
         report.warnings.append("Music file missing; run `./soccer-brain assets`.")

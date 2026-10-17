@@ -69,56 +69,56 @@
  },
  "showAnswerImage": true,
  "timeline": {
-  "totalFrames": 562,
+  "totalFrames": 622,
   "scenes": [
    {
     "id": "clue-1",
     "type": "clue",
     "index": 0,
     "from": 0,
-    "durationInFrames": 72
+    "durationInFrames": 76
    },
    {
     "id": "clue-2",
     "type": "clue",
     "index": 1,
-    "from": 72,
-    "durationInFrames": 90
+    "from": 76,
+    "durationInFrames": 92
    },
    {
     "id": "clue-3",
     "type": "clue",
     "index": 2,
-    "from": 162,
-    "durationInFrames": 90
+    "from": 168,
+    "durationInFrames": 94
    },
    {
     "id": "clue-4",
     "type": "clue",
     "index": 3,
-    "from": 252,
-    "durationInFrames": 90
+    "from": 262,
+    "durationInFrames": 95
    },
    {
     "id": "countdown",
     "type": "countdown",
     "index": 0,
-    "from": 342,
+    "from": 357,
     "durationInFrames": 90
    },
    {
     "id": "reveal",
     "type": "reveal",
     "index": 0,
-    "from": 432,
+    "from": 447,
     "durationInFrames": 90
    },
    {
     "id": "outro",
     "type": "outro",
     "index": 0,
-    "from": 522,
-    "durationInFrames": 40
+    "from": 537,
+    "durationInFrames": 85
    }
   ]
  },
@@ -126,43 +126,43 @@
   "narration": [
    {
     "src": "tts/06094db7615f5bb79fc4.wav",
-    "from": 6,
+    "from": 10,
     "durationInFrames": 57,
     "volume": 1.0,
     "sceneId": "clue-1"
    },
    {
     "src": "tts/84cfb5b7788d82ed0667.wav",
-    "from": 78,
+    "from": 82,
     "durationInFrames": 48,
     "volume": 1.0,
     "sceneId": "clue-2"
    },
    {
     "src": "tts/f1dfbe1b25866f6a759a.wav",
-    "from": 168,
+    "from": 174,
     "durationInFrames": 67,
     "volume": 1.0,
     "sceneId": "clue-3"
    },
    {
     "src": "tts/2c6a3e950bccf4852fe6.wav",
-    "from": 258,
+    "from": 268,
     "durationInFrames": 71,
     "volume": 1.0,
     "sceneId": "clue-4"
    },
    {
     "src": "tts/ced77867bfca58b978b9.wav",
-    "from": 441,
+    "from": 456,
     "durationInFrames": 37,
     "volume": 1.0,
     "sceneId": "reveal"
    },
    {
-    "src": "tts/cb230c1416395d530a93.wav",
-    "from": 525,
-    "durationInFrames": 27,
+    "src": "tts/efa012bfbc7195dcb2c7.wav",
+    "from": 540,
+    "durationInFrames": 72,
     "volume": 1.0,
     "sceneId": "outro"
    }
@@ -176,5 +176,9 @@
  "branding": {
   "channel": "Soccer Brain",
   "handle": null
+ },
+ "outro": {
+  "title": "HOW MANY CLUES?",
+  "subtitle": "Comment how many you needed!"
  }
 }

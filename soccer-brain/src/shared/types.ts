@@ -98,4 +98,6 @@ export type VideoProps = {
     sfxVolume: number;
   };
   branding: {channel: string; handle: string | null};
+  /** Closing call-to-action, e.g. "HOW MANY CLUES?" / "Comment how many you needed!" */
+  outro: {title: string; subtitle: string};
 };

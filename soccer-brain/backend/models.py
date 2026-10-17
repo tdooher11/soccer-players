@@ -163,8 +163,10 @@ class Question(CamelModel):
     chips: list[PlayerChip] = Field(default_factory=list)
     answer: AnswerSpec
     reveal_speech: str | None = Field(default=None, alias="revealSpeech")
-    outro_speech: str | None = Field(default="Did you get it?", alias="outroSpeech")
-    duration_seconds: float = Field(default=18.0, ge=8, le=60, alias="durationSeconds")
+    outro_speech: str | None = Field(default=None, alias="outroSpeech", description="Default depends on format (asks viewers to comment)")
+    outro_title: str | None = Field(default=None, max_length=24, alias="outroTitle")
+    outro_subtitle: str | None = Field(default=None, max_length=40, alias="outroSubtitle")
+    duration_seconds: float = Field(default=20.0, ge=8, le=60, alias="durationSeconds")
     created_at: str = Field(default_factory=lambda: datetime.now().isoformat(timespec="seconds"), alias="createdAt")
     fingerprint: str | None = None
     warnings: list[str] = Field(default_factory=list)
@@ -245,6 +247,11 @@ class ClueProps(CamelModel):
     visual: ClueVisual
 
 
+class OutroProps(CamelModel):
+    title: str
+    subtitle: str
+
+
 class VideoProps(CamelModel):
     format: FormatId
     fps: int
@@ -261,6 +268,7 @@ class VideoProps(CamelModel):
     timeline: Timeline
     audio: AudioSpec
     branding: Branding
+    outro: OutroProps
 
     def dump(self) -> dict:
         return self.model_dump(by_alias=True, mode="json")

@@ -39,7 +39,7 @@ def test_narration_never_cut_off(q):
         sc = scenes[cue.scene_id]
         assert cue.from_ >= sc.from_
         assert cue.from_ + cue.duration_in_frames <= sc.from_ + sc.duration_in_frames, cue.scene_id
-    assert abs(report.actual_seconds - 18) < 1.5
+    assert abs(report.actual_seconds - q.duration_seconds) < 1.5
 
 
 def test_timeline_is_contiguous_and_ordered(q):
@@ -94,3 +94,19 @@ def test_unknown_provider_errors():
 def test_paid_provider_falls_back_without_key(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     assert tts.resolve_provider("openai").name in ("kokoro", "piper")
+
+
+def test_slack_trim_is_exact_despite_rounding():
+    """A tiny overrun spread over several scenes must still be trimmed (no forced speed-up)."""
+    from backend.timeline import PlannedScene, _fit
+
+    scenes = [PlannedScene(f"clue-{i}", "clue", i, 3.2) for i in range(4)]
+    durs = _fit(scenes, 30, target_frames=380, tolerance=0)  # base 4 x 96 = 384 frames
+    assert sum(durs) == 380
+
+
+def test_outro_asks_for_comments(q):
+    props, report = build_props(q, VideoSettings())
+    assert props.outro.title == "HOW MANY CLUES?"
+    outro = next(s for s in report.scenes if s["id"] == "outro")
+    assert "comment" in outro["speech"].lower()

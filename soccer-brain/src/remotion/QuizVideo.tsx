@@ -166,10 +166,19 @@ export const QuizVideo: React.FC<VideoProps> = (props) => {
         {/* Answer + outro */}
         {revealed && reveal && answerFade > 0 ? (
           <div style={{opacity: answerFade}}>
-            <AnswerBlock props={props} theme={theme} local={revealLocal} fontsReady={fontsReady} outroAt={outro ? outro.from - reveal.from : null} top={layout.answerTop} showDetails={layout.showDetails} />
+            <AnswerBlock
+              props={props}
+              theme={theme}
+              local={revealLocal}
+              fontsReady={fontsReady}
+              outroAt={outro ? outro.from - reveal.from : null}
+              top={layout.answerTop}
+              showDetails={layout.showDetails}
+              footer={!layout.keepPanel && outro && frame >= outro.from ? <OutroBlock props={props} theme={theme} local={frame - outro.from} inline /> : null}
+            />
           </div>
         ) : null}
-        {outro && frame >= outro.from ? <OutroBlock props={props} theme={theme} local={frame - outro.from} top={layout.keepPanel ? layout.answerTop + 20 : 1300 + (layout.showDetails ? props.answer.details.length * 56 : 0)} /> : null}
+        {layout.keepPanel && outro && frame >= outro.from ? <OutroBlock props={props} theme={theme} local={frame - outro.from} top={layout.answerTop + 20} /> : null}
       </AbsoluteFill>
 
       {inCountdown && countdown ? (

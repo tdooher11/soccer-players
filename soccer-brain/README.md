@@ -166,6 +166,10 @@ players.json (site master list)          data/verified-facts.json (sourced extra
 - **Timing comes from the narration.** Each narrated line is synthesized first, measured, and the
   scene stretched so speech is never cut. Spare time is trimmed back toward the target; if it's still
   long, speech is sped up slightly (max +12 %), and only then is the video extended (with a warning).
+- **Every video ends with a call-to-action**: "HOW MANY CLUES?" — the narrator asks viewers to
+  comment how many clues they needed (clubs / players for other formats). Change it per question with
+  `outroTitle`, `outroSubtitle` and `outroSpeech` in the question JSON, or edit `OUTRO` in
+  `backend/timeline.py` for everyone. Default length is 20 s to fit it without rushing.
 - **Formats are panels.** Background, header, mystery card, countdown, reveal, confetti, outro and
   audio are shared; each format adds a question panel (`src/remotion/formats/`) and a generator
   (`backend/trivia.py`, `backend/formats.py`).
@@ -227,7 +231,7 @@ or per player with "Spoken name" in the Players editor.
 - Award **years** are only known where `data/verified-facts.json` has them (currently Ballon d'Or).
   Other clues use counts from the master list ("won the World Cup twice").
 - Career lists are "main clubs"; Career Path videos say "major clubs", and False answers are flagged.
-- A render takes ~1.5–2 min per 18 s video on a 4-core machine (CPU only).
+- A render takes ~2 min per 20 s video on a 4-core machine (CPU only).
 - Some Commons photos/credits may fail to download if Wikimedia rate-limits you; re-run
   `./soccer-brain import` later (it only fetches what's missing).
 

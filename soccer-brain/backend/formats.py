@@ -13,7 +13,7 @@ from . import players as pstore
 from .models import AnswerSpec, Clue, ClubVisual, Difficulty, FlagVisual, Player, PlayerChip, Question
 from .trivia import TriviaError, _norm, fingerprint, validate_question
 
-DEFAULT_DURATION = {"guess_player": 18.0, "career_path": 18.0, "guess_club": 18.0, "who_won_more": 14.0, "true_false": 13.0}
+DEFAULT_DURATION = {"guess_player": 20.0, "career_path": 20.0, "guess_club": 20.0, "who_won_more": 16.0, "true_false": 15.0}
 
 STAT_LABEL = {
     "ballon_dor": ("Ballon d'Or awards", "Ballon d'Or"),
@@ -251,7 +251,6 @@ def true_false(p: Player, pool: list[Player], club: str | None, rng: random.Rand
             verdict="TRUE" if truth else "FALSE",
         ),
         revealSpeech=(f"True! {spoken} played for {club}!" if truth else f"False! {spoken} never played for {club}."),
-        outroSpeech="Did you get it?",
         durationSeconds=duration,
         warnings=warnings,
     )

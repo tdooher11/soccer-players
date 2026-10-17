@@ -336,7 +336,7 @@ def generate_guess_player(
     p: Player,
     *,
     difficulty: Difficulty = "medium",
-    duration: float = 18.0,
+    duration: float = 20.0,
     n_clues: int = 4,
     seed: int | None = None,
     avoid_fact_sets: set[frozenset[str]] | None = None,
