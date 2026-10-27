@@ -386,7 +386,7 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
         <button className="primary big" disabled={!question || building || (!!job && ['queued', 'running'].includes(job.status))} onClick={render}>
           🎬 Render MP4
         </button>
-        {job && <JobProgress jobId={job.id} />}
+        {job && <JobProgress jobId={job.id} onFinished={setJob} />}
       </section>
     </div>
   );

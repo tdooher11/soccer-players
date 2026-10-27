@@ -85,7 +85,15 @@ export const Dashboard: React.FC<{onCreate: () => void; goto: (t: Tab) => void}>
             Generate {batch.count} videos
           </button>
           {err && <div className="error">{err}</div>}
-          {job && <JobProgress jobId={job.id} onFinished={load} />}
+          {job && (
+            <JobProgress
+              jobId={job.id}
+              onFinished={(j) => {
+                setJob(j);
+                load();
+              }}
+            />
+          )}
         </section>
         <section className="panel">
           <h2>
