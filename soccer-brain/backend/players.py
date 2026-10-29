@@ -85,7 +85,11 @@ def load_players() -> list[Player]:
     if not p.exists():
         return []
     raw = json.loads(p.read_text())
-    return [Player.model_validate(x) for x in raw["players"]]
+    players = [Player.model_validate(x) for x in raw["players"]]
+    for x in players:  # photo not on this machine (e.g. not imported yet): use the jersey graphic
+        if x.image_path and not (settings.public_dir / x.image_path).is_file():
+            x.image_path = None
+    return players
 
 
 def save_players(players: list[Player]) -> None:
@@ -501,6 +505,10 @@ def import_master_list(*, download_images: bool = True, fetch_credits: bool = Tr
         img_url = (raw.get("imageUrl") or "").strip()
         rel = image_rel_path(pid)
         dest = settings.public_dir / rel
+        if img_url.startswith("http") and not commons_filename(img_url):
+            # News-site / agency photos aren't free to reuse: never put them in a video.
+            dest.unlink(missing_ok=True)
+            img_url = ""
         if img_url:
             ok = dest.exists()
             if not ok and img_url.startswith("assets/"):
@@ -509,7 +517,7 @@ def import_master_list(*, download_images: bool = True, fetch_credits: bool = Tr
                     dest.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copyfile(srcf, dest)
                     ok = True
-            elif not ok and download_images and img_url.startswith("http"):
+            elif not ok and download_images and commons_filename(img_url):  # only freely-licensed Commons photos
                 ok = _download(img_url, dest)
             if ok:
                 p.image_path = rel

@@ -56,7 +56,7 @@
       "physical": 78
     },
     "funFact": "He has his own museum in Madeira, Portugal called 'Museu CR7' and sleeps in 5 short 90-minute naps a day!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/Cristiano_Ronaldo_0876.jpg",
+    "imageUrl": "assets/players/cristiano-ronaldo.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/30893/cristiano-ronaldo"
   },
   {
@@ -102,7 +102,7 @@
       "physical": 65
     },
     "funFact": "His first contract with Barcelona was signed on a paper napkin at a restaurant!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Messi_2025.jpg",
+    "imageUrl": "assets/players/lionel-messi.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/30981/lionel-messi"
   },
   {
@@ -199,7 +199,7 @@
       "physical": 91
     },
     "funFact": "He meditates before every match and his dad Alfie also played in the Premier League for Manchester City!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/Erling_Haaland_June_2025.jpg",
+    "imageUrl": "assets/players/erling-haaland.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/737066/erling-haaland"
   },
   {
@@ -245,7 +245,7 @@
       "physical": 83
     },
     "funFact": "Birmingham City retired his #22 shirt when he was only 17 years old — the youngest player ever to get that honor!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Jude_Bellingham_Laureus_2024_%28cropped2%29.jpg",
+    "imageUrl": "assets/players/jude-bellingham.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/1077894/jude-bellingham"
   },
   {
@@ -337,7 +337,7 @@
       "physical": 58
     },
     "funFact": "He became the youngest ever goalscorer at a European Championship at just 16 years and 362 days old!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/df/Lamine_Yamal_in_2025_%28cropped2%29.jpg",
+    "imageUrl": "assets/players/lamine-yamal.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/1467236/lamine-yamal"
   },
   {
@@ -393,7 +393,7 @@
       "physical": 61
     },
     "funFact": "He was named after his father, who was also a professional footballer, and he can solve a Rubik's cube!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Neymar_2018.jpg",
+    "imageUrl": "assets/players/neymar.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/30890/neymar"
   },
   {
@@ -572,7 +572,7 @@
       "physical": 70
     },
     "funFact": "He made the entire Santiago Bernabéu (Real Madrid's stadium) give him a standing ovation — as a Barcelona player!",
-    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ronaldinho_in_2019.jpg?width=800",
+    "imageUrl": "assets/players/ronaldinho.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/242/ronaldinho"
   },
   {
@@ -628,7 +628,7 @@
       "physical": 75
     },
     "funFact": "He can bend a ball so well they made a movie about it — 'Bend It Like Beckham'!",
-    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/David%20Beckham%20Victoria%20Beckham%202019.jpg?width=800",
+    "imageUrl": "assets/players/david-beckham.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/3467/david-beckham"
   },
   {
@@ -679,7 +679,7 @@
       "physical": 78
     },
     "funFact": "His volley goal in the 2002 Champions League final is considered one of the greatest goals ever scored!",
-    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zinedine_Zidane.JPG?width=800",
+    "imageUrl": "assets/players/zinedine-zidane.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/784/zinedine-zidane"
   },
   {
@@ -816,7 +816,7 @@
       "physical": 86
     },
     "funFact": "He once said 'I didn't injure myself, I am Zlatan!' and has a black belt in taekwondo!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Zlatan_Ibrahimovi%C4%87_Euro_2012_vs_England.JPG",
+    "imageUrl": "assets/players/zlatan-ibrahimovic.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/36314/zlatan-ibrahimovic"
   },
   {
@@ -883,7 +883,7 @@
       "physical": 72
     },
     "funFact": "His 'Hand of God' and 'Goal of the Century' both happened in the same World Cup match against England in 1986!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Maradona-Mundial_86_con_la_copa.JPG",
+    "imageUrl": "assets/players/diego-maradona.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/7863/diego-maradona"
   },
   {
@@ -1149,7 +1149,7 @@
       "physical": 80
     },
     "funFact": "He was the first-ever captain of the Portland Timbers in MLS and lifted the 2015 MLS Cup trophy for the city!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Jewsbury_%2830261107612%29.jpg",
+    "imageUrl": "assets/players/jack-jewsbury.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/288028/jack-jewsbury"
   },
   {
@@ -1190,7 +1190,7 @@
       "physical": 62
     },
     "funFact": "He scored the fastest goal in MLS Cup history at just 27 seconds and is the Timbers' all-time leading scorer with 86 goals!",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Diego_Valeri_Portland_Timbers_vs_Colorado_Rapids_2016-10-16_%2830261185652%29.jpg",
+    "imageUrl": "assets/players/diego-valeri.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/105498/diego-valeri"
   },
   {
