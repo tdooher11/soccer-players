@@ -69,3 +69,15 @@ def test_current_club_requires_confirmation():
     assert not ps.current_club_is_fresh(p)
     ps.confirm_current_club(p.id, None)
     assert ps.current_club_is_fresh(ps.get_player(p.id))
+
+
+def test_trophy_years_derived_only_when_unambiguous():
+    r = ps.get_player("ronaldinho")
+    assert r.achievement("world_cup").years == [2002]
+    assert r.achievement("champions_league").years == [2006]
+    assert r.achievement("champions_league").provenance.source == "derived"
+    assert ps.get_player("cristiano-ronaldo").achievement("champions_league").years == [2008, 2014, 2016, 2017, 2018]
+    # Spain won in 2010 and 2026 and Ramos was young enough for both: count 1 vs 2 candidates -> no year.
+    assert ps.get_player("sergio-ramos").achievement("world_cup").years == []
+    # West Germany counts for Germany.
+    assert ps.get_player("franz-beckenbauer").achievement("world_cup").years == [1974]

@@ -184,6 +184,12 @@ players.json (site master list)          data/verified-facts.json (sourced extra
   match. Clues are ordered vague → give-away.
 - Facts not in the master list (e.g. Ballon d'Or **years**) live in `data/verified-facts.json` with a
   source URL and date, and are applied only when they agree with the curated counts.
+- **World Cup and Champions League years** are worked out from the official winners lists in
+  `data/competition-winners.json` (country / clubs + dated club spells + age 17–41) and used only when
+  the number of matching years equals the curated count exactly; otherwise the clue stays
+  "I won the Champions League!". A player's Ballon d'Ors, Champions Leagues and World Cups are always
+  used as clues when they have them, alongside their major clubs; birth decade, position, continental
+  cups and minor clubs are only used when needed to keep the answer unique.
 - **Current club is never used as a clue unless confirmed** in the Players page within the last 120
   days ("✓ confirm it's correct today"). Historical "played for" clues are used instead.
 - Hand-written clues are allowed but flagged "custom — check it's true".

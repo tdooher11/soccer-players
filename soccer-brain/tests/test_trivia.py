@@ -125,3 +125,16 @@ def test_players_with_few_facts_fall_back_to_fewer_clues():
     pool = _pool()
     counts = {len(trivia.generate_guess_player(p, seed=1, pool=pool).clues) for p in pool}
     assert counts <= {3, 4, 5} and 5 in counts
+
+
+def test_big_trophies_and_years_are_preferred():
+    pool = _pool()
+    for p in pool:
+        q = trivia.generate_guess_player(p, seed=1, pool=pool)
+        used = {c.fact.split(":")[0] for c in q.clues}
+        for k in ("ballon_dor", "champions_league", "world_cup"):
+            if p.achievement(k):
+                assert k in used, (p.id, k)
+    q = trivia.generate_guess_player(ps.get_player("ronaldinho"), difficulty="easy", seed=7, pool=pool)
+    texts = " ".join(c.text for c in q.clues)
+    assert "2006" in texts and "2002" in texts and "2005" in texts

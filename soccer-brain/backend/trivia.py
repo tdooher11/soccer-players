@@ -46,6 +46,9 @@ class Fact:
     source: str
     speech: list[str] | None = None
     matches: int = 0
+    # Supporting facts (birth decade, position, continental cups, minor clubs) are only used
+    # when the preferred ones can't make the answer unique on their own.
+    supporting: bool = False
 
 
 def _norm(s: str) -> str:
@@ -101,6 +104,7 @@ def build_facts(p: Player, clubs: dict) -> list[Fact]:
                 lambda x, pos=p.position: x.position == pos,
                 0.1,
                 _src(p, "position"),
+                supporting=True,
             )
         )
 
@@ -187,16 +191,28 @@ def build_facts(p: Player, clubs: dict) -> list[Fact]:
                 test = lambda x, n=a.count: (b := x.achievement("ballon_dor")) is not None and b.count == n
                 fame = 0.95
             facts.append(Fact(f"ballon_dor:{a.count}:{','.join(map(str, a.years))}", "award", texts, IconVisual(icon="ballon"), test, fame, src))
-        elif a.type == "world_cup":
-            wc = _women(p, "World Cup")
-            texts = [f"I won the {wc}!"] if a.count == 1 else [f"I won the {wc} {_ord_times(a.count)}!"]
-            test = (lambda x: (b := x.achievement("world_cup")) is not None and b.count >= 1) if a.count == 1 else (lambda x, n=a.count: (b := x.achievement("world_cup")) is not None and b.count == n)
-            facts.append(Fact(f"world_cup:{a.count}", "award", texts, IconVisual(icon="cup"), test, 0.55 if a.count == 1 else 0.85, src))
-        elif a.type == "champions_league":
-            cl = _women(p, "Champions League")
-            texts = [f"I won the {cl}!"] if a.count == 1 else [f"I won the {cl} {_ord_times(a.count)}!"]
-            test = (lambda x: (b := x.achievement("champions_league")) is not None and b.count >= 1) if a.count == 1 else (lambda x, n=a.count: (b := x.achievement("champions_league")) is not None and b.count == n)
-            facts.append(Fact(f"champions_league:{a.count}", "award", texts, IconVisual(icon="trophy"), test, 0.4 if a.count == 1 else 0.6, src))
+        elif a.type in ("world_cup", "champions_league"):
+            kind = a.type
+            name = _women(p, "World Cup" if kind == "world_cup" else "Champions League")
+            icon = "cup" if kind == "world_cup" else "trophy"
+            if a.count == 1 and a.years:
+                # One win, year known: "I won the World Cup in 2002!"
+                y = a.years[0]
+                texts = [f"I won the {name} in {y}!", f"In {y}, I won the {name}!"]
+                test = lambda x, k=kind, y=y: (b := x.achievement(k)) is not None and y in b.years
+                fame = 0.65 if kind == "world_cup" else 0.55
+                fid = f"{kind}:1:{y}"
+            elif a.count == 1:
+                texts = [f"I won the {name}!"]
+                test = lambda x, k=kind: (b := x.achievement(k)) is not None and b.count >= 1
+                fame = 0.55 if kind == "world_cup" else 0.4
+                fid = f"{kind}:1"
+            else:
+                texts = [f"I won the {name} {_ord_times(a.count)}!"]
+                test = lambda x, k=kind, n=a.count: (b := x.achievement(k)) is not None and b.count == n
+                fame = 0.85 if kind == "world_cup" else 0.6
+                fid = f"{kind}:{a.count}"
+            facts.append(Fact(fid, "award", texts, IconVisual(icon=icon), test, fame, src))
         elif a.type == "continental" and a.label:
             lab = _women(p, a.label)
             texts = [f"I won the {lab}!"] if a.count == 1 else [f"I won the {lab} {_ord_times(a.count)}!"]
@@ -209,6 +225,7 @@ def build_facts(p: Player, clubs: dict) -> list[Fact]:
                     lambda x, n=a.count, lab=a.label: (b := x.achievement("continental")) is not None and b.label == lab and b.count >= n,
                     0.45,
                     src,
+                    supporting=True,
                 )
             )
 
@@ -223,6 +240,7 @@ def build_facts(p: Player, clubs: dict) -> list[Fact]:
                 lambda x, d=decade: bool(x.dob) and int(x.dob[:4]) // 10 * 10 == d,
                 0.1,
                 _src(p, "dob"),
+                supporting=True,
             )
         )
     return facts
@@ -249,10 +267,20 @@ def _order(facts: tuple[Fact, ...]) -> list[Fact]:
     return country + rest
 
 
+MAJOR_CLUB_MIN_PLAYERS = 3  # a club at least this many of our players played for counts as "major"
+
+
+def _mark_minor_clubs(facts: list[Fact]) -> None:
+    """Club clues about little-known clubs become supporting (needs .matches = players at that club)."""
+    for f in facts:
+        if f.kind in ("club", "first_club") and f.matches < MAJOR_CLUB_MIN_PLAYERS:
+            f.supporting = True
+
+
 def _combo_ok(combo: tuple[Fact, ...]) -> bool:
     """House rules for a clue set: varied, and no two clues saying the same thing."""
     kinds = [f.kind for f in combo]
-    if kinds.count("award") > 2 or kinds.count("born") > 1 or kinds.count("position") > 1 or kinds.count("country") > 1:
+    if kinds.count("award") > 3 or kinds.count("born") > 1 or kinds.count("position") > 1 or kinds.count("country") > 1:
         return False
     if sum(k in ("club", "primary_club", "first_club", "current_club", "one_club") for k in kinds) > 3:
         return False
@@ -275,6 +303,7 @@ def choose_clues(
     facts = build_facts(p, clubs)
     for f in facts:
         f.matches = sum(1 for x in pool if f.test(x))
+    _mark_minor_clubs(facts)
     rng = random.Random(seed)
     target = DIFFICULTY_TARGET[difficulty]
     best: Candidate | None = None
@@ -290,6 +319,12 @@ def choose_clues(
         solved_at = next(i for i in range(1, len(ordered) + 1) if _matches(tuple(ordered[:i]), pool) == [p.id])
         mean_fame = sum(f.fame for f in combo) / len(combo)
         score = -abs(mean_fame - target) * 3
+        score -= 1.2 * sum(f.supporting for f in combo)  # prefer clubs + big trophies
+        # Include every big trophy the player has (Ballon d'Or, Champions League, World Cup) and
+        # their signature club: these are the clues fans remember. Ordering keeps them late.
+        big = sum(f.id.split(":")[0] in ("ballon_dor", "champions_league", "world_cup") for f in combo)
+        weight = 0.5 if difficulty == "hard" else 1.0
+        score += weight * (0.5 * big + (0.3 if "primary_club" in kinds else 0))
         score += 0.6 if "country" in kinds else 0
         score += 0.25 * (solved_at - 1) / max(1, len(ordered) - 1)
         if difficulty == "easy":
@@ -302,6 +337,23 @@ def choose_clues(
         if best is None or score > best.score:
             best = Candidate(tuple(ordered), score, m)
     return best
+
+
+def _texts_for(facts: list[Fact], seed: int) -> list[str]:
+    """Pick wording for each clue, avoiding two clues that open the same way ("In 1998, ...")."""
+    out: list[str] = []
+    for f in facts:
+        text = _pick_text(f, seed)
+
+        def clashes(t: str) -> int:
+            o = " ".join(t.split()[:2]).lower()
+            # "I won ..." repeating is natural; a repeated "In 1998, ..." is not, so it counts double.
+            return sum((2 if o.startswith("in ") else 1) for prev in out if " ".join(prev.split()[:2]).lower() == o)
+
+        if clashes(text):
+            text = min(f.texts, key=lambda t: (clashes(t), t != text))
+        out.append(text)
+    return out
 
 
 def _pick_text(f: Fact, seed: int) -> str:
@@ -375,7 +427,7 @@ def generate_guess_player(
             f"Not enough distinctive facts to make an unambiguous question about {p.name}. "
             "Add career clubs, a primary club or verified achievements in the player editor."
         )
-    clues = [Clue(text=_pick_text(f, seed), visual=f.visual, fact=f.id, source=f.source) for f in cand.facts]
+    clues = [Clue(text=t, visual=f.visual, fact=f.id, source=f.source) for f, t in zip(cand.facts, _texts_for(list(cand.facts), seed))]
     fp = fingerprint("guess_player", [p.id], [f.id for f in cand.facts])
     q = Question(
         id=f"{p.id}-{fp[:6]}",
@@ -412,6 +464,7 @@ def swap_clue(q: Question, index: int, *, seed: int | None = None, avoid: list[s
     facts = {f.id: f for f in build_facts(p, pstore.load_clubs())}
     for f in facts.values():
         f.matches = sum(1 for x in pool if f.test(x))
+    _mark_minor_clubs(list(facts.values()))
     keep = [facts[c.fact] for i, c in enumerate(q.clues) if i != index and c.fact in facts]
     kept_ids = {f.id for f in keep}
     current = facts.get(q.clues[index].fact or "")
@@ -435,7 +488,7 @@ def swap_clue(q: Question, index: int, *, seed: int | None = None, avoid: list[s
         raise TriviaError("No other clue keeps the answer unambiguous. Try swapping a different clue, or edit it by hand.")
 
     target = current.fame if current else DIFFICULTY_TARGET[q.difficulty]
-    options.sort(key=lambda f: abs(f.fame - target))
+    options.sort(key=lambda f: (f.supporting, abs(f.fame - target)))
     rng = random.Random(seed)
     new = rng.choice(options[: min(3, len(options))])
     text_seed = rng.randint(0, 10**6)

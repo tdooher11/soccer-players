@@ -335,7 +335,7 @@ def _achievements(raw: dict, cc: str, existing: list[Achievement]) -> list[Achie
             Achievement(
                 type=typ,
                 count=count,
-                years=prev.years if prev else [],
+                years=[],  # derived years are recomputed below; curated ones are kept above
                 label=continental_label(cc) if typ == "continental" else None,
                 provenance=Provenance(source="master-list", updatedAt=today()),
             )
@@ -362,6 +362,66 @@ def _apply_verified(p: Player, facts: dict) -> None:
         p.provenance["primary_club"] = Provenance(source="verified", sourceUrl=f["primaryClub"].get("sourceUrl"), verifiedAt=f["primaryClub"].get("verifiedAt"))
 
 
+def _tenures(p: Player) -> dict[str, list[tuple[int, int]]]:
+    """club -> [(start_year, end_year)] from the dated career timeline (open end = this year)."""
+    out: dict[str, list[tuple[int, int]]] = {}
+    for t in p.career_timeline:
+        m = re.match(r"(\d{4})\s*[-–]\s*(\d{4})?", t.years or "")
+        if m:
+            out.setdefault(t.club, []).append((int(m.group(1)), int(m.group(2)) if m.group(2) else date.today().year))
+    return out
+
+
+def derive_trophy_years(p: Player, winners: dict) -> None:
+    """Fill in WHICH years a player won the World Cup / Champions League.
+
+    Candidates come from the official winners lists, filtered by the player's country (World Cup)
+    or career clubs and dated tenures (Champions League), and an age window of 17-41. Years are
+    only recorded when the number of candidates equals the curated count exactly; otherwise the
+    clue stays count-only ("I won the Champions League!") rather than guessing.
+    """
+    if not p.dob:
+        return
+    born = int(p.dob[:4])
+    died = int(p.died[:4]) if p.died else 9999
+    aliases = winners.get("aliases", {})
+
+    def norm(name: str) -> str:
+        return aliases.get(name, name)
+
+    def plausible(year: int) -> bool:
+        return 17 <= year - born <= 41 and year <= died
+
+    def apply(kind: str, years: list[int], src: str) -> None:
+        a = p.achievement(kind)
+        if not a or a.provenance.source in ("manual", "verified") or a.years:
+            return
+        if len(years) == a.count:
+            a.years = sorted(years)
+            a.provenance = Provenance(source="derived", detail=f"years matched against the winners list ({a.count} of {a.count})", sourceUrl=src)
+
+    wc_key = "womens_world_cup" if p.category == "women" else "world_cup"
+    wc = winners.get(wc_key, {})
+    country = norm(p.country)
+    years = [int(y) for y, w in wc.get("winners", {}).items() if norm(w) == country and plausible(int(y))]
+    apply("world_cup", years, wc.get("sourceUrl"))
+
+    if p.category == "men":
+        cl = winners.get("champions_league", {})
+        tenure = _tenures(p)
+        clubs = set(p.career_clubs)
+        years = []
+        for y, w in cl.get("winners", {}).items():
+            year, club = int(y), norm(w)
+            if club not in clubs or not plausible(year):
+                continue
+            spans = tenure.get(club)
+            if spans and not any(start < year <= end for start, end in spans):
+                continue  # known to have been elsewhere that season
+            years.append(year)
+        apply("champions_league", years, cl.get("sourceUrl"))
+
+
 def import_master_list(*, download_images: bool = True, fetch_credits: bool = True) -> ImportReport:
     """Import / refresh from the master list without clobbering curated edits."""
     report = ImportReport()
@@ -370,6 +430,8 @@ def import_master_list(*, download_images: bool = True, fetch_credits: bool = Tr
         raw_players = raw_players.get("players", [])
     facts_path = settings.data_dir / "verified-facts.json"
     facts = json.loads(facts_path.read_text()).get("players", {}) if facts_path.exists() else {}
+    winners_path = settings.data_dir / "competition-winners.json"
+    winners = json.loads(winners_path.read_text()) if winners_path.exists() else {}
 
     clubs = parse_clubs_js(settings.master_js)
     clubs_path = settings.data_dir / "clubs.json"
@@ -433,6 +495,7 @@ def import_master_list(*, download_images: bool = True, fetch_credits: bool = Tr
             else:
                 p.provenance.pop("primary_club", None)
         _apply_verified(p, facts)
+        derive_trophy_years(p, winners)
 
         # Image: copy local file / download Commons file to a hash-named path.
         img_url = (raw.get("imageUrl") or "").strip()
