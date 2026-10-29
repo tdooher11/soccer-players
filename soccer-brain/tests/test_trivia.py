@@ -138,3 +138,18 @@ def test_big_trophies_and_years_are_preferred():
     q = trivia.generate_guess_player(ps.get_player("ronaldinho"), difficulty="easy", seed=7, pool=pool)
     texts = " ".join(c.text for c in q.clues)
     assert "2006" in texts and "2002" in texts and "2005" in texts
+
+
+def test_visual_for_edited_clue_text():
+    def pick(text):
+        v = trivia.visual_for_text(text)
+        return v and (getattr(v, "icon", None) or getattr(v, "code", None) or v.club.name)
+
+    assert pick("I played for Barcelona.") == "Barcelona"
+    assert pick("I joined Man Utd in 2003") == "Manchester United"
+    assert pick("I played for Inter Miami") == "Inter Miami"
+    assert pick("I won the Ballon d'Or in 2005!") == "ballon"
+    assert pick("I won the World Cup with Spain") == "cup"
+    assert pick("I'm Brazilian.") == "BR"
+    assert pick("I was born in the 1980s.") == "cake"
+    assert pick("My favourite food is pizza") is None  # nothing fits: keep the current icon

@@ -449,6 +449,11 @@ label.check {
 .clue-edit input {
   width: 100%;
 }
+.clue-edit select.icon-pick {
+  font-size: 12px;
+  padding: 1px 4px;
+  max-width: 220px;
+}
 .clue-edit input.speech {
   font-size: 13px;
   opacity: 0.8;

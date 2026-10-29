@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Player, type PlayerRef} from '@remotion/player';
 import {QuizVideo} from '../../remotion/QuizVideo';
 import type {VideoProps} from '../../shared/types';
-import {api, DEFAULT_SETTINGS, type BuildResult, type ClueQ, type Job, type PlayerRow, type Question, type Settings, type TTSProvider} from '../api';
+import {api, DEFAULT_SETTINGS, type BuildResult, type ClueQ, type Job, type PlayerRow, type Question, type Settings, type TTSProvider, type Visual} from '../api';
 import type {CreatorSeed} from '../App';
 import {JobProgress} from './JobProgress';
 
@@ -125,7 +125,28 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
     if (!question) return;
     const clues = question.clues.map((c, j) => (j === i ? {...c, ...patch, ...(patch.text !== undefined ? {fact: null, source: 'edited by hand'} : {})} : c));
     setQuestion({...question, clues});
+    if (patch.text !== undefined) matchIcon(i, patch.text);
   };
+  // After typing pauses, pick the icon/badge/flag that fits the new wording (if any word suggests one).
+  const iconTimers = useRef<Record<number, number>>({});
+  const matchIcon = (i: number, text: string) => {
+    window.clearTimeout(iconTimers.current[i]);
+    iconTimers.current[i] = window.setTimeout(async () => {
+      try {
+        const {visual} = await api.post<{visual: Visual | null}>('/api/clues/visual', {text});
+        if (!visual) return;
+        setQuestion((q) => q && {...q, clues: q.clues.map((c, j) => (j === i && c.text === text ? {...c, visual} : c))});
+      } catch {
+        /* keep the current icon */
+      }
+    }, 400);
+  };
+  const [iconOptions, setIconOptions] = useState<{label: string; visual: Visual}[]>([]);
+  const optionIds = question ? (question.playerIds.length ? question.playerIds : [question.playerId ?? '']).join(',') : '';
+  useEffect(() => {
+    if (!optionIds) return;
+    api.get<{label: string; visual: Visual}[]>(`/api/clues/visual-options?playerIds=${encodeURIComponent(optionIds)}`).then(setIconOptions, () => setIconOptions([]));
+  }, [optionIds]);
   // Facts already offered per clue slot, so repeated swaps keep giving something new.
   const triedRef = useRef<Record<number, string[]>>({});
   const [swapping, setSwapping] = useState<number | null>(null);
@@ -283,7 +304,23 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
                     onChange={(e) => setQuestion({...question, clues: question.clues.map((x, j) => (j === i ? {...x, speech: e.target.value || null} : x))})}
                   />
                   <div className="small muted">
-                    {c.visual.kind === 'flag' ? `🏳 flag ${c.visual.code}` : c.visual.kind === 'club' ? `🛡 ${c.visual.club.name}` : c.visual.kind === 'icon' ? `★ ${c.visual.icon}` : 'no icon'} ·{' '}
+                    <select
+                      className="icon-pick"
+                      title="Icon shown on this clue (changes automatically when you edit the text)"
+                      value={visualKey(c.visual)}
+                      onChange={(e) => {
+                        const o = iconOptions.find((x) => visualKey(x.visual) === e.target.value);
+                        if (o) updateClue(i, {visual: o.visual});
+                      }}
+                    >
+                      {!iconOptions.some((o) => visualKey(o.visual) === visualKey(c.visual)) && <option value={visualKey(c.visual)}>{visualLabel(c.visual)}</option>}
+                      {iconOptions.map((o) => (
+                        <option key={visualKey(o.visual)} value={visualKey(o.visual)}>
+                          {o.label}
+                        </option>
+                      ))}
+                    </select>{' '}
+                    ·{' '}
                     {c.fact ? <span title={c.source ?? ''}>fact: {c.fact} ({c.source})</span> : <span className="warn">custom — check it's true</span>}
                   </div>
                 </div>
@@ -465,3 +502,7 @@ const SpeakButton: React.FC<{text: string; settings: Settings}> = ({text, settin
     </button>
   );
 };
+
+const visualKey = (v: Visual) => (v.kind === 'flag' ? `flag:${v.code}` : v.kind === 'club' ? `club:${v.club.name}` : v.kind === 'icon' ? `icon:${v.icon}` : 'none');
+const visualLabel = (v: Visual) =>
+  v.kind === 'flag' ? `Flag: ${v.code}` : v.kind === 'club' ? `Club: ${v.club.name}` : v.kind === 'icon' ? `Icon: ${v.icon}` : 'No icon';

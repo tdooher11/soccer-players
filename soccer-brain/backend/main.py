@@ -290,6 +290,22 @@ def swap_clue(req: SwapReq):
     return q.model_dump(by_alias=True, mode="json")
 
 
+class ClueTextReq(BaseModel):
+    text: str
+
+
+@app.post("/api/clues/visual")
+def clue_visual(req: ClueTextReq):
+    """Icon/badge/flag that fits a hand-edited clue (null = keep the current one)."""
+    v = trivia.visual_for_text(req.text)
+    return {"visual": v.model_dump(by_alias=True, mode="json") if v else None}
+
+
+@app.get("/api/clues/visual-options")
+def clue_visual_options(playerIds: str = ""):
+    return trivia.visual_options([x for x in playerIds.split(",") if x])
+
+
 @app.post("/api/questions/validate")
 def validate(q: Question):
     return {"warnings": trivia.validate_question(q)}

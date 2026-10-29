@@ -446,6 +446,97 @@ def generate_guess_player(
     return q
 
 
+# ------------------------------------------------------------ clue icon from text
+
+# Nicknames people type for clubs -> the club's name in clubs.json.
+CLUB_ALIASES = {
+    "Man United": "Manchester United", "Man Utd": "Manchester United", "Man City": "Manchester City",
+    "Barca": "Barcelona", "Paris Saint-Germain": "PSG", "Paris Saint Germain": "PSG", "Inter": "Inter Milan",
+    "Milan": "AC Milan", "Bayern": "Bayern Munich", "Spurs": "Tottenham Hotspur", "Tottenham": "Tottenham Hotspur",
+    "Atletico": "Atlético Madrid", "Dortmund": "Borussia Dortmund", "Porto": "FC Porto", "Wolves": "Wolverhampton Wanderers",
+    "Leverkusen": "Bayer Leverkusen", "Salzburg": "RB Salzburg", "Leipzig": "RB Leipzig", "Schalke": "Schalke 04",
+    "West Ham": "West Ham United", "Leeds": "Leeds United", "Boca": "Boca Juniors", "Galaxy": "LA Galaxy",
+}
+DEMONYMS = {
+    "Argentine": "Argentina", "Argentinian": "Argentina", "Belgian": "Belgium", "Brazilian": "Brazil", "Canadian": "Canada",
+    "Colombian": "Colombia", "Croatian": "Croatia", "Czech": "Czechia", "Egyptian": "Egypt", "English": "England",
+    "French": "France", "German": "Germany", "Hungarian": "Hungary", "Italian": "Italy", "Mexican": "Mexico",
+    "Moroccan": "Morocco", "Dutch": "Netherlands", "Norwegian": "Norway", "Polish": "Poland", "Portuguese": "Portugal",
+    "Senegalese": "Senegal", "Korean": "South Korea", "Soviet": "Soviet Union", "Spanish": "Spain", "Swedish": "Sweden",
+    "American": "United States", "USA": "United States", "Uruguayan": "Uruguay", "Holland": "Netherlands",
+}
+# (pattern on lower-cased, accent-free text, icon) — checked in order, before clubs.
+_AWARD_ICONS = [
+    (r"ballon d ?or", "ballon"),
+    (r"world cup", "cup"),
+    (r"champions league|european cup|\beuros?\b|copa america|gold cup|africa cup|asian cup", "trophy"),
+    (r"golden boot|top scorer", "boot"),
+    (r"golden glove", "gloves"),
+]
+# Checked after clubs and countries (a club/country is the more specific picture).
+_LATE_ICONS = [
+    (r"la liga|serie a|bundesliga|premier league|ligue 1|copa|nations league|\bleague\b|\btitles?\b|trophy|trophies|\bcups?\b", "trophy"),
+    (r"goalkeeper|keeper|clean sheet|saves?\b", "gloves"),
+    (r"defender|defend|tackl", "whistle"),
+    (r"midfield", "shirt"),
+    (r"striker|forward|winger|goals?\b|scor", "boot"),
+    (r"\bborn\b|birthday|years old|\d0s\b", "cake"),
+    (r"shirt|jersey|number", "shirt"),
+    (r"captain|legend|record|best|famous", "star"),
+]
+
+
+def _fold(s: str) -> str:
+    """Strip accents but keep case: 'Atlético' -> 'Atletico'."""
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
+
+
+def visual_for_text(text: str, pool: list[Player] | None = None, clubs: dict | None = None):
+    """Best icon/badge/flag for a hand-written clue, or None if nothing in the text suggests one."""
+    pool = pool if pool is not None else pstore.load_players()
+    clubs = clubs if clubs is not None else pstore.load_clubs()
+    low = _norm(text)
+    for pat, icon in _AWARD_ICONS:
+        if re.search(pat, low):
+            return IconVisual(icon=icon)
+
+    folded = _fold(text)
+
+    def find(names: dict[str, str]):
+        # Longest first so "Inter Miami" wins over "Inter"; proper nouns, so match case.
+        hits = [(folded.find(_fold(k)), -len(k), names[k]) for k in names if re.search(rf"(?<![A-Za-z]){re.escape(_fold(k))}(?![A-Za-z])", folded)]
+        return min(hits)[2] if hits else None
+
+    club_names = {c: c for c in clubs} | {c: c for p in pool for c in p.career_clubs}
+    club = find(club_names | {k: v for k, v in CLUB_ALIASES.items() if v in club_names})
+    if club:
+        return ClubVisual(club=pstore.club_badge(club, clubs))
+    codes = {p.country: p.country_code for p in pool}
+    country = find({c: c for c in codes} | {k: v for k, v in DEMONYMS.items() if v in codes})
+    if country:
+        return FlagVisual(code=codes[country])
+    for pat, icon in _LATE_ICONS:
+        if re.search(pat, low):
+            return IconVisual(icon=icon)
+    return None
+
+
+def visual_options(player_ids: list[str], pool: list[Player] | None = None) -> list[dict]:
+    """Choices for the studio's icon picker: these players' flags and clubs, then every icon."""
+    pool = pool if pool is not None else pstore.load_players()
+    clubs = pstore.load_clubs()
+    chosen = [p for p in pool if p.id in player_ids]
+    out: list[dict] = [{"label": "No icon", "visual": NoVisual()}]
+    for cc, country in dict.fromkeys((p.country_code, p.country) for p in chosen):
+        out.append({"label": f"Flag: {country}", "visual": FlagVisual(code=cc)})
+    for club in dict.fromkeys(c for p in chosen for c in p.career_clubs):
+        out.append({"label": f"Club: {club}", "visual": ClubVisual(club=pstore.club_badge(club, clubs))})
+    labels = {"ballon": "Ballon d'Or", "cup": "World Cup", "trophy": "Trophy", "boot": "Boot", "gloves": "Gloves",
+              "shirt": "Shirt", "cake": "Birthday cake", "star": "Star", "whistle": "Whistle"}
+    out += [{"label": f"Icon: {v}", "visual": IconVisual(icon=k)} for k, v in labels.items()]
+    return [{"label": o["label"], "visual": o["visual"].model_dump(by_alias=True, mode="json")} for o in out]
+
+
 def swap_clue(q: Question, index: int, *, seed: int | None = None, avoid: list[str] | None = None, pool: list[Player] | None = None) -> Question:
     """Replace clue `index` with a different true fact, keeping the other clues as they are.
 

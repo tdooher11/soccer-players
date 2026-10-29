@@ -69,7 +69,9 @@ Optional: `cp .env.example .env` to change the channel name, default voice, or a
 
 - **Dashboard** – counts, recent videos, one-click **batch** generation.
 - **Create video** – pick a format + player, generate clues, edit any clue or what the narrator says,
-  press 🎲 next to a clue to swap just that one for a different true fact (Guess the Player),
+  press 🎲 next to a clue to swap just that one for a different true fact (Guess the Player);
+  when you rewrite a clue its icon follows the words (a club, country, Ballon d'Or, World Cup…),
+  or pick one from the dropdown under the clue;
   hear each line (▶), change theme / text size / voice / speed / music, and watch the **live preview**
   (play, pause, scrub, jump to any scene). Visual tweaks apply instantly; text and voice changes
   re-synthesize narration in a second or two. Then **Render MP4**.
