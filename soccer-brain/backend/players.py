@@ -198,7 +198,9 @@ def commons_filename(url: str) -> str | None:
     return unquote(m.group(1))
 
 
-_UA = {"User-Agent": "SoccerBrainStudio/1.0 (local trivia video tool; contact via repo owner)"}
+# Wikimedia asks for a descriptive agent with a contact URL and refuses (403) vague ones.
+_UA = {"User-Agent": "SoccerBrainStudio/1.0 (https://github.com/tdooher11/soccer-players; local trivia video tool) python-httpx"}
+_credits_blocked = False  # set after Wikimedia refuses once, so an import doesn't keep retrying
 
 
 def _polite_get(url: str, **kw):
@@ -236,6 +238,9 @@ def _download(url: str, dest: Path) -> bool:
 
 
 def fetch_commons_credit(filename: str) -> ImageCredit | None:
+    global _credits_blocked
+    if _credits_blocked:
+        return None
     try:
         r = _polite_get(
             "https://commons.wikimedia.org/w/api.php",
@@ -252,6 +257,9 @@ def fetch_commons_credit(filename: str) -> ImageCredit | None:
         )
     except Exception as e:
         log.warning("credit lookup failed for %s: %s", filename, e)
+        if "403" in str(e) or "429" in str(e):
+            _credits_blocked = True
+            log.warning("Wikimedia is refusing requests right now; skipping the remaining photo credits (re-run import later).")
         return None
 
 
