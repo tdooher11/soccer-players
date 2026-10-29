@@ -20,7 +20,10 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
   const [format, setFormat] = useState('guess_player');
   const [playerIds, setPlayerIds] = useState<string[]>(['ronaldinho']);
   const [difficulty, setDifficulty] = useState('medium');
-  const [duration, setDuration] = useState(20);
+  const [duration, setDuration] = useState(23);
+  // Length follows the clue count / format unless the user moves the slider.
+  const [durationTouched, setDurationTouched] = useState(false);
+  const [clueCount, setClueCount] = useState(5);
   const [extra, setExtra] = useState<{stat?: string; statement?: string; club?: string}>({});
   const [question, setQuestion] = useState<Question | null>(null);
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
@@ -62,12 +65,14 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
         format: f,
         playerIds: ids.filter(Boolean),
         difficulty,
-        duration,
+        duration: durationTouched ? duration : null,
         seed: Math.floor(Math.random() * 1e6),
         extra,
+        clues: f === 'guess_player' ? clueCount : null,
       });
       triedRef.current = {};
       setQuestion(q);
+      if (!durationTouched) setDuration(q.durationSeconds);
     } catch (e) {
       setErr(String(e));
     }
@@ -228,9 +233,29 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
               <input value={extra.statement ?? ''} placeholder="auto" onChange={(e) => setExtra({...extra, statement: e.target.value || undefined})} />
             </label>
           )}
+          {format === 'guess_player' && (
+            <label>
+              Clues
+              <select value={clueCount} onChange={(e) => setClueCount(+e.target.value)}>
+                <option value={5}>5 clues</option>
+                <option value={4}>4 clues</option>
+                <option value={3}>3 clues</option>
+              </select>
+            </label>
+          )}
           <label>
-            Target length: {duration}s
-            <input type="range" min={14} max={30} step={1} value={duration} onChange={(e) => setDuration(+e.target.value)} />
+            Target length: {duration}s {durationTouched ? '' : <span className="small muted">(auto)</span>}
+            <input
+              type="range"
+              min={12}
+              max={35}
+              step={1}
+              value={duration}
+              onChange={(e) => {
+                setDuration(+e.target.value);
+                setDurationTouched(true);
+              }}
+            />
           </label>
         </div>
         <button className="primary" onClick={() => generate()} disabled={!playerIds.filter(Boolean).length}>

@@ -95,6 +95,7 @@ class GenerateReq(BaseModel):
     duration: float | None = None
     seed: int | None = None
     extra: dict = Field(default_factory=dict)
+    clues: int | None = Field(default=None, ge=3, le=5)
 
 
 class ProjectReq(BaseModel):
@@ -125,6 +126,7 @@ class BatchReq(BaseModel):
     country: str | None = None
     status: Literal["any", "active", "retired"] = "any"
     position: str | None = None
+    clues: int | None = Field(default=None, ge=3, le=5)
     settings: VideoSettings = Field(default_factory=VideoSettings)
     dry_run: bool = Field(False, alias="dryRun")
 
@@ -275,7 +277,9 @@ def tts_preview(req: TTSReq):
 
 @app.post("/api/questions/generate")
 def generate(req: GenerateReq):
-    q = production.generate_question(req.format, req.player_ids, difficulty=req.difficulty, duration=req.duration, seed=req.seed, extra=req.extra)
+    q = production.generate_question(
+        req.format, req.player_ids, difficulty=req.difficulty, duration=req.duration, seed=req.seed, extra=req.extra, clues=req.clues
+    )
     return q.model_dump(by_alias=True, mode="json")
 
 
@@ -322,7 +326,8 @@ def start_batch(req: BatchReq):
     def run(on_event):
         return production.batch(
             req.count, fmt=req.format, difficulty=req.difficulty, duration=req.duration, s=req.settings, days=req.days,
-            country=req.country or None, retired=retired, position=req.position or None, dry_run=req.dry_run, on_event=on_event,
+            country=req.country or None, retired=retired, position=req.position or None, clues=req.clues, dry_run=req.dry_run,
+            on_event=on_event,
         )
 
     return _enqueue("batch", run, {"count": req.count})

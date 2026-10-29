@@ -143,7 +143,12 @@ def _needs(scenes: list[PlannedScene], fps: int) -> list[int]:
 
 def _fit(scenes: list[PlannedScene], fps: int, target_frames: int, tolerance: int = 0) -> list[int]:
     needs = _needs(scenes, fps)
-    base = [round(sc.base_seconds * fps) for sc in scenes]
+    # Round scene *boundaries*, not each scene, so the base lengths add up to the target exactly.
+    edges, acc = [0], 0.0
+    for sc in scenes:
+        acc += sc.base_seconds
+        edges.append(round(acc * fps))
+    base = [b - a for a, b in zip(edges, edges[1:])]
     durs = [max(b, n) for b, n in zip(base, needs)]
     excess = sum(durs) - (target_frames + tolerance)
     if excess > 0:

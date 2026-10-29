@@ -155,7 +155,7 @@ def cmd_question(a) -> None:
     from .production import generate_question
 
     ids = [_resolve_player(x) for x in a.player or []]
-    q = generate_question(a.format, ids, difficulty=a.difficulty, duration=a.duration, seed=a.seed, extra=_format_extra(a))
+    q = generate_question(a.format, ids, difficulty=a.difficulty, duration=a.duration, seed=a.seed, extra=_format_extra(a), clues=a.clues)
     data = json.dumps(q.model_dump(by_alias=True, mode="json"), indent=1, ensure_ascii=False)
     if a.out:
         Path(a.out).write_text(data)
@@ -194,7 +194,7 @@ def cmd_render(a) -> None:
         q = Question.model_validate(json.loads(Path(a.question).read_text()))
     elif a.player or a.format == "guess_club":
         ids = [_resolve_player(x) for x in a.player or []]
-        q = generate_question(a.format, ids, difficulty=a.difficulty, duration=a.duration, seed=a.seed, extra=_format_extra(a))
+        q = generate_question(a.format, ids, difficulty=a.difficulty, duration=a.duration, seed=a.seed, extra=_format_extra(a), clues=a.clues)
     else:
         raise SystemExit("Give --player NAME or --question FILE")
     s = _video_settings(a)
@@ -230,6 +230,7 @@ def cmd_batch(a) -> None:
         position=a.position,
         player_ids=[_resolve_player(x) for x in a.player] if a.player else None,
         seed=a.seed,
+        clues=a.clues,
         dry_run=a.dry_run,
         on_event=_progress_printer(),
     )
@@ -343,6 +344,7 @@ def main(argv: list[str] | None = None) -> None:
         p.add_argument("--difficulty", default="medium", choices=["easy", "medium", "hard"])
         p.add_argument("--duration", type=float, help="target length in seconds (default depends on format; 18 for Guess the Player)")
         p.add_argument("--seed", type=int)
+        p.add_argument("--clues", type=int, choices=[3, 4, 5], help="number of clues for Guess the Player (default 5)")
         p.add_argument("--club", help="guess_club: the club (default: best shared club)")
         p.add_argument("--historical", action="store_true", help="guess_club: allow former teammates (default)")
         p.add_argument("--stat", help="who_won_more: ballon_dor | world_cup | champions_league")
@@ -375,6 +377,7 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--retired", action="store_true")
     p.add_argument("--active", action="store_true")
     p.add_argument("--position", choices=["GK", "DEF", "MID", "FWD"])
+    p.add_argument("--clues", type=int, choices=[3, 4, 5], help="clues per Guess the Player video (default 5)")
     p.add_argument("--player", action="append", help="restrict to these players")
     p.add_argument("--seed", type=int)
     p.add_argument("--dry-run", action="store_true", help="generate questions + narration only, no rendering")

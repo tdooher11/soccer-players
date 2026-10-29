@@ -22,26 +22,30 @@ type Props = {
   textScale: number;
   fontsReady: boolean;
   label?: string;
+  /** card height in px (150 for up to 4 clues; smaller when there are 5) */
+  height?: number;
 };
 
-const Visual: React.FC<{clue: Clue}> = ({clue}) => {
+const Visual: React.FC<{clue: Clue; k: number}> = ({clue, k}) => {
   const v = clue.visual;
-  if (v.kind === 'flag') return <Flag code={v.code} height={62} />;
-  if (v.kind === 'club') return <ClubShield club={v.club} size={78} />;
-  if (v.kind === 'icon') return <Icon id={v.icon} size={86} />;
+  if (v.kind === 'flag') return <Flag code={v.code} height={Math.round(62 * k)} />;
+  if (v.kind === 'club') return <ClubShield club={v.club} size={Math.round(78 * k)} />;
+  if (v.kind === 'icon') return <Icon id={v.icon} size={Math.round(86 * k)} />;
   return null;
 };
 
-export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isActive, theme, textScale, fontsReady, label}) => {
+export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isActive, theme, textScale, fontsReady, label, height = CARD_H}) => {
+  const k = Math.min(1, height / CARD_H); // shrink factor for badge, icon and fonts
+  const badge = Math.round(92 * k);
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const local = frame - enterAt;
   const enter = spring({frame: local, fps, config: {damping: 14, stiffness: 160, mass: 0.7}});
   const hasVisual = clue.visual.kind !== 'none';
-  const textWidth = CARD_W - 40 - 92 - 24 - (hasVisual ? 118 : 0) - 28;
+  const textWidth = CARD_W - 40 - badge - 24 - (hasVisual ? Math.round(94 * k) + 24 : 0) - 28;
 
   const size = useMemo(() => {
-    const max = Math.round(TYPE.clue.size * textScale);
+    const max = Math.round(TYPE.clue.size * textScale * k);
     if (!fontsReady) return {size: max * 0.85, lines: 1};
     return fitText({
       text: clue.text,
@@ -50,10 +54,10 @@ export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isA
       maxWidth: textWidth,
       maxLines: 2,
       maxSize: max,
-      multiLineMax: Math.round(48 * Math.min(textScale, 1.05)),
-      minSize: 30,
+      multiLineMax: Math.round(48 * Math.min(textScale, 1.05) * k),
+      minSize: 28,
     });
-  }, [clue.text, textScale, fontsReady, textWidth]);
+  }, [clue.text, textScale, fontsReady, textWidth, k]);
 
   if (local < 0) return null;
 
@@ -66,7 +70,7 @@ export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isA
     <div
       style={{
         width: CARD_W,
-        height: CARD_H,
+        height,
         transform: `translateX(${x}px) scale(${scale})`,
         opacity: enter * (isActive ? 1 : 0.8),
         borderRadius: 30,
@@ -99,8 +103,8 @@ export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isA
       {/* number badge */}
       <div
         style={{
-          width: 92,
-          height: 92,
+          width: badge,
+          height: badge,
           borderRadius: '50%',
           flexShrink: 0,
           display: 'flex',
@@ -111,7 +115,7 @@ export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isA
           color: isActive ? '#1b1300' : theme.accent,
           fontFamily: TYPE.title.family,
           fontWeight: 900,
-          fontSize: 52,
+          fontSize: Math.round(52 * k),
           fontStyle: 'italic',
           boxShadow: isActive ? '0 6px 16px rgba(0,0,0,0.4)' : undefined,
         }}
@@ -119,8 +123,8 @@ export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isA
         {number}
       </div>
       {hasVisual ? (
-        <div style={{width: 94, display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0}}>
-          <Visual clue={clue} />
+        <div style={{width: Math.round(94 * k), display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0}}>
+          <Visual clue={clue} k={k} />
         </div>
       ) : null}
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 0, flex: 1}}>
@@ -128,7 +132,7 @@ export const ClueCard: React.FC<Props> = ({clue, number, enterAt, activeFor, isA
           style={{
             fontFamily: TYPE.clueLabel.family,
             fontWeight: TYPE.clueLabel.weight,
-            fontSize: TYPE.clueLabel.size,
+            fontSize: Math.round(TYPE.clueLabel.size * Math.max(k, 0.85)),
             letterSpacing: TYPE.clueLabel.tracking,
             color: isActive ? theme.accent : theme.textDim,
             marginBottom: 2,

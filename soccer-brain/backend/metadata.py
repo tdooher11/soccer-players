@@ -38,7 +38,9 @@ def build(q: Question, players: dict[str, Player], *, video_file: str, duration:
             f"Who Is This {demonym} {pos}? 🤔⚽" if demonym else "Who Is This Player? 🤔⚽",
             "Only Real Fans Get This One! Guess the Player ⚽",
         ]
-        hook = "Four clues. One mystery player. Can you guess before the countdown ends?" if len(q.clues) == 4 else "Can you guess the player before the countdown ends?"
+        words = {3: "Three", 4: "Four", 5: "Five"}
+        n = len(q.clues)
+        hook = f"{words[n]} clues. One mystery player. Can you guess before the countdown ends?" if n in words else "Can you guess the player before the countdown ends?"
     elif q.format == "career_path":
         titles = ["Guess the Player From Their Career Path! ⚽", "Whose Career Is This? 🤔⚽", "Can You Name This Player From Their Clubs? ⚽"]
         hook = "Follow the clubs and name the player!"

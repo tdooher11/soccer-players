@@ -85,8 +85,15 @@ export const QuizVideo: React.FC<VideoProps> = (props) => {
   const flip = reveal ? spring({frame: revealLocal, fps, config: {damping: 15, stiffness: 120, mass: 0.8}}) : 0;
   const bob = Math.sin(frame / 18) * 7;
   const qPulse = 1 + (st.latestClue >= 0 ? Math.max(0, 1 - (frame - (st.clueScenes[st.latestClue]?.from ?? 0)) / 10) * 0.18 : 0);
-  const heroScale = revealed ? interpolate(flip, [0, 1], [1, 1.32]) : inCountdown ? interpolate(spring({frame: cdLocal, fps, config: {damping: 18}}), [0, 1], [1, 0.9]) : 1;
-  const heroY = revealed ? interpolate(flip, [0, 1], [HERO_CY, 700]) : HERO_CY;
+  // With 5 clue cards the mystery card shrinks a little so the stack fits.
+  const heroBase = props.format === 'guess_player' && props.clues.length > 4 ? 0.88 : 1;
+  const heroCy = heroBase < 1 ? HERO_CY - 22 : HERO_CY;
+  const heroScale = revealed
+    ? interpolate(flip, [0, 1], [heroBase, 1.32])
+    : inCountdown
+      ? interpolate(spring({frame: cdLocal, fps, config: {damping: 18}}), [0, 1], [heroBase, heroBase * 0.9])
+      : heroBase;
+  const heroY = revealed ? interpolate(flip, [0, 1], [heroCy, 700]) : heroCy;
   const shake = revealLocal >= 0 && revealLocal < 10 ? Math.sin(revealLocal * 3.1) * (10 - revealLocal) * 1.6 : 0;
   const heroDim = inCountdown ? 0.35 : 1;
 

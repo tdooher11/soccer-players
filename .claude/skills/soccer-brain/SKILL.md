@@ -17,6 +17,7 @@ See `soccer-brain/README.md` for install steps.
 | Request | Command |
 |---|---|
 | "Ronaldo trivia video" | `./soccer-brain render --player "cristiano ronaldo"` |
+| "only 4 clues" | add `--clues 4` (3–5; default 5; players with few facts may get fewer) |
 | "easy one for younger fans" | add `--difficulty easy` (and optionally `--text-scale 1.15 --speed 0.9`) |
 | "career-path question about Zlatan" | `./soccer-brain render --format career_path --player zlatan` |
 | "Messi vs Ronaldo, who won more" | `./soccer-brain render --format who_won_more --player messi --player "cristiano ronaldo" --stat ballon_dor` |

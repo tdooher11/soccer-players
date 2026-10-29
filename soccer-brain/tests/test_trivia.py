@@ -110,3 +110,18 @@ def test_swap_clue_only_for_guess_player():
     q = generate_question("career_path", ["kaka"], seed=1)
     with pytest.raises(trivia.TriviaError):
         trivia.swap_clue(q, 0)
+
+
+def test_defaults_to_five_clues_with_matching_length():
+    from backend.production import generate_question
+
+    q = generate_question("guess_player", ["ronaldinho"], seed=7)
+    assert len(q.clues) == 5 and q.duration_seconds == trivia.seconds_for_clues(5)
+    q4 = generate_question("guess_player", ["ronaldinho"], seed=7, clues=4)
+    assert len(q4.clues) == 4 and q4.duration_seconds == 20.0
+
+
+def test_players_with_few_facts_fall_back_to_fewer_clues():
+    pool = _pool()
+    counts = {len(trivia.generate_guess_player(p, seed=1, pool=pool).clues) for p in pool}
+    assert counts <= {3, 4, 5} and 5 in counts

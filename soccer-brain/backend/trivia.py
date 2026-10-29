@@ -336,6 +336,14 @@ def fingerprint(fmt: str, player_ids: list[str], fact_ids: list[str]) -> str:
     return hashlib.sha1(f"{fmt}|{','.join(sorted(player_ids))}|{','.join(sorted(fact_ids))}".encode()).hexdigest()[:16]
 
 
+DEFAULT_CLUES = 5
+
+
+def seconds_for_clues(n: int) -> float:
+    """Default video length: ~3 s per clue plus countdown, reveal and outro (4 clues = 20 s)."""
+    return 11.0 + 3.0 * (n - 1)
+
+
 class TriviaError(ValueError):
     pass
 
@@ -344,19 +352,24 @@ def generate_guess_player(
     p: Player,
     *,
     difficulty: Difficulty = "medium",
-    duration: float = 20.0,
-    n_clues: int = 4,
+    duration: float | None = None,
+    n_clues: int = DEFAULT_CLUES,
     seed: int | None = None,
     avoid_fact_sets: set[frozenset[str]] | None = None,
     pool: list[Player] | None = None,
 ) -> Question:
-    """Build a Guess-the-Player question. `avoid_fact_sets` = clue sets already used."""
+    """Build a Guess-the-Player question. `avoid_fact_sets` = clue sets already used.
+
+    Uses `n_clues` clues when the player has enough distinctive facts, otherwise fewer (min 3).
+    `duration` defaults to a length that fits the clue count (see seconds_for_clues)."""
     pool = pool if pool is not None else pstore.load_players()
     seed = seed if seed is not None else random.randint(0, 10**6)
     avoid_sets = avoid_fact_sets or set()
-    cand = choose_clues(p, pool, difficulty, n_clues, seed, avoid_sets)
-    if cand is None and n_clues < 5:
-        cand = choose_clues(p, pool, difficulty, n_clues + 1, seed, avoid_sets)
+    cand = None
+    for n in range(max(3, n_clues), 2, -1):
+        cand = choose_clues(p, pool, difficulty, n, seed, avoid_sets)
+        if cand is not None:
+            break
     if cand is None:
         raise TriviaError(
             f"Not enough distinctive facts to make an unambiguous question about {p.name}. "
@@ -374,7 +387,7 @@ def generate_guess_player(
         introSpeech=INTROS[seed % len(INTROS)],
         clues=clues,
         answer=answer_for(p),
-        durationSeconds=duration,
+        durationSeconds=duration if duration is not None else seconds_for_clues(len(clues)),
         fingerprint=fp,
     )
     q.warnings = validate_question(q, pool)

@@ -84,7 +84,8 @@ For frame-by-frame timeline inspection there's also Remotion Studio:
 ## 3. Make videos from the command line
 
 ```bash
-./soccer-brain render --player ronaldinho                       # auto clues, medium difficulty
+./soccer-brain render --player ronaldinho                       # 5 auto clues, medium difficulty
+./soccer-brain render --player ronaldinho --clues 4             # 3, 4 or 5 clues (default 5)
 ./soccer-brain render --player "kylian mbappe" --difficulty easy --speed 0.9 --text-scale 1.15
 ./soccer-brain render --question questions/ronaldinho-sample.json   # a hand-written / edited question
 

@@ -52,11 +52,14 @@ def generate_question(
     duration: float | None = None,
     seed: int | None = None,
     extra: dict | None = None,
+    clues: int | None = None,
 ) -> Question:
-    """Dispatch to the format generators. `extra` carries format options (club, statement...)."""
+    """Dispatch to the format generators. `extra` carries format options (club, statement...).
+    `clues` = number of clues for Guess the Player (default 5)."""
     from .formats import DEFAULT_DURATION
 
-    duration = duration or DEFAULT_DURATION.get(fmt, 18.0)
+    if fmt != "guess_player":
+        duration = duration or DEFAULT_DURATION.get(fmt, 18.0)
     pool = pstore.load_players()
     by_id = {p.id: p for p in pool}
     missing = [pid for pid in player_ids if pid not in by_id]
@@ -65,7 +68,13 @@ def generate_question(
     if fmt == "guess_player":
         p = by_id[player_ids[0]]
         return trivia.generate_guess_player(
-            p, difficulty=difficulty, duration=duration, seed=seed, avoid_fact_sets=store.used_fact_sets(p.id), pool=pool
+            p,
+            difficulty=difficulty,
+            duration=duration,
+            n_clues=clues or trivia.DEFAULT_CLUES,
+            seed=seed,
+            avoid_fact_sets=store.used_fact_sets(p.id),
+            pool=pool,
         )
     from . import formats
 
@@ -219,6 +228,7 @@ def batch(
     position: str | None = None,
     player_ids: list[str] | None = None,
     seed: int | None = None,
+    clues: int | None = None,
     dry_run: bool = False,
     on_event=None,
 ) -> BatchResult:
@@ -244,7 +254,7 @@ def batch(
                 continue
             ids.append(rng.choice(mates).id)
         try:
-            q = generate_question(fmt, ids, difficulty=difficulty, duration=duration, seed=rng.randint(0, 10**6))
+            q = generate_question(fmt, ids, difficulty=difficulty, duration=duration, seed=rng.randint(0, 10**6), clues=clues)
         except trivia.TriviaError as e:
             result.skipped.append(f"{p.id}: {e}")
             continue
