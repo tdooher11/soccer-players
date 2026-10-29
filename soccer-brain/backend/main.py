@@ -429,5 +429,7 @@ def spa(path: str):
             return FileResponse(f)
     index = _dist / "index.html"
     if index.exists():
-        return FileResponse(index)
+        # Always re-check the page so a rebuilt UI shows up without clearing the browser cache
+        # (the JS/CSS it points to have content-hashed names, so they can be cached).
+        return FileResponse(index, headers={"Cache-Control": "no-cache"})
     raise HTTPException(404, "UI not built — run `./soccer-brain studio --build`")
