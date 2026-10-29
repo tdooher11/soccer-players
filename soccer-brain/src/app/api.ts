@@ -100,6 +100,8 @@ export type History = {
   warnings: string[];
   thumbnail: string | null;
   videoUrl: string | null;
+  downloadUrl: string | null;
+  downloadName: string | null;
   metadataUrl: string | null;
   batchId?: string | null;
 };

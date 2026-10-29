@@ -43,7 +43,17 @@ export const JobProgress: React.FC<{jobId: string; onFinished?: (j: Job) => void
         <ul className="job-results">
           {job.result.rendered.map((r: any, i: number) => (
             <li key={i}>
-              ✓ {r.video ? <a href={`/output/${r.video}`} target="_blank" rel="noreferrer">{r.outputDir}</a> : r.questionId} {r.title ? <span className="muted">— {r.title}</span> : null}
+              ✓ {r.video ? (
+                <>
+                  <a href={`/output/${r.video}`} target="_blank" rel="noreferrer">
+                    {r.outputDir}
+                  </a>{' '}
+                  · <a href={`/api/history/${r.id}/download`}>Download MP4</a>
+                </>
+              ) : (
+                r.questionId
+              )}{' '}
+              {r.title ? <span className="muted">— {r.title}</span> : null}
             </li>
           ))}
           {job.result.failed.map((r: any, i: number) => (

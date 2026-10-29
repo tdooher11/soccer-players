@@ -101,6 +101,36 @@ def recently_used_ids(days: int) -> set[str]:
     return out
 
 
+FORMAT_LABEL = {
+    "guess_player": "Guess the Player",
+    "career_path": "Career Path",
+    "who_won_more": "Who Won More",
+    "guess_club": "Guess the Club",
+    "true_false": "True or False",
+}
+
+
+def download_name(record: dict, names: dict[str, str]) -> str:
+    """Friendly file name for a rendered video, e.g. 'Ronaldinho - Guess the Player - 2026-10-29.mp4'.
+
+    `names` maps player id -> display name. Characters Windows forbids in file names are removed.
+    """
+    import re
+
+    fmt = record.get("format", "")
+    people = [names.get(pid, pid) for pid in record.get("playerIds", [])]
+    if fmt == "guess_club":
+        subject = (record.get("answer") or "Club").title()
+    elif fmt == "who_won_more" and len(people) >= 2:
+        subject = " vs ".join(n.split()[-1] for n in people[:2])
+    else:
+        subject = people[0] if people else (record.get("answer") or "Video").title()
+    day = (record.get("createdAt") or "")[:10]
+    name = " - ".join(x for x in (subject, FORMAT_LABEL.get(fmt, fmt), day) if x)
+    name = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "", name).strip(" .")
+    return f"{name or 'video'}.mp4"
+
+
 def rel_output(path: Path) -> str:
     try:
         return str(path.relative_to(settings.output_dir))

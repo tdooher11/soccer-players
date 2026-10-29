@@ -45,8 +45,8 @@ export const HistoryPage: React.FC<{onEdit: (q: Question, s: Settings) => void}>
               {h.error && <div className="error small">{h.error.slice(0, 240)}</div>}
               {h.warnings?.length > 0 && <div className="warn small">⚠ {h.warnings.join(' · ')}</div>}
               <div className="actions">
-                {h.videoUrl && (
-                  <a href={h.videoUrl} download>
+                {h.downloadUrl && (
+                  <a href={h.downloadUrl} download={h.downloadName ?? true}>
                     Download MP4
                   </a>
                 )}

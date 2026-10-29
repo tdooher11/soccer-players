@@ -353,16 +353,32 @@ def job(jid: str):
 
 @app.get("/api/history")
 def history():
+    names = {p.id: pstore.display_name(p.name) for p in pstore.load_players()}
     out = []
     for h in reversed(store.list_history()):
         d = dict(h)
         folder = settings.output_dir / h.get("outputDir", "")
         d["thumbnail"] = f"/output/{h['outputDir']}/thumbnail.png" if (folder / "thumbnail.png").exists() else None
         d["videoUrl"] = f"/output/{h['video']}" if h.get("video") else None
+        d["downloadUrl"] = f"/api/history/{h['id']}/download" if h.get("video") else None
+        d["downloadName"] = store.download_name(h, names) if h.get("video") else None
         meta = folder / "metadata.json"
         d["metadataUrl"] = f"/output/{h['outputDir']}/metadata.json" if meta.exists() else None
         out.append(d)
     return out
+
+
+@app.get("/api/history/{rid}/download")
+def history_download(rid: str):
+    """The rendered MP4, saved under the player's name instead of video.mp4."""
+    h = next((x for x in store.list_history() if x["id"] == rid), None)
+    if not h or not h.get("video"):
+        raise HTTPException(404, "video not found")
+    path = (settings.output_dir / h["video"]).resolve()
+    if settings.output_dir.resolve() not in path.parents or not path.is_file():
+        raise HTTPException(404, "video file missing")
+    names = {p.id: pstore.display_name(p.name) for p in pstore.load_players()}
+    return FileResponse(path, media_type="video/mp4", filename=store.download_name(h, names))
 
 
 @app.get("/api/history/{rid}/project")

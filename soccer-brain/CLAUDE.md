@@ -8,6 +8,8 @@ Trivia-Shorts generator built on the site's `../players.json`. Read `README.md` 
 - **Props contract:** `src/shared/types.ts` ⇄ `backend/models.py::VideoProps`. Change both together.
 - **Never leak the answer before the reveal:** no names in clues/titles/filenames; the answer object is
   only passed to components from the reveal frame on. Images are hash-named (`players.image_rel_path`).
+  (Exception, by request: the studio's *Download MP4* names the file after the player —
+  `store.download_name`, served by `/api/history/{id}/download`.)
 - **Facts need provenance.** New facts go in `data/verified-facts.json` with `sourceUrl` + `verifiedAt`.
   Don't invent trophies/years. Unconfirmed current clubs are never clues.
 - **No licensed media:** no real crests, broadcast footage, or copyrighted music. Music/SFX come from
