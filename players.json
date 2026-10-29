@@ -148,7 +148,7 @@
       "physical": 78
     },
     "funFact": "He donated his entire 2018 World Cup bonus (about $500,000) to a children's charity!",
-    "imageUrl": "https://assets.goal.com/images/v3/blt5bc39fb9111ed00e/BeFunky-collage_-_2024-02-20T143853.984.jpg?auto=webp&format=pjpg&width=1920&quality=60",
+    "imageUrl": "assets/players/kylian-mbappe.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/701154/kylian-mbappe"
   },
   {
@@ -434,7 +434,7 @@
       "physical": 68
     },
     "funFact": "Real Madrid signed him when he was just 16 for €45 million before he'd even played a full professional season!",
-    "imageUrl": "https://i.guim.co.uk/img/media/ab52bf117d8210fa2d226175c898f5bf29011176/0_159_4795_2878/master/4795.jpg?width=620&dpr=2&s=none&crop=none",
+    "imageUrl": "assets/players/vinicius-junior.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/868012/vinicius-junior"
   },
   {
@@ -475,7 +475,7 @@
       "physical": 83
     },
     "funFact": "He was released by Arsenal's youth academy as a kid and went on to become Tottenham's all-time top scorer!",
-    "imageUrl": "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/8d0d/live/c1b67b10-0066-11ee-9edb-25f8156c1ac0.jpg",
+    "imageUrl": "assets/players/harry-kane.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/36249/harry-kane"
   },
   {
@@ -517,7 +517,7 @@
       "physical": 80
     },
     "funFact": "He scored over 1,000 career goals and once caused a ceasefire in a civil war in Nigeria so both sides could watch him play!",
-    "imageUrl": "https://static.dw.com/image/61527609_1004.webp",
+    "imageUrl": "assets/players/pele.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/7875/pele"
   },
   {
@@ -735,7 +735,7 @@
       "physical": 76
     },
     "funFact": "He's Arsenal's all-time top scorer with 228 goals and has a statue outside the Emirates Stadium!",
-    "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Thierry_Henry_portrait.jpg?width=800",
+    "imageUrl": "assets/players/thierry-henry.jpg",
     "fotmobUrl": "https://www.fotmob.com/players/3475/thierry-henry"
   },
   {
