@@ -66,6 +66,7 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
         seed: Math.floor(Math.random() * 1e6),
         extra,
       });
+      triedRef.current = {};
       setQuestion(q);
     } catch (e) {
       setErr(String(e));
@@ -120,6 +121,31 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
     const clues = question.clues.map((c, j) => (j === i ? {...c, ...patch, ...(patch.text !== undefined ? {fact: null, source: 'edited by hand'} : {})} : c));
     setQuestion({...question, clues});
   };
+  // Facts already offered per clue slot, so repeated swaps keep giving something new.
+  const triedRef = useRef<Record<number, string[]>>({});
+  const [swapping, setSwapping] = useState<number | null>(null);
+  const swapClue = async (i: number) => {
+    if (!question) return;
+    setErr('');
+    setSwapping(i);
+    const tried = triedRef.current[i] ?? [];
+    const current = question.clues[i].fact;
+    try {
+      const q = await api.post<Question>('/api/questions/swap-clue', {
+        question,
+        index: i,
+        seed: Math.floor(Math.random() * 1e6),
+        avoid: current ? [...tried, current] : tried,
+      });
+      triedRef.current[i] = [...tried, ...(current ? [current] : [])];
+      setQuestion(q);
+    } catch (e) {
+      setErr(String(e));
+    } finally {
+      setSwapping(null);
+    }
+  };
+
   const moveClue = (i: number, d: number) => {
     if (!question) return;
     const clues = [...question.clues];
@@ -238,6 +264,11 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
                 </div>
                 <div className="clue-btns">
                   <SpeakButton text={(i === 0 && question.introSpeech ? question.introSpeech + ' ' : '') + (c.speech || c.text)} settings={settings} />
+                  {question.format === 'guess_player' && (
+                    <button title="Swap this clue for a different one (the others stay the same)" disabled={swapping !== null} onClick={() => swapClue(i)}>
+                      {swapping === i ? '…' : '🎲'}
+                    </button>
+                  )}
                   <button disabled={i === 0} onClick={() => moveClue(i, -1)}>
                     ↑
                   </button>

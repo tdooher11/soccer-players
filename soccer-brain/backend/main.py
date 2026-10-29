@@ -102,6 +102,13 @@ class ProjectReq(BaseModel):
     settings: VideoSettings = Field(default_factory=VideoSettings)
 
 
+class SwapReq(BaseModel):
+    question: Question
+    index: int = Field(ge=0)
+    seed: int | None = None
+    avoid: list[str] = Field(default_factory=list)
+
+
 class TTSReq(BaseModel):
     text: str = Field(min_length=1, max_length=300)
     provider: str | None = None
@@ -269,6 +276,13 @@ def tts_preview(req: TTSReq):
 @app.post("/api/questions/generate")
 def generate(req: GenerateReq):
     q = production.generate_question(req.format, req.player_ids, difficulty=req.difficulty, duration=req.duration, seed=req.seed, extra=req.extra)
+    return q.model_dump(by_alias=True, mode="json")
+
+
+@app.post("/api/questions/swap-clue")
+def swap_clue(req: SwapReq):
+    """Replace one clue with a different true fact; the other clues are untouched."""
+    q = trivia.swap_clue(req.question, req.index, seed=req.seed, avoid=req.avoid)
     return q.model_dump(by_alias=True, mode="json")
 
 

@@ -48,6 +48,9 @@ For "yesterday's videos", list folders under `output/<yesterday's date>/` and lo
 ./soccer-brain render --question /tmp/q.json
 ```
 
+To replace just one clue with a different true fact (others unchanged):
+`./soccer-brain swap --question /tmp/q.json --clue 3` (Guess the Player only; run again for another option).
+
 Clues without a `fact` id are "custom" and get a warning — only write clues you are sure are true.
 
 ## After rendering — always report

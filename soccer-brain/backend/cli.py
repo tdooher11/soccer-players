@@ -173,6 +173,19 @@ def _format_extra(a) -> dict:
     return extra
 
 
+def cmd_swap(a) -> None:
+    from .models import Question
+    from .trivia import swap_clue
+
+    path = Path(a.question)
+    q = Question.model_validate(json.loads(path.read_text()))
+    q = swap_clue(q, a.clue - 1, seed=a.seed)
+    path.write_text(json.dumps(q.model_dump(by_alias=True, mode="json"), indent=1, ensure_ascii=False))
+    for i, c in enumerate(q.clues, 1):
+        print(f"{'→' if i == a.clue else ' '} {i}. {c.text}")
+    print(f"Saved {path}. Render it with: soccer-brain render --question {path}")
+
+
 def cmd_render(a) -> None:
     from .models import Question
     from .production import generate_question, make_video
@@ -339,6 +352,12 @@ def main(argv: list[str] | None = None) -> None:
     add_q_opts(p)
     p.add_argument("--out")
     p.set_defaults(fn=cmd_question)
+
+    p = sub.add_parser("swap", help="swap one clue in a question JSON for a different true fact")
+    p.add_argument("--question", required=True, help="question JSON file (edited in place)")
+    p.add_argument("--clue", type=int, required=True, help="clue number to replace (1 = first)")
+    p.add_argument("--seed", type=int)
+    p.set_defaults(fn=cmd_swap)
 
     p = sub.add_parser("render", help="render one video")
     add_q_opts(p)

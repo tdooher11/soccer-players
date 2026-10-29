@@ -80,3 +80,33 @@ def test_avoids_previously_used_fact_sets():
     used = {frozenset(c.fact for c in first.clues)}
     second = trivia.generate_guess_player(p, seed=9, pool=pool, avoid_fact_sets=used)
     assert frozenset(c.fact for c in second.clues) != frozenset(c.fact for c in first.clues)
+
+
+def test_swap_clue_changes_only_that_clue_and_stays_unique():
+    pool = _pool()
+    q = trivia.generate_guess_player(ps.get_player("ronaldinho"), seed=7, pool=pool)
+    seen = set()
+    for k in range(4):
+        q2 = trivia.swap_clue(q, 2, seed=k, avoid=sorted(seen), pool=pool)
+        assert [c.text for i, c in enumerate(q2.clues) if i != 2] == [c.text for i, c in enumerate(q.clues) if i != 2]
+        assert q2.clues[2].fact != q.clues[2].fact and q2.clues[2].fact not in seen
+        facts = {f.id: f for f in trivia.build_facts(ps.get_player("ronaldinho"), ps.load_clubs())}
+        assert trivia._matches(tuple(facts[c.fact] for c in q2.clues), pool) == ["ronaldinho"]
+        seen.add(q2.clues[2].fact)
+
+
+def test_swap_clue_never_duplicates_a_kept_clue():
+    pool = _pool()
+    q = trivia.generate_guess_player(ps.get_player("lionel-messi"), seed=3, pool=pool)
+    for k in range(10):
+        q2 = trivia.swap_clue(q, 0, seed=k, pool=pool)
+        assert len({c.fact for c in q2.clues}) == len(q2.clues)
+
+
+def test_swap_clue_only_for_guess_player():
+    import pytest
+    from backend.production import generate_question
+
+    q = generate_question("career_path", ["kaka"], seed=1)
+    with pytest.raises(trivia.TriviaError):
+        trivia.swap_clue(q, 0)

@@ -249,6 +249,20 @@ def _order(facts: tuple[Fact, ...]) -> list[Fact]:
     return country + rest
 
 
+def _combo_ok(combo: tuple[Fact, ...]) -> bool:
+    """House rules for a clue set: varied, and no two clues saying the same thing."""
+    kinds = [f.kind for f in combo]
+    if kinds.count("award") > 2 or kinds.count("born") > 1 or kinds.count("position") > 1 or kinds.count("country") > 1:
+        return False
+    if sum(k in ("club", "primary_club", "first_club", "current_club", "one_club") for k in kinds) > 3:
+        return False
+    if "primary_club" in kinds and "one_club" in kinds:
+        return False
+    # The same club twice (e.g. "first club was Monaco" + "played for Monaco").
+    club_names = [f.id.split(":", 1)[1] for f in combo if f.kind in ("club", "primary_club", "first_club", "current_club")]
+    return len(club_names) == len(set(club_names))
+
+
 def choose_clues(
     p: Player,
     pool: list[Player],
@@ -265,15 +279,9 @@ def choose_clues(
     target = DIFFICULTY_TARGET[difficulty]
     best: Candidate | None = None
     for combo in itertools.combinations(facts, min(n, len(facts))):
+        if not _combo_ok(combo):
+            continue
         kinds = [f.kind for f in combo]
-        if kinds.count("award") > 2 or kinds.count("born") > 1 or kinds.count("position") > 1:
-            continue
-        if sum(k in ("club", "primary_club", "first_club", "current_club", "one_club") for k in kinds) > 3:
-            continue
-        if "primary_club" in kinds and "one_club" in kinds:
-            continue
-        if any(a.id.startswith("first_club:") and b.id == f"club:{a.id.split(':', 1)[1]}" for a in combo for b in combo):
-            continue
         m = _matches(combo, pool)
         if m != [p.id]:
             continue
@@ -371,6 +379,60 @@ def generate_guess_player(
     )
     q.warnings = validate_question(q, pool)
     return q
+
+
+def swap_clue(q: Question, index: int, *, seed: int | None = None, avoid: list[str] | None = None, pool: list[Player] | None = None) -> Question:
+    """Replace clue `index` with a different true fact, keeping the other clues as they are.
+
+    The new set must still point to exactly one player. Prefers a fact about as easy as the one it
+    replaces (so the clue order still runs vague -> give-away), with some randomness so repeated
+    swaps offer different options. `avoid` = fact ids already tried for this slot.
+    """
+    if q.format != "guess_player":
+        raise TriviaError("Swapping a single clue is available for Guess the Player videos.")
+    if not 0 <= index < len(q.clues):
+        raise TriviaError(f"There is no clue {index + 1}.")
+    pool = pool if pool is not None else pstore.load_players()
+    p = next((x for x in pool if x.id == q.player_id), None)
+    if p is None:
+        raise TriviaError("This question isn't linked to a player in the database.")
+    facts = {f.id: f for f in build_facts(p, pstore.load_clubs())}
+    for f in facts.values():
+        f.matches = sum(1 for x in pool if f.test(x))
+    keep = [facts[c.fact] for i, c in enumerate(q.clues) if i != index and c.fact in facts]
+    kept_ids = {f.id for f in keep}
+    current = facts.get(q.clues[index].fact or "")
+    skip = kept_ids | set(avoid or []) | ({current.id} if current else set())
+    custom_kept = sum(1 for i, c in enumerate(q.clues) if i != index and c.fact not in facts)
+
+    options = []
+    for f in facts.values():
+        if f.id in skip:
+            continue
+        combo = tuple(keep + [f])
+        if not _combo_ok(combo):
+            continue
+        # Custom (hand-written) clues can't be checked, so only demand uniqueness from the known facts.
+        if custom_kept == 0 and _matches(combo, pool) != [p.id]:
+            continue
+        options.append(f)
+    if not options and avoid:
+        return swap_clue(q, index, seed=seed, avoid=None, pool=pool)  # tried them all: start over
+    if not options:
+        raise TriviaError("No other clue keeps the answer unambiguous. Try swapping a different clue, or edit it by hand.")
+
+    target = current.fame if current else DIFFICULTY_TARGET[q.difficulty]
+    options.sort(key=lambda f: abs(f.fame - target))
+    rng = random.Random(seed)
+    new = rng.choice(options[: min(3, len(options))])
+    text_seed = rng.randint(0, 10**6)
+
+    out = q.model_copy(deep=True)
+    out.clues[index] = Clue(text=_pick_text(new, text_seed), visual=new.visual, fact=new.id, source=new.source)
+    fact_ids = [c.fact for c in out.clues if c.fact]
+    out.fingerprint = fingerprint("guess_player", [p.id], fact_ids)
+    out.warnings = validate_question(out, pool)
+    return out
 
 
 # ------------------------------------------------------------------------ validation

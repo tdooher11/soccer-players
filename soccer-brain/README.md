@@ -69,6 +69,7 @@ Optional: `cp .env.example .env` to change the channel name, default voice, or a
 
 - **Dashboard** – counts, recent videos, one-click **batch** generation.
 - **Create video** – pick a format + player, generate clues, edit any clue or what the narrator says,
+  press 🎲 next to a clue to swap just that one for a different true fact (Guess the Player),
   hear each line (▶), change theme / text size / voice / speed / music, and watch the **live preview**
   (play, pause, scrub, jump to any scene). Visual tweaks apply instantly; text and voice changes
   re-synthesize narration in a second or two. Then **Render MP4**.
@@ -88,6 +89,7 @@ For frame-by-frame timeline inspection there's also Remotion Studio:
 ./soccer-brain render --question questions/ronaldinho-sample.json   # a hand-written / edited question
 
 ./soccer-brain question --player neymar --out my-q.json         # generate → edit the JSON → render it
+./soccer-brain swap --question my-q.json --clue 3               # swap just clue 3 for a different fact
 ./soccer-brain render --question my-q.json
 
 ./soccer-brain render --format career_path  --player zlatan
