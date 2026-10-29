@@ -57,19 +57,29 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
   }, [seed]);
 
   const fmt = FORMATS.find((f) => f.id === format)!;
+  // Changing the player / format / difficulty / clue count fetches fresh clues straight away
+  // (once enough players are chosen: Who Won More needs two).
+  const regenerate = (ids: string[], f: string, o: {difficulty?: string; clueCount?: number} = {}) => {
+    const need = f === 'who_won_more' ? 2 : 1;
+    const chosen = ids.slice(0, FORMATS.find((x) => x.id === f)!.players).filter(Boolean);
+    if (chosen.length >= need) generate(chosen, f, o);
+  };
 
-  const generate = async (ids = playerIds, f = format) => {
+  const genSeq = useRef(0);
+  const generate = async (ids = playerIds, f = format, o: {difficulty?: string; clueCount?: number} = {}) => {
     setErr('');
+    const seq = ++genSeq.current;
     try {
       const q = await api.post<Question>('/api/questions/generate', {
         format: f,
         playerIds: ids.filter(Boolean),
-        difficulty,
+        difficulty: o.difficulty ?? difficulty,
         duration: durationTouched ? duration : null,
         seed: Math.floor(Math.random() * 1e6),
         extra,
-        clues: f === 'guess_player' ? clueCount : null,
+        clues: f === 'guess_player' ? (o.clueCount ?? clueCount) : null,
       });
+      if (seq !== genSeq.current) return; // a newer request (e.g. another player picked) wins
       triedRef.current = {};
       setQuestion(q);
       if (!durationTouched) setDuration(q.durationSeconds);
@@ -201,7 +211,13 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
         <div className="form-grid">
           <label>
             Format
-            <select value={format} onChange={(e) => setFormat(e.target.value)}>
+            <select
+              value={format}
+              onChange={(e) => {
+                setFormat(e.target.value);
+                regenerate(playerIds, e.target.value);
+              }}
+            >
               {FORMATS.map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.label}
@@ -211,7 +227,13 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
           </label>
           <label>
             Difficulty
-            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+            <select
+              value={difficulty}
+              onChange={(e) => {
+                setDifficulty(e.target.value);
+                regenerate(playerIds, format, {difficulty: e.target.value});
+              }}
+            >
               <option>easy</option>
               <option>medium</option>
               <option>hard</option>
@@ -226,6 +248,7 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
                   const ids = [...playerIds];
                   ids[i] = e.target.value;
                   setPlayerIds(ids.slice(0, fmt.players));
+                  regenerate(ids, format);
                 }}
               >
                 <option value="">— choose —</option>
@@ -257,7 +280,13 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
           {format === 'guess_player' && (
             <label>
               Clues
-              <select value={clueCount} onChange={(e) => setClueCount(+e.target.value)}>
+              <select
+                value={clueCount}
+                onChange={(e) => {
+                  setClueCount(+e.target.value);
+                  regenerate(playerIds, format, {clueCount: +e.target.value});
+                }}
+              >
                 <option value={5}>5 clues</option>
                 <option value={4}>4 clues</option>
                 <option value={3}>3 clues</option>
