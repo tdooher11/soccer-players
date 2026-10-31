@@ -143,7 +143,7 @@ export const Analytics: React.FC = () => {
             <h2>📈 {status.channel?.title ?? 'Your channel'}</h2>
             <div className="muted small">
               {status.channel ? `${status.channel.subscribers.toLocaleString()} subscribers · ` : ''}
-              {status.syncedAt ? `last synced ${status.syncedAt.replace('T', ' ')}` : 'not synced yet'} · YouTube's numbers lag about 2 days
+              {status.syncedAt ? `last synced ${status.syncedAt.replace('T', ' ')}` : 'not synced yet'} · views, likes &amp; comments are live; watch time and retention lag ~2 days
             </div>
           </div>
           <div className="yt-actions">

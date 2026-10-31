@@ -518,12 +518,14 @@ def video_rows() -> list[dict]:
             "privacy": v.get("privacy"),
             "historyId": h["id"] if h else None,
             "linkState": "linked" if h else ("not-ours" if vid in data["links"] else "unlinked"),
-            "views": int(a.get("views", v["public"]["views"]) or 0),
+            # Counts come from the live public numbers (what YouTube Studio shows); the Analytics
+            # API totals lag ~2 days, so only watch-time style metrics come from there.
+            "views": int(v["public"]["views"] or 0),
             "engagedViews": a.get("engagedViews"),
             "avgViewPercentage": a.get("averageViewPercentage"),
             "avgViewDuration": a.get("averageViewDuration"),
-            "likes": int(a.get("likes", v["public"]["likes"]) or 0),
-            "comments": int(a.get("comments", v["public"]["comments"]) or 0),
+            "likes": int(v["public"]["likes"] or 0),
+            "comments": int(v["public"]["comments"] or 0),
             "shares": a.get("shares"),
             "subscribersGained": a.get("subscribersGained"),
             "retention": v.get("retention") or [],
@@ -738,7 +740,8 @@ def share_text(*, comments_per_video: int = 5) -> str:
         "# Soccer Brain — YouTube report",
         f"Channel: {ch.get('title', '?')} ({n(ch.get('subscribers'))} subscribers) · synced {st.get('syncedAt')} · "
         f"report made {datetime.now().isoformat(timespec='minutes')} · {len(rep['videos'])} uploads, {rep['ours']} matched to studio renders",
-        "Note: YouTube analytics lag ~2 days; 'early' = views in the first 2 days; 'reveal' = share of starting audience still watching at the reveal.",
+        "Note: views/likes/comments are live (match YouTube Studio); avg watched, engaged views, retention and 'early' lag ~2 days. "
+        "'early' = views in the first 2 days; 'reveal' = share of starting audience still watching at the reveal.",
         "",
         "## Takeaways",
         *[f"- {t}" for t in rep["insights"]],

@@ -133,7 +133,8 @@ def test_sync_matches_uploads_and_builds_report(connected):
     rep = youtube.report()
     rows = {r["id"]: r for r in rep["videos"]}
     a = rows["vA"]
-    assert a["views"] == 1000 and a["avgViewPercentage"] == 80.0  # engagedViews refused -> retried without it
+    assert a["views"] == 999  # live public count, not the lagging Analytics total (1000)
+    assert a["avgViewPercentage"] == 80.0  # engagedViews refused -> retried without it
     assert a["engagedViews"] is None
     assert a["made"]["clues"] == 5 and a["made"]["playerType"] == "Legend"
     reveal = next(s for s in a["scenes"] if s["id"] == "reveal")
