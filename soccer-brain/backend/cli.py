@@ -327,6 +327,8 @@ def cmd_youtube(a) -> None:
     elif a.action == "sync":
         r = youtube.sync(progress=print)
         print(f"Synced {r['videos']} videos ({r['linked']} matched to studio renders, {r['apiCalls']} API calls).")
+    elif a.action == "report" and a.share:
+        print(youtube.share_text(), end="")
     elif a.action == "report":
         rep = youtube.report()
         for line in rep["insights"]:
@@ -458,6 +460,7 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("action", choices=["client", "status", "sync", "report", "link", "disconnect"])
     p.add_argument("file", nargs="?", help="client: the OAuth JSON from Google Cloud · link: the YouTube video id")
     p.add_argument("target", nargs="?", help="link: the studio render id (r-…), or 'none' for not-ours")
+    p.add_argument("--share", action="store_true", help="report: full plain-text report to paste into a chat")
     p.set_defaults(fn=cmd_youtube)
 
     a = ap.parse_args(argv)

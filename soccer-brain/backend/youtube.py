@@ -718,3 +718,68 @@ def insights(ours: list[dict], comparisons: list[dict], scene_drops: list[dict],
     elif ours:
         out.append("Not enough “how many clues” comments yet to judge difficulty (need about 10).")
     return out
+
+
+# --------------------------------------------------------------- shareable summary
+
+
+def share_text(*, comments_per_video: int = 5) -> str:
+    """Everything in the Analytics tab as compact plain text, to paste into a chat."""
+    rep = report()
+    st = rep["status"]
+    data = load_data()
+    ch = st.get("channel") or {}
+    p = lambda v: "–" if v is None else f"{v * 100:.0f}%"  # noqa: E731
+    n = lambda v: "–" if v is None else (f"{v:,.0f}" if v >= 10 or float(v).is_integer() else f"{v:.1f}")  # noqa: E731
+    out = [
+        "# Soccer Brain — YouTube report",
+        f"Channel: {ch.get('title', '?')} ({n(ch.get('subscribers'))} subscribers) · synced {st.get('syncedAt')} · "
+        f"report made {datetime.now().isoformat(timespec='minutes')} · {len(rep['videos'])} uploads, {rep['ours']} matched to studio renders",
+        "Note: YouTube analytics lag ~2 days; 'early' = views in the first 2 days; 'reveal' = share of starting audience still watching at the reveal.",
+        "",
+        "## Takeaways",
+        *[f"- {t}" for t in rep["insights"]],
+        "",
+        "## Where viewers leave (avg share of audience lost per scene)",
+        *[f"- {d['label']}: {'−' if d['avgDrop'] >= 0 else '+'}{abs(d['avgDrop']) * 100:.1f}% ({d['n']} videos)" for d in rep["sceneDrops"]],
+        "",
+        "## Clues needed (from comments)",
+        ", ".join(f"{k}: {rep['cluesNeeded'][k]}" for k in ("1", "2", "3", "4", "5", "missed") if k in rep["cluesNeeded"]) or "none yet",
+        "",
+        "## Comparisons (medians)",
+    ]
+    heads = [m["label"] for m in rep["metrics"]]
+    for c in rep["comparisons"]:
+        out.append(f"### {c['label']}")
+        out.append("option | videos | " + " | ".join(heads))
+        for g in c["groups"]:
+            out.append(f"{g['value']} | {g['n']} | " + " | ".join(_fmt(m["key"], g[m["key"]]) if g.get(m["key"]) is not None else "–" for m in rep["metrics"]))
+    out += ["", "## Videos (newest first)"]
+    for r in rep["videos"]:
+        avg = r["avgViewPercentage"]
+        line = (
+            f"- {r['publishedAt'][:16].replace('T', ' ')} · “{r['title']}” · {n(r['durationSeconds'])}s · views {n(r['views'])}"
+            f" (early {n(r['earlyViews'])}, engaged {n(r['engagedViews'])}) · avg watched {'–' if avg is None else f'{avg:.0f}%'}"
+            f" · reveal {p(r.get('reachedReveal'))} · likes {n(r['likes'])} · comments {n(r['comments'])} · subs +{n(r['subscribersGained'])}"
+        )
+        out.append(line)
+        if r.get("made"):
+            m = r["made"]
+            out.append(
+                "  made: " + ", ".join(f"{k}={v}" for k, v in m.items() if v is not None)
+            )
+            if r.get("clueTexts"):
+                out.append("  clues: " + " | ".join(r["clueTexts"]))
+            if r.get("scenes"):
+                out.append(
+                    "  watching at start of: "
+                    + ", ".join(f"{s['label']} {p(s['watchingAtStart'])}" for s in r["scenes"] if s["watchingAtStart"] is not None)
+                )
+            if r["cluesNeeded"]:
+                out.append("  clues-needed votes: " + ", ".join(f"{k}: {v}" for k, v in r["cluesNeeded"].items()))
+        else:
+            out.append(f"  ({'not a studio video' if r['linkState'] == 'not-ours' else 'not matched to a studio render'})")
+        texts = (data["videos"].get(r["id"], {}).get("commentTexts") or [])[:comments_per_video]
+        if texts:
+            out.append("  comments: " + " | ".join(re.sub(r"\s+", " ", t)[:100] for t in texts))
+    return "\n".join(out) + "\n"

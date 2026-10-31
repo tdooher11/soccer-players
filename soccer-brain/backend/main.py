@@ -476,6 +476,14 @@ def youtube_report():
     return youtube.report()
 
 
+@app.get("/api/youtube/report.txt")
+def youtube_report_text():
+    """The whole report as plain text, for pasting into a chat with Claude."""
+    from fastapi.responses import PlainTextResponse
+
+    return PlainTextResponse(youtube.share_text())
+
+
 class YTLinkReq(BaseModel):
     videoId: str
     historyId: str | None = None

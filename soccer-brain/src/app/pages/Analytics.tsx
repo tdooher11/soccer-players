@@ -97,6 +97,31 @@ export const Analytics: React.FC = () => {
       setBusy('');
     }
   };
+  const [copied, setCopied] = useState('');
+  const copyReport = async () => {
+    setErr('');
+    try {
+      const text = await fetch('/api/youtube/report.txt').then((r) => {
+        if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+        return r.text();
+      });
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // Older browsers / non-secure origins: fall back to a hidden textarea.
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      setCopied(`✓ Copied (${Math.round(text.length / 1000)}k characters)`);
+      setTimeout(() => setCopied(''), 4000);
+    } catch (e) {
+      setErr(`Couldn't copy: ${e}`);
+    }
+  };
   // historyId: a render id, null = "not a studio video", '' = forget the choice (re-match automatically).
   const link = async (videoId: string, historyId: string | null) => {
     try {
@@ -124,6 +149,9 @@ export const Analytics: React.FC = () => {
           <div className="yt-actions">
             <button className="primary" onClick={sync} disabled={!!busy}>
               ↻ Sync now
+            </button>
+            <button onClick={copyReport} disabled={!status.syncedAt} title="Copies the whole report as text — paste it into your chat with Claude">
+              {copied || '📋 Copy report for Claude'}
             </button>
             <a href="/api/youtube/connect" className="small" title="Sign in again (needed if Google says the sign-in expired)">
               Reconnect

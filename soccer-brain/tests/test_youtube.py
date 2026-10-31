@@ -148,6 +148,11 @@ def test_sync_matches_uploads_and_builds_report(connected):
     assert rep["cluesNeeded"] == {"1": 2, "2": 1, "3": 1, "missed": 1}
     assert rep["insights"] and "Only 2 studio videos" in rep["insights"][0]
 
+    text = youtube.share_text()
+    assert "# Soccer Brain — YouTube report" in text and "1: 2, 2: 1, 3: 1, missed: 1" in text
+    assert "“My holiday vlog”" in text and "not matched to a studio render" in text
+    assert "comments: 3! | got it on the second clue" in text
+
 
 def test_manual_links_win_and_survive_resync(connected):
     api = youtube.Api(http=httpx.Client(transport=httpx.MockTransport(connected)))
