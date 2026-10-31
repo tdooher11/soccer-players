@@ -11,13 +11,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Literal
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import players as pstore
-from . import production, store, trivia, tts
+from . import production, store, trivia, tts, youtube
 from .config import settings
 from .models import Achievement, Difficulty, FormatId, Player, Provenance, Question, VideoSettings, today
 from .timeline import build_props
@@ -29,6 +29,11 @@ app = FastAPI(title="Soccer Brain Studio", version="1.0")
 @app.exception_handler(trivia.TriviaError)
 async def _trivia_error(_, exc: trivia.TriviaError):
     return JSONResponse(status_code=422, content={"detail": str(exc)})
+
+
+@app.exception_handler(youtube.YouTubeError)
+async def _youtube_error(_, exc: youtube.YouTubeError):
+    return JSONResponse(status_code=401 if isinstance(exc, youtube.NotConnected) else 502, content={"detail": str(exc)})
 
 
 @app.exception_handler(tts.TTSError)
@@ -415,6 +420,73 @@ def history_project(rid: str):
 # --------------------------------------------------------------------- static files
 
 settings.output_dir.mkdir(parents=True, exist_ok=True)
+# ------------------------------------------------------------------ YouTube analytics
+
+
+@app.get("/api/youtube/status")
+def youtube_status():
+    return youtube.status()
+
+
+class YTClientReq(BaseModel):
+    json_: str = Field(alias="json")
+
+
+@app.post("/api/youtube/client")
+def youtube_client(req: YTClientReq):
+    """Save the OAuth client JSON downloaded from Google Cloud."""
+    youtube.save_client(req.json_)
+    return youtube.status()
+
+
+def _callback_url(request: Request) -> str:
+    # Google allows any localhost port for "Desktop app" clients; 127.0.0.1 and localhost both work.
+    return str(request.base_url).rstrip("/") + "/api/youtube/oauth/callback"
+
+
+@app.get("/api/youtube/connect")
+def youtube_connect(request: Request):
+    return RedirectResponse(youtube.auth_url(_callback_url(request)))
+
+
+@app.get("/api/youtube/oauth/callback")
+def youtube_callback(code: str | None = None, state: str = "", error: str | None = None):
+    if error or not code:
+        return HTMLResponse(f"<p>YouTube sign-in was cancelled ({error}). <a href='/'>Back to the studio</a></p>", status_code=400)
+    try:
+        youtube.finish_auth(code, state)
+    except youtube.YouTubeError as e:
+        return HTMLResponse(f"<p>{e}</p><p><a href='/'>Back to the studio</a></p>", status_code=400)
+    return RedirectResponse("/?tab=analytics")
+
+
+@app.post("/api/youtube/disconnect")
+def youtube_disconnect():
+    youtube.disconnect()
+    return youtube.status()
+
+
+@app.post("/api/youtube/sync")
+def youtube_sync():
+    return youtube.sync()
+
+
+@app.get("/api/youtube/report")
+def youtube_report():
+    return youtube.report()
+
+
+class YTLinkReq(BaseModel):
+    videoId: str
+    historyId: str | None = None
+
+
+@app.post("/api/youtube/link")
+def youtube_link(req: YTLinkReq):
+    youtube.set_link(req.videoId, req.historyId)
+    return youtube.report()
+
+
 app.mount("/output", StaticFiles(directory=settings.output_dir), name="output")
 
 _dist = settings.root / "dist"

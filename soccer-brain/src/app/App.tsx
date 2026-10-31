@@ -3,9 +3,10 @@ import {Dashboard} from './pages/Dashboard';
 import {Players} from './pages/Players';
 import {Creator} from './pages/Creator';
 import {HistoryPage} from './pages/History';
+import {Analytics} from './pages/Analytics';
 import type {Question, Settings} from './api';
 
-export type Tab = 'dashboard' | 'players' | 'create' | 'history';
+export type Tab = 'dashboard' | 'players' | 'create' | 'history' | 'analytics';
 export type CreatorSeed = {playerId?: string; question?: Question; settings?: Settings; nonce: number} | null;
 
 const TABS: {id: Tab; label: string}[] = [
@@ -13,10 +14,12 @@ const TABS: {id: Tab; label: string}[] = [
   {id: 'create', label: 'Create video'},
   {id: 'players', label: 'Players'},
   {id: 'history', label: 'Videos'},
+  {id: 'analytics', label: 'Analytics'},
 ];
 
 export const App: React.FC = () => {
-  const [tab, setTab] = useState<Tab>('dashboard');
+  // ?tab=analytics lands here after YouTube sign-in.
+  const [tab, setTab] = useState<Tab>(() => (new URLSearchParams(location.search).get('tab') as Tab) || 'dashboard');
   const [seed, setSeed] = useState<CreatorSeed>(null);
   const openCreator = (s: Omit<NonNullable<CreatorSeed>, 'nonce'> = {}) => {
     setSeed({...s, nonce: Date.now()});
@@ -43,6 +46,7 @@ export const App: React.FC = () => {
         <div style={{display: tab === 'create' ? 'block' : 'none'}}>
           <Creator seed={seed} />
         </div>
+        {tab === 'analytics' && <Analytics />}
         {tab === 'history' && <HistoryPage onEdit={(question, settings) => openCreator({question, settings})} />}
       </main>
     </div>

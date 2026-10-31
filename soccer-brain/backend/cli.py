@@ -314,6 +314,44 @@ def cmd_qa(a) -> None:
         sys.exit(1)
 
 
+def cmd_youtube(a) -> None:
+    from . import youtube
+
+    if a.action == "client":
+        if not a.file:
+            sys.exit("usage: soccer-brain youtube client <client_secret_….json>")
+        youtube.save_client(Path(a.file).expanduser().read_text())
+        print("Saved. Now start the studio, open the Analytics tab and press Connect YouTube.")
+    elif a.action == "status":
+        print(json.dumps(youtube.status(), indent=1, ensure_ascii=False))
+    elif a.action == "sync":
+        r = youtube.sync(progress=print)
+        print(f"Synced {r['videos']} videos ({r['linked']} matched to studio renders, {r['apiCalls']} API calls).")
+    elif a.action == "report":
+        rep = youtube.report()
+        for line in rep["insights"]:
+            print("•", line)
+        print()
+        print(f"{'published':<11} {'views':>7} {'early':>6} {'avg%':>5} {'reveal':>6}  title")
+        for r in rep["videos"]:
+            pct = r["avgViewPercentage"]
+            rev = r.get("reachedReveal")
+            early = r["earlyViews"]
+            print(
+                f"{r['publishedAt'][:10]:<11} {r['views']:>7} {early if early is not None else '–':>6} "
+                f"{f'{pct:.0f}' if pct is not None else '–':>5} {f'{rev * 100:.0f}%' if rev is not None else '–':>6}  "
+                f"{r['title'][:60]}{'' if r['historyId'] else '  (not matched)'}"
+            )
+    elif a.action == "link":
+        if not a.file:
+            sys.exit("usage: soccer-brain youtube link <youtube-video-id> <studio-render-id | none>")
+        youtube.set_link(a.file, None if a.target in (None, "none") else a.target)
+        print("Linked.")
+    elif a.action == "disconnect":
+        youtube.disconnect()
+        print("Disconnected (your Google sign-in token was deleted).")
+
+
 def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser(prog="soccer-brain", description="Soccer Brain Studio — soccer trivia Shorts generator")
     ap.add_argument("-v", "--verbose", action="store_true")
@@ -415,6 +453,12 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("dir")
     p.add_argument("--no-transcribe", action="store_true")
     p.set_defaults(fn=cmd_qa)
+
+    p = sub.add_parser("youtube", help="YouTube analytics: client <file> | status | sync | report | link <video> <render> | disconnect")
+    p.add_argument("action", choices=["client", "status", "sync", "report", "link", "disconnect"])
+    p.add_argument("file", nargs="?", help="client: the OAuth JSON from Google Cloud · link: the YouTube video id")
+    p.add_argument("target", nargs="?", help="link: the studio render id (r-…), or 'none' for not-ours")
+    p.set_defaults(fn=cmd_youtube)
 
     a = ap.parse_args(argv)
     _setup_logging(a.verbose)

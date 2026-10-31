@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 _TMP = Path(tempfile.mkdtemp(prefix="sb-test-"))
-shutil.copytree(ROOT / "data", _TMP / "data", ignore=shutil.ignore_patterns("production-history.json", "questions.json"))
+shutil.copytree(ROOT / "data", _TMP / "data", ignore=shutil.ignore_patterns("production-history.json", "questions.json", "youtube*.json"))
 os.environ["SB_DATA_DIR"] = str(_TMP / "data")
 os.environ["SB_OUTPUT_DIR"] = str(_TMP / "output")
 sys.path.insert(0, str(ROOT))

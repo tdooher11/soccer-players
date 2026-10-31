@@ -28,6 +28,7 @@ See `soccer-brain/README.md` for install steps.
 | "what did we make?" | `./soccer-brain history` |
 | "slower narration" | `--speed 0.9` (1.0 = normal) |
 | failed batch items | `./soccer-brain retry --batch <id>` |
+| "how are the videos doing?" / "should we change the format?" | `./soccer-brain youtube sync` then `./soccer-brain youtube report` (needs the one-time setup in README §6; if it says "not connected", tell the user to press Connect in the studio's Analytics tab). Base advice on the report's takeaways and group sizes — don't over-read groups under 3 videos. |
 
 Player names are fuzzy-matched; if the CLI says a name is ambiguous, pick an id from its list.
 

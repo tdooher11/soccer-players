@@ -12,3 +12,7 @@ data/last-import-report.json
 data/questions.json
 data/production-history.json
 public/img/
+data/youtube.json
+data/youtube-token.json
+data/youtube-client.json
+data/*.tmp

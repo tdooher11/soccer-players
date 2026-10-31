@@ -147,6 +147,60 @@ and a contact sheet for a human look.
 
 Tests: `.venv/bin/python -m pytest` (fast suite) and `.venv/bin/python -m pytest -m slow` (real render).
 
+## 6. YouTube analytics
+
+The studio's **Analytics** tab reads your channel's numbers and compares the videos you've made, so you
+can tell which choices work (4 vs 5 clues, difficulty, legends vs current stars, look, voice, day posted…).
+It is **read-only** — it can't upload, edit or delete — and everything stays on your computer.
+
+What it shows:
+- **Takeaways in plain English** — e.g. "Viewers leave most during clue 1", "4 clues beats 5 on views in the
+  first 2 days". It says "not enough videos yet" rather than guess (needs ~3 videos per option).
+- **Where viewers leave** — YouTube's retention curve laid over each video's scenes (clue 1…5, countdown,
+  reveal, comment ask), averaged across videos, plus "% still watching at the reveal".
+- **How many clues people needed** — counted from comments like "3!" or "got it on the second clue"
+  (the videos ask for exactly this), so you can tell whether videos are too easy or too hard.
+- **Compare what you've tried** — median views in the first 2 days (fair for old vs new videos), average %
+  watched, still watching at reveal, likes and comments per 1,000 views, grouped by each setting.
+
+**One-time setup (about 10 minutes).** Google requires every app that reads YouTube Analytics to have its
+own sign-in "client". You make one in your own Google Cloud account (free, no billing needed):
+
+1. Go to <https://console.cloud.google.com/projectcreate>, signed in with the Google account that owns the
+   channel, and create a project called **Soccer Brain**.
+2. **APIs & Services → Library**: enable **YouTube Data API v3** and **YouTube Analytics API**.
+3. **Google Auth Platform** (OAuth consent screen): app name *Soccer Brain Studio*, audience **External**,
+   your email for support/contact. Under **Audience**, add your own Gmail address as a **test user**.
+4. **Clients → Create client** → application type **Desktop app** → **Download JSON**.
+5. In the studio's **Analytics** tab, paste the file's contents and press **Save** — or from the terminal
+   (on WSL your Windows Downloads folder is `/mnt/c/Users/<you>/Downloads`):
+   ```bash
+   ./soccer-brain youtube client /mnt/c/Users/<you>/Downloads/client_secret_….json
+   ```
+6. Press **Connect YouTube** and sign in. Google warns the app "hasn't been verified" — that's expected for
+   your own private tool; choose **Continue**.
+
+Then press **Sync now** whenever you want fresh numbers (YouTube's analytics lag about 2 days).
+
+Uploads are matched to studio renders automatically when the uploaded **file name** is the studio's
+download name (e.g. `Ronaldinho - Guess the Player - 2026-10-29.mp4`) or the YouTube **title** is the
+suggested title from `metadata.json`. Anything else: pick the render from the dropdown next to the video
+(or mark it "Not a studio video"). Your choices are kept across syncs.
+
+```bash
+./soccer-brain youtube sync        # pull fresh numbers
+./soccer-brain youtube report      # takeaways + a table in the terminal
+./soccer-brain youtube link <youtube-id> <render-id>   # or 'none' for not-ours
+./soccer-brain youtube disconnect
+```
+
+> **Sign-in stops working after a week?** Google expires sign-ins for apps left in "Testing" after 7 days.
+> Either press Connect again, or in Google Auth Platform → **Audience** press **Publish app** (it stays
+> unverified and private to you — only accounts you sign in with can use it).
+
+Your client, sign-in token and synced numbers live in `data/youtube-client.json`, `data/youtube-token.json`
+and `data/youtube.json` — all git-ignored. Disconnect deletes the token.
+
 ---
 
 ## How it works
@@ -250,7 +304,8 @@ or per player with "Spoken name" in the Players editor.
 
 ```
 backend/          Python: config, models, players (import/store), trivia, formats, tts, timeline,
-                  production (orchestration), rendering, metadata, qa, sfx, cli, main (FastAPI)
+                  production (orchestration), rendering, metadata, qa, sfx, youtube (analytics),
+                  cli, main (FastAPI)
 src/remotion/     Remotion compositions: QuizVideo.tsx, components/, formats/, theme.ts, fonts.ts
 src/app/          Studio UI (Vite + React + @remotion/player)
 src/shared/       types.ts — the props contract shared by Python and TypeScript
