@@ -59,6 +59,7 @@ TOTAL_METRICS = [
 ]
 EARLY_DAYS = 2  # "views in the first 2 days" — a fair way to compare old and new videos
 MIN_GROUP = 3  # don't draw conclusions from fewer videos than this per group
+DEEP_LIMIT = 150  # newest uploads that get retention / daily views / comments (3 API calls each)
 
 SCENE_LABEL = {"countdown": "Countdown", "reveal": "Reveal", "outro": "Comment ask"}
 
@@ -335,10 +336,12 @@ def sync(*, api: Api | None = None, max_videos: int = 500, today: date | None = 
                 if vid in videos:
                     videos[vid]["analytics"] = row
 
-    # Deeper numbers only for videos made by the studio (the ones we can learn from).
-    for i, vid in enumerate(linked, 1):
+    # Deeper numbers (retention, early views, comments) for every recent upload, not just the
+    # matched ones, so linking a video by hand afterwards doesn't leave it without them.
+    deep = sorted(videos, key=lambda k: videos[k]["publishedAt"], reverse=True)[:DEEP_LIMIT]
+    for i, vid in enumerate(deep, 1):
         v = videos[vid]
-        say(f"Retention, early views and comments {i}/{len(linked)}: {v['title']}")
+        say(f"Retention, early views and comments {i}/{len(deep)}: {v['title']}")
         pub = date.fromisoformat(v["publishedAt"][:10])
         try:
             r = api.get(
@@ -770,11 +773,13 @@ def share_text(*, comments_per_video: int = 5) -> str:
             )
             if r.get("clueTexts"):
                 out.append("  clues: " + " | ".join(r["clueTexts"]))
-            if r.get("scenes"):
+            if any(s["watchingAtStart"] is not None for s in r.get("scenes") or []):
                 out.append(
                     "  watching at start of: "
                     + ", ".join(f"{s['label']} {p(s['watchingAtStart'])}" for s in r["scenes"] if s["watchingAtStart"] is not None)
                 )
+            else:
+                out.append("  (no retention curve from YouTube yet)")
             if r["cluesNeeded"]:
                 out.append("  clues-needed votes: " + ", ".join(f"{k}: {v}" for k, v in r["cluesNeeded"].items()))
         else:

@@ -122,6 +122,7 @@ def test_sync_matches_uploads_and_builds_report(connected):
     api = youtube.Api(http=httpx.Client(transport=httpx.MockTransport(connected)))
     res = youtube.sync(api=api, today=date(2026, 10, 30))
     assert res["videos"] == 3 and res["linked"] == 2
+    assert youtube.load_data()["videos"]["vC"]["retention"]  # unmatched uploads get deep data too (can be linked later)
     assert connected.refreshed == 1  # expired access token was refreshed once
 
     links = youtube.load_data()["links"]
@@ -152,6 +153,7 @@ def test_sync_matches_uploads_and_builds_report(connected):
     assert "# Soccer Brain — YouTube report" in text and "1: 2, 2: 1, 3: 1, missed: 1" in text
     assert "“My holiday vlog”" in text and "not matched to a studio render" in text
     assert "comments: 3! | got it on the second clue" in text
+    assert "comments: 1 | first one" in text  # vB: matched by title, still gets its comments
 
 
 def test_manual_links_win_and_survive_resync(connected):
