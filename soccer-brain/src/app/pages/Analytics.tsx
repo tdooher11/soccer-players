@@ -364,7 +364,12 @@ const RetentionChart: React.FC<{curve: [number, number][]; scenes: Scene[]; seco
     R = 12,
     T = 26,
     B = 28;
-  const pts = useMemo(() => [...curve].sort((a, b) => a[0] - b[0]), [curve]);
+  // Shown as a share of the starting audience (YouTube's ratio starts above 100% because Shorts loop).
+  const pts = useMemo(() => {
+    const s = [...curve].sort((a, b) => a[0] - b[0]);
+    const start = s.length && s[0][1] > 0 ? s[0][1] : 1;
+    return s.map(([x, v]) => [x, v / start] as [number, number]);
+  }, [curve]);
   const yMax = Math.max(1, ...pts.map((p) => p[1])) * 1.05;
   const x = (r: number) => L + r * (W - L - R);
   const y = (v: number) => T + (1 - v / yMax) * (H - T - B);
@@ -425,7 +430,7 @@ const RetentionChart: React.FC<{curve: [number, number][]; scenes: Scene[]; seco
           </span>
         </div>
       )}
-      <p className="muted small">Above 100% means people rewatched (Shorts loop). Bands: C1–C5 clues, ⏱ countdown, ★ reveal, 💬 comment ask.</p>
+      <p className="muted small">Share of the people who started the video that are still watching. A rise at the end means people loop it. Bands: C1–C5 clues, ⏱ countdown, ★ reveal, 💬 comment ask.</p>
     </div>
   );
 };

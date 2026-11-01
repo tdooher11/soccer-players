@@ -138,7 +138,7 @@ def test_sync_matches_uploads_and_builds_report(connected):
     assert a["engagedViews"] is None
     assert a["made"]["clues"] == 5 and a["made"]["playerType"] == "Legend"
     reveal = next(s for s in a["scenes"] if s["id"] == "reveal")
-    assert reveal["watchingAtStart"] == pytest.approx(1 - 0.5 * 390 / 540, abs=0.01)
+    assert reveal["watchingAtStart"] == pytest.approx((1 - 0.5 * 390 / 540) / (1 - 0.5 * 0.01), abs=0.01)
     assert a["reachedReveal"] == pytest.approx(reveal["watchingAtStart"])
     assert a["earlyViews"] == 500  # first 2 days only
     assert a["cluesNeeded"] == {"2": 1, "3": 1, "missed": 1}
@@ -203,3 +203,11 @@ def test_not_connected_is_clear(tmp_data):
 )
 def test_clues_needed(text, want):
     assert youtube.clues_needed(text) == want
+
+
+def test_retention_is_share_of_starting_audience():
+    # Shorts loop, so YouTube's ratio starts above 1: 1.57 at the start, 0.96 later = 61% still there.
+    curve = [[0.01, 1.57], [0.5, 1.2], [0.72, 0.96], [1.0, 0.82]]
+    assert youtube._share(curve, 0.72) == pytest.approx(0.96 / 1.57, abs=0.001)
+    assert youtube._share(curve, 0.0) == 1.0
+    assert youtube._share([], 0.5) is None

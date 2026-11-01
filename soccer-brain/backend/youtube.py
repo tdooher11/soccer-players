@@ -487,6 +487,19 @@ def _at(curve: list[list[float]], ratio: float) -> float | None:
     return pts[-1][1]
 
 
+def _share(curve: list[list[float]], ratio: float) -> float | None:
+    """Share of the *starting* audience still watching at this point.
+
+    YouTube's audienceWatchRatio is relative to the number of views, and Shorts loop, so it
+    usually starts above 1.0 (e.g. 1.57 = replays). Dividing by the value at the start turns it
+    into "of everyone who started, how many are still here".
+    """
+    start, here = _at(curve, 0.0), _at(curve, ratio)
+    if start is None or here is None or start <= 0:
+        return None
+    return round(here / start, 4)
+
+
 def _scene_label(sid: str) -> str:
     if sid.startswith("clue-"):
         return f"Clue {sid.split('-')[1]}"
@@ -569,7 +582,7 @@ def video_rows() -> list[dict]:
                 if not total:
                     break
                 r0, r1 = s["from"] / total, (s["from"] + s["durationInFrames"]) / total
-                a0, a1 = _at(row["retention"], r0), _at(row["retention"], r1)
+                a0, a1 = _share(row["retention"], r0), _share(row["retention"], r1)
                 scenes.append(
                     {"id": s["id"], "label": _scene_label(s["id"]), "start": round(r0, 4), "end": round(r1, 4), "watchingAtStart": a0, "watchingAtEnd": a1}
                 )
