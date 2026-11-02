@@ -1,4 +1,10 @@
 {
+ "cristiano-ronaldo": {
+  "author": "YantsImages",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cristiano_Ronaldo_0876.jpg"
+ },
  "harry-kane": {
   "author": "Bryan Berlin",
   "license": "CC BY-SA 4.0",
@@ -10,6 +16,24 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kylian_Mbappe_France_v_Senegal_16_June_2026-391_(cropped).jpg"
+ },
+ "lamine-yamal": {
+  "author": "Biso",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lamine_Yamal_in_2025_(cropped2).jpg"
+ },
+ "lionel-messi": {
+  "author": "Sank63",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Messi_2025.jpg"
+ },
+ "neymar": {
+  "author": "Balkan Photos",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Neymar_2018.jpg"
  },
  "pele": {
   "author": "Unknown author",
