@@ -696,7 +696,9 @@ def insights(ours: list[dict], comparisons: list[dict], scene_drops: list[dict],
     reach = [r["reachedReveal"] for r in ours if r.get("reachedReveal") is not None]
     if reach:
         out.append(f"On a typical video, {statistics.median(reach) * 100:.0f}% of the starting audience is still watching when the answer is revealed.")
-    leaks = [s for s in scene_drops if s["id"] not in ("outro",) and s["n"] >= 2]
+    # Before the answer: a big drop means a weak clue. After it: people leave once they know,
+    # so the fix is a shorter ending, not a better clue.
+    leaks = [s for s in scene_drops if s["id"] not in ("reveal", "outro") and s["n"] >= 2]
     if leaks:
         worst = max(leaks, key=lambda s: s["avgDrop"])
         if worst["avgDrop"] > 0.05:
@@ -704,7 +706,15 @@ def insights(ours: list[dict], comparisons: list[dict], scene_drops: list[dict],
                 "clue-1": "the opening seconds decide a Short — try a punchier first clue or start the narration sooner",
                 "countdown": "people bail during the countdown — try a shorter countdown",
             }.get(worst["id"], "consider a shorter or more surprising clue there")
-            out.append(f"Viewers leave most during {worst['label']} (about {worst['avgDrop'] * 100:.0f}% of the audience on average) — {tip}.")
+            out.append(f"Before the answer, viewers leave most during {worst['label']} (about {worst['avgDrop'] * 100:.0f}% of the audience on average) — {tip}.")
+    after = [s for s in scene_drops if s["id"] in ("reveal", "outro") and s["n"] >= 2]
+    if after:
+        gone = sum(s["avgDrop"] for s in after)
+        if gone > 0.2:
+            out.append(
+                f"About {gone * 100:.0f}% of viewers leave after the answer appears (reveal + comment ask) — normal once they know, "
+                "but a shorter ending would raise completion and loop the video sooner."
+            )
     for comp in comparisons:  # one line per comparison: its clearest difference
         found = []
         for metric, label in METRICS:
