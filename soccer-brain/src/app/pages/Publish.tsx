@@ -193,3 +193,48 @@ const Locked: React.FC<{form?: string}> = ({form}) => (
     )}
   </p>
 );
+
+/** Title + description ready to paste into YouTube, shown right after a render finishes. */
+export const UploadKit: React.FC<{historyId: string}> = ({historyId}) => {
+  const [d, setD] = useState<Defaults | null>(null);
+  const [title, setTitle] = useState('');
+  useEffect(() => {
+    api.get<Defaults>(`/api/youtube/publish/${historyId}`).then((x) => {
+      setD(x);
+      setTitle(x.title);
+    }, () => undefined);
+  }, [historyId]);
+  if (!d) return null;
+  return (
+    <div className="upload-kit">
+      <div className="lab-row">
+        <b className="small">YouTube title</b> <CopyButton text={title} label="📋 Copy title" />
+      </div>
+      <input value={title} maxLength={100} onChange={(e) => setTitle(e.target.value)} />
+      {d.titleOptions.length > 1 && (
+        <div className="title-opts small">
+          Other ideas:{' '}
+          {d.titleOptions
+            .filter((t) => t !== title)
+            .slice(0, 4)
+            .map((t) => (
+              <button key={t} className="link small" onClick={() => setTitle(t)}>
+                {t}
+              </button>
+            ))}
+        </div>
+      )}
+      <div className="lab-row">
+        <b className="small">Description</b> <CopyButton text={d.description} label="📋 Copy description" />
+      </div>
+      <textarea rows={8} readOnly value={d.description} onFocus={(e) => e.currentTarget.select()} />
+      {d.description.includes('Photo:') ? (
+        <p className="muted small">Keep the “Photo:” line — the photo's licence requires the credit.</p>
+      ) : (
+        <p className="warn small">
+          ⚠ No photo credit on file for this player. If the reveal shows a real photo, ask Claude to look up its credit before posting.
+        </p>
+      )}
+    </div>
+  );
+};

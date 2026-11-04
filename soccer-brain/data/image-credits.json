@@ -5,6 +5,23 @@
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cristiano_Ronaldo_0876.jpg"
  },
+ "david-beckham": {
+  "author": "Mike Fanshawe",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:David_Beckham_Victoria_Beckham_2019.jpg"
+ },
+ "diego-maradona": {
+  "author": "Unknown author",
+  "license": "Public domain",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maradona-Mundial_86_con_la_copa.JPG"
+ },
+ "diego-valeri": {
+  "author": "Ray Terrill",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diego_Valeri_Portland_Timbers_vs_Colorado_Rapids_2016-10-16_(30261185652).jpg"
+ },
  "erling-haaland": {
   "author": "MichaelEmilio",
   "license": "CC BY 4.0",
@@ -16,6 +33,18 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Harry_Kane_England_v_Ghana_23_June_2026-024_(cropped).jpg"
+ },
+ "jack-jewsbury": {
+  "author": "Ray Terrill",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jack_Jewsbury_(30261107612).jpg"
+ },
+ "jude-bellingham": {
+  "author": "Barcex",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jude_Bellingham_Laureus_2024_(cropped2).jpg"
  },
  "kylian-mbappe": {
   "author": "Bryan Berlin",
@@ -63,5 +92,17 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vinícius_Júnior_Brazil_V_Morocco_13_June_2026-207_(cropped).jpg"
+ },
+ "zinedine-zidane": {
+  "author": "hywell",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zinedine_Zidane.JPG"
+ },
+ "zlatan-ibrahimovic": {
+  "author": "Илья Хохлов",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zlatan_Ibrahimović_Euro_2012_vs_England.JPG"
  }
 }

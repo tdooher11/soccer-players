@@ -775,3 +775,21 @@ button.small-btn {
   padding: 4px 10px;
   font-size: 13px;
 }
+.upload-kit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel2);
+}
+.upload-kit input,
+.upload-kit textarea {
+  width: 100%;
+}
+.upload-kit textarea {
+  font-size: 13px;
+  line-height: 1.4;
+}

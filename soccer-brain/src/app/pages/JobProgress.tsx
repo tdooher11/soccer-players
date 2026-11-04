@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {api, type Job} from '../api';
+import {UploadKit} from './Publish';
 
 /** Polls a render/batch job and shows progress, errors and links. */
 export const JobProgress: React.FC<{jobId: string; onFinished?: (j: Job) => void}> = ({jobId, onFinished}) => {
@@ -53,7 +54,7 @@ export const JobProgress: React.FC<{jobId: string; onFinished?: (j: Job) => void
               ) : (
                 r.questionId
               )}{' '}
-              {r.title ? <span className="muted">— {r.title}</span> : null}
+              {r.video && r.id ? <UploadKit historyId={r.id} /> : null}
             </li>
           ))}
           {job.result.failed.map((r: any, i: number) => (
