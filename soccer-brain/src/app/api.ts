@@ -102,6 +102,7 @@ export type History = {
   videoUrl: string | null;
   downloadUrl: string | null;
   downloadName: string | null;
+  youtubeId?: string | null;
   metadataUrl: string | null;
   batchId?: string | null;
 };

@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {api, type History, type Job, type Question, type Settings} from '../api';
 import {JobProgress} from './JobProgress';
+import {PublishDialog} from './Publish';
 
 export const HistoryPage: React.FC<{onEdit: (q: Question, s: Settings) => void}> = ({onEdit}) => {
   const [items, setItems] = useState<History[]>([]);
   const [job, setJob] = useState<Job | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
+  const [publishing, setPublishing] = useState<History | null>(null);
   const load = () => api.get<History[]>('/api/history').then(setItems);
   useEffect(() => {
     load();
@@ -24,6 +26,7 @@ export const HistoryPage: React.FC<{onEdit: (q: Question, s: Settings) => void}>
         )}
       </div>
       {job && <JobProgress jobId={job.id} onFinished={load} />}
+      {publishing && <PublishDialog h={publishing} onClose={() => setPublishing(null)} onPublished={load} />}
       <div className="grid">
         {items.map((h) => (
           <div key={h.id} className="vcard">
@@ -58,6 +61,22 @@ export const HistoryPage: React.FC<{onEdit: (q: Question, s: Settings) => void}>
                 <button className="link" onClick={() => edit(h)}>
                   Open in editor
                 </button>
+                {h.status === 'rendered' && h.videoUrl && (
+                  h.youtubeId ? (
+                    <>
+                      <a href={`https://youtube.com/shorts/${h.youtubeId}`} target="_blank" rel="noreferrer">
+                        On YouTube ↗
+                      </a>
+                      <button className="link" onClick={() => setPublishing(h)}>
+                        Title &amp; description
+                      </button>
+                    </>
+                  ) : (
+                    <button className="primary small-btn" onClick={() => setPublishing(h)}>
+                      ▶ Publish to YouTube
+                    </button>
+                  )
+                )}
               </div>
             </div>
           </div>

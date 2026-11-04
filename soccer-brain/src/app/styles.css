@@ -708,3 +708,70 @@ a.button {
   font-weight: 800;
   text-decoration: none;
 }
+
+/* ---------------------------------------------------------------- publish dialog */
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+  z-index: 50;
+}
+.modal {
+  width: min(640px, 100%);
+}
+.modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+.modal textarea {
+  width: 100%;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.lab-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-opts {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  color: var(--muted);
+}
+.when {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+}
+.modal label.radio {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.notice {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+.notice.ok {
+  border-color: var(--green);
+}
+.notice.warn {
+  border-color: var(--orange);
+}
+button.small-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+}

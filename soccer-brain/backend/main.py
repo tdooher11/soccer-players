@@ -484,6 +484,25 @@ def youtube_report_text():
     return PlainTextResponse(youtube.share_text())
 
 
+@app.get("/api/youtube/publish/{rid}")
+def youtube_publish_defaults(rid: str):
+    return youtube.publish_defaults(rid)
+
+
+class YTPublishReq(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    tags: list[str] | None = None
+    privacy: Literal["public", "unlisted", "private"] = "public"
+    publishAt: str | None = None
+
+
+@app.post("/api/youtube/publish/{rid}")
+def youtube_publish(rid: str, req: YTPublishReq):
+    """Upload a render to YouTube (one upload ≈ 1,600 of the 10,000 daily API units)."""
+    return youtube.publish(rid, title=req.title, description=req.description, tags=req.tags, privacy=req.privacy, publish_at=req.publishAt)
+
+
 class YTLinkReq(BaseModel):
     videoId: str
     historyId: str | None = None

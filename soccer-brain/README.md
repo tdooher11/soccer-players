@@ -194,6 +194,27 @@ suggested title from `metadata.json`. Anything else: pick the render from the dr
 ./soccer-brain youtube disconnect
 ```
 
+### Publishing from the studio
+
+In the **Videos** tab, every rendered video has **▶ Publish to YouTube**. It opens the suggested title
+(with other ideas), the description (with the photo credit the licence requires) and **Copy** buttons,
+then uploads and either schedules it (default: next 11:00), publishes it now, or uploads it as private.
+Uploads are marked *not made for kids* (so comments stay on — the videos ask for them), category Sports,
+and are linked to the render automatically for analytics. From the terminal:
+
+```bash
+./soccer-brain youtube publish r-1a2b3c4d5e --schedule 2026-11-05T11:00
+```
+
+- **First time:** press **Reconnect** in the Analytics tab and allow uploads (connections made before this
+  feature only have read access).
+- **Uploads stay private until Google audits your project.** Google forces videos uploaded through the API
+  by unaudited Google Cloud projects to private. The studio detects this and says so. To lift it, submit the
+  [YouTube API Services audit form](https://support.google.com/youtube/contact/yt_api_form) (describe it as a
+  personal tool that uploads your own channel's Shorts). Until it's approved, use the Copy buttons and
+  upload by hand.
+- **Quota:** each upload uses ~1,600 of the default 10,000 daily API units — about 6 uploads a day.
+
 > **Sign-in stops working after a week?** Google expires sign-ins for apps left in "Testing" after 7 days.
 > Either press Connect again, or in Google Auth Platform → **Audience** press **Publish app** (it stays
 > unverified and private to you — only accounts you sign in with can use it).

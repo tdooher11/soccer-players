@@ -349,6 +349,13 @@ def cmd_youtube(a) -> None:
             sys.exit("usage: soccer-brain youtube link <youtube-video-id> <studio-render-id | none>")
         youtube.set_link(a.file, None if a.target in (None, "none") else a.target)
         print("Linked.")
+    elif a.action == "publish":
+        if not a.file:
+            sys.exit("usage: soccer-brain youtube publish <render-id> [--schedule 2026-11-05T11:00] [--privacy public|unlisted|private]")
+        r = youtube.publish(a.file, privacy=a.privacy, publish_at=a.schedule, title=a.title)
+        print(f"Uploaded: {r['url']}  ({r['privacy']}{', goes public ' + r['publishAt'] if r['publishAt'] else ''})")
+        if r["locked"]:
+            print(f"⚠ YouTube kept it private: this Google Cloud project hasn't passed the YouTube API audit yet ({youtube.AUDIT_FORM}).")
     elif a.action == "disconnect":
         youtube.disconnect()
         print("Disconnected (your Google sign-in token was deleted).")
@@ -456,11 +463,14 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--no-transcribe", action="store_true")
     p.set_defaults(fn=cmd_qa)
 
-    p = sub.add_parser("youtube", help="YouTube analytics: client <file> | status | sync | report | link <video> <render> | disconnect")
-    p.add_argument("action", choices=["client", "status", "sync", "report", "link", "disconnect"])
+    p = sub.add_parser("youtube", help="YouTube: client <file> | status | sync | report | link <video> <render> | publish <render> | disconnect")
+    p.add_argument("action", choices=["client", "status", "sync", "report", "link", "publish", "disconnect"])
     p.add_argument("file", nargs="?", help="client: the OAuth JSON from Google Cloud · link: the YouTube video id")
     p.add_argument("target", nargs="?", help="link: the studio render id (r-…), or 'none' for not-ours")
     p.add_argument("--share", action="store_true", help="report: full plain-text report to paste into a chat")
+    p.add_argument("--privacy", default="public", choices=["public", "unlisted", "private"], help="publish: visibility")
+    p.add_argument("--schedule", help="publish: go public at this local time, e.g. 2026-11-05T11:00")
+    p.add_argument("--title", help="publish: override the suggested title")
     p.set_defaults(fn=cmd_youtube)
 
     a = ap.parse_args(argv)

@@ -35,10 +35,14 @@ from .config import settings
 
 log = logging.getLogger(__name__)
 
+UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.readonly",
     "https://www.googleapis.com/auth/yt-analytics.readonly",
+    UPLOAD_SCOPE,  # Publish button; sign-ins from before it existed need one Reconnect
 ]
+UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
+AUDIT_FORM = "https://support.google.com/youtube/contact/yt_api_form"
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 DATA_API = "https://www.googleapis.com/youtube/v3"
@@ -187,6 +191,9 @@ def status() -> dict:
         "channel": d.get("channel"),
         "syncedAt": d.get("syncedAt"),
         "videos": len(d.get("videos", {})),
+        "canUpload": UPLOAD_SCOPE in (_load("youtube-token.json", {}) or {}).get("scope", ""),
+        "uploadsLocked": bool(d.get("uploadsLocked")),
+        "auditForm": AUDIT_FORM,
     }
 
 
@@ -219,6 +226,14 @@ class Api:
     def get(self, url: str, params: dict) -> dict:
         self.calls += 1
         r = self.http.get(url, params=params, headers={"Authorization": f"Bearer {self._token()}"})
+        return self._check(r).json()
+
+    def send(self, method: str, url: str, **kw) -> httpx.Response:
+        self.calls += 1
+        headers = {"Authorization": f"Bearer {self._token()}", **kw.pop("headers", {})}
+        return self._check(self.http.request(method, url, headers=headers, timeout=600, **kw))
+
+    def _check(self, r: httpx.Response) -> httpx.Response:
         if r.status_code == 401:
             raise NotConnected("YouTube sign-in was rejected — press Connect again.")
         if r.status_code >= 400:
@@ -226,8 +241,10 @@ class Api:
                 msg = r.json()["error"]["message"]
             except Exception:
                 msg = r.text[:300]
+            if "quota" in msg.lower():
+                msg += " (YouTube allows about 6 uploads a day per Google Cloud project; try again tomorrow)"
             raise YouTubeError(f"{r.status_code}: {msg}")
-        return r.json()
+        return r
 
 
 # ------------------------------------------------------------------------------ sync
@@ -814,3 +831,114 @@ def share_text(*, comments_per_video: int = 5) -> str:
         if texts:
             out.append("  comments: " + " | ".join(re.sub(r"\s+", " ", t)[:100] for t in texts))
     return "\n".join(out) + "\n"
+
+
+# ------------------------------------------------------------------------ publishing
+
+
+def publish_defaults(history_id: str) -> dict:
+    """Title / description / tags the studio suggests for a render (from its metadata.json)."""
+    h = next((x for x in store.list_history() if x["id"] == history_id), None)
+    if not h or not h.get("video"):
+        raise YouTubeError("Unknown render — or it hasn't finished rendering.")
+    meta_path = settings.output_dir / h["outputDir"] / "metadata.json"
+    meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
+    return {
+        "title": meta.get("title") or h.get("title") or "Guess the Player ⚽",
+        "titleOptions": meta.get("titleOptions") or [],
+        "description": meta.get("description") or "",
+        "tags": [t.lstrip("#") for t in meta.get("hashtags") or []],
+        "published": load_data().get("uploads", {}).get(history_id),
+    }
+
+
+def publish(
+    history_id: str,
+    *,
+    title: str | None = None,
+    description: str | None = None,
+    tags: list[str] | None = None,
+    privacy: str = "public",
+    publish_at: str | None = None,
+    api: Api | None = None,
+) -> dict:
+    """Upload a render to the channel (resumable upload), then remember the link for analytics.
+
+    privacy: public | unlisted | private. publish_at (RFC 3339, in the future) schedules it:
+    YouTube needs the video uploaded as private, then makes it public at that time.
+    Google keeps uploads from unaudited API projects private no matter what's asked; that's
+    detected and reported (see AUDIT_FORM).
+    """
+    if privacy not in ("public", "unlisted", "private"):
+        raise YouTubeError("privacy must be public, unlisted or private")
+    tok = _load("youtube-token.json", None)
+    if tok and UPLOAD_SCOPE not in tok.get("scope", ""):
+        raise NotConnected("The studio doesn't have permission to upload yet — press Reconnect in the Analytics tab and allow uploads.")
+    d = publish_defaults(history_id)
+    h = next(x for x in store.list_history() if x["id"] == history_id)
+    path = settings.output_dir / h["video"]
+    if not path.is_file():
+        raise YouTubeError("The video file is missing from output/.")
+    if publish_at:
+        when = datetime.fromisoformat(publish_at.replace("Z", "+00:00"))
+        if when.tzinfo is None:
+            when = when.astimezone()  # treat as this computer's local time
+        if when <= datetime.now(timezone.utc) + timedelta(minutes=5):
+            raise YouTubeError("Pick a schedule time at least a few minutes in the future.")
+        publish_at = when.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    title = (title or d["title"]).strip()[:100]
+    body = {
+        "snippet": {
+            "title": title,
+            "description": (description if description is not None else d["description"])[:5000],
+            "tags": (tags if tags is not None else d["tags"])[:30],
+            "categoryId": "17",  # Sports
+            "defaultLanguage": "en",
+            "defaultAudioLanguage": "en",
+        },
+        "status": {
+            "privacyStatus": "private" if publish_at else privacy,
+            "selfDeclaredMadeForKids": False,  # "made for kids" turns comments off; the videos ask for comments
+            "embeddable": True,
+            **({"publishAt": publish_at} if publish_at else {}),
+        },
+    }
+    api = api or Api()
+    size = path.stat().st_size
+    init = api.send(
+        "POST",
+        UPLOAD_URL,
+        params={"uploadType": "resumable", "part": "snippet,status"},
+        json=body,
+        headers={"X-Upload-Content-Type": "video/mp4", "X-Upload-Content-Length": str(size)},
+    )
+    session = init.headers.get("Location")
+    if not session:
+        raise YouTubeError("YouTube didn't start the upload (no upload URL returned).")
+    with path.open("rb") as fh:
+        video = api.send("PUT", session, content=fh.read(), headers={"Content-Type": "video/mp4"}).json()
+
+    vid = video["id"]
+    got = video.get("status", {}).get("privacyStatus")
+    wanted = "private" if publish_at else privacy
+    locked = (wanted != "private" and got == "private") or bool(publish_at and not video.get("status", {}).get("publishAt"))
+    result = {
+        "videoId": vid,
+        "url": f"https://youtube.com/shorts/{vid}",
+        "studioUrl": f"https://studio.youtube.com/video/{vid}/edit",
+        "title": title,
+        "privacy": got,
+        "publishAt": video.get("status", {}).get("publishAt"),
+        "locked": locked,
+        "at": datetime.now().isoformat(timespec="seconds"),
+    }
+    data = load_data()
+    data.setdefault("uploads", {})[history_id] = result
+    data["links"][vid] = history_id  # analytics match this upload to the render, no guessing
+    if locked:
+        data["uploadsLocked"] = True
+    elif got == wanted:
+        data.pop("uploadsLocked", None)
+    _save("youtube.json", data)
+    store.update_history(history_id, youtubeId=vid)
+    return result

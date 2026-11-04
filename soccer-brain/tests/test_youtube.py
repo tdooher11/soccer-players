@@ -211,3 +211,75 @@ def test_retention_is_share_of_starting_audience():
     assert youtube._share(curve, 0.72) == pytest.approx(0.96 / 1.57, abs=0.001)
     assert youtube._share(curve, 0.0) == 1.0
     assert youtube._share([], 0.5) is None
+
+
+class FakeUpload:
+    """Resumable upload: POST (metadata) -> Location, PUT (bytes) -> video resource."""
+
+    def __init__(self, lock_private: bool):
+        self.lock_private = lock_private
+        self.meta = None
+        self.uploaded = b""
+
+    def __call__(self, req: httpx.Request) -> httpx.Response:
+        u = urlparse(str(req.url))
+        if u.netloc == "oauth2.googleapis.com":
+            return httpx.Response(200, json={"access_token": "fresh", "expires_in": 3600})
+        if req.method == "POST" and u.path == "/upload/youtube/v3/videos":
+            assert parse_qs(u.query)["uploadType"] == ["resumable"]
+            assert req.headers["X-Upload-Content-Type"] == "video/mp4"
+            self.meta = json.loads(req.content)
+            return httpx.Response(200, headers={"Location": "https://www.googleapis.com/upload/youtube/v3/videos?upload_id=abc"})
+        if req.method == "PUT" and "upload_id=abc" in str(req.url):
+            self.uploaded = req.content
+            st = dict(self.meta["status"])
+            if self.lock_private:  # unaudited project: forced private, schedule dropped
+                st["privacyStatus"] = "private"
+                st.pop("publishAt", None)
+            return httpx.Response(200, json={"id": "newVid", "snippet": self.meta["snippet"], "status": st})
+        return httpx.Response(404, json={"error": {"message": f"unexpected {req.method} {req.url}"}})
+
+
+def _publishable(tmp_data, scope):
+    for f in ("youtube.json", "youtube-token.json", "youtube-client.json"):
+        (tmp_data / f).unlink(missing_ok=True)
+    youtube.save_client({"installed": {"client_id": "cid", "client_secret": "sec"}})
+    (tmp_data / "youtube-token.json").write_text(json.dumps({"access_token": "old", "refresh_token": "r1", "expires_at": 0, "scope": scope}))
+    _render("r-pub", "RONALDINHO", "ronaldinho", "2026-10-01T09:00:00", "Can You Guess This Legend? ⚽")
+    out = settings.output_dir / "2026-10-01/r-pub"
+    (out / "video.mp4").write_bytes(b"fake-mp4-bytes")
+    (out / "metadata.json").write_text(json.dumps({"title": "Can You Guess This Legend? ⚽", "description": "Five clues.\nPhoto: X, CC BY 2.0", "hashtags": ["#soccer", "#brazil"]}))
+
+
+def test_publish_schedules_and_links_for_analytics(tmp_data):
+    _publishable(tmp_data, " ".join(youtube.SCOPES))
+    fake = FakeUpload(lock_private=False)
+    api = youtube.Api(http=httpx.Client(transport=httpx.MockTransport(fake)))
+    when = "2099-01-01T11:00:00+00:00"
+    r = youtube.publish("r-pub", publish_at=when, api=api)
+    assert fake.uploaded == b"fake-mp4-bytes"
+    assert fake.meta["snippet"]["title"] == "Can You Guess This Legend? ⚽" and fake.meta["snippet"]["tags"] == ["soccer", "brazil"]
+    assert "Photo: X" in fake.meta["snippet"]["description"]
+    assert fake.meta["status"] == {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "embeddable": True, "publishAt": "2099-01-01T11:00:00Z"}
+    assert r["videoId"] == "newVid" and not r["locked"] and r["publishAt"]
+    assert youtube.load_data()["links"]["newVid"] == "r-pub"
+    assert next(h for h in store.list_history() if h["id"] == "r-pub")["youtubeId"] == "newVid"
+    assert youtube.publish_defaults("r-pub")["published"]["videoId"] == "newVid"
+
+
+def test_publish_detects_unaudited_lock(tmp_data):
+    _publishable(tmp_data, " ".join(youtube.SCOPES))
+    api = youtube.Api(http=httpx.Client(transport=httpx.MockTransport(FakeUpload(lock_private=True))))
+    r = youtube.publish("r-pub", privacy="public", api=api)
+    assert r["locked"] and r["privacy"] == "private"
+    assert youtube.status()["uploadsLocked"]
+
+
+def test_publish_needs_upload_permission_and_future_time(tmp_data):
+    _publishable(tmp_data, "https://www.googleapis.com/auth/youtube.readonly")
+    with pytest.raises(youtube.NotConnected):
+        youtube.publish("r-pub")
+    assert not youtube.status()["canUpload"]
+    _publishable(tmp_data, " ".join(youtube.SCOPES))
+    with pytest.raises(youtube.YouTubeError):
+        youtube.publish("r-pub", publish_at="2020-01-01T11:00:00Z")
