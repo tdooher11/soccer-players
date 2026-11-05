@@ -428,7 +428,11 @@ def auto_link(videos: dict[str, dict], links: dict[str, str | None]) -> dict[str
         fname = _norm(v.get("fileName"))
         if fname and fname != "video":
             hits = [h for h in cands if _norm(store.download_name(h, names)) == fname]
-        if not hits:
+        # A studio-style file name ("Ronaldinho - Guess the Player - 2026-11-02") that matches no
+        # render here was made elsewhere — don't fall back to the title, which our titles share
+        # across players and would link it to the wrong render.
+        studio_file = bool(re.fullmatch(r".+ (guess the player|career path|who won more|guess the club|true or false) \d{4} \d{2} \d{2}", fname))
+        if not hits and not studio_file:
             title = _norm(v.get("title"))
             hits = [h for h in cands if title and (_norm(h.get("title")) == title or _norm(store.download_name(h, names)) == title)]
         if len(hits) > 1 and v.get("durationSeconds"):

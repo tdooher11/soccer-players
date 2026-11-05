@@ -63,7 +63,7 @@ class FakeGoogle:
         if u.path.endswith("/channels"):
             return httpx.Response(200, json={"items": [{"id": "UC1", "snippet": {"title": "Soccer Brain"}, "statistics": {"subscriberCount": "42"}, "contentDetails": {"relatedPlaylists": {"uploads": "UU1"}}}]})
         if u.path.endswith("/playlistItems"):
-            return httpx.Response(200, json={"items": [{"contentDetails": {"videoId": v}} for v in ("vA", "vB", "vC")]})
+            return httpx.Response(200, json={"items": [{"contentDetails": {"videoId": v}} for v in ("vA", "vB", "vC", "vD")]})
         if u.path.endswith("/videos"):
             return httpx.Response(
                 200,
@@ -72,6 +72,8 @@ class FakeGoogle:
                         _yt("vA", "Ronaldinho - Guess the Player - 2026-10-01", "2026-10-02T10:00:00Z", "Ronaldinho - Guess the Player - 2026-10-01.mp4"),
                         _yt("vB", "Can You Guess This Brazilian Star? ⚽", "2026-10-03T10:00:00Z", "video.mp4"),
                         _yt("vC", "My holiday vlog", "2026-10-04T10:00:00Z", "IMG_0001.MOV"),
+                        # rendered on another computer: same title as r-bbb but a different player's file
+                        _yt("vD", "Can You Guess This Brazilian Star? ⚽", "2026-10-05T10:00:00Z", "Ronaldinho - Guess the Player - 2026-10-05.mp4"),
                     ]
                 },
             )
@@ -84,7 +86,7 @@ class FakeGoogle:
                 if "engagedViews" in q["metrics"] and not self.engaged_supported:
                     return httpx.Response(400, json={"error": {"message": "Unknown identifier (engagedViews) given in field parameters.metrics."}})
                 cols = q["metrics"].split(",")
-                vals = {"vA": dict(views=1000, averageViewPercentage=80.0, likes=50, comments=4), "vB": dict(views=400, averageViewPercentage=60.0, likes=10, comments=2), "vC": dict(views=10)}
+                vals = {"vA": dict(views=1000, averageViewPercentage=80.0, likes=50, comments=4), "vB": dict(views=400, averageViewPercentage=60.0, likes=10, comments=2), "vC": dict(views=10), "vD": dict(views=5)}
                 rows = [[v] + [vals[v].get(c, 0) for c in cols] for v in q["filters"].split("==")[1].split(",")]
                 return httpx.Response(200, json={"columnHeaders": [{"name": "video"}] + [{"name": c} for c in cols], "rows": rows})
             if dims == "elapsedVideoTimeRatio":
@@ -121,7 +123,7 @@ def connected(tmp_data):
 def test_sync_matches_uploads_and_builds_report(connected):
     api = youtube.Api(http=httpx.Client(transport=httpx.MockTransport(connected)))
     res = youtube.sync(api=api, today=date(2026, 10, 30))
-    assert res["videos"] == 3 and res["linked"] == 2
+    assert res["videos"] == 4 and res["linked"] == 2
     assert youtube.load_data()["videos"]["vC"]["retention"]  # unmatched uploads get deep data too (can be linked later)
     assert connected.refreshed == 1  # expired access token was refreshed once
 
@@ -129,6 +131,7 @@ def test_sync_matches_uploads_and_builds_report(connected):
     assert links["vA"] == "r-aaa"  # by uploaded file name (the studio's download name)
     assert links["vB"] == "r-bbb"  # by our suggested title
     assert "vC" not in links
+    assert "vD" not in links  # studio file name for a render we don't have: not matched by title
 
     rep = youtube.report()
     rows = {r["id"]: r for r in rep["videos"]}
