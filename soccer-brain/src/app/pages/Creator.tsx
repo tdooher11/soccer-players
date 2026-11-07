@@ -57,6 +57,7 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
   }, [seed]);
 
   const fmt = FORMATS.find((f) => f.id === format)!;
+  const endingSaving = settings.ending === 'short' ? 2.2 : 0; // backend/timeline.py after_answer_saving
   // Changing the player / format / difficulty / clue count fetches fresh clues straight away
   // (once enough players are chosen: Who Won More needs two).
   const regenerate = (ids: string[], f: string, o: {difficulty?: string; clueCount?: number} = {}) => {
@@ -89,7 +90,7 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
   };
 
   // Rebuild narration + timeline when content or narration settings change (debounced).
-  const audioKey = JSON.stringify([question, settings.narration, settings.ttsProvider, settings.voice, settings.speechSpeed, settings.countdownSeconds]);
+  const audioKey = JSON.stringify([question, settings.narration, settings.ttsProvider, settings.voice, settings.speechSpeed, settings.countdownSeconds, settings.ending]);
   const buildSeq = useRef(0);
   useEffect(() => {
     if (!question) return;
@@ -294,15 +295,17 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
             </label>
           )}
           <label>
-            Target length: {duration}s {durationTouched ? '' : <span className="small muted">(auto)</span>}
+            {/* `duration` is the classic-ending length; the short ending trims ~2 s after the answer. */}
+            Target length: {Math.round((duration - endingSaving) * 10) / 10}s{' '}
+            {durationTouched ? '' : <span className="small muted">(auto)</span>}
             <input
               type="range"
-              min={12}
-              max={35}
-              step={1}
-              value={duration}
+              min={10}
+              max={33}
+              step={0.5}
+              value={duration - endingSaving}
               onChange={(e) => {
-                setDuration(+e.target.value);
+                setDuration(+e.target.value + endingSaving);
                 setDurationTouched(true);
               }}
             />
@@ -409,6 +412,13 @@ export const Creator: React.FC<{seed: CreatorSeed}> = ({seed}) => {
               <option value="stadium-gold">Stadium gold</option>
               <option value="electric-blue">Electric blue</option>
               <option value="night-match">Night match</option>
+            </select>
+          </label>
+          <label>
+            Ending
+            <select value={settings.ending ?? 'short'} onChange={(e) => set('ending', e.target.value as Settings['ending'])}>
+              <option value="short">Short — name + quick “how many clues?”</option>
+              <option value="classic">Classic — longer reveal + comment ask</option>
             </select>
           </label>
           <label>

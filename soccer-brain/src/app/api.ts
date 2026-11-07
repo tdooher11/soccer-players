@@ -34,6 +34,7 @@ export type Settings = {
   sfxVolume: number;
   showAnswerImage: boolean;
   countdownSeconds: number;
+  ending: 'short' | 'classic';
   fps: number;
 };
 export const DEFAULT_SETTINGS: Settings = {
@@ -48,6 +49,7 @@ export const DEFAULT_SETTINGS: Settings = {
   sfxVolume: 1,
   showAnswerImage: true,
   countdownSeconds: 3,
+  ending: 'short',
   fps: 30,
 };
 export type Achievement = {type: string; count: number; years: number[]; label?: string | null; provenance?: {source: string; sourceUrl?: string | null}};

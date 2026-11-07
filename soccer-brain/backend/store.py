@@ -49,7 +49,7 @@ def get_question(qid: str) -> Question | None:
 
 def used_fact_sets(player_id: str) -> set[frozenset[str]]:
     """Clue fact-sets already rendered for this player (to avoid near-identical videos)."""
-    rendered = {h["questionId"] for h in list_history() if h.get("status") == "rendered"}
+    rendered = {h.get("questionId") for h in list_history() if h.get("status") == "rendered"}
     return {
         frozenset(c.fact for c in q.clues if c.fact)
         for q in list_questions()

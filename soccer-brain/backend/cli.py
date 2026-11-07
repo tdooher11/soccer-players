@@ -50,7 +50,7 @@ def _video_settings(a):
     from .models import VideoSettings
 
     kw = {}
-    for name in ("theme", "voice", "fps"):
+    for name in ("theme", "voice", "fps", "ending"):
         if getattr(a, name, None) is not None:
             kw[name] = getattr(a, name)
     if getattr(a, "provider", None):
@@ -78,6 +78,7 @@ def _add_video_opts(p: argparse.ArgumentParser) -> None:
     g.add_argument("--no-narration", action="store_true")
     g.add_argument("--no-music", action="store_true")
     g.add_argument("--no-image", action="store_true", help="use the jersey graphic instead of a photo")
+    g.add_argument("--ending", choices=["short", "classic"], help="short (default): quick reveal + one-line comment ask")
 
 
 def _resolve_player(ref: str) -> str:
@@ -314,6 +315,22 @@ def cmd_qa(a) -> None:
         sys.exit(1)
 
 
+def cmd_export_video(a) -> None:
+    from .transfer import export_render
+
+    print(export_render(a.render_id, Path(a.out).expanduser() if a.out else None))
+
+
+def cmd_import_video(a) -> None:
+    from .transfer import import_render
+
+    r = import_render(Path(a.zip).expanduser().read_bytes())
+    if r.get("alreadyImported"):
+        print(f"Already in your studio: {r['id']} ({r['answer']})")
+    else:
+        print(f"Imported {r['id']} ({r['answer']}) → output/{r['outputDir']}")
+
+
 def cmd_youtube(a) -> None:
     from . import youtube
 
@@ -462,6 +479,14 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("dir")
     p.add_argument("--no-transcribe", action="store_true")
     p.set_defaults(fn=cmd_qa)
+
+    p = sub.add_parser("export-video", help="pack a rendered video (+ its record) into a .zip for another studio")
+    p.add_argument("render_id")
+    p.add_argument("-o", "--out", help="zip path (default: next to the video folder)")
+    p.set_defaults(fn=cmd_export_video)
+    p = sub.add_parser("import-video", help="add a video exported from another studio (.zip)")
+    p.add_argument("zip")
+    p.set_defaults(fn=cmd_import_video)
 
     p = sub.add_parser("youtube", help="YouTube: client <file> | status | sync | report | link <video> <render> | publish <render> | disconnect")
     p.add_argument("action", choices=["client", "status", "sync", "report", "link", "publish", "disconnect"])

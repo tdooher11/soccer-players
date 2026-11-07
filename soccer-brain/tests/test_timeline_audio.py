@@ -56,7 +56,12 @@ def test_timeline_is_contiguous_and_ordered(q):
 def test_narration_off_hits_target_exactly(q):
     props, report = build_props(q, VideoSettings(narration=False))
     assert props.audio.narration == []
-    assert props.timeline.total_frames == round(q.duration_seconds * 30)
+    from backend.timeline import after_answer_saving
+
+    s = VideoSettings(narration=False)
+    assert props.timeline.total_frames == round((q.duration_seconds - after_answer_saving(s)) * 30)
+    classic, _ = build_props(q, VideoSettings(narration=False, ending="classic"))
+    assert classic.timeline.total_frames == round(q.duration_seconds * 30)
 
 
 def test_missing_audio_fallback(q, monkeypatch):
@@ -83,7 +88,9 @@ def test_long_target_duration(q):
     q2 = q.model_copy(deep=True)
     q2.duration_seconds = 25
     props, report = build_props(q2, VideoSettings())
-    assert math.isclose(props.timeline.total_frames / 30, 25, abs_tol=0.8)
+    from backend.timeline import after_answer_saving
+
+    assert math.isclose(props.timeline.total_frames / 30, 25 - after_answer_saving(VideoSettings()), abs_tol=0.8)
 
 
 def test_unknown_provider_errors():
@@ -110,3 +117,19 @@ def test_outro_asks_for_comments(q):
     assert props.outro.title == "HOW MANY CLUES?"
     outro = next(s for s in report.scenes if s["id"] == "outro")
     assert "comment" in outro["speech"].lower()
+
+
+def test_short_ending_trims_only_after_the_answer(q):
+    short, rs = build_props(q, VideoSettings(ending="short"))
+    classic, rc = build_props(q, VideoSettings(ending="classic"))
+    sc = {s.id: s.duration_in_frames for s in short.timeline.scenes}
+    cc = {s.id: s.duration_in_frames for s in classic.timeline.scenes}
+    for k in cc:  # clue pacing unchanged (a few frames of slack may move around)
+        if k.startswith("clue") or k == "countdown":
+            assert abs(sc[k] - cc[k]) <= 10, (k, sc[k], cc[k])
+    after = lambda d: d["reveal"] + d["outro"]  # noqa: E731
+    assert after(cc) - after(sc) >= 30 * 1.5  # at least 1.5 s shorter after the answer
+    assert short.timeline.total_frames < classic.timeline.total_frames
+    outro = next(s for s in rs.scenes if s["id"] == "outro")
+    assert outro["speech"] == "How many clues? Comment below!"
+    assert short.outro.title == "HOW MANY CLUES?"

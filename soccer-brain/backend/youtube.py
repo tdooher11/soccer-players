@@ -590,6 +590,7 @@ def video_rows() -> list[dict]:
                 "theme": st.get("theme"),
                 "voice": st.get("voice") or st.get("ttsProvider") or "default",
                 "speechSpeed": st.get("speechSpeed"),
+                "ending": st.get("ending") or "classic",  # renders from before the option had the classic ending
                 "player": pstore.display_name(p0.name) if p0 else None,
                 "playerType": None if not p0 else ("Women" if p0.category == "women" else "Legend" if p0.retired else "Current star"),
                 "weekday": published.strftime("%A"),
@@ -618,6 +619,7 @@ def video_rows() -> list[dict]:
 COMPARE = [
     ("format", "Format"),
     ("clues", "Number of clues"),
+    ("ending", "Ending"),
     ("difficulty", "Difficulty"),
     ("length", "Video length"),
     ("playerType", "Type of player"),

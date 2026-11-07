@@ -134,6 +134,13 @@ output/2026-10-14/ronaldinho/
 
 Nothing is ever uploaded. Review `metadata.json` → `needsAttention` before publishing.
 
+### Moving videos between studios
+
+`./soccer-brain export-video <render-id>` packs a rendered video and its record into one `.zip`.
+In another studio, **Videos → ⬆ Import video (.zip)** (or `./soccer-brain import-video file.zip`) adds it
+as if it had been rendered there — so it's matched on YouTube and counted in Analytics. Importing the same
+zip twice does nothing.
+
 ## 5. Quality checks
 
 ```bash

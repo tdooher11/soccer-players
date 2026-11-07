@@ -17,7 +17,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import players as pstore
-from . import production, store, trivia, tts, youtube
+from . import production, store, transfer, trivia, tts, youtube
 from .config import settings
 from .models import Achievement, Difficulty, FormatId, Player, Provenance, Question, VideoSettings, today
 from .timeline import build_props
@@ -387,6 +387,26 @@ def history():
         d["metadataUrl"] = f"/output/{h['outputDir']}/metadata.json" if meta.exists() else None
         out.append(d)
     return out
+
+
+@app.post("/api/history/import")
+async def history_import(request: Request):
+    """Add a video exported from another studio (raw .zip body)."""
+    try:
+        return transfer.import_render(await request.body())
+    except transfer.TransferError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+@app.get("/api/history/{rid}/export")
+def history_export(rid: str):
+    import tempfile
+
+    try:
+        path = transfer.export_render(rid, Path(tempfile.mkdtemp()) / f"{rid}.zip")
+    except transfer.TransferError as e:
+        raise HTTPException(404, str(e)) from e
+    return FileResponse(path, media_type="application/zip", filename=path.name)
 
 
 @app.get("/api/history/{rid}/download")

@@ -793,3 +793,18 @@ button.small-btn {
   font-size: 13px;
   line-height: 1.4;
 }
+label.button-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel2);
+  font-weight: 700;
+  font-size: 14px;
+}
+label.button-like:hover {
+  border-color: var(--accent);
+}

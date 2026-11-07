@@ -187,6 +187,8 @@ class VideoSettings(CamelModel):
     sfx_volume: float = Field(default=1.0, ge=0, le=1.5, alias="sfxVolume")
     show_answer_image: bool = Field(default=True, alias="showAnswerImage")
     countdown_seconds: int = Field(default=3, ge=2, le=5, alias="countdownSeconds")
+    # short: quick reveal + 1-line comment ask (~2.5 s less after the answer); classic: the original ending
+    ending: Literal["short", "classic"] = "short"
     fps: int = 30
 
 

@@ -13,6 +13,19 @@ export const HistoryPage: React.FC<{onEdit: (q: Question, s: Settings) => void}>
     load();
   }, []);
   const failed = items.filter((h) => h.status === 'failed');
+  const [importMsg, setImportMsg] = useState('');
+  const importZip = async (f: File) => {
+    setImportMsg('Importing…');
+    try {
+      const r = await fetch('/api/history/import', {method: 'POST', headers: {'Content-Type': 'application/zip'}, body: f});
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.detail ?? r.statusText);
+      setImportMsg(j.alreadyImported ? `${j.answer} is already in your studio.` : `✓ Imported ${j.answer}.`);
+      load();
+    } catch (e) {
+      setImportMsg(`Couldn't import: ${e instanceof Error ? e.message : e}`);
+    }
+  };
   const edit = async (h: History) => {
     const p = await api.get<{question: Question; settings: Settings}>(`/api/history/${h.id}/project`);
     onEdit(p.question, p.settings);
@@ -21,6 +34,20 @@ export const HistoryPage: React.FC<{onEdit: (q: Question, s: Settings) => void}>
     <div className="page">
       <div className="toolbar">
         <h2>Videos ({items.length})</h2>
+        <label className="button-like" title="Add a video someone (e.g. Claude) rendered elsewhere, from its .zip">
+          ⬆ Import video (.zip)
+          <input
+            type="file"
+            accept=".zip,application/zip"
+            hidden
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) importZip(f);
+              e.target.value = '';
+            }}
+          />
+        </label>
+        {importMsg && <span className="small">{importMsg}</span>}
         {failed.length > 0 && (
           <button onClick={async () => setJob(await api.post<Job>('/api/retry', {}))}>Retry {failed.length} failed</button>
         )}

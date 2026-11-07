@@ -55,6 +55,7 @@ const MADE_LABEL: Record<string, string> = {
   theme: 'Look',
   voice: 'Voice',
   speechSpeed: 'Narration speed',
+  ending: 'Ending',
   player: 'Player',
   playerType: 'Type of player',
   weekday: 'Day posted',

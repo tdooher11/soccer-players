@@ -50,6 +50,28 @@ OUTRO = {
     "who_won_more": ("DID YOU GET IT?", "Tell us in the comments!", "Did you get it right? Tell us in the comments!"),
     "true_false": ("DID YOU GET IT?", "Tell us in the comments!", "Did you get it right? Tell us in the comments!"),
 }
+# The quick ending: viewers leave once they know the answer, so after it we only say the name and
+# one short comment ask. (title, subtitle) on screen stay as in OUTRO.
+SHORT_OUTRO_SPEECH = {
+    "guess_player": "How many clues? Comment below!",
+    "career_path": "How many clubs? Comment below!",
+    "guess_club": "How many players? Comment below!",
+    "who_won_more": "Did you get it? Comment below!",
+    "true_false": "Did you get it? Comment below!",
+}
+# Seconds for (reveal, outro), and their minimums / tails in frames, per ending.
+ENDINGS = {
+    "classic": {"base": (3.0, 2.5), "min": (2.8, 1.0), "tail": (14, 10)},
+    "short": {"base": (1.7, 1.6), "min": (1.5, 1.0), "tail": (5, 6)},
+}
+CLASSIC_AFTER_ANSWER = sum(ENDINGS["classic"]["base"])
+
+
+def after_answer_saving(s: VideoSettings) -> float:
+    """Seconds the chosen ending saves compared with the classic one (clue pacing is unchanged)."""
+    return CLASSIC_AFTER_ANSWER - sum(ENDINGS[s.ending]["base"])
+
+
 # Running slightly long is better than rushing the narrator.
 OVERRUN_TOLERANCE_SECONDS = 0.75
 
@@ -62,6 +84,8 @@ class PlannedScene:
     base_seconds: float
     speech: str | None = None
     clip: tts.Clip | None = None
+    min_seconds: float | None = None  # overrides MIN_SECONDS for this scene
+    tail: int | None = None  # overrides TAIL (frames) for this scene
 
 
 @dataclass
@@ -87,10 +111,10 @@ def spoken_name(q: Question) -> str:
 
 def plan_scenes(q: Question, s: VideoSettings) -> list[PlannedScene]:
     """Scene list with base durations that sum to the target duration."""
-    T = q.duration_seconds
+    end = ENDINGS[s.ending]
+    T = q.duration_seconds - after_answer_saving(s)
     C = float(s.countdown_seconds)
-    R = 3.0
-    O = 2.5
+    R, O = end["base"]
     n = max(1, len(q.clues))
     clue_total = max(T - C - R - O, n * MIN_SECONDS["clue"])
     first = min(2.0, clue_total / n) if n > 1 else clue_total
@@ -107,8 +131,9 @@ def plan_scenes(q: Question, s: VideoSettings) -> list[PlannedScene]:
         scenes.append(PlannedScene("clue-1", "clue", 0, clue_total, intro))
     scenes.append(PlannedScene("countdown", "countdown", 0, C))
     reveal = q.reveal_speech or f"It's {spoken_name(q)}!"
-    scenes.append(PlannedScene("reveal", "reveal", 0, R, reveal))
-    scenes.append(PlannedScene("outro", "outro", 0, O, q.outro_speech or OUTRO[q.format][2]))
+    outro_speech = q.outro_speech or (SHORT_OUTRO_SPEECH if s.ending == "short" else {k: v[2] for k, v in OUTRO.items()})[q.format]
+    scenes.append(PlannedScene("reveal", "reveal", 0, R, reveal, min_seconds=end["min"][0], tail=end["tail"][0]))
+    scenes.append(PlannedScene("outro", "outro", 0, O, outro_speech, min_seconds=end["min"][1], tail=end["tail"][1]))
     return scenes
 
 
@@ -132,11 +157,12 @@ def _synthesize(scenes: list[PlannedScene], s: VideoSettings, speed: float, repo
 def _needs(scenes: list[PlannedScene], fps: int) -> list[int]:
     out = []
     for sc in scenes:
-        n = math.ceil(MIN_SECONDS[sc.type] * fps)
+        n = math.ceil((sc.min_seconds if sc.min_seconds is not None else MIN_SECONDS[sc.type]) * fps)
         if sc.type == "countdown":
             n = round(sc.base_seconds * fps)
         if sc.clip:
-            n = max(n, LEAD[sc.type] + (FIRST_LINE_EXTRA_LEAD if sc.id == "clue-1" else 0) + math.ceil(sc.clip.seconds * fps) + TAIL[sc.type])
+            tail = sc.tail if sc.tail is not None else TAIL[sc.type]
+            n = max(n, LEAD[sc.type] + (FIRST_LINE_EXTRA_LEAD if sc.id == "clue-1" else 0) + math.ceil(sc.clip.seconds * fps) + tail)
         out.append(n)
     return out
 
@@ -175,9 +201,10 @@ def _fit(scenes: list[PlannedScene], fps: int, target_frames: int, tolerance: in
 
 def build_props(q: Question, s: VideoSettings, *, auto_speed: bool = True) -> tuple[VideoProps, BuildReport]:
     fps = s.fps
-    target = round(q.duration_seconds * fps)
+    target_seconds = q.duration_seconds - after_answer_saving(s)
+    target = round(target_seconds * fps)
     tolerance = round(OVERRUN_TOLERANCE_SECONDS * fps)
-    report = BuildReport(target_seconds=q.duration_seconds)
+    report = BuildReport(target_seconds=round(target_seconds, 2))
     scenes = plan_scenes(q, s)
 
     speed = s.speech_speed
@@ -191,7 +218,7 @@ def build_props(q: Question, s: VideoSettings, *, auto_speed: bool = True) -> tu
     report.speech_speed = speed
     if sum(durs) > target + tolerance:
         report.warnings.append(
-            f"Narration needs {sum(durs) / fps:.1f}s; video extended beyond the {q.duration_seconds:.0f}s target so nothing is cut off."
+            f"Narration needs {sum(durs) / fps:.1f}s; video extended beyond the {target_seconds:.0f}s target so nothing is cut off."
         )
 
     # Assemble timeline + narration cues.
