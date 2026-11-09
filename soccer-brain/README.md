@@ -194,6 +194,10 @@ download name (e.g. `Ronaldinho - Guess the Player - 2026-10-29.mp4`) or the You
 suggested title from `metadata.json`. Anything else: pick the render from the dropdown next to the video
 (or mark it "Not a studio video"). Your choices are kept across syncs.
 
+Untick **Compare** next to a video to leave it out of the comparisons — for uploads YouTube barely
+showed anyone (posted in a batch, accidentally "made for kids"…), which would otherwise skew them. The
+report flags likely candidates.
+
 ```bash
 ./soccer-brain youtube sync        # pull fresh numbers
 ./soccer-brain youtube report      # takeaways + a table in the terminal

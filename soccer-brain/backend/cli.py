@@ -373,6 +373,11 @@ def cmd_youtube(a) -> None:
         print(f"Uploaded: {r['url']}  ({r['privacy']}{', goes public ' + r['publishAt'] if r['publishAt'] else ''})")
         if r["locked"]:
             print(f"⚠ YouTube kept it private: this Google Cloud project hasn't passed the YouTube API audit yet ({youtube.AUDIT_FORM}).")
+    elif a.action in ("exclude", "include"):
+        if not a.file:
+            sys.exit(f"usage: soccer-brain youtube {a.action} <youtube-video-id>")
+        youtube.set_excluded(a.file, a.action == "exclude")
+        print("Left out of comparisons." if a.action == "exclude" else "Back in the comparisons.")
     elif a.action == "disconnect":
         youtube.disconnect()
         print("Disconnected (your Google sign-in token was deleted).")
@@ -489,7 +494,7 @@ def main(argv: list[str] | None = None) -> None:
     p.set_defaults(fn=cmd_import_video)
 
     p = sub.add_parser("youtube", help="YouTube: client <file> | status | sync | report | link <video> <render> | publish <render> | disconnect")
-    p.add_argument("action", choices=["client", "status", "sync", "report", "link", "publish", "disconnect"])
+    p.add_argument("action", choices=["client", "status", "sync", "report", "link", "publish", "exclude", "include", "disconnect"])
     p.add_argument("file", nargs="?", help="client: the OAuth JSON from Google Cloud · link: the YouTube video id")
     p.add_argument("target", nargs="?", help="link: the studio render id (r-…), or 'none' for not-ours")
     p.add_argument("--share", action="store_true", help="report: full plain-text report to paste into a chat")

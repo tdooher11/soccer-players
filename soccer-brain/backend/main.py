@@ -523,6 +523,17 @@ def youtube_publish(rid: str, req: YTPublishReq):
     return youtube.publish(rid, title=req.title, description=req.description, tags=req.tags, privacy=req.privacy, publish_at=req.publishAt)
 
 
+class YTExcludeReq(BaseModel):
+    videoId: str
+    excluded: bool
+
+
+@app.post("/api/youtube/exclude")
+def youtube_exclude(req: YTExcludeReq):
+    youtube.set_excluded(req.videoId, req.excluded)
+    return youtube.report()
+
+
 class YTLinkReq(BaseModel):
     videoId: str
     historyId: str | None = None

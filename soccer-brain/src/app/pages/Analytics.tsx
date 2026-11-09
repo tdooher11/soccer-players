@@ -12,6 +12,7 @@ type VideoRow = {
   privacy: string | null;
   historyId: string | null;
   linkState: 'linked' | 'not-ours' | 'unlinked';
+  excluded: boolean;
   views: number;
   engagedViews: number | null;
   avgViewPercentage: number | null;
@@ -248,6 +249,7 @@ export const Analytics: React.FC = () => {
               <thead>
                 <tr>
                   <th>Video</th>
+                  <th title="Untick to leave a video out of the comparisons (e.g. one YouTube never showed anyone)">Compare</th>
                   <th>Studio render</th>
                   <th className="r">Views</th>
                   <th className="r">First 2 days</th>
@@ -260,7 +262,7 @@ export const Analytics: React.FC = () => {
               <tbody>
                 {report.videos.map((v) => (
                   <React.Fragment key={v.id}>
-                    <tr className={open === v.id ? 'open' : ''}>
+                    <tr className={`${open === v.id ? 'open' : ''} ${v.excluded ? 'few' : ''}`}>
                       <td>
                         <button className="link vid" onClick={() => setOpen(open === v.id ? null : v.id)} title="Show retention">
                           {v.thumbnail && <img src={v.thumbnail} alt="" />}
@@ -269,6 +271,21 @@ export const Analytics: React.FC = () => {
                             <span className="muted small"> · {v.publishedAt.slice(0, 10)}</span>
                           </span>
                         </button>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={!v.excluded}
+                          disabled={v.linkState !== 'linked'}
+                          title={v.linkState !== 'linked' ? 'Only matched studio videos are compared' : 'Include in comparisons'}
+                          onChange={async (e) => {
+                            try {
+                              setReport(await api.post<Report>('/api/youtube/exclude', {videoId: v.id, excluded: !e.target.checked}));
+                            } catch (er) {
+                              setErr(String(er));
+                            }
+                          }}
+                        />
                       </td>
                       <td>
                         <select
@@ -294,7 +311,7 @@ export const Analytics: React.FC = () => {
                     </tr>
                     {open === v.id && (
                       <tr className="detail">
-                        <td colSpan={8}>
+                        <td colSpan={9}>
                           <VideoDetail v={v} />
                         </td>
                       </tr>

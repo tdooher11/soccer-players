@@ -153,6 +153,12 @@ def test_sync_matches_uploads_and_builds_report(connected):
     assert rep["cluesNeeded"] == {"1": 2, "2": 1, "3": 1, "missed": 1}
     assert rep["insights"] and "Only 2 studio videos" in rep["insights"][0]
 
+    youtube.set_excluded("vB", True)  # e.g. YouTube never showed it to anyone
+    rep2 = youtube.report()
+    assert rep2["ours"] == 1 and rep2["excluded"] == 1
+    assert "(left out of comparisons)" in youtube.share_text()
+    youtube.set_excluded("vB", False)
+
     text = youtube.share_text()
     assert "# Soccer Brain — YouTube report" in text and "1: 2, 2: 1, 3: 1, missed: 1" in text
     assert "“My holiday vlog”" in text and "not matched to a studio render" in text

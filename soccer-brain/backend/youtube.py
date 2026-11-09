@@ -444,6 +444,18 @@ def auto_link(videos: dict[str, dict], links: dict[str, str | None]) -> dict[str
     return out
 
 
+def set_excluded(video_id: str, excluded: bool) -> list[str]:
+    """Leave a video out of comparisons (e.g. one YouTube never showed to anyone)."""
+    data = load_data()
+    if video_id not in data["videos"]:
+        raise YouTubeError("Unknown YouTube video — sync first.")
+    ex = set(data.get("excluded", []))
+    (ex.add if excluded else ex.discard)(video_id)
+    data["excluded"] = sorted(ex)
+    _save("youtube.json", data)
+    return data["excluded"]
+
+
 def set_link(video_id: str, history_id: str | None) -> dict:
     data = load_data()
     if video_id not in data["videos"]:
@@ -552,6 +564,7 @@ def video_rows() -> list[dict]:
             "privacy": v.get("privacy"),
             "historyId": h["id"] if h else None,
             "linkState": "linked" if h else ("not-ours" if vid in data["links"] else "unlinked"),
+            "excluded": vid in set(data.get("excluded", [])),
             # Counts come from the live public numbers (what YouTube Studio shows); the Analytics
             # API totals lag ~2 days, so only watch-time style metrics come from there.
             "views": int(v["public"]["views"] or 0),
@@ -644,7 +657,7 @@ def _median(xs: list[float]) -> float | None:
 
 def report() -> dict:
     rows = video_rows()
-    ours = [r for r in rows if r.get("made")]
+    ours = [r for r in rows if r.get("made") and not r["excluded"]]
 
     comparisons = []
     for key, label in COMPARE:
@@ -692,12 +705,30 @@ def report() -> dict:
         "status": status(),
         "videos": rows,
         "ours": len(ours),
+        "excluded": sum(r["excluded"] for r in rows),
         "comparisons": comparisons,
         "metrics": [{"key": k, "label": l} for k, l in METRICS],
         "sceneDrops": scene_drops,
         "cluesNeeded": clue_votes,
-        "insights": insights(ours, comparisons, scene_drops, clue_votes),
+        "insights": insights(ours, comparisons, scene_drops, clue_votes) + _stuck(rows),
     }
+
+
+def _stuck(rows: list[dict]) -> list[str]:
+    """Flag uploads YouTube barely showed anyone, so they can be left out of comparisons."""
+    healthy = [r["views"] for r in rows if not r["excluded"] and r["views"]]
+    if len(healthy) < 3:
+        return []
+    typical = statistics.median(healthy)
+    old = date.today() - timedelta(days=2)
+    stuck = [r for r in rows if not r["excluded"] and date.fromisoformat(r["publishedAt"][:10]) <= old and r["views"] < typical * 0.2]
+    if not stuck:
+        return []
+    names = ", ".join(f"“{r['title']}” ({r['publishedAt'][:10]}, {r['views']} views)" for r in stuck[:6])
+    return [
+        f"{len(stuck)} upload{'s' if len(stuck) != 1 else ''} barely got shown ({names}) — usually an upload problem "
+        "(posted in a batch, 'made for kids'), not the video. Untick “Compare” on them so they don't skew the comparisons."
+    ]
 
 
 def _fmt(metric: str, v: float) -> str:
@@ -785,7 +816,8 @@ def share_text(*, comments_per_video: int = 5) -> str:
     out = [
         "# Soccer Brain — YouTube report",
         f"Channel: {ch.get('title', '?')} ({n(ch.get('subscribers'))} subscribers) · synced {st.get('syncedAt')} · "
-        f"report made {datetime.now().isoformat(timespec='minutes')} · {len(rep['videos'])} uploads, {rep['ours']} matched to studio renders",
+        f"report made {datetime.now().isoformat(timespec='minutes')} · {len(rep['videos'])} uploads, {rep['ours']} matched to studio renders and compared"
+        + (f", {rep['excluded']} left out" if rep["excluded"] else ""),
         "Note: views/likes/comments are live (match YouTube Studio); avg watched, engaged views, retention and 'early' lag ~2 days. "
         "'early' = views in the first 2 days; 'reveal' = share of starting audience still watching at the reveal.",
         "",
@@ -833,6 +865,8 @@ def share_text(*, comments_per_video: int = 5) -> str:
                 out.append("  clues-needed votes: " + ", ".join(f"{k}: {v}" for k, v in r["cluesNeeded"].items()))
         else:
             out.append(f"  ({'not a studio video' if r['linkState'] == 'not-ours' else 'not matched to a studio render'})")
+        if r["excluded"]:
+            out.append("  (left out of comparisons)")
         texts = (data["videos"].get(r["id"], {}).get("commentTexts") or [])[:comments_per_video]
         if texts:
             out.append("  comments: " + " | ".join(re.sub(r"\s+", " ", t)[:100] for t in texts))
