@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABC Soccer — Learn Your Letters</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .abc-wrap{max-width:720px;margin:0 auto;padding:6px 16px 60px;text-align:center}
+    .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(255,215,0,.12);
+      border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:6px 16px;color:#ffd700;text-decoration:none;
+      font-size:.85rem;font-weight:600}
+
+    .modes{display:flex;gap:10px;justify-content:center;margin:4px 0 18px}
+    .mode-btn{padding:12px 22px;border-radius:24px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
+      color:#fff;font-size:1.05rem;font-weight:800;cursor:pointer}
+    .mode-btn.active{background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a2e;border-color:transparent}
+
+    /* ---------- flip card ---------- */
+    .flip{perspective:1100px;width:min(330px,84vw);aspect-ratio:3/4;margin:0 auto;cursor:pointer;user-select:none}
+    .flip-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
+    .flip.flipped .flip-inner{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
+      box-shadow:0 14px 34px rgba(0,0,0,.45);border:4px solid rgba(255,255,255,.9)}
+    .front .big{font-size:min(9.5rem,40vw);font-weight:900;line-height:.95;color:#fff;text-shadow:0 6px 0 rgba(0,0,0,.18)}
+    .front .big small{font-size:.55em;opacity:.9;margin-left:.08em}
+    .front .tap{margin-top:14px;font-weight:800;color:rgba(255,255,255,.92);font-size:1rem}
+    .back{transform:rotateY(180deg);background:#fff;color:#1a1a2e;justify-content:flex-start;padding:16px 14px}
+    .back .photo{width:78%;aspect-ratio:1;border-radius:22px;object-fit:cover;object-position:top center;
+      background:#eef2f7;margin-top:6px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+    .back .ph{width:78%;aspect-ratio:1;border-radius:22px;margin-top:6px;display:grid;place-items:center;
+      font-size:5rem;font-weight:900;color:#fff}
+    .back .nm{margin-top:14px;font-size:clamp(1.5rem,7vw,2.1rem);font-weight:900;line-height:1.15;letter-spacing:.5px}
+    .back .nm .hl{color:#ff8a00;background:#fff3c4;border-radius:8px;padding:0 3px;
+      display:inline-block;animation:pop .5s ease}
+    .back .nm .hl.first{font-size:1.25em}
+    .back .why{margin-top:8px;font-size:.95rem;font-weight:700;color:#5a6478}
+    .back .more{margin-top:auto;font-size:.82rem;font-weight:800;color:#9aa3b5}
+    @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+    /* ---------- controls ---------- */
+    .nav{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px 0 10px}
+    .arrow{width:64px;height:64px;border-radius:50%;border:none;font-size:1.8rem;font-weight:900;cursor:pointer;
+      background:linear-gradient(135deg,#6cf,#3a7bd5);color:#fff;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+    .say-btn{height:64px;padding:0 22px;border-radius:32px;border:none;font-size:1.4rem;cursor:pointer;
+      background:rgba(255,255,255,.1);color:#fff;font-weight:800}
+    .strip{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+    .strip button{width:40px;height:40px;border-radius:10px;border:none;font-weight:900;font-size:1.05rem;cursor:pointer;
+      background:rgba(255,255,255,.08);color:#fff}
+    .strip button.on{background:#ffd700;color:#1a1a2e}
+
+    /* ---------- quiz ---------- */
+    .q-prompt{font-size:1.2rem;font-weight:800;margin:4px 0 10px}
+    .q-letter{display:inline-flex;align-items:center;justify-content:center;width:150px;height:150px;border-radius:28px;
+      font-size:5.2rem;font-weight:900;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.4);border:4px solid #fff;cursor:pointer}
+    .q-letter small{font-size:.55em;margin-left:.06em}
+    .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px auto 0;max-width:560px}
+    .choice{background:#fff;border-radius:20px;padding:8px 6px 10px;cursor:pointer;border:4px solid transparent;
+      box-shadow:0 6px 14px rgba(0,0,0,.3);transition:transform .15s}
+    .choice:active{transform:scale(.96)}
+    .choice img,.choice .ph{width:100%;aspect-ratio:1;border-radius:14px;object-fit:cover;object-position:top center;background:#eef2f7}
+    .choice .ph{display:grid;place-items:center;font-size:2.6rem;font-weight:900;color:#fff}
+    .choice .cn{margin-top:6px;font-weight:800;color:#1a1a2e;font-size:clamp(.72rem,3.2vw,.95rem);line-height:1.15}
+    .choice.right{border-color:#2ecc71;animation:pop .5s}
+    .choice.wrong{border-color:#ff5a5a;animation:shake .4s}
+    @keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+    .stars{font-size:1.5rem;margin-top:16px;min-height:2rem;letter-spacing:2px}
+    .q-next{margin-top:12px;padding:12px 26px;border-radius:26px;border:none;font-size:1.1rem;font-weight:900;cursor:pointer;
+      background:linear-gradient(135deg,#2ecc71,#1e9e57);color:#fff}
+    .burst{position:fixed;pointer-events:none;font-size:2rem;animation:fly 1s ease-out forwards;z-index:50}
+    @keyframes fly{to{transform:translate(var(--dx),var(--dy)) scale(.4);opacity:0}}
+    .sound-note{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:18px}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>ABC Soccer ⚽🔤</h1>
+    <p>Learn your letters with your favorite players!</p>
+    <a class="backlink" href="index.html">← Back to Player Cards</a>
+  </header>
+
+  <main class="abc-wrap">
+    <div class="modes">
+      <button class="mode-btn active" data-mode="learn">📖 Learn</button>
+      <button class="mode-btn" data-mode="quiz">🎯 Quiz</button>
+    </div>
+
+    <!-- LEARN -->
+    <section id="learn">
+      <div class="flip" id="card">
+        <div class="flip-inner">
+          <div class="face front" id="front"></div>
+          <div class="face back" id="back"></div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="arrow" id="prev" aria-label="Previous letter">◀</button>
+        <button class="say-btn" id="sayAgain" aria-label="Say it again">🔊</button>
+        <button class="arrow" id="next" aria-label="Next letter">▶</button>
+      </div>
+      <div class="strip" id="strip"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" hidden>
+      <div class="q-prompt" id="qPrompt">Who starts with…</div>
+      <div class="q-letter" id="qLetter"></div>
+      <div class="choices" id="choices"></div>
+      <div class="stars" id="stars"></div>
+      <button class="q-next" id="qNext" hidden>Next ▶</button>
+    </section>
+
+    <div class="sound-note">🔈 Turn your sound on — the letters talk!</div>
+  </main>
+
+  <script src="players.js"></script>
+  <script>
+    const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    const plain = s => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase();
+    const hue = L => (LETTERS.indexOf(L) * 37) % 360;
+    const tileBg = L => `linear-gradient(150deg, hsl(${hue(L)} 85% 58%), hsl(${(hue(L)+40)%360} 80% 45%))`;
+
+    // ---- speech ----
+    const LETTER_SAY = { A: "Ay" }; // single "A" is often read as "uh"
+    function say(text){
+      try{
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 0.8; u.pitch = 1.15;
+        speechSynthesis.speak(u);
+      }catch(e){}
+    }
+    const letterWord = L => LETTER_SAY[L] || L;
+
+    // ---- data: players for each letter, best matches first ----
+    // tier 1: first name starts with it, tier 2: any name part starts with it, tier 3: name contains it
+    let BY = {};
+    function buildIndex(players){
+      LETTERS.forEach(L => {
+        const t1 = [], t2 = [], t3 = [];
+        players.forEach(p => {
+          const parts = plain(p.name).replace(/\(.*?\)/g, "").split(/[\s-]+/).filter(Boolean);
+          if(parts[0] && parts[0].startsWith(L)) t1.push(p);
+          else if(parts.some(w => w.startsWith(L))) t2.push(p);
+          else if(plain(p.name).includes(L)) t3.push(p);
+        });
+        BY[L] = { starts: [...t1, ...t2], inside: t3 };
+      });
+    }
+    const FALLBACK = { Q: { word: "Quick", emoji: "⚡" }, X: { word: "eXtra time", emoji: "⏱️" } };
+
+    // name HTML with every matching letter highlighted (first letter of each matching word extra big)
+    function highlight(name, L){
+      let out = "", wordStart = true;
+      for(const ch of name){
+        const match = plain(ch) === L;
+        if(match) out += `<span class="hl${wordStart ? " first" : ""}">${ch}</span>`;
+        else out += ch;
+        wordStart = (ch === " " || ch === "-");
+      }
+      return out;
+    }
+
+    function photoHtml(p, cls){
+      const initials = p.name.replace(/\(.*?\)/g,"").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join("");
+      const d = clubData(p.currentClub !== "Retired" ? p.currentClub : (p.clubs || []).slice(-1)[0] || "");
+      const bg = `background:linear-gradient(150deg,${d.c1},${d.c2})`;
+      if(!p.imageUrl) return `<div class="ph" style="${bg}">${initials}</div>`;
+      // if the photo fails, hide it and reveal the club-colored initials placeholder next to it
+      return `<img class="${cls}" src="${p.imageUrl}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">`
+           + `<div class="ph" style="${bg};display:none">${initials}</div>`;
+    }
+
+    // ================= LEARN =================
+    let cur = 0;          // letter index
+    let pick = {};        // which player we're on, per letter
+    const card = document.getElementById("card");
+    const front = document.getElementById("front");
+    const back = document.getElementById("back");
+
+    function renderFront(){
+      const L = LETTERS[cur];
+      front.style.background = tileBg(L);
+      front.innerHTML = `<div class="big">${L}<small>${L.toLowerCase()}</small></div><div class="tap">👆 Tap me!</div>`;
+      document.querySelectorAll("#strip button").forEach((b,i) => b.classList.toggle("on", i === cur));
+    }
+
+    function renderBack(){
+      const L = LETTERS[cur];
+      const { starts, inside } = BY[L];
+      const list = starts.length ? starts : inside;
+      if(!list.length){
+        const f = FALLBACK[L] || { word: L, emoji: "⚽" };
+        back.innerHTML = `<div class="ph" style="background:${tileBg(L)}">${f.emoji}</div>
+          <div class="nm">${highlight(f.word, L)}</div>
+          <div class="why">No player yet — ${L} is for ${f.word}!</div>`;
+        return `${letterWord(L)}! ${L} is for ${f.word}!`;
+      }
+      const i = (pick[L] || 0) % list.length;
+      const p = list[i];
+      const isInside = !starts.length;
+      // name the word that actually has the letter (Y → "Yamal", X → "Félix")
+      const words = p.name.replace(/\(.*?\)/g, "").split(/\s+/).filter(Boolean);
+      const word = words.find(w => isInside ? plain(w).includes(L) : plain(w).startsWith(L)) || words[0];
+      back.innerHTML = `${photoHtml(p, "photo")}
+        <div class="nm">${highlight(p.name, L)}</div>
+        <div class="why">${isInside ? `${L} is in ${word}!` : `${L} is for ${word}!`}</div>
+        <div class="more">${list.length > 1 ? `👆 Tap for another ${L} player (${i+1} of ${list.length})` : ""}</div>`;
+      return isInside ? `${letterWord(L)}! ${L} is in ${p.name}!` : `${letterWord(L)}! ${L} is for ${p.name}!`;
+    }
+
+    let lastLine = "";
+    card.addEventListener("click", () => {
+      const L = LETTERS[cur];
+      if(card.classList.contains("flipped")){
+        pick[L] = (pick[L] || 0) + 1;           // next player for this letter
+      }
+      lastLine = renderBack();
+      card.classList.add("flipped");
+      say(lastLine);
+    });
+
+    function goTo(i){
+      cur = (i + LETTERS.length) % LETTERS.length;
+      card.classList.remove("flipped");
+      renderFront();
+      lastLine = letterWord(LETTERS[cur]);
+      say(lastLine);
+    }
+    document.getElementById("prev").onclick = () => goTo(cur - 1);
+    document.getElementById("next").onclick = () => goTo(cur + 1);
+    document.getElementById("sayAgain").onclick = () => say(lastLine || letterWord(LETTERS[cur]));
+    document.getElementById("strip").innerHTML = LETTERS.map((L,i) => `<button data-i="${i}">${L}</button>`).join("");
+    document.getElementById("strip").addEventListener("click", e => { const b = e.target.closest("button"); if(b) goTo(+b.dataset.i); });
+
+    // ================= QUIZ =================
+    let stars = 0, answered = false, qL = "";
+    const shuffle = a => a.map(v => [Math.random(), v]).sort((x,y) => x[0]-y[0]).map(x => x[1]);
+
+    function newQuestion(){
+      answered = false;
+      document.getElementById("qNext").hidden = true;
+      const pool = LETTERS.filter(L => BY[L].starts.length);
+      qL = pool[Math.floor(Math.random() * pool.length)];
+      const right = shuffle(BY[qL].starts)[0];
+      // wrong answers: no word in their name starts with this letter
+      const wrongPool = shuffle(ALL.filter(p => !plain(p.name).split(/[\s-]+/).some(w => w.startsWith(qL))));
+      const opts = shuffle([right, wrongPool[0], wrongPool[1]]);
+      const el = document.getElementById("qLetter");
+      el.style.background = tileBg(qL);
+      el.innerHTML = `${qL}<small>${qL.toLowerCase()}</small>`;
+      document.getElementById("qPrompt").textContent = `Who starts with ${qL}?`;
+      document.getElementById("choices").innerHTML = opts.map(p =>
+        `<div class="choice" data-ok="${p === right}" data-name="${p.name}">${photoHtml(p, "")}<div class="cn">${p.name}</div></div>`).join("");
+      say(`Who starts with ${letterWord(qL)}?`);
+    }
+
+    function burst(x, y){
+      ["⭐","⚽","🎉","✨","⭐","⚽"].forEach((em, i) => {
+        const s = document.createElement("span");
+        s.className = "burst"; s.textContent = em;
+        s.style.left = x + "px"; s.style.top = y + "px";
+        const ang = (i / 6) * Math.PI * 2;
+        s.style.setProperty("--dx", Math.cos(ang) * 110 + "px");
+        s.style.setProperty("--dy", Math.sin(ang) * 110 + "px");
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1000);
+      });
+    }
+
+    document.getElementById("choices").addEventListener("click", e => {
+      const c = e.target.closest(".choice");
+      if(!c || answered) return;
+      if(c.dataset.ok === "true"){
+        answered = true;
+        c.classList.add("right");
+        stars++;
+        document.getElementById("stars").textContent = "⭐".repeat(Math.min(stars, 10)) + (stars > 10 ? ` ×${stars}` : "");
+        const r = c.getBoundingClientRect(); burst(r.left + r.width/2, r.top + r.height/2);
+        say(`Yes! ${letterWord(qL)} is for ${c.dataset.name}!`);
+        document.getElementById("qNext").hidden = false;
+      }else{
+        c.classList.remove("wrong"); void c.offsetWidth; c.classList.add("wrong");
+        say("Try again!");
+      }
+    });
+    document.getElementById("qNext").onclick = newQuestion;
+    document.getElementById("qLetter").onclick = () => say(`Who starts with ${letterWord(qL)}?`);
+
+    // ================= modes + boot =================
+    let ALL = [];
+    document.querySelectorAll(".mode-btn").forEach(b => b.addEventListener("click", () => {
+      document.querySelectorAll(".mode-btn").forEach(x => x.classList.toggle("active", x === b));
+      const quiz = b.dataset.mode === "quiz";
+      document.getElementById("learn").hidden = quiz;
+      document.getElementById("quiz").hidden = !quiz;
+      if(quiz) newQuestion(); else say(letterWord(LETTERS[cur]));
+    }));
+
+    (async () => {
+      try{ ALL = await loadPlayers(); }catch(e){ ALL = []; }
+      buildIndex(ALL);
+      renderFront();
+    })();
+  </script>
+</body>
+</html>

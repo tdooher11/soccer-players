@@ -12,6 +12,7 @@ Live site: https://tdooher11.github.io/soccer-players/
 - `trophies.html` — "Roll of Honour" — competition winners by year (`honours.js`).
 - `matches.html` — "Upcoming Matches" — live fixtures + who's playing, for our players' teams.
 - `worldcup.html` — 2026 World Cup scores/schedule.
+- `alphabet.html` — "ABC Soccer" — learn letters (tap a letter → hear it → flip to a player whose name has it) + a quiz mode.
 
 ## Single source of truth
 - **`players.json` is canonical.** All player data lives here.
